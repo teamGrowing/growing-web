@@ -1,11 +1,11 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import NavItem from "./NavItem";
-import { ReactComponent as AlbumSvg } from "../../assets/icons/navbar/navbarAlbum.svg";
-import { ReactComponent as ChattingSvg } from "../../assets/icons/navbar/navbarChatting.svg";
-import { ReactComponent as HomeSvg } from "../../assets/icons/navbar/navbarHome.svg";
-import { ReactComponent as CalendarSvg } from "../../assets/icons/navbar/navbarCalendar.svg";
-import { ReactComponent as MoreSvg } from "../../assets/icons/navbar/navbarMore.svg";
+import NavItem from './NavItem';
+import { ReactComponent as AlbumSvg } from '../../assets/icons/navbar/navbarAlbum.svg';
+import { ReactComponent as ChattingSvg } from '../../assets/icons/navbar/navbarChatting.svg';
+import { ReactComponent as HomeSvg } from '../../assets/icons/navbar/navbarHome.svg';
+import { ReactComponent as CalendarSvg } from '../../assets/icons/navbar/navbarCalendar.svg';
+import { ReactComponent as MoreSvg } from '../../assets/icons/navbar/navbarMore.svg';
 
 function BottomNavigation() {
   return (
@@ -17,7 +17,7 @@ function BottomNavigation() {
         <NavItem linkTo="/chatting">
           <ChattingSvg width="46" height="45" className="svg" />
         </NavItem>
-        <NavItem linkTo="/home">
+        <NavItem linkTo="/">
           <HomeSvg width="46" height="45" className="svg" />
         </NavItem>
         <NavItem linkTo="/calendar">
