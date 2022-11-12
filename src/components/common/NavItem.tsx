@@ -1,9 +1,8 @@
-import React, { PropsWithChildren } from "react";
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import React, { PropsWithChildren } from 'react';
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
-const COLOR_PINK = "#FE3B6D";
-const ACTIVE_CLASSNAME = "active";
+const ACTIVE_CLASSNAME = 'active';
 
 type NavItemProp = {
   linkTo: string;
@@ -14,7 +13,7 @@ const NavItem = ({ children, linkTo }: PropsWithChildren<NavItemProp>) => {
     <SVGStyle>
       <NavLink
         to={linkTo}
-        className={({ isActive }) => (isActive ? ACTIVE_CLASSNAME : "")}
+        className={({ isActive }) => (isActive ? ACTIVE_CLASSNAME : '')}
       >
         {children}
       </NavLink>
@@ -24,10 +23,10 @@ const NavItem = ({ children, linkTo }: PropsWithChildren<NavItemProp>) => {
 
 const SVGStyle = styled.div`
   .${ACTIVE_CLASSNAME} > svg path {
-    stroke: ${COLOR_PINK};
+    stroke: ${({ theme }) => theme.color.pink600};
   }
   .${ACTIVE_CLASSNAME} > svg > path:last-of-type {
-    fill: ${COLOR_PINK};
+    fill: ${({ theme }) => theme.color.pink600};
     stroke: none;
   }
 `;
