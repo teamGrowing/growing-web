@@ -40,8 +40,7 @@ const Nav = styled.nav`
 const NavItems = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 320px;
-  margin: 0 auto;
+  margin: 0 10px;
 `;
 
 export default BottomNavigation;
