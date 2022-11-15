@@ -34,6 +34,8 @@ function BottomNavigation() {
 const Nav = styled.nav`
   width: 100%;
   text-align: center;
+  position: fixed;
+  bottom: 0;
 `;
 const NavItems = styled.div`
   display: flex;
