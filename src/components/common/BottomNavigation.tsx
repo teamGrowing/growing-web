@@ -7,6 +7,17 @@ import { ReactComponent as HomeSvg } from '../../assets/icons/navbar/navbarHome.
 import { ReactComponent as CalendarSvg } from '../../assets/icons/navbar/navbarCalendar.svg';
 import { ReactComponent as MoreSvg } from '../../assets/icons/navbar/navbarMore.svg';
 
+const Nav = styled.nav`
+  width: 100%;
+  text-align: center;
+`;
+const NavItems = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 320px;
+  margin: 0 auto;
+`;
+
 function BottomNavigation() {
   return (
     <Nav>
@@ -30,16 +41,5 @@ function BottomNavigation() {
     </Nav>
   );
 }
-
-const Nav = styled.nav`
-  width: 100%;
-  text-align: center;
-`;
-const NavItems = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 320px;
-  margin: 0 auto;
-`;
 
 export default BottomNavigation;

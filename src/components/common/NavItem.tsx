@@ -8,7 +8,17 @@ type NavItemProp = {
   linkTo: string;
 };
 
-const NavItem = ({ children, linkTo }: PropsWithChildren<NavItemProp>) => {
+const SVGStyle = styled.div`
+  .${ACTIVE_CLASSNAME} > svg path {
+    stroke: ${({ theme }) => theme.color.pink600};
+  }
+  .${ACTIVE_CLASSNAME} > svg > path:last-of-type {
+    fill: ${({ theme }) => theme.color.pink600};
+    stroke: none;
+  }
+`;
+
+function NavItem({ children, linkTo }: PropsWithChildren<NavItemProp>) {
   return (
     <SVGStyle>
       <NavLink
@@ -19,16 +29,6 @@ const NavItem = ({ children, linkTo }: PropsWithChildren<NavItemProp>) => {
       </NavLink>
     </SVGStyle>
   );
-};
-
-const SVGStyle = styled.div`
-  .${ACTIVE_CLASSNAME} > svg path {
-    stroke: ${({ theme }) => theme.color.pink600};
-  }
-  .${ACTIVE_CLASSNAME} > svg > path:last-of-type {
-    fill: ${({ theme }) => theme.color.pink600};
-    stroke: none;
-  }
-`;
+}
 
 export default NavItem;

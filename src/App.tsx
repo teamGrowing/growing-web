@@ -5,11 +5,11 @@ function App() {
   return (
     <Layout>
       <Routes>
-        <Route path="/"></Route>
-        <Route path="/album"></Route>
-        <Route path="/chatting"></Route>
-        <Route path="/calendar"></Route>
-        <Route path="/more"></Route>
+        <Route path="/" />
+        <Route path="/album" />
+        <Route path="/chatting" />
+        <Route path="/calendar" />
+        <Route path="/more" />
       </Routes>
     </Layout>
   );
