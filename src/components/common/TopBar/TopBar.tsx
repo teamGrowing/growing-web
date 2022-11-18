@@ -23,7 +23,10 @@ export interface TopBarProps {
 }
 
 const Container = styled.div<{ mode: TopBarMode; border: boolean }>`
-  position: relative;
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
   padding: 0 4px;
   display: flex;
   justify-content: space-between;
