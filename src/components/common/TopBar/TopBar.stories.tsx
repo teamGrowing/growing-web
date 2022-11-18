@@ -35,3 +35,12 @@ Overflow.args = {
   rightMainNode: <div>취소</div>,
   rightSubNode: <IconTrash />,
 };
+
+export const DarkMode = Template.bind({});
+DarkMode.args = {
+  mode: 'DARK',
+  title: 'title',
+  subTitle: 'subTitle',
+  border: false,
+  rightMainNode: <div>취소</div>,
+};
