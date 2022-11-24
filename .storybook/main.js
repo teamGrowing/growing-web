@@ -1,4 +1,5 @@
 const path = require('path');
+const path = require('path');
 
 module.exports = {
   stories: [
@@ -16,7 +17,7 @@ module.exports = {
   core: {
     builder: '@storybook/builder-webpack5',
   },
-  webpackFinal: async config => {
+  webpackFinal: async (config) => {
     config.resolve.modules = [
       path.resolve(__dirname, '..'),
       'node_modules',
