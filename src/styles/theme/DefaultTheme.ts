@@ -44,4 +44,4 @@ const myTheme: DefaultTheme = {
   },
 };
 
-export { myTheme };
+export default myTheme;
