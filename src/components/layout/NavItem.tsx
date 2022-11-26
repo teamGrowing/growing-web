@@ -10,10 +10,10 @@ type NavItemProp = {
 
 const SVGStyle = styled.div`
   .${ACTIVE_CLASSNAME} > svg path {
-    stroke: ${({ theme }) => theme.color.pink600};
+    stroke: url(#paint0_linear_450_1371);
   }
   .${ACTIVE_CLASSNAME} > svg > path:last-of-type {
-    fill: ${({ theme }) => theme.color.pink600};
+    fill: url(#paint2_linear_450_1371);
     stroke: none;
   }
 `;
@@ -30,15 +30,5 @@ function NavItem({ children, linkTo }: PropsWithChildren<NavItemProp>) {
     </SVGStyle>
   );
 }
-
-const SVGStyle = styled.div`
-  .${ACTIVE_CLASSNAME} > svg path {
-    stroke: url(#paint0_linear_450_1371);
-  }
-  .${ACTIVE_CLASSNAME} > svg > path:last-of-type {
-    fill: url(#paint2_linear_450_1371);
-    stroke: none;
-  }
-`;
 
 export default NavItem;
