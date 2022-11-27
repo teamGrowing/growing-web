@@ -1,10 +1,10 @@
-<center><img src='public/growing.svg' width="200px" /></center>
+<div align="center"><img src='public/growing.svg' width="200px" /></div>
 <br>
 <br>
 
-<center>
+<div align="center">
 <h2>✨ 살아있는 문서를 만들어 보자! ✨</h2>
-</center>
+</div>
 
 <br>
 
