@@ -1,31 +1,30 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
   stories: [
-    '../src/components/common/**/*.stories.mdx',
-    '../src/components/common/**/*.stories.@(js|jsx|ts|tsx)',
+    "../src/components/common/**/*.stories.mdx",
+    "../src/components/common/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-viewport/register',
+    "@storybook/addon-links",
+    "@storybook/addon-essentials",
+    "@storybook/addon-interactions",
+    "@storybook/preset-create-react-app",
   ],
-  framework: '@storybook/react',
+  framework: "@storybook/react",
   core: {
-    builder: '@storybook/builder-webpack5',
+    builder: "@storybook/builder-webpack5",
   },
   webpackFinal: async (config) => {
     config.resolve.modules = [
-      path.resolve(__dirname, '..'),
-      'node_modules',
-      'styles',
+      path.resolve(__dirname, ".."),
+      "node_modules",
+      "styles",
     ];
     config.resolve.alias = {
       ...config.resolve.alias,
-      components: path.resolve(__dirname, '../src/components'),
-      assets: path.resolve(__dirname, '../src/assets'),
+      components: path.resolve(__dirname, "../src/components"),
+      assets: path.resolve(__dirname, "../src/assets"),
     };
     return config;
   },

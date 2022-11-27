@@ -1,18 +1,7 @@
-import { Routes, Route } from 'react-router-dom';
-import Layout from './components/common/Layout';
+import React from 'react';
 
 function App() {
-  return (
-    <Layout>
-      <Routes>
-        <Route path="/" />
-        <Route path="/album" />
-        <Route path="/chatting" />
-        <Route path="/calendar" />
-        <Route path="/more" />
-      </Routes>
-    </Layout>
-  );
+  return <>app</>;
 }
 
 export default App;
