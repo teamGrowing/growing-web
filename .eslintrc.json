@@ -50,8 +50,16 @@
     ],
     "react/function-component-definition": [
       2,
-      { "namedComponnents": "arrow-function" }
+      {
+        "namedComponents": [
+          "arrow-function",
+          "function-declaration",
+          "function-expression"
+        ],
+        "unnamedComponents": ["arrow-function", "function-expression"]
+      }
     ],
+
     "react/jsx-props-no-spreading": [0, { "explicitSpread": "ignore" }]
   }
 }
