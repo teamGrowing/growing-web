@@ -10,6 +10,7 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
     '@storybook/preset-create-react-app',
+    '@storybook/addon-viewport/register',
   ],
   framework: '@storybook/react',
   core: {
