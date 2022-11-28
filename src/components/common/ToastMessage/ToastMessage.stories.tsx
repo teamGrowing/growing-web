@@ -5,7 +5,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import ToastMessage from './ToastMessage';
 
 export default {
-  title: 'ToastMessage',
+  title: 'growing design system/ToastMessage',
   component: ToastMessage,
 } as ComponentMeta<typeof ToastMessage>;
 
