@@ -12,6 +12,7 @@ const Nav = styled.nav`
   text-align: center;
   position: fixed;
   bottom: 0;
+  z-index: 100;
 `;
 const NavItems = styled.div`
   display: flex;
