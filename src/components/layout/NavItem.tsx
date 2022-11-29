@@ -16,6 +16,8 @@ const SVGStyle = styled.div`
     fill: url(#paint2_linear_450_1371);
     stroke: none;
   }
+  width: 45.6px;
+  height: 45px;
 `;
 
 function NavItem({ children, linkTo }: PropsWithChildren<NavItemProp>) {
