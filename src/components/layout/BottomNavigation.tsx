@@ -9,13 +9,29 @@ import { ReactComponent as MoreSvg } from '../../assets/icons/navbar/navbarMore.
 
 const Nav = styled.nav`
   width: 100%;
-  text-align: center;
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
 `;
 const NavItems = styled.div`
+  box-sizing: border-box;
+
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
-  width: 320px;
-  margin: 0 auto;
+  align-items: center;
+  padding: 16px 16px 20px;
+  gap: 22px;
+  isolation: isolate;
+
+  position: absolute;
+  width: 100%;
+  height: 81px;
+  left: -1px;
+  bottom: 0px;
+
+  background: ${(props) => props.theme.color.white};
+  border-top: 1px solid ${(props) => props.theme.color.gray100};
 `;
 
 function BottomNavigation() {

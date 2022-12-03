@@ -10,12 +10,14 @@ type NavItemProp = {
 
 const SVGStyle = styled.div`
   .${ACTIVE_CLASSNAME} > svg path {
-    stroke: ${({ theme }) => theme.color.pink600};
+    stroke: url(#paint0_linear_450_1371);
   }
   .${ACTIVE_CLASSNAME} > svg > path:last-of-type {
-    fill: ${({ theme }) => theme.color.pink600};
+    fill: url(#paint2_linear_450_1371);
     stroke: none;
   }
+  width: 45.6px;
+  height: 45px;
 `;
 
 function NavItem({ children, linkTo }: PropsWithChildren<NavItemProp>) {
