@@ -17,7 +17,6 @@ const fade = keyframes`
     opacity:0;
     visibility:hidden;
   }
-}
 `;
 
 const MessageBox = styled.div`
@@ -28,22 +27,21 @@ const MessageBox = styled.div`
   align-items: center;
   padding: 8px 20px;
   gap: 10px;
-  margin: auto;
+  margin: 0 auto;
 
   position: fixed;
-  width: 300px;
-  height: 34px;
   left: 0;
   right: 0;
-  top: 0;
-  bottom: 0;
+  bottom: 120px;
+
+  width: 300px;
+  height: 34px;
 
   background: ${({ theme }) => theme.color.gray800};
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 
   animation: ${fade} 2s 1s;
-  animation-fill-mode: forwards;
 `;
 
 const Text = styled.div`
@@ -60,7 +58,6 @@ const Text = styled.div`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-fill-color: transparent;
 
   flex: none;
   order: 0;
