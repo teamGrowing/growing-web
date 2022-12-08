@@ -7,10 +7,10 @@ const myTheme: DefaultTheme = {
     gradient100:
       'linear-gradient(130.11deg, #F17B41 7.3%, #E05BA2 52.2%, #CD4BC9 100%)',
     gradient200:
-      'linear-gradient(130.11deg, #F54EA2 7.3%, #FF7676 100%, #FF7676 100%);',
-    gradient300: 'linear-gradient(130.11deg, #FCE38A 7.3%, #F38181 100%);',
-    gradient400: 'linear-gradient(130.11deg, #7117EA 7.3%, #EA6060 100%);',
-    gradient500: ' linear-gradient(130.11deg, #42E695 7.3%, #3BB2B8 100%);',
+      'linear-gradient(130.11deg, #F54EA2 7.3%, #FF7676 100%, #FF7676 100%)',
+    gradient300: 'linear-gradient(130.11deg, #FCE38A 7.3%, #F38181 100%)',
+    gradient400: 'linear-gradient(130.11deg, #7117EA 7.3%, #EA6060 100%)',
+    gradient500: ' linear-gradient(130.11deg, #42E695 7.3%, #3BB2B8 100%)',
     gray50: '#fafafa',
     gray100: '#f5f5f5',
     gray200: '#e5e5e5',
