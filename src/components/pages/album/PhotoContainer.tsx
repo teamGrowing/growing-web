@@ -1,11 +1,50 @@
 import styled from 'styled-components';
 import Photo from './Photo';
+import logoIcon from '../../../assets/icons/albumPage/Logo.png';
+
+const Container = styled.div`
+  width: 100%;
+  text-align: center;
+`;
 
 const PhotosRow = styled.div`
   display: flex;
   align-items: center;
   padding: 1px 14px;
   width: 100%;
+`;
+
+const Logo = styled.img`
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  margin-top: 124px;
+
+  z-index: 1;
+`;
+
+const Message = styled.div`
+  width: 100%;
+  height: 62px;
+
+  margin-top: 16px;
+
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 23px;
+
+  text-align: center;
+
+  background: ${({ theme }) => theme.color.gradient400};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  text-shadow: 0px 0px 8px rgba(151, 71, 255, 0.2);
+
+  z-index: 0;
 `;
 
 type PhotoType = {
@@ -39,11 +78,22 @@ function PhotoContainer({ photoObjects }: PhotoContainerProps) {
   };
 
   const photoGroupArray = makeChunk(photoObjects);
+
   const components = photoGroupArray.map((group: Array<PhotoType>) => (
-    <PhotoRowContainer photoObjects={group} key={group[1].id} />
+    <PhotoRowContainer photoObjects={group} key={group[0].id} />
   ));
 
-  return <div>{components}</div>;
+  return (
+    <>
+      {photoGroupArray.length === 0 && (
+        <Container>
+          <Logo src={logoIcon} />
+          <Message>사진을 업로드 해주세요!</Message>
+        </Container>
+      )}
+      {photoGroupArray.length > 0 && <div>{components}</div>}
+    </>
+  );
 }
 
 export default PhotoContainer;
