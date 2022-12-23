@@ -65,10 +65,11 @@ function PhotoRowContainer({ photoObjects }: PhotoRowContainerProps) {
 }
 
 type PhotoContainerProps = {
+  type: 'UPLOADED' | 'UPLOAD';
   photoObjects: Array<PhotoType>;
 };
 
-function PhotoContainer({ photoObjects }: PhotoContainerProps) {
+function PhotoContainer({ photoObjects, type }: PhotoContainerProps) {
   const makeChunk = (data: Array<PhotoType>) => {
     const arr = [];
     for (let i = 0; i < data.length; i += 3) {
@@ -85,13 +86,13 @@ function PhotoContainer({ photoObjects }: PhotoContainerProps) {
 
   return (
     <>
-      {photoGroupArray.length === 0 && (
+      {type === 'UPLOADED' && photoGroupArray.length === 0 && (
         <Container>
           <Logo src={logoIcon} />
           <Message>사진을 업로드 해주세요!</Message>
         </Container>
       )}
-      {photoGroupArray.length > 0 && <div>{components}</div>}
+      {photoGroupArray.length > 0 && <Container>{components}</Container>}
     </>
   );
 }
