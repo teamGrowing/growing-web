@@ -106,7 +106,7 @@ const Sticker = styled.div`
   z-index: 2;
 `;
 
-const Date = styled.div`
+const Subtitle = styled.div`
   width: 100%;
 
   font-family: 'Pretendard';
@@ -159,11 +159,11 @@ const CheckIcon = styled.div`
 
 interface AlbumProps {
   title: string;
-  date: string;
+  subTitle: string;
   coverImg: string;
 }
 
-function Album({ title, date, coverImg }: AlbumProps) {
+function Album({ title, subTitle, coverImg }: AlbumProps) {
   const [isChecked, setIsChecked] = useState(false);
 
   const clickHandler: React.MouseEventHandler = () => {
@@ -176,7 +176,7 @@ function Album({ title, date, coverImg }: AlbumProps) {
         <TitleBackground />
         <Title>{title}</Title>
       </CoverBackground>
-      <Date>{date}</Date>
+      <Subtitle>{subTitle}</Subtitle>
       {isChecked && <ClickLayer />}
       {isChecked && (
         <CheckIcon>

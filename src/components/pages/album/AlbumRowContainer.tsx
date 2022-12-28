@@ -93,12 +93,12 @@ const Line = styled.div`
 type AlbumObject = {
   id: string;
   title: string;
-  date: string;
+  subTitle: string;
   coverImg: string;
 };
 
 interface AlbumRowContainerProps {
-  albums: AlbumObject[];
+  albums: Array<AlbumObject>;
 }
 
 function AlbumRowContainer({ albums }: AlbumRowContainerProps) {
@@ -108,7 +108,7 @@ function AlbumRowContainer({ albums }: AlbumRowContainerProps) {
     <Album
       key={item.id}
       title={item.title}
-      date={item.date}
+      subTitle={item.subTitle}
       coverImg={item.coverImg}
     />
   ));
