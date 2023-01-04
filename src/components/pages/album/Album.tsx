@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import checkIcon from '../../../assets/icons/albumPage/Check.png';
+import AlbumDto from '../../../types/gallery/Album.dto';
 
 const AlbumBox = styled.div`
   position: relative;
@@ -154,12 +155,10 @@ const CheckIcon = styled.div`
 `;
 
 interface AlbumProps {
-  title: string;
-  subTitle: string;
-  coverImg: string;
+  albumInfo: AlbumDto;
 }
 
-function Album({ title, subTitle, coverImg }: AlbumProps) {
+function Album({ albumInfo }: AlbumProps) {
   const [isChecked, setIsChecked] = useState(false);
 
   const clickHandler: React.MouseEventHandler = () => {
@@ -168,11 +167,11 @@ function Album({ title, subTitle, coverImg }: AlbumProps) {
   return (
     <AlbumBox onClick={clickHandler}>
       <Sticker />
-      <CoverBackground backgroundUrl={coverImg}>
+      <CoverBackground backgroundUrl={albumInfo.imageUrl}>
         <TitleBackground />
-        <Title>{title}</Title>
+        <Title>{albumInfo.title}</Title>
       </CoverBackground>
-      <Subtitle>{subTitle}</Subtitle>
+      <Subtitle>{albumInfo.subTitle}</Subtitle>
       {isChecked && <ClickLayer />}
       {isChecked && (
         <CheckIcon>

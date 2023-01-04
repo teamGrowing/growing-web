@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import Album from './Album';
+import AlbumDto from '../../../types/gallery/Album.dto';
 
 const Container = styled.div`
   width: 100%;
@@ -88,27 +89,15 @@ const Line = styled.div`
   z-index: 3;
 `;
 
-type AlbumObject = {
-  id: string;
-  title: string;
-  subTitle: string;
-  coverImg: string;
-};
-
 interface AlbumRowContainerProps {
-  albums: Array<AlbumObject>;
+  albums: AlbumDto[];
 }
 
 function AlbumRowContainer({ albums }: AlbumRowContainerProps) {
   const [albumArray, setAlbumArray] = useState(albums);
 
-  const albumComponents = albumArray.map((item: AlbumObject) => (
-    <Album
-      key={item.id}
-      title={item.title}
-      subTitle={item.subTitle}
-      coverImg={item.coverImg}
-    />
+  const albumComponents = albumArray.map((item: AlbumDto) => (
+    <Album key={item.id} albumInfo={item} />
   ));
 
   useEffect(() => {

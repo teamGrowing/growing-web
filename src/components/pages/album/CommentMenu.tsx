@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { ReactComponent as SendIcon } from '../../../assets/icons/albumPage/Send.svg';
+import PhotoCommentDto from '../../../types/gallery/PhotoComment.dto';
 
 const Box = styled.div`
   display: flex;
@@ -145,13 +146,7 @@ const Delete = styled.div`
 `;
 
 type CommentProps = {
-  commentInfo: {
-    id: string;
-    content: string;
-    createdAt: string;
-    name: string;
-    isMine: boolean;
-  };
+  commentInfo: PhotoCommentDto;
 };
 
 function Comment({ commentInfo }: CommentProps) {
@@ -165,15 +160,7 @@ function Comment({ commentInfo }: CommentProps) {
 }
 
 function CommentMenu() {
-  const [comments, setComments] = useState<
-    Array<{
-      id: string;
-      content: string;
-      createdAt: string;
-      name: string;
-      isMine: boolean;
-    }>
-  >([]);
+  const [comments, setComments] = useState<PhotoCommentDto[]>([]);
 
   useEffect(() => {
     // 댓글 요청

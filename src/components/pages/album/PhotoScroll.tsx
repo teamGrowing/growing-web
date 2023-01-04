@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PhotoDto from '../../../types/gallery/Photo.dto';
 import PhotoContainer from './PhotoContainer';
 
 const Scroll = styled.div`
@@ -47,13 +48,8 @@ const Option = styled.button`
   flex-grow: 0;
 `;
 
-type PhotoType = {
-  id: string;
-  url: string;
-};
-
 type PhotoScrollProps = {
-  photos: Array<PhotoType>;
+  photos: PhotoDto[];
 };
 
 function PhotoScroll({ photos }: PhotoScrollProps) {

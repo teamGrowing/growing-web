@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import PhotoDto from '../../../types/gallery/Photo.dto';
 
 const Scrolls = styled.div`
   display: flex;
@@ -81,21 +82,16 @@ const Date = styled.div`
 `;
 
 type PhotoDetailProps = {
-  imgInfo: {
-    id: string;
-    urls: string;
-    createdAt: string;
-    name: string;
-  };
+  photoInfo: PhotoDto;
 };
 
-function PhotoDetail({ imgInfo }: PhotoDetailProps) {
+function PhotoDetail({ photoInfo }: PhotoDetailProps) {
   return (
     <Scrolls>
-      <Photo backgroundUrl={imgInfo.urls} />
+      <Photo backgroundUrl={photoInfo.url} />
       <Info>
-        <Name>{imgInfo.name}</Name>
-        <Date>{imgInfo.createdAt}</Date>
+        <Name>{photoInfo.name}</Name>
+        <Date>{photoInfo.createdAt}</Date>
       </Info>
     </Scrolls>
   );

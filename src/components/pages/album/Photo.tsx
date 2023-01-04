@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { useState } from 'react';
 import checkIcon from '../../../assets/icons/albumPage/Check.png';
+import PhotoDto from '../../../types/gallery/Photo.dto';
 
 const PhotoBox = styled.div<{ isSelected: boolean; imgUrl: string }>`
   position: relative;
@@ -34,10 +35,10 @@ const CheckIcon = styled.img`
 `;
 
 type PhotoProps = {
-  src: string;
+  PhotoInfo: PhotoDto;
 };
 
-function Photo({ src }: PhotoProps) {
+function Photo({ PhotoInfo }: PhotoProps) {
   const [isSelected, setIsSelected] = useState(false);
 
   const clickHandler = () => {
@@ -45,7 +46,12 @@ function Photo({ src }: PhotoProps) {
   };
 
   return (
-    <PhotoBox onClick={clickHandler} isSelected={isSelected} imgUrl={src}>
+    <PhotoBox
+      key={PhotoInfo.id}
+      onClick={clickHandler}
+      isSelected={isSelected}
+      imgUrl={PhotoInfo.url}
+    >
       {isSelected && <CheckIcon src={checkIcon} alt="선택됨" />}
     </PhotoBox>
   );
