@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/comma-dangle */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
@@ -8,6 +7,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App';
 import GlobalStyle from './styles/GlobalStyle';
 import myTheme from './styles/theme/DefaultTheme';
+import AsyncBoundary from './services/AsyncBoundary';
 
 const queryClient = new QueryClient();
 
@@ -21,7 +21,12 @@ root.render(
         <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyle />
         <ThemeProvider theme={myTheme}>
-          <App />
+          <AsyncBoundary
+            pendingFallback={<div>로딩중</div>}
+            rejectedFallback={() => <div>error!</div>}
+          >
+            <App />
+          </AsyncBoundary>
         </ThemeProvider>
       </QueryClientProvider>
     </BrowserRouter>
