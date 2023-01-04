@@ -40,9 +40,7 @@ const NoAlbumContainer = styled.div`
 
   p {
     width: 100%;
-    font-family: 'Pretendard';
-    font-style: normal;
-    font-weight: 500;
+    font-family: 'PretendardMedium';
     font-size: 19px;
     line-height: 23px;
     text-align: center;

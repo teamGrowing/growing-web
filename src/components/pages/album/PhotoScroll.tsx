@@ -39,9 +39,7 @@ const Option = styled.button`
   height: 22px;
 
   color: ${({ theme }) => theme.color.white};
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'PretendardRegular';
   font-size: 15px;
 
   flex: none;

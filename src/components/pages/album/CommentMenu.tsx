@@ -31,9 +31,7 @@ const Title = styled.div`
   padding: 8px 14px;
   gap: 10px;
 
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 500;
+  font-family: 'PretendardMedium';
   font-size: 23px;
   line-height: 27px;
   color: ${({ theme }) => theme.color.black};
@@ -102,9 +100,7 @@ const CommentContainer = styled.div`
 `;
 
 const Name = styled.div`
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'PretendardRegular';
   font-size: 15px;
   line-height: 18px;
 
@@ -120,9 +116,7 @@ const Name = styled.div`
   flex-grow: 0;
 `;
 const Content = styled.div`
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 300;
+  font-family: 'PretendardLight';
   font-size: 14px;
   line-height: 17px;
 
@@ -136,9 +130,7 @@ const Content = styled.div`
   flex-grow: 1;
 `;
 const Delete = styled.div`
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'PretendardRegular';
   font-size: 14px;
   line-height: 17px;
 

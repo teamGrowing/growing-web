@@ -46,9 +46,7 @@ const Info = styled.div`
 const Name = styled.div`
   width: 100%;
 
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 500;
+  font-family: 'PretendardMedium';
   font-size: 23px;
   line-height: 27px;
   text-align: center;
@@ -66,9 +64,7 @@ const Name = styled.div`
 const Date = styled.div`
   width: 100%;
 
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 300;
+  font-family: 'PretendardLight';
   font-size: 14px;
   line-height: 17px;
 

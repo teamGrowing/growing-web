@@ -54,9 +54,7 @@ const Title = styled.div`
   left: calc(50% - 60px / 2);
   top: calc(50% - 14px / 2 - 0.5px);
 
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'PretendardRegular';
   font-size: 12px;
   line-height: 17px;
 
@@ -109,9 +107,7 @@ const Sticker = styled.div`
 const Subtitle = styled.div`
   width: 100%;
 
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 300;
+  font-family: 'PretendardLight';
   font-size: 12px;
   line-height: 14px;
   text-align: right;

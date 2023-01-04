@@ -29,9 +29,7 @@ const Message = styled.div`
 
   margin-top: 16px;
 
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 500;
+  font-family: 'PretendardMedium';
   font-size: 19px;
   line-height: 23px;
 
