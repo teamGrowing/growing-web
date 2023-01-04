@@ -24,7 +24,7 @@ oneAlbum.args = {
     {
       id: '1',
       title: '1000일',
-      date: '2020-06-06',
+      subTitle: '2020-06-06',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },
@@ -38,14 +38,14 @@ twoAlbum.args = {
     {
       id: '1',
       title: '1000일',
-      date: '2020-06-06',
+      subTitle: '2020-06-06',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },
     {
       id: '2',
       title: '부산여행',
-      date: '2020-06-06',
+      subTitle: '2020-06-06',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },
@@ -58,21 +58,21 @@ threeAlbum.args = {
     {
       id: '1',
       title: '1000일',
-      date: '2020-06-06',
+      subTitle: '2020-06-06',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },
     {
       id: '2',
       title: '부산여행',
-      date: '2020-06-06',
+      subTitle: '2020-06-06',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },
     {
       id: '3',
       title: '크리스마스',
-      date: '2020-12-30',
+      subTitle: '2020-12-30',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },
@@ -85,42 +85,42 @@ moreThanThree.args = {
     {
       id: '1',
       title: '1000일',
-      date: '2020-06-06',
+      subTitle: '2020-06-06',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },
     {
       id: '2',
       title: '부산여행',
-      date: '2020-06-06',
+      subTitle: '2020-06-06',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },
     {
       id: '3',
       title: '크리스마스',
-      date: '2020-12-30',
+      subTitle: '2020-12-30',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },
     {
       id: '1',
       title: '1000일',
-      date: '2020-06-06',
+      subTitle: '2020-06-06',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },
     {
       id: '2',
       title: '부산여행',
-      date: '2020-06-06',
+      subTitle: '2020-06-06',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },
     {
       id: '3',
       title: '크리스마스',
-      date: '2020-12-30',
+      subTitle: '2020-12-30',
       coverImg:
         'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
     },

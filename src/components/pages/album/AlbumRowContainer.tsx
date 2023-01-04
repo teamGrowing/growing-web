@@ -2,13 +2,16 @@ import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
 import Album from './Album';
 
+const Container = styled.div`
+  width: 100%;
+  position: relative;
+`;
 const FixedContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   place-items: center;
 
   width: 100%;
-  height: 176px;
   gap: 10px;
   padding: 18px 18px 10px;
   isolation: isolate;
@@ -54,7 +57,7 @@ const SlideContainer = styled.div`
   align-items: flex-start;
 
   width: 100%;
-  height: 176px;
+
   padding: 18px 0px 10px 14px;
   gap: 10px;
   isolation: isolate;
@@ -65,6 +68,11 @@ const SlideContainer = styled.div`
   order: 1;
   align-self: stretch;
   flex-grow: 0;
+
+  overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Line = styled.div`
@@ -80,21 +88,17 @@ const Line = styled.div`
   order: 3;
   flex-grow: 0;
   z-index: 3;
-
-  p {
-    margin: auto 0;
-  }
 `;
 
 type AlbumObject = {
   id: string;
   title: string;
-  date: string;
+  subTitle: string;
   coverImg: string;
 };
 
 interface AlbumRowContainerProps {
-  albums: AlbumObject[];
+  albums: Array<AlbumObject>;
 }
 
 function AlbumRowContainer({ albums }: AlbumRowContainerProps) {
@@ -104,7 +108,7 @@ function AlbumRowContainer({ albums }: AlbumRowContainerProps) {
     <Album
       key={item.id}
       title={item.title}
-      date={item.date}
+      subTitle={item.subTitle}
       coverImg={item.coverImg}
     />
   ));
@@ -114,7 +118,7 @@ function AlbumRowContainer({ albums }: AlbumRowContainerProps) {
   }, [albums]);
 
   return (
-    <>
+    <Container>
       {albumArray.length === 0 && (
         <NoAlbumContainer>
           <Line />
@@ -128,12 +132,12 @@ function AlbumRowContainer({ albums }: AlbumRowContainerProps) {
         </FixedContainer>
       )}
       {albumArray.length > 3 && (
-        <SlideContainer>
+        <>
           <Line />
-          {albumComponents}
-        </SlideContainer>
+          <SlideContainer>{albumComponents}</SlideContainer>
+        </>
       )}
-    </>
+    </Container>
   );
 }
 export default AlbumRowContainer;
