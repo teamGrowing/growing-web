@@ -8,6 +8,8 @@ import App from './App';
 import GlobalStyle from './styles/GlobalStyle';
 import myTheme from './styles/theme/DefaultTheme';
 import AsyncBoundary from './services/AsyncBoundary';
+import FullScreenLoading from './components/common/FullScreenLoader';
+import FullScreenError from './components/common/FullScreenError';
 
 const queryClient = new QueryClient();
 
@@ -22,8 +24,13 @@ root.render(
         <GlobalStyle />
         <ThemeProvider theme={myTheme}>
           <AsyncBoundary
-            pendingFallback={<div>로딩중</div>}
-            rejectedFallback={() => <div>error!</div>}
+            pendingFallback={<FullScreenLoading />}
+            rejectedFallback={({ error, resetErrorBoundary }) => (
+              <FullScreenError
+                error={error}
+                resetErrorBoundary={resetErrorBoundary}
+              />
+            )}
           >
             <App />
           </AsyncBoundary>
