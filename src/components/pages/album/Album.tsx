@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import checkIcon from '../../../assets/icons/albumPage/Check.png';
+import AlbumDto from '../../../types/gallery/Album.dto';
 
 const AlbumBox = styled.div`
   position: relative;
@@ -54,9 +55,7 @@ const Title = styled.div`
   left: calc(50% - 60px / 2);
   top: calc(50% - 14px / 2 - 0.5px);
 
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 400;
+  font-family: 'PretendardRegular';
   font-size: 12px;
   line-height: 17px;
 
@@ -109,9 +108,7 @@ const Sticker = styled.div`
 const Subtitle = styled.div`
   width: 100%;
 
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 300;
+  font-family: 'PretendardLight';
   font-size: 12px;
   line-height: 14px;
   text-align: right;
@@ -158,12 +155,10 @@ const CheckIcon = styled.div`
 `;
 
 interface AlbumProps {
-  title: string;
-  subTitle: string;
-  coverImg: string;
+  albumInfo: AlbumDto;
 }
 
-function Album({ title, subTitle, coverImg }: AlbumProps) {
+function Album({ albumInfo }: AlbumProps) {
   const [isChecked, setIsChecked] = useState(false);
 
   const clickHandler: React.MouseEventHandler = () => {
@@ -172,11 +167,11 @@ function Album({ title, subTitle, coverImg }: AlbumProps) {
   return (
     <AlbumBox onClick={clickHandler}>
       <Sticker />
-      <CoverBackground backgroundUrl={coverImg}>
+      <CoverBackground backgroundUrl={albumInfo.imageUrl}>
         <TitleBackground />
-        <Title>{title}</Title>
+        <Title>{albumInfo.title}</Title>
       </CoverBackground>
-      <Subtitle>{subTitle}</Subtitle>
+      <Subtitle>{albumInfo.subTitle}</Subtitle>
       {isChecked && <ClickLayer />}
       {isChecked && (
         <CheckIcon>

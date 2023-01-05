@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import AlbumRowContainer from './AlbumRowContainer';
@@ -25,8 +23,8 @@ oneAlbum.args = {
       id: '1',
       title: '1000일',
       subTitle: '2020-06-06',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
   ],
 };
@@ -39,15 +37,15 @@ twoAlbum.args = {
       id: '1',
       title: '1000일',
       subTitle: '2020-06-06',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
     {
       id: '2',
       title: '부산여행',
       subTitle: '2020-06-06',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
   ],
 };
@@ -59,22 +57,22 @@ threeAlbum.args = {
       id: '1',
       title: '1000일',
       subTitle: '2020-06-06',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
     {
       id: '2',
       title: '부산여행',
       subTitle: '2020-06-06',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
     {
       id: '3',
       title: '크리스마스',
       subTitle: '2020-12-30',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
   ],
 };
@@ -86,43 +84,43 @@ moreThanThree.args = {
       id: '1',
       title: '1000일',
       subTitle: '2020-06-06',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
     {
       id: '2',
       title: '부산여행',
       subTitle: '2020-06-06',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
     {
       id: '3',
       title: '크리스마스',
       subTitle: '2020-12-30',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
     {
       id: '1',
       title: '1000일',
       subTitle: '2020-06-06',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
     {
       id: '2',
       title: '부산여행',
       subTitle: '2020-06-06',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
     {
       id: '3',
       title: '크리스마스',
       subTitle: '2020-12-30',
-      coverImg:
-        'https://p4.wallpaperbetter.com/wallpaper/80/146/479/nature-1920x1080-landscape-pictures-wallpaper-preview.jpg',
+      imageUrl: 'https://picsum.photos/id/237/200/300',
+      createdAt: '2020-06-06',
     },
   ],
 };
