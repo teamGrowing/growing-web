@@ -59,7 +59,7 @@
         "unnamedComponents": ["arrow-function", "function-expression"]
       }
     ],
-
-    "react/jsx-props-no-spreading": [0, { "explicitSpread": "ignore" }]
+    "react/jsx-props-no-spreading": [0, { "explicitSpread": "ignore" }],
+    "arrow-body-style": 0
   }
 }
