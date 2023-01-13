@@ -52,7 +52,7 @@ type PhotoRowContainerProps = {
 
 function PhotoRowContainer({ photoObjects }: PhotoRowContainerProps) {
   const photos = photoObjects.map((photo) => (
-    <Photo PhotoInfo={photo} key={photo.id} />
+    <Photo photoInfo={photo} key={photo.id} />
   ));
 
   return <PhotosRow>{photos}</PhotosRow>;
