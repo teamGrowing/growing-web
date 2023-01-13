@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import checkIcon from '../../../assets/icons/albumPage/Check.png';
 import AlbumDto from '../../../types/gallery/Album.dto';
+import DataContext from '../../../pages/gallery/context';
 
 const AlbumBox = styled.div`
   position: relative;
@@ -159,11 +160,27 @@ interface AlbumProps {
 }
 
 function Album({ albumInfo }: AlbumProps) {
-  const [isChecked, setIsChecked] = useState(false);
+  const ctx = useContext(DataContext);
+  const [isSelected, setIsSelected] = useState(false);
 
-  const clickHandler: React.MouseEventHandler = () => {
-    setIsChecked(!isChecked);
+  const clickHandler = () => {
+    if (!ctx.selectingAvailable) {
+      return;
+    }
+    if (isSelected) {
+      ctx.removeFromList(albumInfo.id);
+    } else {
+      ctx.addToList(albumInfo.id);
+    }
+    setIsSelected(!isSelected);
   };
+
+  useEffect(() => {
+    if (!ctx.selectingAvailable) {
+      setIsSelected(false);
+    }
+  }, [ctx.selectingAvailable]);
+
   return (
     <AlbumBox onClick={clickHandler}>
       <Sticker />
@@ -172,8 +189,8 @@ function Album({ albumInfo }: AlbumProps) {
         <Title>{albumInfo.title}</Title>
       </CoverBackground>
       <Subtitle>{albumInfo.subTitle}</Subtitle>
-      {isChecked && <ClickLayer />}
-      {isChecked && (
+      {isSelected && <ClickLayer />}
+      {isSelected && (
         <CheckIcon>
           <img src={checkIcon} alt="선택됨" />
         </CheckIcon>
