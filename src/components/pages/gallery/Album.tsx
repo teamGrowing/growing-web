@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import checkIcon from '../../../assets/icons/albumPage/Check.png';
 import AlbumDto from '../../../types/gallery/Album.dto';
 import DataContext from '../../../pages/gallery/context';
@@ -161,10 +162,12 @@ interface AlbumProps {
 
 function Album({ albumInfo }: AlbumProps) {
   const ctx = useContext(DataContext);
+  const navigate = useNavigate();
   const [isSelected, setIsSelected] = useState(false);
 
   const clickHandler = () => {
     if (!ctx.selectingAvailable) {
+      navigate(`${albumInfo.id}`);
       return;
     }
     if (isSelected) {

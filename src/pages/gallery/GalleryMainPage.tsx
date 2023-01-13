@@ -1,4 +1,7 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 import TopBar from '../../components/common/TopBar/TopBar';
 import AlbumRowContainer from '../../components/pages/gallery/AlbumRowContainer';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
@@ -46,6 +49,7 @@ const Option = styled.div`
 `;
 
 function GalleryMainPage() {
+  const navigate = useNavigate();
   const albums: AlbumDto[] = [];
   const photos: PhotoDto[] = [];
 
@@ -58,11 +62,20 @@ function GalleryMainPage() {
             <img src={plusIcon} alt="plus" />
           </BarTitle>
         }
+        onLeftClick={() => {
+          navigate('new-album');
+        }}
         rightMainNode={albums.length > 0 && <img src={checkIcon} alt="check" />}
         border={false}
       />
       <PaddingContainer>
-        <AlbumRowContainer albums={albums} />
+        <div
+          onClick={() => {
+            navigate('album');
+          }}
+        >
+          <AlbumRowContainer albums={albums} />
+        </div>
         <Bar>
           <BarTitle>PHOTO</BarTitle>
           {photos.length > 0 && (
