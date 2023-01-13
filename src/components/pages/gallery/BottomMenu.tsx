@@ -33,12 +33,18 @@ const Icon = styled.img`
   flex-grow: 0;
 `;
 
-function BottomMenu() {
+type BottomMenuProps = {
+  onComment: () => void;
+  onMessage: () => void;
+  onTrash: () => void;
+};
+
+function BottomMenu({ onComment, onMessage, onTrash }: BottomMenuProps) {
   return (
     <Container>
-      <Icon src={comment} />
-      <Icon src={messageShare} />
-      <Icon src={trash} />
+      <Icon src={comment} onClick={onComment} />
+      <Icon src={messageShare} onClick={onMessage} />
+      <Icon src={trash} onClick={onTrash} />
     </Container>
   );
 }

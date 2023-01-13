@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import checkIcon from '../../../assets/icons/albumPage/Check.png';
 import PhotoDto from '../../../types/gallery/Photo.dto';
 import DataContext from '../../../pages/gallery/context';
@@ -40,11 +41,18 @@ type PhotoProps = {
 };
 
 function Photo({ photoInfo }: PhotoProps) {
+  const navigate = useNavigate();
   const ctx = useContext(DataContext);
   const [isSelected, setIsSelected] = useState(false);
 
   const clickHandler = () => {
     if (!ctx.selectingAvailable) {
+      navigate(`/gallery/photo/${photoInfo.id}`, {
+        state: {
+          title: ctx.data?.title,
+          subTitle: ctx.data?.subTitle,
+        },
+      });
       return;
     }
     if (isSelected) {

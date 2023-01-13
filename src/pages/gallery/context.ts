@@ -1,10 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
-const dataContext = {
+const dataContext: {
+  selectingAvailable: boolean;
+  data?: any;
+  addToList: (photoId: string) => void;
+  removeFromList: (photoId: string) => void;
+} = {
   selectingAvailable: false,
-  addToList: (photoId: string) => {},
-  removeFromList: (photoId: string) => {},
+  addToList: () => {},
+  removeFromList: () => {},
 };
 const DataContext = React.createContext(dataContext);
 
