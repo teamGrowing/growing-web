@@ -5,7 +5,7 @@ import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import checkIcon from '../../assets/icons/albumPage/BarOptionCheck.png';
 import trashIcon from '../../assets/icons/albumPage/Trash.png';
 import PaddingContainer from '../../styles/common/layout';
-import PhotoContext from './context';
+import DataContext from './context';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
 import PhotoDto from '../../types/gallery/Photo.dto';
 
@@ -142,7 +142,7 @@ function PhotoPage() {
   };
 
   return (
-    <PhotoContext.Provider value={ctxValue}>
+    <DataContext.Provider value={ctxValue}>
       <TopBar
         leftNode={<BarTitle>PHOTO</BarTitle>}
         rightMainNode={
@@ -161,7 +161,7 @@ function PhotoPage() {
         <PhotoContainer photoObjects={dummyPhotos} type="UPLOADED" />
         <FloatingButton />
       </PaddingContainer>
-    </PhotoContext.Provider>
+    </DataContext.Provider>
   );
 }
 export default PhotoPage;

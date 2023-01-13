@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 
-const photoContext = {
+const dataContext = {
   selectingAvailable: false,
   addToList: (photoId: string) => {},
   removeFromList: (photoId: string) => {},
 };
-const PhotoContext = React.createContext(photoContext);
+const DataContext = React.createContext(dataContext);
 
-export default PhotoContext;
+export default DataContext;

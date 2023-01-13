@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
 import checkIcon from '../../../assets/icons/albumPage/Check.png';
 import PhotoDto from '../../../types/gallery/Photo.dto';
-import PhotoContext from '../../../pages/gallery/context';
+import DataContext from '../../../pages/gallery/context';
 
 const PhotoBox = styled.div<{ isSelected: boolean; imgUrl: string }>`
   position: relative;
@@ -40,7 +40,7 @@ type PhotoProps = {
 };
 
 function Photo({ photoInfo }: PhotoProps) {
-  const ctx = useContext(PhotoContext);
+  const ctx = useContext(DataContext);
   const [isSelected, setIsSelected] = useState(false);
 
   const clickHandler = () => {
