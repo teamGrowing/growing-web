@@ -1,12 +1,12 @@
 import styled from 'styled-components';
 import { useMemo, useState, useRef } from 'react';
 import TopBar from '../../components/common/TopBar/TopBar';
-import FloatingButton from '../../components/pages/album/FloatingButton';
+import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import checkIcon from '../../assets/icons/albumPage/BarOptionCheck.png';
 import trashIcon from '../../assets/icons/albumPage/Trash.png';
 import PaddingContainer from '../../styles/common/layout';
 import PhotoContext from './context';
-import PhotoContainer from '../../components/pages/album/PhotoContainer';
+import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
 import PhotoDto from '../../types/gallery/Photo.dto';
 
 const BarTitle = styled.div`

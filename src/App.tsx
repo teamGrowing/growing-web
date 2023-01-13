@@ -6,7 +6,7 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" />
-        <Route path="/album" />
+        <Route path="/gallery" />
         <Route path="/chatting" />
         <Route path="/calendar" />
         <Route path="/more" />
