@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState, useMemo, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
 import TopBar from '../../components/common/TopBar/TopBar';
 import PhotoDto from '../../types/gallery/Photo.dto';
@@ -29,6 +30,7 @@ const Option = styled.div`
 `;
 
 function AlbumDetailPage() {
+  const navigate = useNavigate();
   const albumInfo: AlbumDto = {
     id: '1',
     title: '1000일',
@@ -116,6 +118,7 @@ function AlbumDetailPage() {
       selectingAvailable,
       addToList,
       removeFromList,
+      data: { title: albumInfo.title, subTitle: albumInfo.subTitle },
     };
   }, [selectingAvailable]);
 
@@ -140,6 +143,9 @@ function AlbumDetailPage() {
         title={albumInfo.title}
         subTitle={albumInfo.subTitle}
         leftNode={<img src={arrowLeftIcon} alt="back" />}
+        onLeftClick={() => {
+          navigate('/gallery/album');
+        }}
         rightMainNode={
           selectingAvailable ? (
             <Option>취소</Option>
