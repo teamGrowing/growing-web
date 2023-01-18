@@ -63,6 +63,17 @@ button {
   border: none;
   outline: none;
 }
+.text-gradient {
+  background: linear-gradient(130.11deg, #FCE38A 7.3%, #F38181 100%);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.text-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 `;
 
 export default GlobalStyle;
