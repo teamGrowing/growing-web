@@ -3,7 +3,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import SideButton from './SideButton';
 
 export default {
-  title: 'growing design system/SideButton',
+  title: 'growing design system/morePage/SideButton',
   component: SideButton,
 } as ComponentMeta<typeof SideButton>;
 
