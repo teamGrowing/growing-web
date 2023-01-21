@@ -1,14 +1,18 @@
-/* eslint-disable no-template-curly-in-string */
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
+import albumSchema, { AlbumFormValues } from '../../../types/InputSchema';
 
 export interface ModalProps {
   title?: string;
-  description: string;
+  description?: string;
+  albumInputMode?: boolean;
   mainAction?: string;
   subAction?: string;
   onMainAction?: () => void;
   onSubAction?: () => void;
+  onSubmit?: (data: AlbumFormValues) => void;
 }
 
 const fadeIn = keyframes`
@@ -82,36 +86,115 @@ const StyledButton = styled.button<{ main: boolean }>`
   ${(props) =>
     !props.main && `border-right: 0.5px solid ${props.theme.color.gray50}50;`}
 `;
+const InputContainer = styled.div`
+  padding: 4px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+const InputRow = styled.div`
+  font-size: 14px;
+  color: ${({ theme }) => theme.color.gray50};
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  p {
+    padding-top: 5px;
+    width: 40px;
+    text-align: center;
+    font-size: 12px;
+  }
+`;
+const StyledInput = styled.input`
+  padding: 4px 10px;
+  height: 25px;
+  background: ${({ theme }) => theme.color.white};
+  border-radius: 10px;
+  opacity: 0.8;
+  font-size: 13px;
+  color: ${({ theme }) => theme.color.gray900};
+  flex: 1;
+`;
+const InputWithError = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  p {
+    padding-left: 2px;
+    width: max-content;
+  }
+`;
 
 export default function Modal({
   title,
   description,
+  albumInputMode,
   mainAction,
   subAction,
   onMainAction,
   onSubAction,
+  onSubmit,
 }: ModalProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<AlbumFormValues>({ resolver: yupResolver(albumSchema) });
+
   return (
     <Overlay>
-      <Wrapper>
-        <Main>
-          {title && <Title className="text-ellipsis">{title}</Title>}
-          {description && <Description>{description}</Description>}
-        </Main>
+      <form onSubmit={handleSubmit(onSubmit!)}>
+        <Wrapper>
+          <Main>
+            {title && <Title className="text-ellipsis">{title}</Title>}
+            {description && <Description>{description}</Description>}
 
-        <Buttons>
-          {subAction && (
-            <StyledButton main={false} onClick={onSubAction}>
-              {subAction}
-            </StyledButton>
-          )}
-          {mainAction && (
-            <StyledButton main className="text-gradient" onClick={onMainAction}>
-              {mainAction}
-            </StyledButton>
-          )}
-        </Buttons>
-      </Wrapper>
+            {albumInputMode && (
+              <InputContainer>
+                <InputRow>
+                  <p>제목</p>
+                  <InputWithError>
+                    <StyledInput {...register('albumTitle')} />
+                    <p className="text-gradient300">
+                      {errors?.albumTitle?.message}
+                    </p>
+                  </InputWithError>
+                </InputRow>
+                <InputRow>
+                  <p>소제목</p>
+                  <InputWithError>
+                    <StyledInput {...register('albumSubTitle')} />
+                    <p className="text-gradient300">
+                      {errors?.albumSubTitle?.message}
+                    </p>
+                  </InputWithError>
+                </InputRow>
+              </InputContainer>
+            )}
+          </Main>
+
+          <Buttons>
+            {subAction && (
+              <StyledButton main={false} onClick={onSubAction}>
+                {subAction}
+              </StyledButton>
+            )}
+            {mainAction && (
+              <StyledButton
+                main
+                className="text-gradient300"
+                onClick={() => {
+                  if (onMainAction) onMainAction();
+                }}
+              >
+                {mainAction}
+              </StyledButton>
+            )}
+          </Buttons>
+        </Wrapper>
+      </form>
     </Overlay>
   );
 }

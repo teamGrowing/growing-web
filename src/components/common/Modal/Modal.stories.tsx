@@ -1,8 +1,10 @@
+/* eslint-disable no-alert */
 import React from 'react';
 
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import Modal from './Modal';
+import { AlbumFormValues } from '../../../types/InputSchema';
 
 export default {
   title: 'growing design system/Modal',
@@ -39,4 +41,14 @@ Album.args = {
   description: `해당 파일을 앨범에서\n제거하시겠습니까,\n영구 삭제하시겠습니까?`,
   mainAction: '앨범에서 제거',
   subAction: '영구 삭제',
+};
+
+export const AlbumName = Template.bind({});
+AlbumName.args = {
+  title: '앨범 이름 변경',
+  albumInputMode: true,
+  mainAction: '확인',
+  subAction: '취소',
+  onSubmit: (data: AlbumFormValues) =>
+    window.alert(`${data.albumTitle}, ${data.albumSubTitle}`),
 };
