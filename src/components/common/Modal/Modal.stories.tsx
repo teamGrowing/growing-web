@@ -1,8 +1,7 @@
 /* eslint-disable no-alert */
 import React from 'react';
-
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-
+import useState from 'storybook-addon-state';
 import Modal from './Modal';
 import { AlbumFormValues } from '../../../types/InputSchema';
 
@@ -11,7 +10,11 @@ export default {
   component: Modal,
 } as ComponentMeta<typeof Modal>;
 
-const Template: ComponentStory<typeof Modal> = (args) => <Modal {...args} />;
+const Template: ComponentStory<typeof Modal> = (args) => {
+  const [onModal, setOnModal] = useState('modal', true);
+
+  return <Modal {...args} onModal={onModal} setOnModal={setOnModal} />;
+};
 
 export const Default = Template.bind({});
 Default.args = {

@@ -3,8 +3,11 @@ import styled, { keyframes } from 'styled-components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import albumSchema, { AlbumFormValues } from '../../../types/InputSchema';
+import ModalPortal from './ModalPortal';
 
 export interface ModalProps {
+  onModal: boolean;
+  setOnModal: (state: boolean) => void;
   title?: string;
   description?: string;
   albumInputMode?: boolean;
@@ -30,7 +33,7 @@ const Overlay = styled.div`
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.1);
-  animation: ${fadeIn} 0.5s ease-in;
+  animation: ${fadeIn} 0.3s ease-in;
 `;
 const Wrapper = styled.div`
   position: fixed;
@@ -128,6 +131,8 @@ const InputWithError = styled.div`
 `;
 
 export default function Modal({
+  onModal,
+  setOnModal,
   title,
   description,
   albumInputMode,
@@ -143,59 +148,78 @@ export default function Modal({
     formState: { errors },
   } = useForm<AlbumFormValues>({ resolver: yupResolver(albumSchema) });
 
+  if (!onModal) {
+    return null;
+  }
+
   return (
-    <Overlay>
-      <form onSubmit={handleSubmit(onSubmit!)}>
-        <Wrapper>
-          <Main>
-            {title && <Title className="text-ellipsis">{title}</Title>}
-            {description && <Description>{description}</Description>}
+    <ModalPortal>
+      <Overlay>
+        <form
+          onSubmit={handleSubmit((data) => {
+            onSubmit!(data);
+            setOnModal(false);
+          })}
+        >
+          <Wrapper>
+            <Main>
+              {title && <Title className="text-ellipsis">{title}</Title>}
+              {description && <Description>{description}</Description>}
+              {albumInputMode && (
+                <InputContainer>
+                  <InputRow>
+                    <p>제목</p>
+                    <InputWithError>
+                      <StyledInput {...register('albumTitle')} />
+                      <p className="text-gradient300">
+                        {errors?.albumTitle?.message}
+                      </p>
+                    </InputWithError>
+                  </InputRow>
+                  <InputRow>
+                    <p>소제목</p>
+                    <InputWithError>
+                      <StyledInput {...register('albumSubTitle')} />
+                      <p className="text-gradient300">
+                        {errors?.albumSubTitle?.message}
+                      </p>
+                    </InputWithError>
+                  </InputRow>
+                </InputContainer>
+              )}
+            </Main>
 
-            {albumInputMode && (
-              <InputContainer>
-                <InputRow>
-                  <p>제목</p>
-                  <InputWithError>
-                    <StyledInput {...register('albumTitle')} />
-                    <p className="text-gradient300">
-                      {errors?.albumTitle?.message}
-                    </p>
-                  </InputWithError>
-                </InputRow>
-                <InputRow>
-                  <p>소제목</p>
-                  <InputWithError>
-                    <StyledInput {...register('albumSubTitle')} />
-                    <p className="text-gradient300">
-                      {errors?.albumSubTitle?.message}
-                    </p>
-                  </InputWithError>
-                </InputRow>
-              </InputContainer>
-            )}
-          </Main>
-
-          <Buttons>
-            {subAction && (
-              <StyledButton main={false} onClick={onSubAction}>
-                {subAction}
-              </StyledButton>
-            )}
-            {mainAction && (
-              <StyledButton
-                main
-                className="text-gradient300"
-                onClick={() => {
-                  if (onMainAction) onMainAction();
-                }}
-              >
-                {mainAction}
-              </StyledButton>
-            )}
-          </Buttons>
-        </Wrapper>
-      </form>
-    </Overlay>
+            <Buttons>
+              {subAction && onSubAction && (
+                <StyledButton
+                  main={false}
+                  onClick={() => {
+                    setOnModal(false);
+                    onSubAction();
+                  }}
+                >
+                  {subAction}
+                </StyledButton>
+              )}
+              {mainAction && (
+                <StyledButton
+                  main
+                  className="text-gradient300"
+                  onClick={() => {
+                    if (onMainAction) {
+                      onMainAction();
+                      setOnModal(false);
+                    }
+                  }}
+                >
+                  {mainAction}
+                </StyledButton>
+              )}
+            </Buttons>
+          </Wrapper>
+        </form>
+      </Overlay>
+    </ModalPortal>
   );
 }
 

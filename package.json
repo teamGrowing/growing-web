@@ -18,6 +18,7 @@
     "react-hook-form": "^7.42.1",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "storybook-addon-state": "^1.0.3",
     "styled-components": "^5.3.6",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0",
@@ -102,6 +103,6 @@
     "webpack": "^5.74.0"
   },
   "resolutions": {
-    "@types/react": "^17.0.38"
+    "@types/react": "^18.2.0"
   }
 }
