@@ -48,6 +48,16 @@ const CoverBackground = styled.div<{ backgroundUrl: string }>`
   align-self: stretch;
   flex-grow: 1;
   z-index: 2;
+
+  ::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(255, 255, 255, 0.25);
+  }
 `;
 
 const Title = styled.div`
