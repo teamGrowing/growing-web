@@ -1,7 +1,9 @@
 import styled, { css } from 'styled-components';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import checkIcon from '../../../assets/icons/albumPage/Check.png';
 import PhotoDto from '../../../types/gallery/Photo.dto';
+import DataContext from '../../../pages/gallery/context';
 
 const PhotoBox = styled.div<{ isSelected: boolean; imgUrl: string }>`
   position: relative;
@@ -35,22 +37,44 @@ const CheckIcon = styled.img`
 `;
 
 type PhotoProps = {
-  PhotoInfo: PhotoDto;
+  photoInfo: PhotoDto;
 };
 
-function Photo({ PhotoInfo }: PhotoProps) {
+function Photo({ photoInfo }: PhotoProps) {
+  const navigate = useNavigate();
+  const ctx = useContext(DataContext);
   const [isSelected, setIsSelected] = useState(false);
 
   const clickHandler = () => {
-    setIsSelected(!isSelected);
+    if (!ctx.selectingAvailable) {
+      navigate(`/gallery/photo/${photoInfo.id}`, {
+        state: {
+          title: ctx.data?.title,
+          subTitle: ctx.data?.subTitle,
+        },
+      });
+      return;
+    }
+    if (isSelected) {
+      ctx.removeFromList(photoInfo.id);
+    } else {
+      ctx.addToList(photoInfo.id);
+    }
+    setIsSelected((prevState) => !prevState);
   };
+
+  useEffect(() => {
+    if (!ctx.selectingAvailable) {
+      setIsSelected(false);
+    }
+  }, [ctx.selectingAvailable]);
 
   return (
     <PhotoBox
-      key={PhotoInfo.id}
+      key={photoInfo.id}
       onClick={clickHandler}
       isSelected={isSelected}
-      imgUrl={PhotoInfo.url}
+      imgUrl={photoInfo.url}
     >
       {isSelected && <CheckIcon src={checkIcon} alt="선택됨" />}
     </PhotoBox>

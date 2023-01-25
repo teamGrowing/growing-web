@@ -38,7 +38,7 @@ function BottomNavigation() {
   return (
     <Nav>
       <NavItems>
-        <NavItem linkTo="/album">
+        <NavItem linkTo="/gallery">
           <AlbumSvg width="46" height="45" className="svg" />
         </NavItem>
         <NavItem linkTo="/chatting">

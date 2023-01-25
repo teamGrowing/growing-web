@@ -1,7 +1,9 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import checkIcon from '../../../assets/icons/albumPage/Check.png';
 import AlbumDto from '../../../types/gallery/Album.dto';
+import DataContext from '../../../pages/gallery/context';
 
 const AlbumBox = styled.div`
   position: relative;
@@ -46,6 +48,16 @@ const CoverBackground = styled.div<{ backgroundUrl: string }>`
   align-self: stretch;
   flex-grow: 1;
   z-index: 2;
+
+  ::before {
+    content: '';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-color: rgba(255, 255, 255, 0.25);
+  }
 `;
 
 const Title = styled.div`
@@ -159,11 +171,29 @@ interface AlbumProps {
 }
 
 function Album({ albumInfo }: AlbumProps) {
-  const [isChecked, setIsChecked] = useState(false);
+  const ctx = useContext(DataContext);
+  const navigate = useNavigate();
+  const [isSelected, setIsSelected] = useState(false);
 
-  const clickHandler: React.MouseEventHandler = () => {
-    setIsChecked(!isChecked);
+  const clickHandler = () => {
+    if (!ctx.selectingAvailable) {
+      navigate(`${albumInfo.id}`);
+      return;
+    }
+    if (isSelected) {
+      ctx.removeFromList(albumInfo.id);
+    } else {
+      ctx.addToList(albumInfo.id);
+    }
+    setIsSelected(!isSelected);
   };
+
+  useEffect(() => {
+    if (!ctx.selectingAvailable) {
+      setIsSelected(false);
+    }
+  }, [ctx.selectingAvailable]);
+
   return (
     <AlbumBox onClick={clickHandler}>
       <Sticker />
@@ -172,8 +202,8 @@ function Album({ albumInfo }: AlbumProps) {
         <Title>{albumInfo.title}</Title>
       </CoverBackground>
       <Subtitle>{albumInfo.subTitle}</Subtitle>
-      {isChecked && <ClickLayer />}
-      {isChecked && (
+      {isSelected && <ClickLayer />}
+      {isSelected && (
         <CheckIcon>
           <img src={checkIcon} alt="선택됨" />
         </CheckIcon>

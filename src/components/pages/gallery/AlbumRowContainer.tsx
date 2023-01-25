@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import React, { useEffect, useState } from 'react';
 import Album from './Album';
 import AlbumDto from '../../../types/gallery/Album.dto';
 
@@ -94,31 +93,25 @@ interface AlbumRowContainerProps {
 }
 
 function AlbumRowContainer({ albums }: AlbumRowContainerProps) {
-  const [albumArray, setAlbumArray] = useState(albums);
-
-  const albumComponents = albumArray.map((item: AlbumDto) => (
+  const albumComponents = albums.map((item: AlbumDto) => (
     <Album key={item.id} albumInfo={item} />
   ));
 
-  useEffect(() => {
-    setAlbumArray(albums);
-  }, [albums]);
-
   return (
     <Container>
-      {albumArray.length === 0 && (
+      {albums.length === 0 && (
         <NoAlbumContainer>
           <Line />
           <p>소중한 추억을 만들어보세요.</p>
         </NoAlbumContainer>
       )}
-      {albumArray.length !== 0 && albumArray.length <= 3 && (
+      {albums.length !== 0 && albums.length <= 3 && (
         <FixedContainer>
           <Line />
           {albumComponents}
         </FixedContainer>
       )}
-      {albumArray.length > 3 && (
+      {albums.length > 3 && (
         <>
           <Line />
           <SlideContainer>{albumComponents}</SlideContainer>
