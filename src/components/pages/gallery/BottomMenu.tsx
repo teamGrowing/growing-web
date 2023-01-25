@@ -3,7 +3,7 @@ import comment from '../../../assets/icons/albumPage/Comment.png';
 import messageShare from '../../../assets/icons/albumPage/MessageShare.png';
 import trash from '../../../assets/icons/albumPage/Trash.png';
 
-const Container = styled.div`
+const Container = styled.div<{ border: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -19,7 +19,8 @@ const Container = styled.div`
 
   background: ${({ theme }) => theme.color.white};
 
-  border-top: 0.8px solid ${({ theme }) => theme.color.gray200};
+  border-top: 0.8px solid
+    ${({ theme, border }) => (border ? theme.color.gray200 : theme.color.white)};
 `;
 
 const Icon = styled.img`
@@ -34,14 +35,20 @@ const Icon = styled.img`
 `;
 
 type BottomMenuProps = {
+  border: boolean;
   onComment: () => void;
   onMessage: () => void;
   onTrash: () => void;
 };
 
-function BottomMenu({ onComment, onMessage, onTrash }: BottomMenuProps) {
+function BottomMenu({
+  border,
+  onComment,
+  onMessage,
+  onTrash,
+}: BottomMenuProps) {
   return (
-    <Container>
+    <Container border={border}>
       <Icon src={comment} onClick={onComment} />
       <Icon src={messageShare} onClick={onMessage} />
       <Icon src={trash} onClick={onTrash} />

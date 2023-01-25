@@ -37,6 +37,7 @@ function PhotoDetailPage() {
       {photoInfo && <PhotoDetail photoInfo={photoInfo} />}
       {commentIsVisible && <CommentMenu />}
       <BottomMenu
+        border={!commentIsVisible}
         onComment={() => {
           setCommentIsvisible((prevState) => !prevState);
         }}
