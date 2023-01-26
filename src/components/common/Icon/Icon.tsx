@@ -1,4 +1,3 @@
-/* eslint-disable react/default-props-match-prop-types */
 import React, { SVGAttributes } from 'react';
 import * as icons from '../../../assets/icons/index';
 import myTheme from '../../../styles/theme/DefaultTheme';
