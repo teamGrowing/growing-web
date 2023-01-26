@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useState, useEffect } from 'react';
-import { ReactComponent as SendIcon } from '../../../assets/icons/albumPage/Send.svg';
 import PhotoCommentDto from '../../../types/gallery/PhotoComment.dto';
+import Icon from '../../common/Icon/Icon';
 import Comment from './Comment';
 
 const Box = styled.div`
@@ -87,6 +87,13 @@ const Input = styled.input`
   flex-grow: 1;
 `;
 
+const Send = styled.div`
+  background-image: ${({ theme }) => theme.color.gradient400};
+  padding: 6px 14px;
+  border-radius: 30px;
+  display: flex;
+`;
+
 function CommentMenu() {
   const [comments, setComments] = useState<PhotoCommentDto[]>([]);
 
@@ -105,7 +112,9 @@ function CommentMenu() {
       </CommentsContainer>
       <CommentInput>
         <Input />
-        <SendIcon width={52} height={36} />
+        <Send>
+          <Icon icon="IconAirplane" themeColor="white" />
+        </Send>
       </CommentInput>
     </Box>
   );

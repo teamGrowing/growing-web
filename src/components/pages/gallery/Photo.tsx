@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import checkIcon from '../../../assets/icons/albumPage/Check.png';
 import PhotoDto from '../../../types/gallery/Photo.dto';
 import DataContext from '../../../pages/gallery/context';
+import Icon from '../../common/Icon/Icon';
 
 const PhotoBox = styled.div<{ isSelected: boolean; imgUrl: string }>`
   position: relative;
@@ -22,15 +22,10 @@ const PhotoBox = styled.div<{ isSelected: boolean; imgUrl: string }>`
   flex: 0 0 calc((100% / 3) - 6px);
 `;
 
-const CheckIcon = styled.img`
+const CheckIcon = styled(Icon)`
   position: absolute;
   top: 5px;
   right: 5px;
-
-  padding: 7px 6px;
-
-  width: 34px;
-  height: 34px;
 
   flex-grow: 0;
   z-index: 4;
@@ -76,7 +71,7 @@ function Photo({ photoInfo }: PhotoProps) {
       isSelected={isSelected}
       imgUrl={photoInfo.url}
     >
-      {isSelected && <CheckIcon src={checkIcon} alt="선택됨" />}
+      {isSelected && <CheckIcon icon="IconCheck" themeColor="gray50" />}
     </PhotoBox>
   );
 }

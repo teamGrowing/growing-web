@@ -1,8 +1,7 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { ReactComponent as IconArrowLeft } from '../../../assets/icons/IconArrowLeft.svg';
-import { ReactComponent as IconTrash } from '../../../assets/icons/IconTrash.svg';
 import TopBar from './TopBar';
+import Icon from '../Icon/Icon';
 
 export default {
   title: 'growing design system/TopBar',
@@ -16,9 +15,9 @@ export const All = Template.bind({});
 All.args = {
   title: 'title',
   subTitle: 'subTitle',
-  leftNode: <IconArrowLeft />,
+  leftNode: <Icon icon="IconArrowLeft" />,
   rightMainNode: <div>취소</div>,
-  rightSubNode: <IconTrash />,
+  rightSubNode: <Icon icon="IconTrash" />,
 };
 
 export const TitleOnly = Template.bind({});
@@ -31,9 +30,9 @@ export const Overflow = Template.bind({});
 Overflow.args = {
   title: 'titletitletitletitletitletitletitletitle',
   subTitle: 'subTitlesubTitlesubTitlesubTitle',
-  leftNode: <IconArrowLeft />,
+  leftNode: <Icon icon="IconArrowLeft" />,
   rightMainNode: <div>취소</div>,
-  rightSubNode: <IconTrash />,
+  rightSubNode: <Icon icon="IconTrash" />,
 };
 
 export const DarkMode = Template.bind({});

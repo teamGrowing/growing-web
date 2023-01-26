@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Photo from './Photo';
-import logoIcon from '../../../assets/icons/albumPage/Logo.png';
+import Icon from '../../common/Icon/Icon';
 import PhotoDto from '../../../types/gallery/Photo.dto';
 
 const Container = styled.div`
@@ -15,9 +15,7 @@ const PhotosRow = styled.div`
   width: 100%;
 `;
 
-const Logo = styled.img`
-  width: 60px;
-  height: 60px;
+const Logo = styled.div`
   margin: 0 auto;
   margin-top: 124px;
 
@@ -82,7 +80,9 @@ function PhotoContainer({ photoObjects, type }: PhotoContainerProps) {
     <>
       {type === 'UPLOADED' && photoGroupArray.length === 0 && (
         <Container>
-          <Logo src={logoIcon} />
+          <Logo>
+            <Icon icon="IconLogo" size={60} />
+          </Logo>
           <Message>사진을 업로드 해주세요!</Message>
         </Container>
       )}
