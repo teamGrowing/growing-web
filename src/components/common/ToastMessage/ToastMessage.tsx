@@ -1,3 +1,4 @@
+import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 
 type ToastMessageProps = {
@@ -61,9 +62,14 @@ const Text = styled.div`
 
 function ToastMessage({ message }: ToastMessageProps) {
   return (
-    <MessageBox>
-      <Text>{message}</Text>
-    </MessageBox>
+    <>
+      {ReactDOM.createPortal(
+        <MessageBox>
+          <Text>{message}</Text>
+        </MessageBox>,
+        document.getElementById('toast-message-root') as Element
+      )}
+    </>
   );
 }
 
