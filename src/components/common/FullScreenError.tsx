@@ -4,8 +4,8 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { FallbackProps } from 'react-error-boundary';
 import TopBar from './TopBar/TopBar';
+import Icon from './Icon/Icon';
 import errorAnimation from '../../assets/lottie/errorAnimation.json';
-import { ReactComponent as IconArrowLeft } from '../../assets/icons/IconArrowLeft.svg';
 
 const FullScreen = styled.div`
   z-index: 999;
@@ -79,7 +79,7 @@ export default function FullScreenError({
   return (
     <FullScreen>
       <TopBar
-        leftNode={<IconArrowLeft />}
+        leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => {
           navigation('-1');
           resetErrorBoundary();
