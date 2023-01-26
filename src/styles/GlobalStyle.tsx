@@ -84,6 +84,14 @@ input {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+/* for svg */
+.gradient400 {
+  fill: url(#linear-gradient400);
+}
+#linear-gradient400 {
+  --stop-color0: #7117ea;
+  --stop-color1: #ea6060;
+}
 `;
 
 export default GlobalStyle;
