@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import React, { useState, useRef } from 'react';
-import pencilIcon from '../../../assets/icons/morePage/Pencil.png';
-import exitIcon from '../../../assets/icons/morePage/ExitCircle.png';
+import Icon from '../../common/Icon/Icon';
 
 const Container = styled.div`
   display: flex;
@@ -63,14 +62,7 @@ const Input = styled.input`
     background-color: ${({ theme }) => theme.color.white};
   }
 `;
-const Icon = styled.img`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 
-  width: 22px;
-  height: 22px;
-`;
 const Title = styled.div`
   height: 23px;
 
@@ -129,8 +121,8 @@ function InputContainer({ title, type, value }: InputContainerProps) {
         />
         {(type === 'text' || (type === 'date' && !isFocused)) && (
           <Icon
-            src={isFocused ? exitIcon : pencilIcon}
-            alt="수정"
+            icon={isFocused ? 'IconExitCircle' : 'IconPencil'}
+            size={22}
             onClick={clickHandler}
             onMouseDown={(e: React.MouseEvent) => {
               e.preventDefault();

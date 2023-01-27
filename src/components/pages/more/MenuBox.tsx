@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Icon from '../../common/Icon/Icon';
 
 const Box = styled.div`
   display: flex;
@@ -41,14 +42,14 @@ const Title = styled.div`
 
 type MenuBoxProps = {
   title: string;
-  icon: string;
+  icon: 'IconPet' | 'IconSetting' | 'IconInfo';
   onClick: React.MouseEventHandler<HTMLElement>;
 };
 
 function MenuBox({ title, icon, onClick }: MenuBoxProps) {
   return (
     <Box onClick={onClick}>
-      <img src={icon} alt="icon" />
+      <Icon icon={icon} size={34} />
       <Title>{title}</Title>
     </Box>
   );
