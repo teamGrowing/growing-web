@@ -1,10 +1,10 @@
-import React, { PropsWithChildren } from 'react';
+import { Outlet } from 'react-router-dom';
 import ButtomNavigation from './BottomNavigation';
 
-function Layout({ children }: PropsWithChildren) {
+function Layout() {
   return (
     <>
-      {children}
+      <Outlet />
       <ButtomNavigation />
     </>
   );
