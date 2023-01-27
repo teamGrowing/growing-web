@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 import { useRef, useState, useMemo } from 'react';
 import TopBar from '../../components/common/TopBar/TopBar';
-import checkIcon from '../../assets/icons/albumPage/BarOptionCheck.png';
+import Icon from '../../components/common/Icon/Icon';
 import AlbumContainer from '../../components/pages/gallery/AlbumContainer';
 import PaddingContainer from '../../styles/common/layout';
 import DataContext from './context';
 import AlbumDto from '../../types/gallery/Album.dto';
-import trashIcon from '../../assets/icons/albumPage/Trash.png';
 
 const BarTitle = styled.div`
   display: flex;
@@ -121,13 +120,13 @@ function AlbumPage() {
         leftNode={<BarTitle>ALBUM</BarTitle>}
         rightMainNode={
           !selectingAvailable ? (
-            <img src={checkIcon} alt="check" />
+            <Icon icon="IconCheck" />
           ) : (
             <Option>취소</Option>
           )
         }
         onRightMainClick={selectingAvailable ? clearList : clickCheck}
-        rightSubNode={selectingAvailable && <img src={trashIcon} alt="trash" />}
+        rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
         onRightSubClick={deletePhotos}
         border={false}
       />

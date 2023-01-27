@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import checkIcon from '../../../assets/icons/albumPage/Check.png';
 import AlbumDto from '../../../types/gallery/Album.dto';
 import DataContext from '../../../pages/gallery/context';
+import Icon from '../../common/Icon/Icon';
 
 const AlbumBox = styled.div`
   position: relative;
@@ -156,12 +156,6 @@ const CheckIcon = styled.div`
   top: 4px;
   right: 4px;
 
-  padding: 7px 6px;
-  gap: 10px;
-
-  width: 24px;
-  height: 24px;
-
   flex-grow: 0;
   z-index: 4;
 `;
@@ -205,7 +199,7 @@ function Album({ albumInfo }: AlbumProps) {
       {isSelected && <ClickLayer />}
       {isSelected && (
         <CheckIcon>
-          <img src={checkIcon} alt="선택됨" />
+          <Icon icon="IconCheck" themeColor="gray50" />
         </CheckIcon>
       )}
     </AlbumBox>

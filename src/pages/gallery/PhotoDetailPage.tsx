@@ -2,10 +2,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import TopBar from '../../components/common/TopBar/TopBar';
 import PhotoDetail from '../../components/pages/gallery/PhotoDetail';
-import leftArrowIcon from '../../assets/icons/albumPage/ArrowLeft.png';
 import PhotoDto from '../../types/gallery/Photo.dto';
 import BottomMenu from '../../components/pages/gallery/BottomMenu';
 import CommentMenu from '../../components/pages/gallery/CommentMenu';
+import Icon from '../../components/common/Icon/Icon';
 
 function PhotoDetailPage() {
   const location = useLocation();
@@ -29,7 +29,7 @@ function PhotoDetailPage() {
       <TopBar
         title={title}
         subTitle={subTitle}
-        leftNode={<img src={leftArrowIcon} alt="back" />}
+        leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => {
           navigate(-1);
         }}

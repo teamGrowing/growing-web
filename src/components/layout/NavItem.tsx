@@ -2,22 +2,35 @@ import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 
-const ACTIVE_CLASSNAME = 'active';
+const ACTIVE_CLASSNAME = 'gradient400';
+const INACTIVE_CLASSNAME = 'gray300';
 
 type NavItemProp = {
   linkTo: string;
 };
 
 const SVGStyle = styled.div`
-  .${ACTIVE_CLASSNAME} > svg path {
-    stroke: url(#paint0_linear_450_1371);
+  .${INACTIVE_CLASSNAME} > p {
+    color: ${({ theme }) => theme.color.gray300};
   }
-  .${ACTIVE_CLASSNAME} > svg > path:last-of-type {
-    fill: url(#paint2_linear_450_1371);
-    stroke: none;
+  .${INACTIVE_CLASSNAME} > svg {
+    fill: ${({ theme }) => theme.color.gray300};
   }
-  width: 45.6px;
-  height: 45px;
+
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+
+  a {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
 `;
 
 function NavItem({ children, linkTo }: PropsWithChildren<NavItemProp>) {
@@ -25,7 +38,9 @@ function NavItem({ children, linkTo }: PropsWithChildren<NavItemProp>) {
     <SVGStyle>
       <NavLink
         to={linkTo}
-        className={({ isActive }) => (isActive ? ACTIVE_CLASSNAME : '')}
+        className={({ isActive }) =>
+          isActive ? ACTIVE_CLASSNAME : INACTIVE_CLASSNAME
+        }
       >
         {children}
       </NavLink>
