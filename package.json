@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "@storybook/react": "^6.5.13",
     "@tanstack/react-query": "^4.20.9",
     "@tanstack/react-query-devtools": "^4.20.9",
@@ -14,11 +15,14 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4",
+    "react-hook-form": "^7.42.1",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
+    "storybook-addon-state": "^1.0.3",
     "styled-components": "^5.3.6",
     "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
+    "web-vitals": "^2.1.0",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -97,5 +101,8 @@
     "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
     "webpack": "^5.74.0"
+  },
+  "resolutions": {
+    "@types/react": "^18.2.0"
   }
 }

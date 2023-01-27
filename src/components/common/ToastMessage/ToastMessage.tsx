@@ -33,9 +33,7 @@ const MessageBox = styled.div`
   left: 0;
   right: 0;
   bottom: 120px;
-
   width: 300px;
-  height: 34px;
 
   background: ${({ theme }) => theme.color.gray800};
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -46,12 +44,9 @@ const MessageBox = styled.div`
 
 const Text = styled.div`
   width: 260px;
-  height: 18px;
-
   font-weight: 400;
   font-size: 15px;
   line-height: 18px;
-
   text-align: center;
 
   background: ${({ theme }) => theme.color.gradient300};
