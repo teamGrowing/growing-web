@@ -45,6 +45,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   gap: 18px;
+  animation: ${fadeIn} 0.3s ease-in;
 `;
 const Main = styled.div`
   width: 100%;
