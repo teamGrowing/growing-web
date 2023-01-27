@@ -14,20 +14,18 @@ const Button = styled.button<{ abLeft: string; abTop: string }>`
   left: ${(props) => props.abLeft};
   top: ${(props) => props.abTop};
 
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  background: ${({ theme }) => theme.color.white}e5;
+  box-shadow: 2px 2px 6px ${({ theme }) => theme.color.black}19;
   border-radius: 10px;
+`;
+const Content = styled.div`
+  height: 17px;
 
   font-family: 'PretendardRegular';
   font-size: 14px;
   line-height: 17px;
 
   text-align: center;
-
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 `;
 
 type SideButtonProps = {
@@ -40,7 +38,7 @@ type SideButtonProps = {
 function SideButton({ value, abLeft, abTop, onClick }: SideButtonProps) {
   return (
     <Button type="button" onClick={onClick} abLeft={abLeft} abTop={abTop}>
-      {value}
+      <Content className="text-gradient400">{value}</Content>
     </Button>
   );
 }

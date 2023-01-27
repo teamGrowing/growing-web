@@ -9,9 +9,9 @@ const Container = styled.div<{ top: string }>`
   gap: 7px;
 
   position: absolute;
-  width: 333px;
+  width: 85%;
   height: calc(100% - ${(props) => props.top});
-  left: 28px;
+  left: calc(15% / 2);
   top: ${(props) => props.top};
 
   background: ${({ theme }) => theme.color.white};

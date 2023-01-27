@@ -9,20 +9,20 @@ const Circle = styled.div<{ imgUrl: string; border: boolean }>`
           width: 164px;
           height: 164px;
           left: calc(50% - 164px / 2 - 1.5px);
-          top: calc(50% - 164px / 2 - 152.5px);
+          top: 147px;
         `
       : css`
           width: 138px;
           height: 138px;
           left: calc(50% - 138px / 2 - 2px);
-          top: calc(50% - 138px / 2 - 191px);
+          top: calc(50% - 164px / 2 - 152.5px);
         `}
 
   background-image: url(${(props) => props.imgUrl});
   background-size: cover;
   border: ${({ border }) => (border ? '2px' : '0px')} solid
     ${({ theme }) => theme.color.white};
-  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+  filter: drop-shadow(0px 4px 8px ${({ theme }) => theme.color.black}33);
   border-radius: 100px;
 `;
 
