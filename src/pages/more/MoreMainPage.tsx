@@ -65,6 +65,13 @@ const Label = styled.div`
   border-radius: 20px;
 `;
 
+const ProfileContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 107px 0;
+`;
+
 function MoreMainPage() {
   const navigate = useNavigate();
   return (
@@ -79,7 +86,9 @@ function MoreMainPage() {
       <IconWrapper>
         <Icon icon="IconLogo" themeColor="white" size={211} />
       </IconWrapper>
-      <Profile imgUrl="" border />
+      <ProfileContainer>
+        <Profile imgUrl="" border />
+      </ProfileContainer>
       <WhiteContainer top="347px">
         <Label>별이</Label>
         <Row>

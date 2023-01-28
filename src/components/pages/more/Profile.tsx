@@ -1,22 +1,8 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const Circle = styled.div<{ imgUrl: string; border: boolean }>`
-  position: absolute;
-
-  ${({ border }) =>
-    border
-      ? css`
-          width: 164px;
-          height: 164px;
-          left: calc(50% - 164px / 2 - 1.5px);
-          top: 147px;
-        `
-      : css`
-          width: 138px;
-          height: 138px;
-          left: calc(50% - 138px / 2 - 2px);
-          top: calc(50% - 164px / 2 - 152.5px);
-        `}
+  width: ${({ border }) => (border ? '164px' : '138px')};
+  height: ${({ border }) => (border ? '164px' : '138px')};
 
   background-image: url(${(props) => props.imgUrl});
   background-size: cover;
