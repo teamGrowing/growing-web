@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Icon from '../../components/common/Icon/Icon';
@@ -10,6 +10,9 @@ import SideButton from '../../components/pages/more/SideButton';
 import InputContainer from '../../components/pages/more/InputContainer';
 import { ProfileFormValues, profileSchema } from '../../types/InputSchema';
 import PaddingContainer from '../../styles/common/layout';
+import Modal from '../../components/common/Modal/Modal';
+import ModalBottomSheet from '../../components/common/Modal/ModalBottomSheet/ModalBottomSheet';
+import BottomSheetMenu from '../../components/common/Modal/ModalBottomSheet/BottomSheetMenu';
 
 const StyledForm = styled.form`
   flex-direction: column;
@@ -30,6 +33,9 @@ const ProfileContainer = styled.div`
 function ProfilePage() {
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
+  const [onCompleteModal, setOnCompleteModal] = useState(false);
+  const [onCancelModal, setOnCanelModal] = useState(false);
+  const [onBottomSheet, setOnButtomSheet] = useState(false);
   const nickname = '별이';
   const imgUrl = 'https://picsum.photos/id/237/200/300';
   const birthday = '1999-01-10';
@@ -48,19 +54,18 @@ function ProfilePage() {
     },
   });
 
-  useEffect(() => {});
   return (
     <StyledForm
       onSubmit={handleSubmit((data) => {
         console.log(data);
         // TODO : 수정된 데이터 전송
-        alert('수정되었습니다.');
+        setOnCompleteModal(true);
       })}
       ref={formRef}
     >
       <TopBar
         leftNode={<Icon icon="IconArrowLeft" />}
-        onLeftClick={() => navigate('/more')}
+        onLeftClick={() => setOnCanelModal(true)}
         title="프로필 수정"
         rightMainNode={
           <StyledInput
@@ -77,10 +82,9 @@ function ProfilePage() {
             value="사진 수정"
             abLeft="calc(50% + 19px)"
             abTop="179px"
-            onClick={() => {}} // TODO : 프로필 사진 수정
+            onClick={() => setOnButtomSheet(true)} // TODO : 프로필 사진 수정
           />
         </ProfileContainer>
-
         <InputContainer
           title="애칭"
           type="text"
@@ -102,6 +106,44 @@ function ProfilePage() {
           {...register('anniversary')}
           error={errors.anniversary}
         />
+        {onCompleteModal && (
+          <Modal
+            onModal={onCompleteModal}
+            setOnModal={setOnCompleteModal}
+            title="프로필 수정 성공🎉"
+            description="프로필이 수정되었습니다."
+            mainActionLabel="확인"
+            onMainAction={() => navigate('/more')}
+          />
+        )}
+        {onCancelModal && (
+          <Modal
+            onModal={onCancelModal}
+            setOnModal={setOnCanelModal}
+            title="프로필 수정 취소"
+            description={'변경하신 내용이 취소됩니다.\n정말 나가시겠습니까?'}
+            mainActionLabel="확인"
+            onMainAction={() => navigate('/more')}
+            subActionLabel="취소"
+            onSubAction={() => setOnCanelModal(false)}
+          />
+        )}
+        {onBottomSheet && (
+          <ModalBottomSheet open={onBottomSheet} setOpen={setOnButtomSheet}>
+            <BottomSheetMenu>
+              <Icon icon="IconShare" themeColor="gray50" />
+              라이브러리에서 선택
+            </BottomSheetMenu>
+            <BottomSheetMenu>
+              <Icon icon="IconGallery" themeColor="gray50" />앱 내 갤러리에서
+              선택
+            </BottomSheetMenu>
+            <BottomSheetMenu>
+              <Icon icon="IconTrash" themeColor="gray50" />
+              현재 사진 삭제
+            </BottomSheetMenu>
+          </ModalBottomSheet>
+        )}
       </PaddingContainer>
     </StyledForm>
   );
