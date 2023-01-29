@@ -7,7 +7,6 @@ const Nav = styled.nav`
   width: 100%;
   position: fixed;
   bottom: 0;
-  z-index: 100;
 `;
 const NavItems = styled.div`
   box-sizing: border-box;
