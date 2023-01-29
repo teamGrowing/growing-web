@@ -1,24 +1,25 @@
 import styled from 'styled-components';
-import React, { useState, useRef } from 'react';
+import React, { useState, SyntheticEvent, useRef } from 'react';
+import { mergeRefs } from 'react-merge-refs';
+import { FieldError } from 'react-hook-form';
 import Icon from '../../common/Icon/Icon';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   align-items: flex-start;
+  height: 116px;
   padding: 16px 20px;
   gap: 10px;
-
-  width: 100%;
-  height: 116px;
-
-  border-radius: 20px;
-
-  flex: none;
-  order: 0;
-  align-self: stretch;
-  flex-grow: 0;
 `;
+
 const InputBox = styled.div`
   background: linear-gradient(
         ${({ theme }) => theme.color.white},
@@ -45,14 +46,10 @@ const Input = styled.input`
   font-family: 'PretendardMedium';
   font-size: 19px;
   line-height: 23px;
-
   text-align: center;
-
   color: ${({ theme }) => theme.color.gray700};
   background-color: ${({ theme }) => theme.color.white};
-
   border: none;
-
   flex: none;
   order: 0;
   flex-grow: 1;
@@ -81,57 +78,79 @@ const Title = styled.div`
   flex-grow: 0;
 `;
 
+const ErrorMessage = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  font-size: 13px;
+  color: ${({ theme }) => theme.color.gray500};
+  font-weight: 500;
+`;
+
 type InputContainerProps = {
   title: string;
   type: 'date' | 'text';
   value: string;
+  name: string;
+  onChange: (e: SyntheticEvent) => void;
+  onBlur: (e: SyntheticEvent) => void;
+  error: FieldError | undefined;
 };
+const InputContainer = React.forwardRef<HTMLInputElement, InputContainerProps>(
+  (
+    { title, type, value, name, onChange, onBlur, error },
+    ref: React.Ref<HTMLInputElement>
+  ) => {
+    const [isFocused, setIsFocused] = useState(false);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
-function InputContainer({ title, type, value }: InputContainerProps) {
-  const [isFocused, setIsFocused] = useState(false);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+    const clickHandler = () => {
+      if (!inputRef.current) return;
+      if (isFocused) {
+        inputRef.current.value = '';
+        inputRef.current?.focus();
+        return;
+      }
 
-  const clickHandler = () => {
-    if (!inputRef.current) return;
-
-    if (isFocused) {
-      inputRef.current.value = '';
+      setIsFocused(true);
+      inputRef.current?.removeAttribute('disabled');
       inputRef.current?.focus();
-      return;
-    }
+    };
 
-    setIsFocused(true);
-    inputRef.current?.removeAttribute('disabled');
-    inputRef.current?.focus();
-  };
+    const blurHandler = () => {
+      setIsFocused(false);
+    };
 
-  const blurHandler = () => {
-    setIsFocused(false);
-  };
-
-  return (
-    <Container>
-      <Title>{title}</Title>
-      <InputBox onBlur={blurHandler}>
-        <Input
-          type={type}
-          disabled={!isFocused}
-          defaultValue={value}
-          ref={inputRef}
-        />
-        {(type === 'text' || (type === 'date' && !isFocused)) && (
-          <Icon
-            icon={isFocused ? 'IconExitCircle' : 'IconPencil'}
-            size={22}
-            onClick={clickHandler}
-            onMouseDown={(e: React.MouseEvent) => {
-              e.preventDefault();
-            }}
-          />
-        )}
-      </InputBox>
-    </Container>
-  );
-}
+    return (
+      <Container>
+        <Wrapper>
+          <Title>{title}</Title>
+          <InputBox onBlur={blurHandler}>
+            <Input
+              type={type}
+              disabled={!isFocused}
+              defaultValue={value}
+              name={name}
+              onChange={onChange}
+              onBlur={onBlur}
+              ref={mergeRefs([ref, inputRef])}
+            />
+            {(type === 'text' || (type === 'date' && !isFocused)) && (
+              <Icon
+                icon={isFocused ? 'IconExitCircle' : 'IconPencil'}
+                size={22}
+                onClick={clickHandler}
+                onMouseDown={(e: React.MouseEvent) => {
+                  e.preventDefault();
+                }}
+              />
+            )}
+          </InputBox>
+          <ErrorMessage>{error && error.message}</ErrorMessage>
+        </Wrapper>
+      </Container>
+    );
+  }
+);
 
 export default InputContainer;
