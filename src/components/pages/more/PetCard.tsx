@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PetLineDto from '../../../types/more/PetLine.dto';
+import PostPetLineDto from '../../../types/more/PostPetLine.dto';
 import cardBackgroundImg from '../../../assets/image/Card.png';
 import bearImg from '../../../assets/image/Bear.png'; // 예시로 넣어둠
 
@@ -8,6 +8,7 @@ const Card = styled.div`
   position: relative;
   width: 154px;
   height: 205px;
+  margin: 14px;
   box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07);
   border-radius: 20px;
   background-image: url(${cardBackgroundImg});
@@ -43,7 +44,7 @@ const Image = styled.div<{ petImg: string }>`
 `;
 
 type PetCardProps = {
-  petInfo: PetLineDto;
+  petInfo: PostPetLineDto;
   onClick: React.MouseEventHandler;
 };
 

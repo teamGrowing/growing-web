@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import PetDto from '../../../types/more/Pet.dto';
+import PetDto from '../../../types/more/PostPet.dto';
 import backgroundImg from '../../../assets/image/DetailCardBackground.png';
 import infoBackgroundImg from '../../../assets/image/DetailInfoBackground.png';
 import bearImg from '../../../assets/image/Bear.png'; // 임시로 넣어둠

@@ -1,4 +1,4 @@
-export default interface PetDto {
+export default interface PostPetDto {
   id: string;
   imageUrl: string;
   name: string;
