@@ -3,6 +3,7 @@ import PetDto from '../../../types/more/PostPet.dto';
 import backgroundImg from '../../../assets/image/DetailCardBackground.png';
 import infoBackgroundImg from '../../../assets/image/DetailInfoBackground.png';
 import bearImg from '../../../assets/image/Bear.png'; // 임시로 넣어둠
+import Icon from '../../common/Icon/Icon';
 
 const zoomIn = keyframes`
   from {
@@ -130,13 +131,25 @@ const Content = styled.div<{ width: string }>`
 
 type PetDetailCardProps = {
   petInfo: PetDto;
+  onClick: React.MouseEventHandler;
 };
 
-function PetDetailCard({ petInfo }: PetDetailCardProps) {
+function PetDetailCard({ petInfo, onClick }: PetDetailCardProps) {
   const nickname = '별이';
 
   return (
     <Background>
+      <Icon
+        icon="IconExit"
+        style={{
+          position: 'absolute',
+          width: '24px',
+          height: '24px',
+          left: '277px',
+          top: '9px',
+        }}
+        onClick={onClick}
+      />
       <Image petImg={bearImg} />
       <InfoContainer>
         <Name className="text-gradient400">{petInfo.name}</Name>

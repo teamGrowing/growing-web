@@ -10,6 +10,7 @@ import ProfilePage from './pages/more/ProfilePage';
 import InfoPage from './pages/more/InfoPage';
 import SettingPage from './pages/more/SettingPage';
 import PhotoDetailPage from './pages/gallery/PhotoDetailPage';
+import PetPage from './pages/more/PetPage';
 
 function GrowingRoutes() {
   return (
@@ -31,6 +32,7 @@ function GrowingRoutes() {
       </Route>
       <Route path="/more/info" element={<InfoPage />} />
       <Route path="/more/setting" element={<SettingPage />} />
+      <Route path="/more/pet" element={<PetPage />} />
     </Routes>
   );
 }
