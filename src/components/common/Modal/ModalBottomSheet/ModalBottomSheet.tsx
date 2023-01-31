@@ -24,6 +24,7 @@ const Overlay = styled.div`
   height: 100%;
   background-color: ${({ theme }) => theme.color.black}19;
   animation: ${fadeIn} 0.3s ease-in;
+  z-index: 11;
 `;
 const fadeInUp = keyframes`
   from {
@@ -49,6 +50,7 @@ const Wrapper = styled.div`
   border-radius: 20px 20px 0px 0px;
   color: ${({ theme }) => theme.color.gray50};
   animation: ${fadeInUp} 0.5s;
+  z-index: 12;
 `;
 const Border = styled.div`
   margin-bottom: 12px;

@@ -29,6 +29,7 @@ const Overlay = styled.div`
   height: 100%;
   background: rgba(0, 0, 0, 0.1);
   animation: ${fadeIn} 0.3s ease-in;
+  z-index: 11;
 `;
 const Wrapper = styled.div`
   position: fixed;
@@ -46,6 +47,7 @@ const Wrapper = styled.div`
   justify-content: center;
   gap: 18px;
   animation: ${fadeIn} 0.3s ease-in;
+  z-index: 12;
 `;
 const Main = styled.div`
   width: 100%;
@@ -108,7 +110,6 @@ export default function Modal({
           {title && <Title className="text-ellipsis">{title}</Title>}
           {description && <Description>{description}</Description>}
         </Main>
-
         <Buttons>
           {subActionLabel && onSubAction && (
             <StyledButton
