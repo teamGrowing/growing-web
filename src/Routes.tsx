@@ -28,8 +28,8 @@ function GrowingRoutes() {
       </Route>
       <Route element={<Layout />}>
         <Route path="/more" element={<MoreMainPage />} />
-        <Route path="/more/profile" element={<ProfilePage />} />
       </Route>
+      <Route path="/more/profile" element={<ProfilePage />} />
       <Route path="/more/info" element={<InfoPage />} />
       <Route path="/more/setting" element={<SettingPage />} />
       <Route path="/more/pet" element={<PetPage />} />
