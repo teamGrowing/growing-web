@@ -1,6 +1,6 @@
-export default interface PhotoDto {
+export interface VoiceMSGDto {
   id: string;
-  urls: string;
   createdAt: string;
   name: string;
+  time: string;
 }

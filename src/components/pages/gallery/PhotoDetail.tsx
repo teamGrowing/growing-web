@@ -88,7 +88,7 @@ type PhotoDetailProps = {
 function PhotoDetail({ photoInfo }: PhotoDetailProps) {
   return (
     <Scrolls>
-      <Photo backgroundUrl={photoInfo.url} />
+      <Photo backgroundUrl={photoInfo.urls} />
       <Info>
         <Name>{photoInfo.name}</Name>
         <Date>{photoInfo.createdAt}</Date>
