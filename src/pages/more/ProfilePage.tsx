@@ -20,14 +20,26 @@ const StyledForm = styled.form`
 `;
 
 const StyledInput = styled.input`
+  font-family: 'PretendardRegular';
   background-color: transparent;
 `;
+
 const ProfileContainer = styled.div`
   position: relative;
   display: flex;
   justify-content: center;
   width: 100%;
   padding: 60px 0;
+`;
+
+const Background = styled.div`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  z-index: -1;
+  background-color: ${({ theme }) => theme.color.gray50};
 `;
 
 function ProfilePage() {
@@ -76,6 +88,7 @@ function ProfilePage() {
         }
       />
       <PaddingContainer>
+        <Background />
         <ProfileContainer>
           <Profile imgUrl={imgUrl} border={false} />
           <SideButton
