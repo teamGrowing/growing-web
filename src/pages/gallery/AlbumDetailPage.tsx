@@ -3,15 +3,12 @@ import { useState, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
 import TopBar from '../../components/common/TopBar/TopBar';
+import Icon from '../../components/common/Icon/Icon';
 import PhotoDto from '../../types/gallery/Photo.dto';
 import PaddingContainer from '../../styles/common/layout';
 import AlbumDto from '../../types/gallery/Album.dto';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
-import pencilIcon from '../../assets/icons/albumPage/Pencil.png';
-import checkIcon from '../../assets/icons/albumPage/BarOptionCheck.png';
 import DataContext from './context';
-import arrowLeftIcon from '../../assets/icons/albumPage/ArrowLeft.png';
-import trashIcon from '../../assets/icons/albumPage/Trash.png';
 
 const Option = styled.div`
   width: 25px;
@@ -142,7 +139,7 @@ function AlbumDetailPage() {
       <TopBar
         title={albumInfo.title}
         subTitle={albumInfo.subTitle}
-        leftNode={<img src={arrowLeftIcon} alt="back" />}
+        leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => {
           navigate('/gallery/album');
         }}
@@ -150,15 +147,15 @@ function AlbumDetailPage() {
           selectingAvailable ? (
             <Option>취소</Option>
           ) : (
-            <img src={pencilIcon} alt="modify" />
+            <Icon icon="IconPencil" />
           )
         }
         onRightMainClick={selectingAvailable ? clearList : modifyAlbumInfo}
         rightSubNode={
           selectingAvailable ? (
-            <img src={trashIcon} alt="trash" />
+            <Icon icon="IconTrash" />
           ) : (
-            <img src={checkIcon} alt="select" />
+            <Icon icon="IconCheck" />
           )
         }
         onRightSubClick={selectingAvailable ? deletePhotos : clickCheck}

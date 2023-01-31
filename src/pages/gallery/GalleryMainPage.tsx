@@ -6,9 +6,8 @@ import TopBar from '../../components/common/TopBar/TopBar';
 import AlbumRowContainer from '../../components/pages/gallery/AlbumRowContainer';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
+import Icon from '../../components/common/Icon/Icon';
 import PaddingContainer from '../../styles/common/layout';
-import plusIcon from '../../assets/icons/albumPage/Plus.png';
-import checkIcon from '../../assets/icons/albumPage/BarOptionCheck.png';
 import AlbumDto from '../../types/gallery/Album.dto';
 import PhotoDto from '../../types/gallery/Photo.dto';
 
@@ -59,13 +58,13 @@ function GalleryMainPage() {
         leftNode={
           <BarTitle>
             ALBUM
-            <img src={plusIcon} alt="plus" />
+            <Icon icon="IconPlus" />
           </BarTitle>
         }
         onLeftClick={() => {
           navigate('new-album');
         }}
-        rightMainNode={albums.length > 0 && <img src={checkIcon} alt="check" />}
+        rightMainNode={albums.length > 0 && <Icon icon="IconCheck" />}
         border={false}
       />
       <PaddingContainer>
@@ -80,7 +79,7 @@ function GalleryMainPage() {
           <BarTitle>PHOTO</BarTitle>
           {photos.length > 0 && (
             <Option>
-              <img src={checkIcon} alt="check" />
+              <Icon icon="IconCheck" />
             </Option>
           )}
         </Bar>
