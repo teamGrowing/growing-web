@@ -26,9 +26,6 @@ function GrowingRoutes() {
       <Route element={<Layout />}>
         <Route path="/more" element={<MoreMainPage />} />
       </Route>
-      <Route element={<Layout />}>
-        <Route path="/more" element={<MoreMainPage />} />
-      </Route>
       <Route path="/more/profile" element={<ProfilePage />} />
       <Route path="/more/info" element={<InfoPage />} />
       <Route path="/more/setting" element={<SettingPage />} />
