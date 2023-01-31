@@ -27,7 +27,7 @@ const InputBox = styled.div`
       )
       padding-box,
     ${({ theme }) => theme.color.gradient400} border-box;
-  border: 2px solid transparent;
+  border: 1px solid transparent;
   border-radius: 10px;
 
   display: flex;
