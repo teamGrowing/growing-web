@@ -24,7 +24,8 @@ export default function FullScreenLoader() {
     <FullScreen>
       <Lottie
         animationData={loadingAnimation}
-        style={{ width: '80vw', marginTop: '-90px' }}
+        style={{ width: '30vw', marginTop: '-90px' }}
+        loop
       />
     </FullScreen>
   );
