@@ -1,3 +1,5 @@
+import { makeAutoObservable } from 'mobx';
+import { COUPLE_API } from '../services/couple.service';
 import { USER_API } from '../services/user.service';
 import { UserDto } from '../types/user/User.dto';
 
@@ -6,11 +8,20 @@ class UserStore {
 
   petId: string | null = null;
 
+  constructor() {
+    makeAutoObservable(this);
+  }
+
   async getUserData(userId: string) {
-    await USER_API.getUser(userId).then((res) => {
-      this.user = res.data;
-    });
+    const res = await USER_API.getUser(userId);
+    this.user = res.data;
+
+    if (!res.data.coupleId) return;
+    const response = await COUPLE_API.getCouple(res.data.coupleId);
+    this.petId = response.data.petId;
   }
 }
 
-export default UserStore;
+const userStore = new UserStore();
+
+export default userStore;
