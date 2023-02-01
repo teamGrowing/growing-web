@@ -7,17 +7,23 @@ import { PostPetLineDto } from '../types/pet/PostPetLine.dto';
 
 export const PET_API = {
   getPet: (coupleId: string, petId: string) =>
-    fetcher.get<PetDto>(`couples/${coupleId}/pets/${petId}`),
+    fetcher.create().get<PetDto>(`couples/${coupleId}/pets/${petId}`),
   patchPet: (coupleId: string, data: ChangePetDto) =>
-    fetcher.patch(`couples/${coupleId}`, data),
+    fetcher.create().patch(`couples/${coupleId}`, data),
   postFeedPet: (coupleId: string, petId: string) =>
-    fetcher.post<PetReactionDto>(`couples/${coupleId}/pets/${petId}/feed`),
+    fetcher
+      .create()
+      .post<PetReactionDto>(`couples/${coupleId}/pets/${petId}/feed`),
   postTouchPet: (coupleId: string, petId: string) =>
-    fetcher.post<PetReactionDto>(`couples/${coupleId}/pets/${petId}/touch`),
+    fetcher
+      .create()
+      .post<PetReactionDto>(`couples/${coupleId}/pets/${petId}/touch`),
   getGraduatedPets: (coupleId: string) =>
-    fetcher.get<PostPetLineDto[]>(`couples/${coupleId}/post-pets`),
+    fetcher.create().get<PostPetLineDto[]>(`couples/${coupleId}/post-pets`),
   getGraduatedPetDetail: (coupleId: string, petId: string) =>
-    fetcher.get<PostPetDto[]>(`couples/${coupleId}/post-pets/${petId}`),
+    fetcher
+      .create()
+      .get<PostPetDto[]>(`couples/${coupleId}/post-pets/${petId}`),
 };
 
 export default { PET_API };

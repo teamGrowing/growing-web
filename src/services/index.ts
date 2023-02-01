@@ -1,16 +1,26 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { QueryKey, UseQueryOptions } from '@tanstack/react-query';
 
-const token = localStorage.getItem('Access');
+class Fetcher {
+  accessToken: string | undefined;
 
-const config: AxiosRequestConfig = {
-  baseURL: process.env.REACT_APP_SERVER_HOST,
-  headers: {
-    Authorization: token ? `Bearer ${token}` : null,
-  },
-};
+  create() {
+    const config: AxiosRequestConfig = {
+      baseURL: process.env.REACT_APP_SERVER_HOST,
+      headers: {
+        Authorization: this.accessToken ? `Bearer ${this.accessToken}` : null,
+      },
+    };
 
-const fetcher = axios.create(config);
+    return axios.create(config);
+  }
+
+  setAccessToken(accessToken: string) {
+    this.accessToken = accessToken;
+  }
+}
+
+const fetcher = new Fetcher();
 
 export default fetcher;
 
