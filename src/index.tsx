@@ -1,4 +1,5 @@
 /* eslint-disable no-prototype-builtins */
+import './styles/font.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
