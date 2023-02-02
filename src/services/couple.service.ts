@@ -5,12 +5,13 @@ import { CreateCoupleAndPetDto } from '../types/couple/CreateCoupleAndPet.dto';
 
 export const COUPLE_API = {
   getCouple: (coupleId: string) =>
-    fetcher.get<CoupleDto>(`couples/${coupleId}`),
+    fetcher.create().get<CoupleDto>(`couples/${coupleId}`),
   patchCouple: (coupleId: string, data: ChangeCoupleDto) =>
-    fetcher.patch(`couples/${coupleId}`, data),
-  deleteCouple: (coupleId: string) => fetcher.delete(`couples/${coupleId}`),
+    fetcher.create().patch(`couples/${coupleId}`, data),
+  deleteCouple: (coupleId: string) =>
+    fetcher.create().delete(`couples/${coupleId}`),
   postCouple: (data: CreateCoupleAndPetDto) =>
-    fetcher.post(`couples/create`, data),
+    fetcher.create().post(`couples/create`, data),
 };
 
 export default { COUPLE_API };

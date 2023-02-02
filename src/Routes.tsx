@@ -11,25 +11,30 @@ import InfoPage from './pages/more/InfoPage';
 import SettingPage from './pages/more/SettingPage';
 import PhotoDetailPage from './pages/gallery/PhotoDetailPage';
 import PetPage from './pages/more/PetPage';
+import AuthRoute from './util/AuthRoute';
+import Login from './pages/Login';
 
 function GrowingRoutes() {
   return (
     <Routes>
-      <Route element={<Layout />}>
-        <Route path="/gallery" element={<GalleryMainPage />} />
-        <Route path="/gallery/photo" element={<PhotoPage />} />
-        <Route path="/gallery/album" element={<AlbumPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route element={<AuthRoute />}>
+        <Route element={<Layout />}>
+          <Route path="/gallery" element={<GalleryMainPage />} />
+          <Route path="/gallery/photo" element={<PhotoPage />} />
+          <Route path="/gallery/album" element={<AlbumPage />} />
+        </Route>
+        <Route path="/gallery/photo/:id" element={<PhotoDetailPage />} />
+        <Route path="/gallery/album/:id" element={<AlbumDetailPage />} />
+        <Route path="/gallery/new-album" element={<NewAlbumPage />} />
+        <Route element={<Layout />}>
+          <Route path="/more" element={<MoreMainPage />} />
+        </Route>
+        <Route path="/more/profile" element={<ProfilePage />} />
+        <Route path="/more/info" element={<InfoPage />} />
+        <Route path="/more/setting" element={<SettingPage />} />
+        <Route path="/more/pet" element={<PetPage />} />
       </Route>
-      <Route path="/gallery/photo/:id" element={<PhotoDetailPage />} />
-      <Route path="/gallery/album/:id" element={<AlbumDetailPage />} />
-      <Route path="/gallery/new-album" element={<NewAlbumPage />} />
-      <Route element={<Layout />}>
-        <Route path="/more" element={<MoreMainPage />} />
-      </Route>
-      <Route path="/more/profile" element={<ProfilePage />} />
-      <Route path="/more/info" element={<InfoPage />} />
-      <Route path="/more/setting" element={<SettingPage />} />
-      <Route path="/more/pet" element={<PetPage />} />
     </Routes>
   );
 }

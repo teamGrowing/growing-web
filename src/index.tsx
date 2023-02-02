@@ -1,4 +1,3 @@
-/* eslint-disable no-prototype-builtins */
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
@@ -11,7 +10,6 @@ import myTheme from './styles/theme/DefaultTheme';
 import AsyncBoundary from './services/AsyncBoundary';
 import FullScreenLoading from './components/common/FullScreenLoader';
 import FullScreenError from './components/common/FullScreenError';
-import { Store, StoreContext } from './stores/RootStore';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,31 +32,22 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <StoreContext.Provider value={Store}>
-          <ReactQueryDevtools initialIsOpen={false} />
-          <GlobalStyle />
-          <ThemeProvider theme={myTheme}>
-            <AsyncBoundary
-              pendingFallback={<FullScreenLoading />}
-              rejectedFallback={({ error, resetErrorBoundary }) => (
-                <FullScreenError
-                  error={error}
-                  resetErrorBoundary={resetErrorBoundary}
-                />
-              )}
-            >
-              <App />
-            </AsyncBoundary>
-          </ThemeProvider>
-        </StoreContext.Provider>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <GlobalStyle />
+        <ThemeProvider theme={myTheme}>
+          <AsyncBoundary
+            pendingFallback={<FullScreenLoading />}
+            rejectedFallback={({ error, resetErrorBoundary }) => (
+              <FullScreenError
+                error={error}
+                resetErrorBoundary={resetErrorBoundary}
+              />
+            )}
+          >
+            <App />
+          </AsyncBoundary>
+        </ThemeProvider>
       </QueryClientProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
-
-if (
-  !new (class {
-    x: any;
-  })().hasOwnProperty('x')
-)
-  throw new Error('Transpiler is not configured correctly');
