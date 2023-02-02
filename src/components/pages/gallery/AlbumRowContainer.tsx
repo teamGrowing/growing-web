@@ -55,6 +55,7 @@ const SlideContainer = styled.div`
   align-items: flex-start;
 
   width: 100%;
+  height: 176px;
 
   padding: 18px 0px 10px 14px;
   gap: 10px;
@@ -90,15 +91,16 @@ const Line = styled.div`
 
 interface AlbumRowContainerProps {
   albums: AlbumDto[];
+  onClick?: React.MouseEventHandler;
 }
 
-function AlbumRowContainer({ albums }: AlbumRowContainerProps) {
+function AlbumRowContainer({ albums, onClick }: AlbumRowContainerProps) {
   const albumComponents = albums.map((item: AlbumDto) => (
     <Album key={item.id} albumInfo={item} />
   ));
 
   return (
-    <Container>
+    <Container onClick={onClick}>
       {albums.length === 0 && (
         <NoAlbumContainer>
           <Line />

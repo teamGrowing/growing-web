@@ -1,47 +1,22 @@
 import styled from 'styled-components';
 import { useMemo, useState, useRef } from 'react';
-import TopBar from '../../components/common/TopBar/TopBar';
+import { useNavigate } from 'react-router-dom';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import PaddingContainer from '../../styles/common/layout';
 import DataContext from './context';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
 import PhotoDto from '../../types/gallery/Photo.dto';
 import Icon from '../../components/common/Icon/Icon';
+import GalleryTitle from '../../components/pages/gallery/GalleryTitle';
 
-const BarTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: absolute;
-  left: 24px;
-
-  font-family: 'PretendardMedium';
-  font-size: 23px;
-
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`;
-
-const Option = styled.div`
-  width: 25px;
-  height: 17px;
-
-  font-family: 'PretendardMedium';
+const Cancel = styled.div`
+  font-family: 'PretendardRegular';
   font-size: 14px;
   line-height: 17px;
-
-  display: flex;
-  align-items: center;
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 `;
 
 function PhotoPage() {
+  const navigate = useNavigate();
   const dummyPhotos: PhotoDto[] = [
     {
       id: '1',
@@ -142,19 +117,22 @@ function PhotoPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <TopBar
-        leftNode={<BarTitle>PHOTO</BarTitle>}
-        rightMainNode={
+      <GalleryTitle
+        title="PHOTO"
+        top="0px"
+        left="0px"
+        backBtn
+        onBackBtnClick={() => navigate('/gallery')}
+        rightNode={
           !selectingAvailable ? (
             <Icon icon="IconCheck" />
           ) : (
-            <Option>취소</Option>
+            <Cancel className="text-gradient400">취소</Cancel>
           )
         }
-        onRightMainClick={selectingAvailable ? clearList : clickCheck}
+        onRightClick={selectingAvailable ? clearList : clickCheck}
         rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
         onRightSubClick={deletePhotos}
-        border={false}
       />
       <PaddingContainer>
         <PhotoContainer photoObjects={dummyPhotos} type="UPLOADED" />

@@ -1,46 +1,24 @@
 import styled from 'styled-components';
 import { useRef, useState, useMemo } from 'react';
-import TopBar from '../../components/common/TopBar/TopBar';
+import { useNavigate } from 'react-router-dom';
 import Icon from '../../components/common/Icon/Icon';
 import AlbumContainer from '../../components/pages/gallery/AlbumContainer';
-import PaddingContainer from '../../styles/common/layout';
 import DataContext from './context';
 import AlbumDto from '../../types/gallery/Album.dto';
+import GalleryTitle from '../../components/pages/gallery/GalleryTitle';
 
-const BarTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: absolute;
-  left: 24px;
-
-  font-family: 'PretendardMedium';
-  font-size: 23px;
-
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+const Padding = styled.div`
+  padding-top: 43px;
 `;
 
-const Option = styled.div`
-  width: 25px;
-  height: 17px;
-
-  font-family: 'PretendardMedium';
+const Cancel = styled.div`
+  font-family: 'PretendardRegular';
   font-size: 14px;
   line-height: 17px;
-
-  display: flex;
-  align-items: center;
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 `;
 
 function AlbumPage() {
+  const navigate = useNavigate();
   const dummyAlbums: AlbumDto[] = [
     {
       id: '1',
@@ -106,7 +84,7 @@ function AlbumPage() {
   };
 
   const deletePhotos = () => {
-    // selectedAlbums 삭제 요청 보내기
+    // TODO selectedAlbums 삭제 요청 보내기
     setSelectingAvailable(false);
   };
 
@@ -116,23 +94,32 @@ function AlbumPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <TopBar
-        leftNode={<BarTitle>ALBUM</BarTitle>}
-        rightMainNode={
-          !selectingAvailable ? (
-            <Icon icon="IconCheck" />
-          ) : (
-            <Option>취소</Option>
-          )
-        }
-        onRightMainClick={selectingAvailable ? clearList : clickCheck}
-        rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
-        onRightSubClick={deletePhotos}
-        border={false}
-      />
-      <PaddingContainer>
-        <AlbumContainer albums={dummyAlbums} />
-      </PaddingContainer>
+      <Padding>
+        <GalleryTitle
+          title="ALBUM"
+          top="0px"
+          left="0px"
+          backBtn
+          onBackBtnClick={() => navigate('/gallery')}
+          rightNode={
+            !selectingAvailable ? (
+              <Icon icon="IconCheck" onClick={clickCheck} />
+            ) : (
+              <Cancel className="text-gradient400">취소</Cancel>
+            )
+          }
+          onRightClick={
+            selectingAvailable
+              ? clearList
+              : () => {
+                  clickCheck();
+                }
+          }
+          rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
+          onRightSubClick={deletePhotos}
+        />
+      </Padding>
+      <AlbumContainer albums={dummyAlbums} />
     </DataContext.Provider>
   );
 }
