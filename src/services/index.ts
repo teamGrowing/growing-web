@@ -1,4 +1,5 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
+import { QueryKey, UseQueryOptions } from '@tanstack/react-query';
 
 const token = localStorage.getItem('Access');
 
@@ -12,3 +13,6 @@ const config: AxiosRequestConfig = {
 const fetcher = axios.create(config);
 
 export default fetcher;
+
+export interface UseQueryOptionsType<T>
+  extends UseQueryOptions<AxiosResponse<T>, AxiosError, T, QueryKey[]> {}

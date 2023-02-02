@@ -69,7 +69,7 @@ function Photo({ photoInfo }: PhotoProps) {
       key={photoInfo.id}
       onClick={clickHandler}
       isSelected={isSelected}
-      imgUrl={photoInfo.url}
+      imgUrl={photoInfo.urls}
     >
       {isSelected && <CheckIcon icon="IconCheck" themeColor="gray50" />}
     </PhotoBox>

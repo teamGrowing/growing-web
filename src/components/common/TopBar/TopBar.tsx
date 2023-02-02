@@ -69,6 +69,7 @@ const Center = styled.div`
 `;
 const Title = styled.div<{ mode: TopBarMode; hasSubTitle: boolean }>`
   width: 100%;
+  font-family: 'PretendardMedium';
   font-size: ${({ hasSubTitle }) => (hasSubTitle ? '14px' : '16px')};
   line-height: ${({ hasSubTitle }) => (hasSubTitle ? '17px' : '19px')};
   text-align: center;

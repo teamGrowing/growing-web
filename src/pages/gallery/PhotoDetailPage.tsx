@@ -18,7 +18,7 @@ function PhotoDetailPage() {
   useEffect(() => {
     setPhotoInfo({
       id: '1',
-      url: 'https://picsum.photos/id/237/200/300',
+      urls: 'https://picsum.photos/id/237/200/300',
       createdAt: '2000',
       name: 'string',
     });

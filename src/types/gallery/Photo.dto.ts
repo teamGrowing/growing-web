@@ -1,6 +1,6 @@
 export default interface PhotoDto {
   id: string;
-  url: string;
+  urls: string;
   createdAt: string;
   name: string;
 }
