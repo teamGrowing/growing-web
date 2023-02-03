@@ -7,32 +7,40 @@ import { PhotoLineDto } from '../types/gallery/PhotoLine.dto';
 
 const ALBUM_API = {
   getAlbums: (coupleId: string) =>
-    fetcher.get<AlbumDto[]>(`couples/${coupleId}/gallerys/albums`),
+    fetcher.create().get<AlbumDto[]>(`couples/${coupleId}/gallerys/albums`),
   getPhotos: (coupleId: string, albumId: string) =>
-    fetcher.get<PhotoLineDto[]>(
-      `couples/${coupleId}/gallerys/albums/${albumId}/photos`
-    ),
+    fetcher
+      .create()
+      .get<PhotoLineDto[]>(
+        `couples/${coupleId}/gallerys/albums/${albumId}/photos`
+      ),
 
   postAlbums: (coupleId: string, data: CreateAlbumDto) =>
-    fetcher.post(`couples/${coupleId}/gallerys/albums/create`, data),
+    fetcher.create().post(`couples/${coupleId}/gallerys/albums/create`, data),
   postPhotos: (coupleId: string, albumId: string, data: AddPhotoDto) =>
-    fetcher.post(
-      `couples/${coupleId}/gallerys/albums/${albumId}/photos/create`,
-      data
-    ),
+    fetcher
+      .create()
+      .post(
+        `couples/${coupleId}/gallerys/albums/${albumId}/photos/create`,
+        data
+      ),
 
   patchAlbums: (coupleId: string, albumId: string, data: ChangeAlbumTitleDto) =>
-    fetcher.patch(
-      `couples/${coupleId}/gallerys/albums/${albumId}/change-title`,
-      data
-    ),
+    fetcher
+      .create()
+      .patch(
+        `couples/${coupleId}/gallerys/albums/${albumId}/change-title`,
+        data
+      ),
 
   deleteAlbum: (coupleId: string, albumId: string) =>
-    fetcher.delete(`couples/${coupleId}/gallerys/albums/${albumId}`),
+    fetcher.create().delete(`couples/${coupleId}/gallerys/albums/${albumId}`),
   deletePhoto: (coupleId: string, albumId: string, photoId: string) =>
-    fetcher.delete(
-      `couples/${coupleId}/gallerys/albums/${albumId}/photos/${photoId}`
-    ),
+    fetcher
+      .create()
+      .delete(
+        `couples/${coupleId}/gallerys/albums/${albumId}/photos/${photoId}`
+      ),
 };
 
 export default ALBUM_API;
