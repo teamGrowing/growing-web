@@ -1,5 +1,5 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
-import { useState, useEffect } from 'react';
 import PhotoCommentDto from '../../../types/gallery/PhotoComment.dto';
 import Icon from '../../common/Icon/Icon';
 import Comment from './Comment';
@@ -94,13 +94,19 @@ const Send = styled.div`
   display: flex;
 `;
 
-function CommentMenu() {
-  const [comments, setComments] = useState<PhotoCommentDto[]>([]);
+type CommentMenuProps = {
+  comments: PhotoCommentDto[];
+  onMessage: (data: string) => {};
+};
 
-  useEffect(() => {
-    // 댓글 요청
-    setComments([]);
-  }, []);
+function CommentMenu({ comments, onMessage }: CommentMenuProps) {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const onClickSendBtnHandler = () => {
+    if (!inputRef.current?.value) return;
+
+    onMessage(inputRef.current?.value);
+    inputRef.current.value = '';
+  };
 
   return (
     <Box>
@@ -113,7 +119,11 @@ function CommentMenu() {
       <CommentInput>
         <Input />
         <Send>
-          <Icon icon="IconAirplane" themeColor="white" />
+          <Icon
+            icon="IconAirplane"
+            themeColor="white"
+            onClick={onClickSendBtnHandler}
+          />
         </Send>
       </CommentInput>
     </Box>
