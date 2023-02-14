@@ -31,7 +31,7 @@ export const GALLERY_API = {
         `couples/${coupleId}/gallerys/photos/${photoId}/get-download-url`
       ),
   deletePhoto: (coupleId: string, photoId: string) =>
-    fetcher.create().post(`couples/${coupleId}/gallerys/photos/${photoId}`),
+    fetcher.create().delete(`couples/${coupleId}/gallerys/photos/${photoId}`),
 };
 
 export const GALLERY_COMMENT_API = {
