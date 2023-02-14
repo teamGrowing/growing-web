@@ -16,14 +16,21 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
-function FloatingButton() {
+type FloatingButtonProps = {
+  onUpLoad: (files: FileList) => void;
+};
+
+function FloatingButton({ onUpLoad }: FloatingButtonProps) {
   const inputFileRef = useRef<HTMLInputElement>(null);
 
   const onClickHandler = () => {
     inputFileRef.current?.click();
   };
 
-  const upLoadFile = () => {};
+  const upLoadFile = () => {
+    if (!inputFileRef.current?.files) return;
+    onUpLoad(inputFileRef.current?.files);
+  };
 
   return (
     <ButtonStyle onClick={onClickHandler}>

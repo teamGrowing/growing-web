@@ -1,51 +1,81 @@
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { observer } from 'mobx-react';
 import TopBar from '../../components/common/TopBar/TopBar';
 import PhotoDetail from '../../components/pages/gallery/PhotoDetail';
-import PhotoDto from '../../types/gallery/Photo.dto';
 import BottomMenu from '../../components/pages/gallery/BottomMenu';
 import CommentMenu from '../../components/pages/gallery/CommentMenu';
 import Icon from '../../components/common/Icon/Icon';
+import {
+  useCommentList,
+  useDeletePhotosMutation,
+  useGalleryDetail,
+  usePostCommentMutation,
+} from '../../hooks/queries/gallery.queries';
+import store from '../../stores/RootStore';
+import Modal from '../../components/common/Modal/Modal';
 
 function PhotoDetailPage() {
-  const location = useLocation();
   const navigate = useNavigate();
-  const [photoInfo, setPhotoInfo] = useState<PhotoDto>();
+  const { id: params } = useParams();
   const [commentIsVisible, setCommentIsvisible] = useState(false);
-  const title = location.state.title ? location.state.title : '';
-  const subTitle = location.state.subTitle ? location.state.subTitle : '';
+  const [onModal, setOnModal] = useState(false);
+  const { data: photo } = useGalleryDetail({
+    coupleId: store.userStore.user?.coupleId!,
+    photoId: params ?? '',
+  });
+  const { data: comments } = useCommentList({
+    coupleId: store.userStore.user?.coupleId!,
+    photoId: params ?? '',
+  });
+  const { mutate: deletePhotoMutate } = useDeletePhotosMutation({
+    coupleId: store.userStore.user?.coupleId!,
+  });
+  const { mutate: postCommentMutate } = usePostCommentMutation({
+    coupleId: store.userStore.user?.coupleId!,
+    photoId: params ?? '',
+  });
 
-  useEffect(() => {
-    setPhotoInfo({
-      id: '1',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    });
-  }, []);
+  const makeComment = (content: string) => {
+    postCommentMutate(content);
+    // TODO comment 관련 기능
+  };
 
   return (
     <>
       <TopBar
-        title={title}
-        subTitle={subTitle}
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => {
           navigate(-1);
         }}
       />
-      {photoInfo && <PhotoDetail photoInfo={photoInfo} />}
-      {commentIsVisible && <CommentMenu />}
+      {photo && <PhotoDetail photoInfo={photo} />}
+      {commentIsVisible && (
+        <CommentMenu comments={comments ?? []} onComment={makeComment} />
+      )}
       <BottomMenu
         border={!commentIsVisible}
         onComment={() => {
           setCommentIsvisible((prevState) => !prevState);
         }}
         onMessage={() => {}}
-        onTrash={() => {}}
+        onTrash={() => setOnModal(true)}
       />
+      {onModal && (
+        <Modal
+          setOnModal={setOnModal}
+          onModal={onModal}
+          description="해당 파일을 영구적으로 삭제합니다."
+          mainActionLabel="확인"
+          onMainAction={() => {
+            if (photo?.id) deletePhotoMutate([photo?.id]);
+          }}
+          subActionLabel="취소"
+          onSubAction={() => setOnModal(false)}
+        />
+      )}
     </>
   );
 }
 
-export default PhotoDetailPage;
+export default observer(PhotoDetailPage);

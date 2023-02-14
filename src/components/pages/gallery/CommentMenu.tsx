@@ -96,15 +96,15 @@ const Send = styled.div`
 
 type CommentMenuProps = {
   comments: PhotoCommentDto[];
-  onMessage: (data: string) => {};
+  onComment: (data: string) => void;
 };
 
-function CommentMenu({ comments, onMessage }: CommentMenuProps) {
+function CommentMenu({ comments, onComment }: CommentMenuProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const onClickSendBtnHandler = () => {
     if (!inputRef.current?.value) return;
 
-    onMessage(inputRef.current?.value);
+    onComment(inputRef.current?.value);
     inputRef.current.value = '';
   };
 

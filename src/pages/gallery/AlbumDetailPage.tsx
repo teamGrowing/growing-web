@@ -1,14 +1,22 @@
 import styled from 'styled-components';
-import { useState, useMemo, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useMemo, useRef, useEffect } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { observer } from 'mobx-react';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Icon from '../../components/common/Icon/Icon';
-import PhotoDto from '../../types/gallery/Photo.dto';
 import PaddingContainer from '../../styles/common/layout';
-import AlbumDto from '../../types/gallery/Album.dto';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import DataContext from './context';
+import {
+  useAlbumPhotosList,
+  useDeletePhotosMutation,
+  usePatchAlbumMutation,
+} from '../../hooks/queries/album.queries';
+import store from '../../stores/RootStore';
+import Modal from '../../components/common/Modal/Modal';
+import AlbumModal from '../../components/common/Modal/AlbumModal';
+import ToastMessage from '../../components/common/ToastMessage/ToastMessage';
 
 const Option = styled.div`
   width: 25px;
@@ -28,85 +36,35 @@ const Option = styled.div`
 
 function AlbumDetailPage() {
   const navigate = useNavigate();
-  const albumInfo: AlbumDto = {
-    id: '1',
-    title: '1000일',
-    subTitle: '2020-06-06',
-    imageUrl: 'https://picsum.photos/id/237/200/300',
-    createdAt: '2020-06-06',
-  };
-  const dummyPhotos: PhotoDto[] = [
-    {
-      id: '1',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '2',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '3',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '4',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '5',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '6',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '7',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '8',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '9',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '10',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-  ];
-  const selectedAlbums = useRef<string[]>([]);
+  const location = useLocation();
+  const { id: params } = useParams();
   const [selectingAvailable, setSelectingAvailable] = useState(false);
+  const [onToast, setOnToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState('');
+  const [onModal, setOnModal] = useState(false);
+  const [onAlbumModal, setOnAmbumModal] = useState(false);
+  const { data: photos } = useAlbumPhotosList({
+    coupleId: store.userStore.user?.coupleId!,
+    albumId: params ?? '',
+  });
+  const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
+    coupleId: store.userStore.user?.coupleId!,
+    albumId: params!,
+  });
+  const { mutate: modifyAlbumInfoMutate } = usePatchAlbumMutation({
+    coupleId: store.userStore.user?.coupleId!,
+    albumId: params ?? '',
+  });
+
+  const selectedPhotos = useRef<string[]>([]);
 
   const addToList = (albumId: string) => {
-    selectedAlbums.current.push(albumId);
+    selectedPhotos.current.push(albumId);
   };
   const removeFromList = (albumId: string) => {
-    const idx = selectedAlbums.current.findIndex((id) => id === albumId);
-    selectedAlbums.current.splice(idx, 1);
-    if (selectedAlbums.current.length === 0) {
+    const idx = selectedPhotos.current.findIndex((id) => id === albumId);
+    selectedPhotos.current.splice(idx, 1);
+    if (selectedPhotos.current.length === 0) {
       setSelectingAvailable(true);
     }
   };
@@ -115,34 +73,49 @@ function AlbumDetailPage() {
       selectingAvailable,
       addToList,
       removeFromList,
-      data: { title: albumInfo.title, subTitle: albumInfo.subTitle },
+      data: { title: location.state.title, subTitle: location.state.subTitle },
     };
   }, [selectingAvailable]);
 
   const clearList = () => {
-    selectedAlbums.current = [];
+    selectedPhotos.current = [];
     setSelectingAvailable(false);
   };
   const clickCheck = () => {
     setSelectingAvailable(true);
   };
-  const modifyAlbumInfo = () => {
-    // 모달 띄운 후 수정 요청 보내기
-  };
+
   const deletePhotos = () => {
-    // 삭제
+    deletePhotosMutate(selectedPhotos.current, {
+      onSuccess: () => {
+        setOnToast(true);
+        setToastMsg('사진이 앨범에서 제거되었습니다.');
+      },
+    });
     clearList();
   };
+
+  useEffect(() => {
+    if (location.state && location.state.toast) {
+      setOnToast(true);
+      setToastMsg(location.state.toast.message);
+      window.history.replaceState(
+        {
+          ...location.state,
+          toast: null,
+        },
+        ''
+      );
+    }
+  }, [location]);
 
   return (
     <DataContext.Provider value={ctxValue}>
       <TopBar
-        title={albumInfo.title}
-        subTitle={albumInfo.subTitle}
+        title={location.state.title}
+        subTitle={location.state.subTitle}
         leftNode={<Icon icon="IconArrowLeft" />}
-        onLeftClick={() => {
-          navigate('/gallery/album');
-        }}
+        onLeftClick={() => navigate('/gallery/album')}
         rightMainNode={
           selectingAvailable ? (
             <Option>취소</Option>
@@ -150,7 +123,9 @@ function AlbumDetailPage() {
             <Icon icon="IconPencil" />
           )
         }
-        onRightMainClick={selectingAvailable ? clearList : modifyAlbumInfo}
+        onRightMainClick={
+          selectingAvailable ? clearList : () => setOnAmbumModal(true)
+        }
         rightSubNode={
           selectingAvailable ? (
             <Icon icon="IconTrash" />
@@ -158,13 +133,73 @@ function AlbumDetailPage() {
             <Icon icon="IconCheck" />
           )
         }
-        onRightSubClick={selectingAvailable ? deletePhotos : clickCheck}
+        onRightSubClick={
+          selectingAvailable
+            ? () => {
+                if (selectedPhotos.current.length <= 0) {
+                  setToastMsg('삭제할 파일을 선택해 주세요.');
+                  setOnToast(true);
+                  return;
+                }
+                setOnModal(true);
+              }
+            : clickCheck
+        }
       />
       <PaddingContainer>
-        <PhotoContainer photoObjects={dummyPhotos} type="UPLOADED" />
+        <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
       </PaddingContainer>
-      <FloatingButton />
+      <FloatingButton
+        onUpLoad={() => {
+          // TODO : 사진 업로드 기능 해결 후 사진 업로드 + 앨범에 추가되도록
+        }}
+      />
+      {onModal && (
+        <Modal
+          onModal={onModal}
+          setOnModal={setOnModal}
+          description="해당 파일이 앨범에서만 제거됩니다. 제거하시겠습니까?"
+          mainActionLabel="확인"
+          onMainAction={deletePhotos}
+          subActionLabel="취소"
+          onSubAction={() => {
+            setOnModal(false);
+          }}
+        />
+      )}
+      {onAlbumModal && (
+        <AlbumModal
+          onModal={onAlbumModal}
+          setOnModal={setOnAmbumModal}
+          title="앨범 이름 변경"
+          mainActionLabel="확인"
+          onMainAction={(data) => {
+            modifyAlbumInfoMutate(
+              {
+                title: data.albumTitle,
+                subTitle: data.albumSubTitle,
+              },
+              {
+                onSuccess: () => {
+                  setToastMsg('앨범 이름이 변경되었습니다.');
+                  setOnToast(true);
+                  navigate(location.pathname, {
+                    replace: true,
+                    state: {
+                      title: data.albumTitle,
+                      subTitle: data.albumSubTitle,
+                    },
+                  });
+                },
+              }
+            );
+          }}
+          subActionLabel="취소"
+          onSubAction={() => {}}
+        />
+      )}
+      {onToast && <ToastMessage setOnToast={setOnToast} message={toastMsg} />}
     </DataContext.Provider>
   );
 }
-export default AlbumDetailPage;
+export default observer(AlbumDetailPage);

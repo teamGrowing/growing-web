@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import PhotoDto from '../../../types/gallery/Photo.dto';
+import { PhotoLineDto } from '../../../types/gallery/PhotoLine.dto';
 import PhotoContainer from './PhotoContainer';
 
 const Scroll = styled.div`
@@ -13,9 +13,9 @@ const Scroll = styled.div`
 
   position: absolute;
   width: 100%;
-  height: calc(100% - 81px - 23px);
+  height: calc(100% - 23px);
   left: 0px;
-  bottom: 81px;
+  bottom: 0px;
 `;
 
 const Options = styled.div`
@@ -49,7 +49,7 @@ const Option = styled.button`
 `;
 
 type PhotoScrollProps = {
-  photos: PhotoDto[];
+  photos: PhotoLineDto[];
   onCancel: () => void;
   onAdd: () => void;
 };

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Photo from './Photo';
 import Icon from '../../common/Icon/Icon';
-import PhotoDto from '../../../types/gallery/Photo.dto';
+import { PhotoLineDto } from '../../../types/gallery/PhotoLine.dto';
 
 const Container = styled.div`
   width: 100%;
@@ -45,12 +45,12 @@ const Message = styled.div`
 `;
 
 type PhotoRowContainerProps = {
-  photoObjects: PhotoDto[];
+  photoObjects: PhotoLineDto[];
 };
 
 function PhotoRowContainer({ photoObjects }: PhotoRowContainerProps) {
   const photos = photoObjects.map((photo) => (
-    <Photo photoInfo={photo} key={photo.id} />
+    <Photo photoInfo={photo} key={photo.i} />
   ));
 
   return <PhotosRow>{photos}</PhotosRow>;
@@ -58,11 +58,11 @@ function PhotoRowContainer({ photoObjects }: PhotoRowContainerProps) {
 
 type PhotoContainerProps = {
   type: 'UPLOADED' | 'UPLOAD';
-  photoObjects: PhotoDto[];
+  photoObjects: PhotoLineDto[];
 };
 
 function PhotoContainer({ photoObjects, type }: PhotoContainerProps) {
-  const makeChunk = (data: PhotoDto[]) => {
+  const makeChunk = (data: PhotoLineDto[]) => {
     const arr = [];
     for (let i = 0; i < data.length; i += 3) {
       arr.push(data.slice(i, i + 3));
@@ -72,8 +72,8 @@ function PhotoContainer({ photoObjects, type }: PhotoContainerProps) {
 
   const photoGroupArray = makeChunk(photoObjects);
 
-  const components = photoGroupArray.map((group: PhotoDto[]) => (
-    <PhotoRowContainer photoObjects={group} key={group[0].id} />
+  const components = photoGroupArray.map((group: PhotoLineDto[]) => (
+    <PhotoRowContainer photoObjects={group} key={group[0].i} />
   ));
 
   return (
