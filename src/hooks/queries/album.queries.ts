@@ -6,7 +6,7 @@ import {
   UseMutationOptions,
   UseMutationResult,
 } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from '../../constants/queryKeys';
 import { UseQueryOptionsType } from '../../services';
 import AlbumDto from '../../types/gallery/Album.dto';
@@ -61,8 +61,13 @@ export function usePostAlbumsMutation({
   options,
 }: {
   coupleId: string;
-  options?: UseMutationOptions<unknown, unknown, CreateAlbumDto, unknown>;
-}): UseMutationResult<unknown, unknown, CreateAlbumDto, unknown> {
+  options?: UseMutationOptions<
+    AxiosResponse,
+    AxiosError,
+    CreateAlbumDto,
+    unknown
+  >;
+}): UseMutationResult<AxiosResponse, AxiosError, CreateAlbumDto, unknown> {
   const queryClinet = useQueryClient();
 
   return useMutation({
@@ -81,8 +86,8 @@ export function usePostPhotosMutation({
 }: {
   coupleId: string;
   albumId: string;
-  options?: UseMutationOptions<unknown, unknown, AddPhotoDto, unknown>;
-}): UseMutationResult<unknown, unknown, AddPhotoDto, unknown> {
+  options?: UseMutationOptions<AxiosResponse, AxiosError, AddPhotoDto, unknown>;
+}): UseMutationResult<AxiosResponse, AxiosError, AddPhotoDto, unknown> {
   const queryClinet = useQueryClient();
 
   return useMutation({
@@ -102,8 +107,13 @@ export function usePatchAlbumMutation({
 }: {
   coupleId: string;
   albumId: string;
-  options?: UseMutationOptions<unknown, unknown, ChangeAlbumTitleDto, unknown>;
-}): UseMutationResult<unknown, unknown, ChangeAlbumTitleDto, unknown> {
+  options?: UseMutationOptions<
+    AxiosResponse,
+    AxiosError,
+    ChangeAlbumTitleDto,
+    unknown
+  >;
+}): UseMutationResult<AxiosResponse, AxiosError, ChangeAlbumTitleDto, unknown> {
   const queryClinet = useQueryClient();
 
   return useMutation({
@@ -121,8 +131,8 @@ export function useDeleteAlbumsMutation({
   options,
 }: {
   coupleId: string;
-  options?: UseMutationOptions<void, unknown, string[], unknown>;
-}): UseMutationResult<void, unknown, string[], unknown> {
+  options?: UseMutationOptions<void, AxiosError, string[], unknown>;
+}): UseMutationResult<void, AxiosError, string[], unknown> {
   const queryClinet = useQueryClient();
   const deleteAlbums = async (ids: string[]) => {
     const promises: Promise<AxiosResponse>[] = [];
@@ -148,8 +158,8 @@ export function useDeletePhotosMutation({
 }: {
   coupleId: string;
   albumId: string;
-  options?: UseMutationOptions<unknown, unknown, string[], unknown>;
-}): UseMutationResult<unknown, unknown, string[], unknown> {
+  options?: UseMutationOptions<void, AxiosError, string[], unknown>;
+}): UseMutationResult<void, AxiosError, string[], unknown> {
   const queryClinet = useQueryClient();
   const deletePhotos = async (ids: string[]) => {
     const promises: Promise<AxiosResponse>[] = [];

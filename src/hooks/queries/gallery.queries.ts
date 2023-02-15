@@ -83,8 +83,8 @@ export function useCreatePhotosMutation({
   options,
 }: {
   coupleId: string;
-  options?: UseMutationOptions<unknown, unknown, FileList, unknown>;
-}): UseMutationResult<unknown, unknown, FileList, unknown> {
+  options?: UseMutationOptions<void, AxiosError, FileList, unknown>;
+}): UseMutationResult<void, AxiosError, FileList, unknown> {
   const queryClinet = useQueryClient();
 
   const makePhoto = async (file: File) => {
@@ -119,8 +119,8 @@ export function useDeletePhotosMutation({
   options,
 }: {
   coupleId: string;
-  options?: UseMutationOptions<void, unknown, string[], unknown>;
-}): UseMutationResult<void, unknown, string[], unknown> {
+  options?: UseMutationOptions<void, AxiosError, string[], unknown>;
+}): UseMutationResult<void, AxiosError, string[], unknown> {
   const queryClinet = useQueryClient();
   const deletePhotos = async (ids: string[]) => {
     const promises: Promise<AxiosResponse>[] = [];
@@ -146,18 +146,8 @@ export function usePostCommentMutation({
 }: {
   coupleId: string;
   photoId: string;
-  options?: UseMutationOptions<
-    AxiosResponse<PhotoCommentDto>,
-    AxiosError,
-    string,
-    unknown
-  >;
-}): UseMutationResult<
-  AxiosResponse<PhotoCommentDto>,
-  AxiosError,
-  string,
-  unknown
-> {
+  options?: UseMutationOptions<AxiosResponse, AxiosError, string, unknown>;
+}): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
   const queryClinet = useQueryClient();
 
   return useMutation({
@@ -169,5 +159,3 @@ export function usePostCommentMutation({
     ...options,
   });
 }
-
-// ㅎ ㅏ.. 이게 맞나... type을 다정의해야하네...
