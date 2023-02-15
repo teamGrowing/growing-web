@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { useMemo, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useMemo, useState, useRef, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import PaddingContainer from '../../styles/common/layout';
@@ -25,6 +25,7 @@ const Cancel = styled.div`
 
 function PhotoPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { data: photos } = useGalleryList({
     coupleId: store.userStore.user?.coupleId!,
   });
@@ -86,6 +87,20 @@ function PhotoPage() {
   const clickCheck = () => {
     setSelectingAvailable(true);
   };
+
+  useEffect(() => {
+    if (location.state && location.state.toast) {
+      setOnToast(true);
+      setToastMsg(location.state.toast.message);
+      window.history.replaceState(
+        {
+          ...location.state,
+          toast: null,
+        },
+        ''
+      );
+    }
+  }, []);
 
   return (
     <DataContext.Provider value={ctxValue}>

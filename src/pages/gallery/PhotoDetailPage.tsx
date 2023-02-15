@@ -69,6 +69,14 @@ function PhotoDetailPage() {
           mainActionLabel="확인"
           onMainAction={() => {
             if (photo?.id) deletePhotoMutate([photo?.id]);
+            navigate(`/gallery/photo`, {
+              state: {
+                toast: {
+                  showToast: true,
+                  message: '사진이 삭제되었습니다.',
+                },
+              },
+            });
           }}
           subActionLabel="취소"
           onSubAction={() => setOnModal(false)}
