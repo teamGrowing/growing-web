@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export interface BottomSheetMenuProps {
   children: React.ReactNode;
+  onClick?: React.MouseEventHandler;
 }
 
 const Menu = styled.div`
@@ -16,6 +17,9 @@ const Menu = styled.div`
   font-size: 16px;
 `;
 
-export default function BottomSheetMenu({ children }: BottomSheetMenuProps) {
-  return <Menu>{children}</Menu>;
+export default function BottomSheetMenu({
+  children,
+  onClick,
+}: BottomSheetMenuProps) {
+  return <Menu onClick={onClick}>{children}</Menu>;
 }
