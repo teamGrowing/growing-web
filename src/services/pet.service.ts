@@ -21,9 +21,7 @@ export const PET_API = {
   getGraduatedPets: (coupleId: string) =>
     fetcher.create().get<PostPetLineDto[]>(`couples/${coupleId}/post-pets`),
   getGraduatedPetDetail: (coupleId: string, petId: string) =>
-    fetcher
-      .create()
-      .get<PostPetDto[]>(`couples/${coupleId}/post-pets/${petId}`),
+    fetcher.create().get<PostPetDto>(`couples/${coupleId}/post-pets/${petId}`),
 };
 
 export default { PET_API };
