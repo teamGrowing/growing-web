@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import PostPetLineDto from '../../../types/more/PostPetLine.dto';
 import cardBackgroundImg from '../../../assets/image/Card.png';
-import bearImg from '../../../assets/image/Bear.png'; // 예시로 넣어둠
+import PetLineDto from '../../../types/more/PostPetLine.dto';
 
 const Card = styled.div`
   position: relative;
@@ -44,15 +43,18 @@ const Image = styled.div<{ petImg: string }>`
 `;
 
 type PetCardProps = {
-  petInfo: PostPetLineDto;
-  onClick: React.MouseEventHandler;
+  petInfo: PetLineDto;
+  onClick: (petId: string) => void;
 };
 
 function PetCard({ petInfo, onClick }: PetCardProps) {
+  const clickHandler = () => {
+    onClick(petInfo.id);
+  };
   return (
-    <Card onClick={onClick}>
+    <Card onClick={clickHandler}>
       <Name className="text-gradient400">{petInfo.name}</Name>
-      <Image petImg={bearImg} />
+      <Image petImg={petInfo.imageUrl} />
     </Card>
   );
 }

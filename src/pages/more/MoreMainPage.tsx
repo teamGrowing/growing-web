@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { observer } from 'mobx-react';
 import Icon from '../../components/common/Icon/Icon';
 import MenuBox from '../../components/pages/more/MenuBox';
 import Profile from '../../components/pages/more/Profile';
 import SideButton from '../../components/pages/more/SideButton';
 import WhiteContainer from '../../components/pages/more/WhiteContainer';
+import store from '../../stores/RootStore';
 
 const Background = styled.div`
   position: absolute;
@@ -87,10 +89,10 @@ function MoreMainPage() {
         <Icon icon="IconLogo" themeColor="white" size={211} />
       </IconWrapper>
       <ProfileContainer>
-        <Profile imgUrl="" border />
+        <Profile imgUrl={store.userStore.user?.imageUrl ?? ''} border />
       </ProfileContainer>
       <WhiteContainer top="347px">
-        <Label>별이</Label>
+        <Label>{store.userStore.user?.nickName}</Label>
         <Row>
           <MenuBox
             title="동물도감"
@@ -114,4 +116,4 @@ function MoreMainPage() {
     </>
   );
 }
-export default MoreMainPage;
+export default observer(MoreMainPage);

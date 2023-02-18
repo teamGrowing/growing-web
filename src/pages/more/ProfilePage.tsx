@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useState, useRef } from 'react';
+import { observer } from 'mobx-react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Icon from '../../components/common/Icon/Icon';
@@ -13,6 +15,12 @@ import PaddingContainer from '../../styles/common/layout';
 import Modal from '../../components/common/Modal/Modal';
 import ModalBottomSheet from '../../components/common/Modal/ModalBottomSheet/ModalBottomSheet';
 import BottomSheetMenu from '../../components/common/Modal/ModalBottomSheet/BottomSheetMenu';
+import store from '../../stores/RootStore';
+import {
+  usePatchUserInfoMutation,
+  usePutProfilePhotoMutation,
+} from '../../hooks/queries/user.queries';
+import { usePatchCoupleMutation } from '../../hooks/queries/couple.queries';
 
 const StyledForm = styled.form`
   flex-direction: column;
@@ -48,10 +56,15 @@ function ProfilePage() {
   const [onCompleteModal, setOnCompleteModal] = useState(false);
   const [onCancelModal, setOnCanelModal] = useState(false);
   const [onBottomSheet, setOnButtomSheet] = useState(false);
-  const nickname = '별이';
-  const imgUrl = 'https://picsum.photos/id/237/200/300';
-  const birthday = '1999-01-10';
-  const anniversary = '2020-02-22';
+  const nickname = store.userStore.user?.nickName ?? '';
+  const imgUrl = store.userStore.user?.imageUrl ?? '';
+  const birthday =
+    new Date(store.userStore.user?.birthDay!).toISOString().substring(0, 10) ??
+    '';
+  const anniversary =
+    new Date(store.userStore.user?.anniversaryDay!)
+      .toISOString()
+      .substring(0, 10) ?? '';
 
   const {
     register,
@@ -66,13 +79,34 @@ function ProfilePage() {
     },
   });
 
+  const { mutateAsync: patchUserInfo } = usePatchUserInfoMutation({
+    userId: store.userStore.user?.id!,
+  });
+  const { mutateAsync: patchCoupleInfo } = usePatchCoupleMutation({
+    coupleId: store.userStore.user?.coupleId!,
+  });
+  const { mutateAsync: putPorfilePhoto } = usePutProfilePhotoMutation({
+    userId: store.userStore.user?.id!,
+  });
+
+  const modifyProfile = async (data: {
+    nickname: string;
+    birthday: string;
+    anniversary: string;
+  }) => {
+    await patchUserInfo({
+      nickName: data.nickname,
+      birthDay: new Date(data.birthday),
+    });
+    await patchCoupleInfo({
+      anniversaryDay: data.anniversary,
+    });
+    setOnCompleteModal(true);
+  };
+
   return (
     <StyledForm
-      onSubmit={handleSubmit((data) => {
-        console.log(data);
-        // TODO : 수정된 데이터 전송
-        setOnCompleteModal(true);
-      })}
+      onSubmit={handleSubmit((data) => modifyProfile(data))}
       ref={formRef}
     >
       <TopBar
@@ -151,7 +185,7 @@ function ProfilePage() {
               <Icon icon="IconGallery" themeColor="gray50" />앱 내 갤러리에서
               선택
             </BottomSheetMenu>
-            <BottomSheetMenu>
+            <BottomSheetMenu onClick={() => {}}>
               <Icon icon="IconTrash" themeColor="gray50" />
               현재 사진 삭제
             </BottomSheetMenu>
@@ -161,4 +195,4 @@ function ProfilePage() {
     </StyledForm>
   );
 }
-export default ProfilePage;
+export default observer(ProfilePage);
