@@ -6,7 +6,7 @@ import {
   UseMutationResult,
   useQueryClient,
 } from '@tanstack/react-query';
-import { AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from '../../constants/queryKeys';
 import { UseQueryOptionsType } from '../../services';
 import {
@@ -92,9 +92,11 @@ export function useCreatePhotosMutation({
       name: file.name,
     });
 
-    await GALLERY_API.createPhoto(coupleId, {
-      s3Path: res.data.s3Path,
-    });
+    await axios.put(res.data.url, file, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }); // 권한이 필요없나?
+
+    await GALLERY_API.createPhoto(coupleId, { s3Path: res.data.s3Path });
   };
 
   const makePhotos = async (files: FileList) => {
