@@ -117,13 +117,9 @@ function CommentMenu({ comments, onComment }: CommentMenuProps) {
         ))}
       </CommentsContainer>
       <CommentInput>
-        <Input />
-        <Send>
-          <Icon
-            icon="IconAirplane"
-            themeColor="white"
-            onClick={onClickSendBtnHandler}
-          />
+        <Input ref={inputRef} />
+        <Send onClick={onClickSendBtnHandler}>
+          <Icon icon="IconAirplane" themeColor="white" />
         </Send>
       </CommentInput>
     </Box>

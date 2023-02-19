@@ -37,7 +37,7 @@ const Option = styled.div`
 function AlbumDetailPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { id: params } = useParams();
+  const { aId } = useParams();
   const [selectingAvailable, setSelectingAvailable] = useState(false);
   const [onToast, setOnToast] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
@@ -45,15 +45,15 @@ function AlbumDetailPage() {
   const [onAlbumModal, setOnAmbumModal] = useState(false);
   const { data: photos } = useAlbumPhotosList({
     coupleId: store.userStore.user?.coupleId!,
-    albumId: params ?? '',
+    albumId: aId ?? '',
   });
   const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
     coupleId: store.userStore.user?.coupleId!,
-    albumId: params!,
+    albumId: aId ?? '',
   });
   const { mutate: modifyAlbumInfoMutate } = usePatchAlbumMutation({
     coupleId: store.userStore.user?.coupleId!,
-    albumId: params ?? '',
+    albumId: aId ?? '',
   });
 
   const selectedPhotos = useRef<string[]>([]);

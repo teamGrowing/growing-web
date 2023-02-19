@@ -69,7 +69,7 @@ export function useCommentList({
   options?: UseQueryOptionsType<PhotoCommentDto[]>;
 }) {
   return useQuery(
-    [...queryKeys.galleryKeys.byId(photoId), ...(storeCode ?? [])],
+    [...queryKeys.galleryKeys.commentById(photoId), ...(storeCode ?? [])],
     () => GALLERY_COMMENT_API.getComments(coupleId, photoId),
     {
       select: (data) => data.data,
@@ -154,7 +154,32 @@ export function usePostCommentMutation({
     mutationFn: (content: string) =>
       GALLERY_COMMENT_API.postComment(coupleId, photoId, { content }),
     onSuccess: () => {
-      queryClinet.invalidateQueries([...queryKeys.galleryKeys.all]);
+      queryClinet.invalidateQueries([
+        ...queryKeys.galleryKeys.commentById(photoId),
+      ]);
+    },
+    ...options,
+  });
+}
+
+export function useDeleteCommentMutation({
+  coupleId,
+  photoId,
+  options,
+}: {
+  coupleId: string;
+  photoId: string;
+  options?: UseMutationOptions<AxiosResponse, AxiosError, string, unknown>;
+}): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
+  const queryClinet = useQueryClient();
+
+  return useMutation({
+    mutationFn: (commentId: string) =>
+      GALLERY_COMMENT_API.deleteComment(coupleId, photoId, commentId),
+    onSuccess: () => {
+      queryClinet.invalidateQueries([
+        ...queryKeys.galleryKeys.commentById(photoId),
+      ]);
     },
     ...options,
   });

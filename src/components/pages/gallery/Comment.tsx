@@ -1,4 +1,7 @@
+import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { useDeleteCommentMutation } from '../../../hooks/queries/gallery.queries';
+import store from '../../../stores/RootStore';
 import PhotoCommentDto from '../../../types/gallery/PhotoComment.dto';
 
 const CommentContainer = styled.div`
@@ -65,11 +68,21 @@ type CommentProps = {
 };
 
 function Comment({ commentInfo }: CommentProps) {
+  const { pId } = useParams();
+  const { mutate: deleteComment } = useDeleteCommentMutation({
+    coupleId: store.userStore.user?.coupleId!,
+    photoId: pId!,
+  });
+
+  const deleteC = () => {
+    deleteComment(commentInfo.id);
+  };
+
   return (
     <CommentContainer>
       <Name>{commentInfo.name}</Name>
       <Content>{commentInfo.content}</Content>
-      {commentInfo.isMine && <Delete>삭제</Delete>}
+      {commentInfo.isMine && <Delete onClick={deleteC}>삭제</Delete>}
     </CommentContainer>
   );
 }

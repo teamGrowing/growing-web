@@ -17,28 +17,27 @@ import Modal from '../../components/common/Modal/Modal';
 
 function PhotoDetailPage() {
   const navigate = useNavigate();
-  const { id: params } = useParams();
+  const { pId } = useParams();
   const [commentIsVisible, setCommentIsvisible] = useState(false);
   const [onModal, setOnModal] = useState(false);
   const { data: photo } = useGalleryDetail({
     coupleId: store.userStore.user?.coupleId!,
-    photoId: params ?? '',
+    photoId: pId ?? '',
   });
   const { data: comments } = useCommentList({
     coupleId: store.userStore.user?.coupleId!,
-    photoId: params ?? '',
+    photoId: pId ?? '',
   });
   const { mutate: deletePhotoMutate } = useDeletePhotosMutation({
     coupleId: store.userStore.user?.coupleId!,
   });
   const { mutate: postCommentMutate } = usePostCommentMutation({
     coupleId: store.userStore.user?.coupleId!,
-    photoId: params ?? '',
+    photoId: pId ?? '',
   });
 
   const makeComment = (content: string) => {
     postCommentMutate(content);
-    // TODO comment 관련 기능
   };
 
   return (
