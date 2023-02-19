@@ -81,6 +81,8 @@ const Input = styled.input`
   background-origin: border-box;
   background-clip: padding-box, border-box;
 
+  padding: 5px;
+
   flex: none;
   order: 0;
   align-self: stretch;
