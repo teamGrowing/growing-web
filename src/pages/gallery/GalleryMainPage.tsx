@@ -34,13 +34,12 @@ function GalleryMainPage() {
   const { data: albums } = useAlbumsList({
     coupleId: store.userStore.user?.coupleId!,
   });
-  const { mutateAsync: upLoadPhotos } = useCreatePhotosMutation({
+  const { mutate: upLoadPhotos } = useCreatePhotosMutation({
     coupleId: store.userStore.user?.coupleId!,
   });
 
-  const upLoadHanlder = async (files: FileList) => {
-    await upLoadPhotos(files);
-    setOnToast(true);
+  const upLoadHandler = (files: FileList) => {
+    upLoadPhotos(files, { onSuccess: () => setOnToast(true) });
   };
 
   return (
@@ -70,7 +69,7 @@ function GalleryMainPage() {
           <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
         </Padding>
       </FixedContainer>
-      <FloatingButton onUpLoad={upLoadHanlder} />
+      <FloatingButton onUpLoad={upLoadHandler} />
       {onToast && (
         <ToastMessage
           setOnToast={setOnToast}
