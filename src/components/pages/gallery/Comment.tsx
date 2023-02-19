@@ -74,15 +74,13 @@ function Comment({ commentInfo }: CommentProps) {
     photoId: pId!,
   });
 
-  const deleteC = () => {
-    deleteComment(commentInfo.id);
-  };
-
   return (
     <CommentContainer>
       <Name>{commentInfo.name}</Name>
       <Content>{commentInfo.content}</Content>
-      {commentInfo.isMine && <Delete onClick={deleteC}>삭제</Delete>}
+      {commentInfo.isMine && (
+        <Delete onClick={() => deleteComment(commentInfo.id)}>삭제</Delete>
+      )}
     </CommentContainer>
   );
 }
