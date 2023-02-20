@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import AlbumRowContainer from '../../components/pages/gallery/AlbumRowContainer';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
@@ -28,6 +28,7 @@ const FixedContainer = styled.div`
 function GalleryMainPage() {
   const navigate = useNavigate();
   const [onToast, setOnToast] = useState(false);
+  const touchPositionY = useRef<number | null>(null);
 
   const coupleId = store.userStore.user?.coupleId ?? '';
   const { data: photos } = useGalleryList({ coupleId });
@@ -54,7 +55,17 @@ function GalleryMainPage() {
           onClick={() => navigate('album')}
         />
       </Padding>
-      <FixedContainer onTouchMove={() => navigate('photo')}>
+      <FixedContainer
+        onTouchStart={(e) => {
+          touchPositionY.current = e.touches[0].clientY;
+        }}
+        onTouchMove={(e) => {
+          if (!touchPositionY.current) return;
+
+          if (touchPositionY.current - e.touches[0].clientY > 200)
+            navigate('photo');
+        }}
+      >
         <GalleryTitle
           title="PHOTO"
           top="219px"
