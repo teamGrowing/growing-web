@@ -95,7 +95,7 @@ function PhotoDetail({ photoInfo }: PhotoDetailProps) {
         <Name>{photoInfo.name}</Name>
         <CreatedAt>{`${date.getFullYear()}/${
           date.getMonth() + 1
-        }/${date.getDate()}`}</CreatedAt>
+        }/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`}</CreatedAt>
       </Info>
     </Scrolls>
   );
