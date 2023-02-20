@@ -26,37 +26,34 @@ const Cancel = styled.div`
 function PhotoPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { data: photos } = useGalleryList({
-    coupleId: store.userStore.user?.coupleId!,
-  });
   const selectedPhotos = useRef<string[]>([]);
   const [selectingAvailable, setSelectingAvailable] = useState(false);
   const [onToast, setOnToast] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
   const [onModal, setOnModal] = useState(false);
+
+  const coupleId = store.userStore.user?.coupleId ?? '';
+  const { data: photos } = useGalleryList({ coupleId });
   const { mutateAsync: upLoadPhotosMutate } = useCreatePhotosMutation({
-    coupleId: store.userStore.user?.coupleId!,
+    coupleId,
   });
   const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
-    coupleId: store.userStore.user?.coupleId!,
+    coupleId,
   });
-
-  const addToList = (photoId: string) => {
-    selectedPhotos.current.push(photoId);
-  };
-  const removeFromList = (photoId: string) => {
-    const idx = selectedPhotos.current.findIndex((id) => id === photoId);
-    selectedPhotos.current.splice(idx, 1);
-    if (selectedPhotos.current.length === 0) {
-      setSelectingAvailable(true);
-    }
-  };
 
   const ctxValue = useMemo(() => {
     return {
       selectingAvailable,
-      addToList,
-      removeFromList,
+      addToList: (photoId: string) => {
+        selectedPhotos.current.push(photoId);
+      },
+      removeFromList: (photoId: string) => {
+        const idx = selectedPhotos.current.findIndex((id) => id === photoId);
+        selectedPhotos.current.splice(idx, 1);
+        if (selectedPhotos.current.length === 0) {
+          setSelectingAvailable(true);
+        }
+      },
     };
   }, [selectingAvailable]);
 
@@ -64,6 +61,7 @@ function PhotoPage() {
     selectedPhotos.current = [];
     setSelectingAvailable(false);
   };
+  const clickCheck = () => setSelectingAvailable(true);
 
   const upLoadPhotos = (files: FileList) => {
     upLoadPhotosMutate(files, {
@@ -82,10 +80,6 @@ function PhotoPage() {
         setOnToast(true);
       },
     });
-  };
-
-  const clickCheck = () => {
-    setSelectingAvailable(true);
   };
 
   useEffect(() => {

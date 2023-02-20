@@ -17,6 +17,7 @@ import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import AlbumModal from '../../components/common/Modal/AlbumModal';
 import ToastMessage from '../../components/common/ToastMessage/ToastMessage';
+import { useCreatePhotosMutation } from '../../hooks/queries/gallery.queries';
 
 const Option = styled.div`
   width: 25px;
@@ -42,37 +43,34 @@ function AlbumDetailPage() {
   const [onToast, setOnToast] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
   const [onModal, setOnModal] = useState(false);
-  const [onAlbumModal, setOnAmbumModal] = useState(false);
-  const { data: photos } = useAlbumPhotosList({
-    coupleId: store.userStore.user?.coupleId!,
-    albumId: aId ?? '',
-  });
-  const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
-    coupleId: store.userStore.user?.coupleId!,
-    albumId: aId ?? '',
-  });
-  const { mutate: modifyAlbumInfoMutate } = usePatchAlbumMutation({
-    coupleId: store.userStore.user?.coupleId!,
-    albumId: aId ?? '',
-  });
-
+  const [onAlbumModal, setOnAlbumModal] = useState(false);
   const selectedPhotos = useRef<string[]>([]);
 
-  const addToList = (albumId: string) => {
-    selectedPhotos.current.push(albumId);
-  };
-  const removeFromList = (albumId: string) => {
-    const idx = selectedPhotos.current.findIndex((id) => id === albumId);
-    selectedPhotos.current.splice(idx, 1);
-    if (selectedPhotos.current.length === 0) {
-      setSelectingAvailable(true);
-    }
-  };
+  const coupleId = store.userStore.user?.coupleId ?? '';
+  const albumId = aId ?? '';
+
+  const { data: photos } = useAlbumPhotosList({ coupleId, albumId });
+  const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
+    coupleId,
+    albumId,
+  });
+  const { mutate: modifyAlbumInfoMutate } = usePatchAlbumMutation({
+    coupleId,
+    albumId,
+  });
+  const { mutate: upLoadPhotos } = useCreatePhotosMutation({ coupleId });
+
   const ctxValue = useMemo(() => {
     return {
       selectingAvailable,
-      addToList,
-      removeFromList,
+      addToList: (album: string) => {
+        selectedPhotos.current.push(album);
+      },
+      removeFromList: (album: string) => {
+        const idx = selectedPhotos.current.findIndex((id) => id === album);
+        selectedPhotos.current.splice(idx, 1);
+        if (selectedPhotos.current.length === 0) setSelectingAvailable(true);
+      },
       data: { title: location.state.title, subTitle: location.state.subTitle },
     };
   }, [selectingAvailable]);
@@ -93,6 +91,15 @@ function AlbumDetailPage() {
       },
     });
     clearList();
+  };
+
+  const upLoadHandler = (files: FileList) => {
+    upLoadPhotos(files, {
+      onSuccess: () => {
+        setToastMsg('업로드가 완료되었습니다.');
+        setOnToast(true);
+      },
+    });
   };
 
   useEffect(() => {
@@ -124,7 +131,7 @@ function AlbumDetailPage() {
           )
         }
         onRightMainClick={
-          selectingAvailable ? clearList : () => setOnAmbumModal(true)
+          selectingAvailable ? clearList : () => setOnAlbumModal(true)
         }
         rightSubNode={
           selectingAvailable ? (
@@ -149,11 +156,7 @@ function AlbumDetailPage() {
       <PaddingContainer>
         <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
       </PaddingContainer>
-      <FloatingButton
-        onUpLoad={() => {
-          // TODO : 사진 업로드 기능 해결 후 사진 업로드 + 앨범에 추가되도록
-        }}
-      />
+      <FloatingButton onUpLoad={upLoadHandler} />
       {onModal && (
         <Modal
           onModal={onModal}
@@ -162,15 +165,13 @@ function AlbumDetailPage() {
           mainActionLabel="확인"
           onMainAction={deletePhotos}
           subActionLabel="취소"
-          onSubAction={() => {
-            setOnModal(false);
-          }}
+          onSubAction={() => setOnModal(false)}
         />
       )}
       {onAlbumModal && (
         <AlbumModal
           onModal={onAlbumModal}
-          setOnModal={setOnAmbumModal}
+          setOnModal={setOnAlbumModal}
           title="앨범 이름 변경"
           mainActionLabel="확인"
           onMainAction={(data) => {

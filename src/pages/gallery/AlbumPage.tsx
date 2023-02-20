@@ -27,33 +27,30 @@ const Cancel = styled.div`
 function AlbumPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { data: albums } = useAlbumsList({
-    coupleId: store.userStore.user?.coupleId!,
-  });
-  const { mutate: deleteAlbumsMutate } = useDeleteAlbumsMutation({
-    coupleId: store.userStore.user?.coupleId!,
-  });
   const [selectingAvailable, setSelectingAvailable] = useState(false);
   const [onToast, setOnToast] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
   const [onModal, setOnModal] = useState(false);
   const selectedAlbums = useRef<string[]>([]);
 
-  const addToList = (albumId: string) => {
-    selectedAlbums.current.push(albumId);
-  };
-  const removeFromList = (albumId: string) => {
-    const idx = selectedAlbums.current.findIndex((id) => id === albumId);
-    selectedAlbums.current.splice(idx, 1);
-    if (selectedAlbums.current.length === 0) {
-      setSelectingAvailable(true);
-    }
-  };
+  const coupleId = store.userStore.user?.coupleId ?? '';
+
+  const { data: albums } = useAlbumsList({ coupleId });
+  const { mutate: deleteAlbumsMutate } = useDeleteAlbumsMutation({ coupleId });
+
   const ctxValue = useMemo(() => {
     return {
       selectingAvailable,
-      addToList,
-      removeFromList,
+      addToList: (albumId: string) => {
+        selectedAlbums.current.push(albumId);
+      },
+      removeFromList: (albumId: string) => {
+        const idx = selectedAlbums.current.findIndex((id) => id === albumId);
+        selectedAlbums.current.splice(idx, 1);
+        if (selectedAlbums.current.length === 0) {
+          setSelectingAvailable(true);
+        }
+      },
     };
   }, [selectingAvailable]);
 

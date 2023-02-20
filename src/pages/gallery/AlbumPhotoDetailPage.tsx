@@ -18,31 +18,43 @@ import Modal from '../../components/common/Modal/Modal';
 function AlbumPhotoDetailPage() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { pId: photoId, aId: albumId } = useParams();
+  const { pId, aId } = useParams();
   const [commentIsVisible, setCommentIsvisible] = useState(false);
   const [onModal, setOnModal] = useState(false);
-  const { data: photo } = useGalleryDetail({
-    coupleId: store.userStore.user?.coupleId!,
-    photoId: photoId ?? '',
-  });
-  const { data: comments } = useCommentList({
-    coupleId: store.userStore.user?.coupleId!,
-    photoId: photoId ?? '',
-  });
-  const { mutate: deletePhotoMutate } = useDeletePhotosMutation({
-    coupleId: store.userStore.user?.coupleId!,
-    albumId: albumId ?? '',
-  });
-  const { mutate: postCommentMutate } = usePostCommentMutation({
-    coupleId: store.userStore.user?.coupleId!,
-    photoId: photoId ?? '',
-  });
+
+  const coupleId = store.userStore.user?.coupleId ?? '';
+  const photoId = pId ?? '';
+  const albumId = aId ?? '';
   const title = location.state.title ? location.state.title : '';
   const subTitle = location.state.subTitle ? location.state.subTitle : '';
 
+  const { data: photo } = useGalleryDetail({ coupleId, photoId });
+  const { data: comments } = useCommentList({ coupleId, photoId });
+  const { mutate: deletePhotoMutate } = useDeletePhotosMutation({
+    coupleId,
+    albumId,
+  });
+  const { mutate: postCommentMutate } = usePostCommentMutation({
+    coupleId,
+    photoId,
+  });
+
   const makeComment = (content: string) => {
     postCommentMutate(content);
-    // TODO comment 관련 기능
+  };
+
+  const deletePhotos = () => {
+    if (photo?.id) deletePhotoMutate([photo?.id]);
+    navigate(`/gallery/album/${albumId}`, {
+      state: {
+        title,
+        subTitle,
+        toast: {
+          showToast: true,
+          message: '사진이 제거되었습니다.',
+        },
+      },
+    });
   };
 
   return (
@@ -71,19 +83,7 @@ function AlbumPhotoDetailPage() {
           onModal={onModal}
           description="해당 사진이 앨범에서 제거됩니다."
           mainActionLabel="확인"
-          onMainAction={() => {
-            if (photo?.id) deletePhotoMutate([photo?.id]);
-            navigate(`/gallery/album/${albumId}`, {
-              state: {
-                title,
-                subTitle,
-                toast: {
-                  showToast: true,
-                  message: '사진이 제거되었습니다.',
-                },
-              },
-            });
-          }}
+          onMainAction={deletePhotos}
           subActionLabel="취소"
           onSubAction={() => setOnModal(false)}
         />

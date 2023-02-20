@@ -20,24 +20,32 @@ function PhotoDetailPage() {
   const { pId } = useParams();
   const [commentIsVisible, setCommentIsvisible] = useState(false);
   const [onModal, setOnModal] = useState(false);
-  const { data: photo } = useGalleryDetail({
-    coupleId: store.userStore.user?.coupleId!,
-    photoId: pId ?? '',
-  });
-  const { data: comments } = useCommentList({
-    coupleId: store.userStore.user?.coupleId!,
-    photoId: pId ?? '',
-  });
-  const { mutate: deletePhotoMutate } = useDeletePhotosMutation({
-    coupleId: store.userStore.user?.coupleId!,
-  });
+
+  const coupleId = store.userStore.user?.coupleId ?? '';
+  const photoId = pId ?? '';
+
+  const { data: photo } = useGalleryDetail({ coupleId, photoId });
+  const { data: comments } = useCommentList({ coupleId, photoId });
+  const { mutate: deletePhotoMutate } = useDeletePhotosMutation({ coupleId });
   const { mutate: postCommentMutate } = usePostCommentMutation({
-    coupleId: store.userStore.user?.coupleId!,
-    photoId: pId ?? '',
+    coupleId,
+    photoId,
   });
 
   const makeComment = (content: string) => {
     postCommentMutate(content);
+  };
+
+  const deletePhoto = () => {
+    if (photo?.id) deletePhotoMutate([photo?.id]);
+    navigate(`/gallery/photo`, {
+      state: {
+        toast: {
+          showToast: true,
+          message: '사진이 삭제되었습니다.',
+        },
+      },
+    });
   };
 
   return (
@@ -54,9 +62,7 @@ function PhotoDetailPage() {
       )}
       <BottomMenu
         border={!commentIsVisible}
-        onComment={() => {
-          setCommentIsvisible((prevState) => !prevState);
-        }}
+        onComment={() => setCommentIsvisible((prevState) => !prevState)}
         onMessage={() => {}}
         onTrash={() => setOnModal(true)}
       />
@@ -66,17 +72,7 @@ function PhotoDetailPage() {
           onModal={onModal}
           description="해당 파일을 영구적으로 삭제합니다."
           mainActionLabel="확인"
-          onMainAction={() => {
-            if (photo?.id) deletePhotoMutate([photo?.id]);
-            navigate(`/gallery/photo`, {
-              state: {
-                toast: {
-                  showToast: true,
-                  message: '사진이 삭제되었습니다.',
-                },
-              },
-            });
-          }}
+          onMainAction={deletePhoto}
           subActionLabel="취소"
           onSubAction={() => setOnModal(false)}
         />

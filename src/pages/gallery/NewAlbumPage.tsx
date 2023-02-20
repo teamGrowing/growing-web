@@ -15,32 +15,27 @@ function NewAlbumPage() {
   const [onModal, setOnModal] = useState(false);
   const [onToast, setOnToast] = useState(false);
   const selectedPhotos = useRef<string[]>([]);
-  const { data: photos } = useGalleryList({
-    coupleId: store.userStore.user?.coupleId!,
-  });
-  const { mutate } = usePostAlbumsMutation({
-    coupleId: store.userStore.user?.coupleId!,
-  });
 
-  const addToList = (photoId: string) => {
-    selectedPhotos.current.push(photoId);
-  };
-  const removeFromList = (photoId: string) => {
-    const idx = selectedPhotos.current.findIndex((id) => id === photoId);
-    selectedPhotos.current.splice(idx, 1);
-  };
+  const coupleId = store.userStore.user?.coupleId ?? '';
+
+  const { data: photos } = useGalleryList({ coupleId });
+  const { mutate: postAlbumMutate } = usePostAlbumsMutation({ coupleId });
 
   const ctxValue = useMemo(() => {
     return {
       selectingAvailable: true,
-      addToList,
-      removeFromList,
+      addToList: (photoId: string) => {
+        selectedPhotos.current.push(photoId);
+      },
+      removeFromList: (photoId: string) => {
+        const idx = selectedPhotos.current.findIndex((id) => id === photoId);
+        selectedPhotos.current.splice(idx, 1);
+      },
     };
   }, []);
 
-  // TODO: 앨범이 만들어지는데 사진이 뭔가 이상함 해결해야함
   const makeAlbum = ({ albumTitle, albumSubTitle }: AlbumFormValues) => {
-    mutate(
+    postAlbumMutate(
       {
         title: albumTitle,
         subTitle: albumSubTitle,

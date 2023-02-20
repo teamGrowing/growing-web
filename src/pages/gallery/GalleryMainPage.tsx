@@ -28,15 +28,11 @@ const FixedContainer = styled.div`
 function GalleryMainPage() {
   const navigate = useNavigate();
   const [onToast, setOnToast] = useState(false);
-  const { data: photos } = useGalleryList({
-    coupleId: store.userStore.user?.coupleId!,
-  });
-  const { data: albums } = useAlbumsList({
-    coupleId: store.userStore.user?.coupleId!,
-  });
-  const { mutate: upLoadPhotos } = useCreatePhotosMutation({
-    coupleId: store.userStore.user?.coupleId!,
-  });
+
+  const coupleId = store.userStore.user?.coupleId ?? '';
+  const { data: photos } = useGalleryList({ coupleId });
+  const { data: albums } = useAlbumsList({ coupleId });
+  const { mutate: upLoadPhotos } = useCreatePhotosMutation({ coupleId });
 
   const upLoadHandler = (files: FileList) => {
     upLoadPhotos(files, { onSuccess: () => setOnToast(true) });
