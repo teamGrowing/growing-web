@@ -1,8 +1,20 @@
-import { useQuery, QueryKey } from '@tanstack/react-query';
+import {
+  useQuery,
+  QueryKey,
+  useMutation,
+  UseMutationOptions,
+  UseMutationResult,
+  useQueryClient,
+} from '@tanstack/react-query';
+import axios, { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from '../../constants/queryKeys';
 import { UseQueryOptionsType } from '../../services';
-import { GALLERY_API } from '../../services/gallery.service';
+import {
+  GALLERY_API,
+  GALLERY_COMMENT_API,
+} from '../../services/gallery.service';
 import PhotoDto from '../../types/gallery/Photo.dto';
+import PhotoCommentDto from '../../types/gallery/PhotoComment.dto';
 import { PhotoLineDto } from '../../types/gallery/PhotoLine.dto';
 
 export function useGalleryList({
@@ -43,4 +55,134 @@ export function useGalleryDetail({
       ...options,
     }
   );
+}
+
+export function useCommentList({
+  coupleId,
+  photoId,
+  storeCode,
+  options,
+}: {
+  coupleId: string;
+  photoId: string;
+  storeCode?: QueryKey[];
+  options?: UseQueryOptionsType<PhotoCommentDto[]>;
+}) {
+  return useQuery(
+    [...queryKeys.galleryKeys.commentById(photoId), ...(storeCode ?? [])],
+    () => GALLERY_COMMENT_API.getComments(coupleId, photoId),
+    {
+      select: (data) => data.data,
+      ...options,
+    }
+  );
+}
+
+export function useCreatePhotosMutation({
+  coupleId,
+  options,
+}: {
+  coupleId: string;
+  options?: UseMutationOptions<void, AxiosError, FileList, unknown>;
+}): UseMutationResult<void, AxiosError, FileList, unknown> {
+  const queryClinet = useQueryClient();
+
+  const makePhoto = async (file: File) => {
+    const res = await GALLERY_API.getUploadUrl(coupleId, {
+      name: file.name,
+    });
+
+    await axios.put(res.data.url, file, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }); // 권한이 필요없나?
+
+    await GALLERY_API.createPhoto(coupleId, { s3Path: res.data.s3Path });
+  };
+
+  const makePhotos = async (files: FileList) => {
+    const promises: Promise<void>[] = [];
+    for (let i = 0; i < files.length; i += 1) {
+      promises.push(makePhoto(files[i]));
+    }
+    await Promise.all(promises);
+  };
+
+  return useMutation({
+    mutationFn: (data: FileList) => makePhotos(data),
+    onSuccess: () => {
+      queryClinet.invalidateQueries([...queryKeys.galleryKeys.all]);
+    },
+    ...options,
+  });
+}
+
+export function useDeletePhotosMutation({
+  coupleId,
+  options,
+}: {
+  coupleId: string;
+  options?: UseMutationOptions<void, AxiosError, string[], unknown>;
+}): UseMutationResult<void, AxiosError, string[], unknown> {
+  const queryClinet = useQueryClient();
+  const deletePhotos = async (ids: string[]) => {
+    const promises: Promise<AxiosResponse>[] = [];
+    ids.forEach((id) => {
+      promises.push(GALLERY_API.deletePhoto(coupleId, id));
+    });
+    await Promise.all(promises);
+  };
+
+  return useMutation({
+    mutationFn: (photoIds: string[]) => deletePhotos(photoIds),
+    onSuccess: () => {
+      queryClinet.invalidateQueries([...queryKeys.galleryKeys.all]);
+    },
+    ...options,
+  });
+}
+
+export function usePostCommentMutation({
+  coupleId,
+  photoId,
+  options,
+}: {
+  coupleId: string;
+  photoId: string;
+  options?: UseMutationOptions<AxiosResponse, AxiosError, string, unknown>;
+}): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
+  const queryClinet = useQueryClient();
+
+  return useMutation({
+    mutationFn: (content: string) =>
+      GALLERY_COMMENT_API.postComment(coupleId, photoId, { content }),
+    onSuccess: () => {
+      queryClinet.invalidateQueries([
+        ...queryKeys.galleryKeys.commentById(photoId),
+      ]);
+    },
+    ...options,
+  });
+}
+
+export function useDeleteCommentMutation({
+  coupleId,
+  photoId,
+  options,
+}: {
+  coupleId: string;
+  photoId: string;
+  options?: UseMutationOptions<AxiosResponse, AxiosError, string, unknown>;
+}): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
+  const queryClinet = useQueryClient();
+
+  return useMutation({
+    mutationFn: (commentId: string) =>
+      GALLERY_COMMENT_API.deleteComment(coupleId, photoId, commentId),
+    onSuccess: () => {
+      queryClinet.invalidateQueries([
+        ...queryKeys.galleryKeys.commentById(photoId),
+      ]);
+    },
+    ...options,
+  });
 }

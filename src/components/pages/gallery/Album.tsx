@@ -168,10 +168,14 @@ function Album({ albumInfo }: AlbumProps) {
   const ctx = useContext(DataContext);
   const navigate = useNavigate();
   const [isSelected, setIsSelected] = useState(false);
-
   const clickHandler = () => {
     if (!ctx.selectingAvailable) {
-      navigate(`${albumInfo.id}`);
+      navigate(`${albumInfo.id}`, {
+        state: {
+          title: albumInfo.title,
+          subTitle: albumInfo.subTitle,
+        },
+      });
       return;
     }
     if (isSelected) {

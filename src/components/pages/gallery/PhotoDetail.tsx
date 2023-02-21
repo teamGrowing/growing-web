@@ -62,7 +62,7 @@ const Name = styled.div`
   flex-grow: 0;
 `;
 
-const Date = styled.div`
+const CreatedAt = styled.div`
   width: 100%;
 
   font-family: 'PretendardLight';
@@ -86,12 +86,16 @@ type PhotoDetailProps = {
 };
 
 function PhotoDetail({ photoInfo }: PhotoDetailProps) {
+  const date = new Date(photoInfo.createdAt);
+
   return (
     <Scrolls>
       <Photo backgroundUrl={photoInfo.urls} />
       <Info>
         <Name>{photoInfo.name}</Name>
-        <Date>{photoInfo.createdAt}</Date>
+        <CreatedAt>{`${date.getFullYear()}/${
+          date.getMonth() + 1
+        }/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`}</CreatedAt>
       </Info>
     </Scrolls>
   );

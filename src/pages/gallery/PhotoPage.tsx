@@ -1,13 +1,20 @@
 import styled from 'styled-components';
-import { useMemo, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useMemo, useState, useRef, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
-import PaddingContainer from '../../styles/common/layout';
 import DataContext from './context';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
-import PhotoDto from '../../types/gallery/Photo.dto';
 import Icon from '../../components/common/Icon/Icon';
 import GalleryTitle from '../../components/pages/gallery/GalleryTitle';
+import {
+  useCreatePhotosMutation,
+  useDeletePhotosMutation,
+  useGalleryList,
+} from '../../hooks/queries/gallery.queries';
+import store from '../../stores/RootStore';
+import ToastMessage from '../../components/common/ToastMessage/ToastMessage';
+import Modal from '../../components/common/Modal/Modal';
 
 const Cancel = styled.div`
   font-family: 'PretendardRegular';
@@ -15,89 +22,47 @@ const Cancel = styled.div`
   line-height: 17px;
 `;
 
+const PaddingContainer = styled.div`
+  position: fixed;
+  top: 43px;
+
+  height: calc(100% - 43px - 81px);
+  width: 100%;
+
+  overflow: scroll;
+`;
+
 function PhotoPage() {
   const navigate = useNavigate();
-  const dummyPhotos: PhotoDto[] = [
-    {
-      id: '1',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '2',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '3',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '4',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '5',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '6',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '7',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '8',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '9',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '10',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-  ];
+  const location = useLocation();
   const selectedPhotos = useRef<string[]>([]);
   const [selectingAvailable, setSelectingAvailable] = useState(false);
+  const [onToast, setOnToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState('');
+  const [onModal, setOnModal] = useState(false);
 
-  const addToList = (photoId: string) => {
-    selectedPhotos.current.push(photoId);
-  };
-  const removeFromList = (photoId: string) => {
-    const idx = selectedPhotos.current.findIndex((id) => id === photoId);
-    selectedPhotos.current.splice(idx, 1);
-    if (selectedPhotos.current.length === 0) {
-      setSelectingAvailable(true);
-    }
-  };
+  const coupleId = store.userStore.user?.coupleId ?? '';
+  const { data: photos } = useGalleryList({ coupleId });
+  const { mutateAsync: upLoadPhotosMutate } = useCreatePhotosMutation({
+    coupleId,
+  });
+  const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
+    coupleId,
+  });
 
   const ctxValue = useMemo(() => {
     return {
       selectingAvailable,
-      addToList,
-      removeFromList,
+      addToList: (photoId: string) => {
+        selectedPhotos.current.push(photoId);
+      },
+      removeFromList: (photoId: string) => {
+        const idx = selectedPhotos.current.findIndex((id) => id === photoId);
+        selectedPhotos.current.splice(idx, 1);
+        if (selectedPhotos.current.length === 0) {
+          setSelectingAvailable(true);
+        }
+      },
     };
   }, [selectingAvailable]);
 
@@ -105,15 +70,40 @@ function PhotoPage() {
     selectedPhotos.current = [];
     setSelectingAvailable(false);
   };
+  const clickCheck = () => setSelectingAvailable(true);
+
+  const upLoadPhotos = (files: FileList) => {
+    upLoadPhotosMutate(files, {
+      onSuccess: () => {
+        setToastMsg('업로드가 완료되었습니다.');
+        setOnToast(true);
+      },
+    });
+  };
 
   const deletePhotos = () => {
-    // selectedPhotos 삭제 요청 보내기
-    setSelectingAvailable(false);
+    deletePhotosMutate(selectedPhotos.current, {
+      onSuccess: () => {
+        setSelectingAvailable(false);
+        setToastMsg('삭제가 완료되었습니다.');
+        setOnToast(true);
+      },
+    });
   };
 
-  const clickCheck = () => {
-    setSelectingAvailable(true);
-  };
+  useEffect(() => {
+    if (location.state && location.state.toast) {
+      setOnToast(true);
+      setToastMsg(location.state.toast.message);
+      window.history.replaceState(
+        {
+          ...location.state,
+          toast: null,
+        },
+        ''
+      );
+    }
+  }, []);
 
   return (
     <DataContext.Provider value={ctxValue}>
@@ -132,13 +122,34 @@ function PhotoPage() {
         }
         onRightClick={selectingAvailable ? clearList : clickCheck}
         rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
-        onRightSubClick={deletePhotos}
+        onRightSubClick={() => {
+          if (selectedPhotos.current.length <= 0) {
+            setToastMsg('삭제할 사진을 선택해 주세요.');
+            setOnToast(true);
+            return;
+          }
+          setOnModal(true);
+        }}
       />
       <PaddingContainer>
-        <PhotoContainer photoObjects={dummyPhotos} type="UPLOADED" />
-        <FloatingButton />
+        <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
       </PaddingContainer>
+      <FloatingButton onUpLoad={upLoadPhotos} />
+      {onModal && (
+        <Modal
+          onModal={onModal}
+          setOnModal={setOnModal}
+          description="삭제하시겠습니까?"
+          mainActionLabel="확인"
+          onMainAction={deletePhotos}
+          subActionLabel="취소"
+          onSubAction={() => {
+            setOnModal(false);
+          }}
+        />
+      )}
+      {onToast && <ToastMessage setOnToast={setOnToast} message={toastMsg} />}
     </DataContext.Provider>
   );
 }
-export default PhotoPage;
+export default observer(PhotoPage);

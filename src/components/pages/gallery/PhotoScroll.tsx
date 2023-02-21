@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import PhotoDto from '../../../types/gallery/Photo.dto';
+import { PhotoLineDto } from '../../../types/gallery/PhotoLine.dto';
 import PhotoContainer from './PhotoContainer';
 
 const Scroll = styled.div`
@@ -13,9 +13,9 @@ const Scroll = styled.div`
 
   position: absolute;
   width: 100%;
-  height: calc(100% - 81px - 23px);
+  height: calc(100% - 23px);
   left: 0px;
-  bottom: 81px;
+  bottom: 0px;
 `;
 
 const Options = styled.div`
@@ -49,17 +49,25 @@ const Option = styled.button`
 `;
 
 type PhotoScrollProps = {
-  photos: PhotoDto[];
-  onCancel: () => void;
-  onAdd: () => void;
+  photos: PhotoLineDto[];
+  leftLabel: string;
+  onLeftClick: () => void;
+  rightLabel: string;
+  onRightClick: () => void;
 };
 
-function PhotoScroll({ photos, onCancel, onAdd }: PhotoScrollProps) {
+function PhotoScroll({
+  photos,
+  leftLabel,
+  onLeftClick,
+  rightLabel,
+  onRightClick,
+}: PhotoScrollProps) {
   return (
     <Scroll>
       <Options>
-        <Option onClick={onCancel}>취소</Option>
-        <Option onClick={onAdd}>추가</Option>
+        <Option onClick={onLeftClick}>{leftLabel}</Option>
+        <Option onClick={onRightClick}>{rightLabel}</Option>
       </Options>
       <PhotoContainer photoObjects={photos} type="UPLOADED" />
     </Scroll>
