@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import { useDeleteCommentMutation } from '../../../hooks/queries/gallery.queries';
 import store from '../../../stores/RootStore';
 import PhotoCommentDto from '../../../types/gallery/PhotoComment.dto';
+import Modal from '../../common/Modal/Modal';
 
 const CommentContainer = styled.div`
   display: flex;
@@ -69,6 +71,7 @@ type CommentProps = {
 
 function Comment({ commentInfo }: CommentProps) {
   const { pId } = useParams();
+  const [onModal, setOnModal] = useState(false);
   const { mutate: deleteComment } = useDeleteCommentMutation({
     coupleId: store.userStore.user?.coupleId!,
     photoId: pId!,
@@ -79,7 +82,18 @@ function Comment({ commentInfo }: CommentProps) {
       <Name>{commentInfo.name}</Name>
       <Content>{commentInfo.content}</Content>
       {commentInfo.isMine && (
-        <Delete onClick={() => deleteComment(commentInfo.id)}>삭제</Delete>
+        <Delete onClick={() => setOnModal(true)}>삭제</Delete>
+      )}
+      {onModal && (
+        <Modal
+          onModal={onModal}
+          setOnModal={setOnModal}
+          description="댓글을 삭제하시겠습니까?"
+          mainActionLabel="확인"
+          onMainAction={() => deleteComment(commentInfo.id)}
+          subActionLabel="취소"
+          onSubAction={() => {}}
+        />
       )}
     </CommentContainer>
   );
