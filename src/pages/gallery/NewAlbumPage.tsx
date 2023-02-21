@@ -61,8 +61,10 @@ function NewAlbumPage() {
     <DataContext.Provider value={ctxValue}>
       <PhotoScroll
         photos={photos ?? []}
-        onAdd={() => setOnModal(true)}
-        onCancel={() => {
+        leftLabel="취소"
+        rightLabel="추가"
+        onRightClick={() => setOnModal(true)}
+        onLeftClick={() => {
           navigate(-1);
         }}
       />

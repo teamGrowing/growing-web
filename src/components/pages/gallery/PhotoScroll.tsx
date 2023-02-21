@@ -50,16 +50,24 @@ const Option = styled.button`
 
 type PhotoScrollProps = {
   photos: PhotoLineDto[];
-  onCancel: () => void;
-  onAdd: () => void;
+  leftLabel: string;
+  onLeftClick: () => void;
+  rightLabel: string;
+  onRightClick: () => void;
 };
 
-function PhotoScroll({ photos, onCancel, onAdd }: PhotoScrollProps) {
+function PhotoScroll({
+  photos,
+  leftLabel,
+  onLeftClick,
+  rightLabel,
+  onRightClick,
+}: PhotoScrollProps) {
   return (
     <Scroll>
       <Options>
-        <Option onClick={onCancel}>취소</Option>
-        <Option onClick={onAdd}>추가</Option>
+        <Option onClick={onLeftClick}>{leftLabel}</Option>
+        <Option onClick={onRightClick}>{rightLabel}</Option>
       </Options>
       <PhotoContainer photoObjects={photos} type="UPLOADED" />
     </Scroll>
