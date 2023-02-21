@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import Icon from '../../common/Icon/Icon';
 
 const ButtonStyle = styled.div`
-  position: absolute;
-  right: 15px;
-  bottom: 90px;
+  position: fixed;
+  right: 28px;
+  bottom: 96px;
 `;
 
 const Wrapper = styled.div`

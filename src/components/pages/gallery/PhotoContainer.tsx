@@ -6,6 +6,7 @@ import { PhotoLineDto } from '../../../types/gallery/PhotoLine.dto';
 const Container = styled.div`
   width: 100%;
   text-align: center;
+  overflow: scroll;
 `;
 
 const PhotosRow = styled.div`

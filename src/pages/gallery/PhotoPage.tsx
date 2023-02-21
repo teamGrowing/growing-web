@@ -3,7 +3,6 @@ import { useMemo, useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
-import PaddingContainer from '../../styles/common/layout';
 import DataContext from './context';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
 import Icon from '../../components/common/Icon/Icon';
@@ -21,6 +20,16 @@ const Cancel = styled.div`
   font-family: 'PretendardRegular';
   font-size: 14px;
   line-height: 17px;
+`;
+
+const PaddingContainer = styled.div`
+  position: fixed;
+  top: 43px;
+
+  height: calc(100% - 43px - 81px);
+  width: 100%;
+
+  overflow: scroll;
 `;
 
 function PhotoPage() {
@@ -124,8 +133,8 @@ function PhotoPage() {
       />
       <PaddingContainer>
         <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
-        <FloatingButton onUpLoad={upLoadPhotos} />
       </PaddingContainer>
+      <FloatingButton onUpLoad={upLoadPhotos} />
       {onModal && (
         <Modal
           onModal={onModal}
