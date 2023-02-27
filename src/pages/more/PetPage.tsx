@@ -30,6 +30,33 @@ const Layer = styled.div`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.3); ;
 `;
+
+const EmptyWrapper = styled.div`
+  margin-top: 250px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+`;
+
+const Message = styled.div`
+  width: 224px;
+  height: 62px;
+
+  display: flex;
+  align-items: center;
+  text-align: center;
+`;
+
+const FontSpan = styled.span`
+  font-family: 'PretendardMedium';
+  font-size: 19px;
+  line-height: 23px;
+`;
+
 function PetPage() {
   const navigate = useNavigate();
   const [detailPetId, setDetailPetId] = useState<string | null>(null);
@@ -49,10 +76,20 @@ function PetPage() {
         title="동물도감"
       />
       <PaddingContainer>
-        <Wrapper>
+        <EmptyWrapper>
           {graduatedPets?.length === 0 && (
-            <div>아직 졸업시킨 동물이 없습니다.</div>
+            <>
+              <Icon icon="IconLogo" size={60} />
+              <Message>
+                <FontSpan className="text-gradient400">
+                  아직 졸업한 동물이 없네요
+                </FontSpan>
+                😢
+              </Message>
+            </>
           )}
+        </EmptyWrapper>
+        <Wrapper>
           {graduatedPets &&
             graduatedPets.map((pet) => (
               <PetCard key={pet.id} petInfo={pet} onClick={clickCardHandler} />
