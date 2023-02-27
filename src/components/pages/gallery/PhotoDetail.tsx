@@ -22,7 +22,9 @@ const Photo = styled.div<{ backgroundUrl: string }>`
   height: 60%;
 
   background: url(${(props) => props.backgroundUrl});
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 
   flex: none;
   order: 0;
