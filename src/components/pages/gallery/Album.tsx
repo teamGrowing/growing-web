@@ -40,6 +40,7 @@ const CoverBackground = styled.div<{ backgroundUrl: string }>`
   isolation: isolate;
 
   background: url(${(props) => props.backgroundUrl});
+  background-size: cover;
 
   color: ${({ theme }) => theme.color.gradient400};
 
