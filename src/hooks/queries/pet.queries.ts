@@ -10,6 +10,7 @@ import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
 import { PET_API } from '../../services/pet.service';
 import { ChangePetDto } from '../../types/pet/ChangePet.dto';
 import { PetDto } from '../../types/pet/Pet.dto';
+import { PetReactionDto } from '../../types/pet/PetReaction.dto';
 
 export function usePetData({
   coupleId,
@@ -44,6 +45,27 @@ export function usePetNameMutation({
 }): UseMutationResult<AxiosResponse, AxiosError, ChangePetDto, unknown> {
   return useMutation({
     mutationFn: (dto: ChangePetDto) => PET_API.patchPet(coupleId, petId, dto),
+    ...options,
+  });
+}
+
+// TODO: type 수정
+export function usePetFeedMutation({
+  coupleId,
+  petId,
+  options,
+}: {
+  coupleId: string | null | undefined;
+  petId: string | null | undefined;
+  options?: UseMutationOptionsType<unknown>;
+}): UseMutationResult<
+  AxiosResponse<PetReactionDto>,
+  AxiosError,
+  unknown,
+  unknown
+> {
+  return useMutation({
+    mutationFn: () => PET_API.postFeedPet(coupleId, petId),
     ...options,
   });
 }

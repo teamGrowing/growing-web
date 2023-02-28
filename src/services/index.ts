@@ -32,4 +32,4 @@ export interface UseQueryOptionsType<T>
   extends UseQueryOptions<AxiosResponse<T>, AxiosError, T, QueryKey[]> {}
 
 export interface UseMutationOptionsType<T>
-  extends UseMutationOptions<AxiosResponse<T>, AxiosError, T, unknown> {}
+  extends UseMutationOptions<AxiosResponse, AxiosError, T, unknown> {}
