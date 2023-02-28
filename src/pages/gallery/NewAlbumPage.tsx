@@ -57,10 +57,14 @@ function NewAlbumPage() {
         photos={photos ?? []}
         leftLabel="취소"
         rightLabel="추가"
-        onRightClick={() => setOnModal(true)}
-        onLeftClick={() => {
-          navigate(-1);
+        onRightClick={() => {
+          if (selectedPhotos.current.length === 0) {
+            addToast('앨범에 만들기 위한 사진을 선택해주세요.');
+            return;
+          }
+          setOnModal(true);
         }}
+        onLeftClick={() => navigate(-1)}
       />
       <Modal
         onModal={onModal}
