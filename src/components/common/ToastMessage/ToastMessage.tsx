@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 
 type ToastMessageProps = {
-  message: string;
+  message: React.ReactNode;
 };
 
 const fade = keyframes`
@@ -54,6 +54,10 @@ const Text = styled.div`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+
+  > div > span {
+    -webkit-text-fill-color: initial;
+  }
 
   flex: none;
   order: 0;
