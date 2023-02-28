@@ -8,6 +8,8 @@ import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from '../../constants/queryKeys';
 import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
 import { PET_API } from '../../services/pet.service';
+import PostPetDto from '../../types/more/PostPet.dto';
+import PostPetLineDto from '../../types/more/PostPetLine.dto';
 import { ChangePetDto } from '../../types/pet/ChangePet.dto';
 import { PetDto } from '../../types/pet/Pet.dto';
 import { PetReactionDto } from '../../types/pet/PetReaction.dto';
@@ -89,4 +91,46 @@ export function usePetPlayMutation({
     mutationFn: () => PET_API.postTouchPet(coupleId, petId),
     ...options,
   });
+}
+
+export function useGraduatedPets({
+  coupleId,
+  storeCode,
+  options,
+}: {
+  coupleId: string;
+  storeCode?: QueryKey[];
+  options?: UseQueryOptionsType<PostPetLineDto[]>;
+}) {
+  return useQuery(
+    [...queryKeys.petKeys.all, ...(storeCode ?? [])],
+    () => PET_API.getGraduatedPets(coupleId),
+    {
+      select: ({ data }) => data,
+      suspense: true,
+      ...options,
+    }
+  );
+}
+
+export function useGraduatedPetDetail({
+  coupleId,
+  petId,
+  storeCode,
+  options,
+}: {
+  coupleId: string;
+  petId: string;
+  storeCode?: QueryKey[];
+  options?: UseQueryOptionsType<PostPetDto>;
+}) {
+  return useQuery(
+    [...queryKeys.petKeys.all, ...(storeCode ?? [])],
+    () => PET_API.getGraduatedPetDetail(coupleId, petId),
+    {
+      select: ({ data }) => data,
+      suspense: true,
+      ...options,
+    }
+  );
 }

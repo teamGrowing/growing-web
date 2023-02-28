@@ -23,7 +23,7 @@ export function useCoupleData({
   storeCode?: QueryKey[];
   options?: UseQueryOptionsType<CoupleDto>;
 }) {
-  useQuery(
+  return useQuery(
     [...queryKeys.coupleKeys.all, ...(storeCode ?? [])],
     () => COUPLE_API.getCouple(`${coupleId ?? ''}`),
     {
