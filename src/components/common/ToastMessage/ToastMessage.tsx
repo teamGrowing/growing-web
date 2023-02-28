@@ -1,6 +1,7 @@
 import { useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
+import changeEmojiToSpan from '../../../util/Text';
 import ToastContext from './ToastContext';
 
 const fade = keyframes`
@@ -48,10 +49,9 @@ const Text = styled.div`
   line-height: 18px;
   text-align: center;
 
-  background: ${({ theme }) => theme.color.gradient300};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  > span {
+    -webkit-text-fill-color: initial;
+  }
 
   flex: none;
   order: 0;
@@ -79,7 +79,10 @@ function ToastMessage({ message, id }: ToastMessageProps) {
     <>
       {ReactDOM.createPortal(
         <MessageBox>
-          <Text>{message}</Text>
+          <Text
+            className="text-gradient300"
+            dangerouslySetInnerHTML={changeEmojiToSpan(message)}
+          />
         </MessageBox>,
         root
       )}

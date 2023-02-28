@@ -29,3 +29,14 @@ export const profileSchema = yup.object().shape({
 });
 
 export default albumSchema;
+
+export type PetFormValues = {
+  name: string;
+};
+
+export const petSchema = yup.object().shape({
+  name: yup
+    .string()
+    .required('이름을 입력하지 않았어요!')
+    .max(6, '최대 6글자까지 가능합니다.'),
+});

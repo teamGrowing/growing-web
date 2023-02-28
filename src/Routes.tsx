@@ -13,6 +13,9 @@ import PhotoDetailPage from './pages/gallery/PhotoDetailPage';
 import PetPage from './pages/more/PetPage';
 import AuthRoute from './util/AuthRoute';
 import Login from './pages/Login';
+import Home from './pages/home/Home';
+import PetNamingPage from './pages/home/PetNamingPage';
+import PetFeedPage from './pages/home/PetRaisingPage';
 import AlbumPhotoDetailPage from './pages/gallery/AlbumPhotoDetailPage';
 
 function GrowingRoutes() {
@@ -20,6 +23,15 @@ function GrowingRoutes() {
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route element={<AuthRoute />}>
+        {/* home */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+        </Route>
+        <Route path="/pet/naming" element={<PetNamingPage />} />
+        <Route path="/pet/feed" element={<PetFeedPage />} />
+        <Route path="/pet/play" element={<PetFeedPage />} />
+
+        {/* gallery */}
         <Route element={<Layout />}>
           <Route path="/gallery" element={<GalleryMainPage />} />
           <Route path="/gallery/photo" element={<PhotoPage />} />
@@ -32,6 +44,8 @@ function GrowingRoutes() {
           element={<AlbumPhotoDetailPage />}
         />
         <Route path="/gallery/new-album" element={<NewAlbumPage />} />
+
+        {/* more */}
         <Route element={<Layout />}>
           <Route path="/more" element={<MoreMainPage />} />
         </Route>
