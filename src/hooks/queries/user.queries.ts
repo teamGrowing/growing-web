@@ -15,12 +15,17 @@ export function usePutProfilePhotoMutation({
   options,
 }: {
   userId: string;
-  options?: UseMutationOptions<AxiosResponse, AxiosError, string, unknown>;
-}): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
+  options?: UseMutationOptions<
+    AxiosResponse,
+    AxiosError,
+    string | null,
+    unknown
+  >;
+}): UseMutationResult<AxiosResponse, AxiosError, string | null, unknown> {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (imageId: string) =>
+    mutationFn: (imageId: string | null) =>
       USER_API.putProfilePhoto(userId, { imageId }),
     onSuccess: () => {
       queryClient.invalidateQueries([...queryKeys.userKeys.all]);

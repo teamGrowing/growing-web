@@ -52,7 +52,7 @@ export function usePatchCoupleMutation({
       COUPLE_API.patchCouple(coupleId, data),
     onSuccess: () => {
       store.userStore.getUserData(store.userStore.user?.id!);
-      queryClinet.invalidateQueries([...queryKeys.albumKeys.all]);
+      queryClinet.invalidateQueries(queryKeys.albumKeys.all);
     },
     ...options,
   });
