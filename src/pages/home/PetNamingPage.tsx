@@ -8,6 +8,7 @@ import { AxiosResponse } from 'axios';
 import store from '../../stores/RootStore';
 import changeEmojiToSpan from '../../util/Text';
 import preventScroll from '../../util/utils';
+import useToast from '../../hooks/common/useToast';
 import { usePetNameMutation } from '../../hooks/queries/pet.queries';
 import queryKeys from '../../constants/queryKeys';
 import MENT_HOME from '../../constants/ments';
@@ -16,7 +17,6 @@ import { PetFormValues, petSchema } from '../../types/InputSchema';
 import Icon from '../../components/common/Icon/Icon';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Modal from '../../components/common/Modal/Modal';
-import ToastMessage from '../../components/common/ToastMessage/ToastMessage';
 import PetNameInput from '../../components/pages/home/PetNameInput';
 import Waves from '../../assets/image/HomeWaves.png';
 
@@ -58,9 +58,9 @@ export default function PetNamingPage() {
   const navigation = useNavigate();
   const queryClient = useQueryClient();
   const { userStore } = store;
+  const { addToast } = useToast();
 
   const [onModal, setOnModal] = useState<boolean>(false);
-  const [onToast, setOnToast] = useState<boolean>(false);
 
   const { data: pet } = queryClient.getQueryData(
     queryKeys.petKeys.all
@@ -74,7 +74,7 @@ export default function PetNamingPage() {
     options: {
       onSuccess() {
         navigation(-1);
-        setOnToast(true);
+        addToast(MENT_HOME.PET_NAMING_SUCCESS);
         queryClient.invalidateQueries(queryKeys.petKeys.all);
       },
       onError() {
@@ -126,19 +126,6 @@ export default function PetNamingPage() {
             mainActionLabel="이름 확인하기"
             onMainAction={() => navigation(-1)}
           />
-
-          {/* TODO: toast message 전역적으로 수정예정 */}
-          {onToast && (
-            <ToastMessage
-              message={
-                <div
-                  dangerouslySetInnerHTML={changeEmojiToSpan(
-                    MENT_HOME.PET_NAMING_SUCCESS
-                  )}
-                />
-              }
-            />
-          )}
         </PetRenameContainer>
       </form>
     </FormProvider>
