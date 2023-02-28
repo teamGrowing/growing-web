@@ -1,9 +1,6 @@
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
-
-type ToastMessageProps = {
-  message: string;
-};
 
 const fade = keyframes`
   0% {
@@ -40,7 +37,7 @@ const MessageBox = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 
-  animation: ${fade} 2s 1s;
+  animation: ${fade} 2s;
 `;
 
 const Text = styled.div`
@@ -60,14 +57,30 @@ const Text = styled.div`
   flex-grow: 1;
 `;
 
-function ToastMessage({ message }: ToastMessageProps) {
+type ToastMessageProps = {
+  message: string;
+  setOnToast: Dispatch<SetStateAction<boolean>>;
+};
+
+function ToastMessage({ message, setOnToast }: ToastMessageProps) {
+  const root = document.getElementById('toast-message-root');
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setOnToast(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (!root) return null;
+
   return (
     <>
       {ReactDOM.createPortal(
         <MessageBox>
           <Text>{message}</Text>
         </MessageBox>,
-        document.getElementById('toast-message-root') as Element
+        root
       )}
     </>
   );

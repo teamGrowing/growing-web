@@ -1,15 +1,18 @@
 import styled from 'styled-components';
-import { useRef, useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRef, useState, useMemo, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react';
 import Icon from '../../components/common/Icon/Icon';
 import AlbumContainer from '../../components/pages/gallery/AlbumContainer';
 import DataContext from './context';
-import AlbumDto from '../../types/gallery/Album.dto';
 import GalleryTitle from '../../components/pages/gallery/GalleryTitle';
-
-const Padding = styled.div`
-  padding-top: 43px;
-`;
+import {
+  useAlbumsList,
+  useDeleteAlbumsMutation,
+} from '../../hooks/queries/album.queries';
+import store from '../../stores/RootStore';
+import ToastMessage from '../../components/common/ToastMessage/ToastMessage';
+import Modal from '../../components/common/Modal/Modal';
 
 const Cancel = styled.div`
   font-family: 'PretendardRegular';
@@ -19,62 +22,31 @@ const Cancel = styled.div`
 
 function AlbumPage() {
   const navigate = useNavigate();
-  const dummyAlbums: AlbumDto[] = [
-    {
-      id: '1',
-      title: '1000일',
-      subTitle: '2020-06-06',
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2020-06-06',
-    },
-    {
-      id: '2',
-      title: '부산여행',
-      subTitle: '2020-06-06',
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2020-06-06',
-    },
-    {
-      id: '3',
-      title: '크리스마스',
-      subTitle: '2020-12-30',
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2020-06-06',
-    },
-    {
-      id: '4',
-      title: '1000일',
-      subTitle: '2020-06-06',
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2020-06-06',
-    },
-    {
-      id: '23',
-      title: '부산여행',
-      subTitle: '2020-06-06',
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2020-06-06',
-    },
-  ];
-  const selectedAlbums = useRef<string[]>([]);
+  const location = useLocation();
   const [selectingAvailable, setSelectingAvailable] = useState(false);
+  const [onToast, setOnToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState('');
+  const [onModal, setOnModal] = useState(false);
+  const selectedAlbums = useRef<string[]>([]);
 
-  const addToList = (albumId: string) => {
-    selectedAlbums.current.push(albumId);
-  };
-  const removeFromList = (albumId: string) => {
-    const idx = selectedAlbums.current.findIndex((id) => id === albumId);
-    selectedAlbums.current.splice(idx, 1);
-    if (selectedAlbums.current.length === 0) {
-      setSelectingAvailable(true);
-    }
-  };
+  const coupleId = store.userStore.user?.coupleId ?? '';
+
+  const { data: albums } = useAlbumsList({ coupleId });
+  const { mutate: deleteAlbumsMutate } = useDeleteAlbumsMutation({ coupleId });
 
   const ctxValue = useMemo(() => {
     return {
       selectingAvailable,
-      addToList,
-      removeFromList,
+      addToList: (albumId: string) => {
+        selectedAlbums.current.push(albumId);
+      },
+      removeFromList: (albumId: string) => {
+        const idx = selectedAlbums.current.findIndex((id) => id === albumId);
+        selectedAlbums.current.splice(idx, 1);
+        if (selectedAlbums.current.length === 0) {
+          setSelectingAvailable(true);
+        }
+      },
     };
   }, [selectingAvailable]);
 
@@ -83,44 +55,72 @@ function AlbumPage() {
     setSelectingAvailable(false);
   };
 
-  const deletePhotos = () => {
-    // TODO selectedAlbums 삭제 요청 보내기
-    setSelectingAvailable(false);
+  const deleteAlbums = () => {
+    deleteAlbumsMutate(selectedAlbums.current, {
+      onSuccess: () => {
+        setSelectingAvailable(false);
+        setToastMsg('앨범 삭제가 완료되었습니다.');
+        setOnToast(true);
+      },
+    });
   };
 
-  const clickCheck = () => {
-    setSelectingAvailable(true);
-  };
+  useEffect(() => {
+    if (location.state && location.state.toast) {
+      setOnToast(true);
+      setToastMsg(location.state.toast.message);
+      window.history.replaceState(
+        {
+          ...location.state,
+          toast: null,
+        },
+        ''
+      );
+    }
+  }, []);
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <Padding>
-        <GalleryTitle
-          title="ALBUM"
-          top="0px"
-          left="0px"
-          backBtn
-          onBackBtnClick={() => navigate('/gallery')}
-          rightNode={
-            !selectingAvailable ? (
-              <Icon icon="IconCheck" onClick={clickCheck} />
-            ) : (
-              <Cancel className="text-gradient400">취소</Cancel>
-            )
+      <GalleryTitle
+        title="ALBUM"
+        backBtn
+        onBackBtnClick={() => navigate('/gallery')}
+        plusBtn
+        onPlusBtnClick={() => navigate('/gallery/new-album')}
+        rightNode={
+          !selectingAvailable ? (
+            <Icon icon="IconCheck" />
+          ) : (
+            <Cancel className="text-gradient400">취소</Cancel>
+          )
+        }
+        onRightClick={
+          selectingAvailable ? clearList : () => setSelectingAvailable(true)
+        }
+        rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
+        onRightSubClick={() => {
+          if (selectedAlbums.current.length <= 0) {
+            setOnToast(true);
+            setToastMsg('삭제할 앨범을 선택해주세요.');
+            return;
           }
-          onRightClick={
-            selectingAvailable
-              ? clearList
-              : () => {
-                  clickCheck();
-                }
-          }
-          rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
-          onRightSubClick={deletePhotos}
-        />
-      </Padding>
-      <AlbumContainer albums={dummyAlbums} />
+          setOnModal(true);
+        }}
+      />
+      <AlbumContainer albums={albums ?? []} />
+      <Modal
+        onModal={onModal}
+        setOnModal={setOnModal}
+        description="앨범을 삭제하시겠습니까?"
+        mainActionLabel="확인"
+        onMainAction={deleteAlbums}
+        subActionLabel="취소"
+        onSubAction={() => {
+          setOnModal(false);
+        }}
+      />
+      {onToast && <ToastMessage setOnToast={setOnToast} message={toastMsg} />}
     </DataContext.Provider>
   );
 }
-export default AlbumPage;
+export default observer(AlbumPage);

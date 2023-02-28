@@ -29,12 +29,14 @@ const chatKeys = {
 const galleryKeys = {
   all: [Domain.gallery as unknown as QueryKey] as QueryKey[],
   list: () => [...galleryKeys.all, 'list'] as unknown as QueryKey[],
-  byId: (id: string) =>
-    [...galleryKeys.all, 'detail', id] as unknown as QueryKey[],
+  byId: (id: string) => [...galleryKeys.all, id] as unknown as QueryKey[],
+  commentById: (id: string) =>
+    [...galleryKeys.all, 'comment', id] as unknown as QueryKey[],
 };
 
 const albumKeys = {
   all: [Domain.album as unknown as QueryKey] as QueryKey[],
+  byId: (id: string) => [...albumKeys.all, id] as unknown as QueryKey[],
 };
 
 const queryKeys = {
