@@ -109,6 +109,20 @@ input {
   --stop-color0: #7117ea;
   --stop-color1: #ea6060;
 }
+/* page container 관련 */
+.page-container {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+}
+.page-container.with-navbar {
+  height: calc(var(--vh, 1vh) * 100 - 81px);
+}
+.page-container.with-topbar {
+  padding-top: 49px;
+}
 `;
 
 export default GlobalStyle;
