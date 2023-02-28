@@ -5,7 +5,6 @@ import { observer } from 'mobx-react';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Icon from '../../components/common/Icon/Icon';
-import PaddingContainer from '../../styles/common/layout';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import DataContext from './context';
 import {
@@ -129,102 +128,102 @@ function AlbumDetailPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <TopBar
-        title={location.state.title}
-        subTitle={location.state.subTitle}
-        leftNode={<Icon icon="IconArrowLeft" />}
-        onLeftClick={() => navigate('/gallery/album')}
-        rightMainNode={
-          selectingAvailable ? (
-            <Option>취소</Option>
-          ) : (
-            <Icon icon="IconPencil" />
-          )
-        }
-        onRightMainClick={
-          selectingAvailable ? clearList : () => setOnAlbumModal(true)
-        }
-        rightSubNode={
-          selectingAvailable ? (
-            <Icon icon="IconTrash" />
-          ) : (
-            <Icon icon="IconCheck" />
-          )
-        }
-        onRightSubClick={
-          selectingAvailable
-            ? () => {
-                if (selectedPhotos.current.length <= 0) {
-                  addToast('삭제할 파일을 선택해 주세요.');
-                  return;
+      <div className="page-container with-topbar with-navbar">
+        <TopBar
+          title={location.state.title}
+          subTitle={location.state.subTitle}
+          leftNode={<Icon icon="IconArrowLeft" />}
+          onLeftClick={() => navigate('/gallery/album')}
+          rightMainNode={
+            selectingAvailable ? (
+              <Option>취소</Option>
+            ) : (
+              <Icon icon="IconPencil" />
+            )
+          }
+          onRightMainClick={
+            selectingAvailable ? clearList : () => setOnAlbumModal(true)
+          }
+          rightSubNode={
+            selectingAvailable ? (
+              <Icon icon="IconTrash" />
+            ) : (
+              <Icon icon="IconCheck" />
+            )
+          }
+          onRightSubClick={
+            selectingAvailable
+              ? () => {
+                  if (selectedPhotos.current.length <= 0) {
+                    addToast('삭제할 파일을 선택해 주세요.');
+                    return;
+                  }
+                  setOnModal(true);
                 }
-                setOnModal(true);
-              }
-            : clickCheck
-        }
-      />
-      <PaddingContainer>
+              : clickCheck
+          }
+        />
         <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
-      </PaddingContainer>
-      <FloatingButton onUpLoad={upLoadHandler} />
-      {onModal && (
-        <Modal
-          onModal={onModal}
-          setOnModal={setOnModal}
-          description="해당 파일을 앨범에서 제거하시겠습니까, 영구 삭제하시겠습니까?"
-          mainActionLabel="앨범에서 제거"
-          onMainAction={() => {
-            isDeleteOnlyFromAlbum.current = true;
-            setOnConfirmModal(true);
-          }}
-          subActionLabel="영구 삭제"
-          onSubAction={() => {
-            isDeleteOnlyFromAlbum.current = false;
-            setOnConfirmModal(true);
-          }}
-        />
-      )}
-      {onConfirmModal && (
-        <Modal
-          onModal={onConfirmModal}
-          setOnModal={setOnConfirmModal}
-          description="정말 삭제하시겠습니까?"
-          mainActionLabel="확인"
-          onMainAction={() => {
-            if (isDeleteOnlyFromAlbum.current) {
-              deletePhotosFromAlbum();
-              return;
-            }
-            deletePhotos();
-          }}
-          subActionLabel="취소"
-          onSubAction={() => {}}
-        />
-      )}
-      {onAlbumModal && (
-        <AlbumModal
-          onModal={onAlbumModal}
-          setOnModal={setOnAlbumModal}
-          title="앨범 이름 변경"
-          mainActionLabel="확인"
-          onMainAction={(data) => {
-            modifyAlbumInfoMutate(
-              {
-                title: data.albumTitle,
-                subTitle: data.albumSubTitle,
-              },
-              {
-                onSuccess: () => {
-                  addToast('앨범 이름이 변경되었습니다.');
-                  navigate(location.pathname);
-                },
+        <FloatingButton onUpLoad={upLoadHandler} />
+        {onModal && (
+          <Modal
+            onModal={onModal}
+            setOnModal={setOnModal}
+            description="해당 파일을 앨범에서 제거하시겠습니까, 영구 삭제하시겠습니까?"
+            mainActionLabel="앨범에서 제거"
+            onMainAction={() => {
+              isDeleteOnlyFromAlbum.current = true;
+              setOnConfirmModal(true);
+            }}
+            subActionLabel="영구 삭제"
+            onSubAction={() => {
+              isDeleteOnlyFromAlbum.current = false;
+              setOnConfirmModal(true);
+            }}
+          />
+        )}
+        {onConfirmModal && (
+          <Modal
+            onModal={onConfirmModal}
+            setOnModal={setOnConfirmModal}
+            description="정말 삭제하시겠습니까?"
+            mainActionLabel="확인"
+            onMainAction={() => {
+              if (isDeleteOnlyFromAlbum.current) {
+                deletePhotosFromAlbum();
+                return;
               }
-            );
-          }}
-          subActionLabel="취소"
-          onSubAction={() => {}}
-        />
-      )}
+              deletePhotos();
+            }}
+            subActionLabel="취소"
+            onSubAction={() => {}}
+          />
+        )}
+        {onAlbumModal && (
+          <AlbumModal
+            onModal={onAlbumModal}
+            setOnModal={setOnAlbumModal}
+            title="앨범 이름 변경"
+            mainActionLabel="확인"
+            onMainAction={(data) => {
+              modifyAlbumInfoMutate(
+                {
+                  title: data.albumTitle,
+                  subTitle: data.albumSubTitle,
+                },
+                {
+                  onSuccess: () => {
+                    addToast('앨범 이름이 변경되었습니다.');
+                    navigate(location.pathname);
+                  },
+                }
+              );
+            }}
+            subActionLabel="취소"
+            onSubAction={() => {}}
+          />
+        )}
+      </div>
     </DataContext.Provider>
   );
 }

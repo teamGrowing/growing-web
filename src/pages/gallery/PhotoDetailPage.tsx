@@ -49,7 +49,7 @@ function PhotoDetailPage() {
   };
 
   return (
-    <>
+    <div className="page-container with-topbar">
       <TopBar
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => {
@@ -77,7 +77,7 @@ function PhotoDetailPage() {
           onSubAction={() => setOnModal(false)}
         />
       )}
-    </>
+    </div>
   );
 }
 

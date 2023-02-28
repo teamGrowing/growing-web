@@ -1,6 +1,7 @@
 import { useRef, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import styled from 'styled-components';
 import PhotoScroll from '../../components/pages/gallery/PhotoScroll';
 import DataContext from './context';
 import { useGalleryList } from '../../hooks/queries/gallery.queries';
@@ -9,6 +10,10 @@ import { usePostAlbumsMutation } from '../../hooks/queries/album.queries';
 import Modal from '../../components/common/Modal/AlbumModal';
 import { AlbumFormValues } from '../../types/InputSchema';
 import useToast from '../../hooks/common/useToast';
+
+const Container = styled.div`
+  position: relative;
+`;
 
 function NewAlbumPage() {
   const navigate = useNavigate();
@@ -53,28 +58,30 @@ function NewAlbumPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <PhotoScroll
-        photos={photos ?? []}
-        leftLabel="취소"
-        rightLabel="추가"
-        onRightClick={() => {
-          if (selectedPhotos.current.length === 0) {
-            addToast('앨범에 만들기 위한 사진을 선택해주세요.');
-            return;
-          }
-          setOnModal(true);
-        }}
-        onLeftClick={() => navigate(-1)}
-      />
-      <Modal
-        onModal={onModal}
-        setOnModal={setOnModal}
-        title="앨범 생성"
-        mainActionLabel="확인"
-        onMainAction={(formValue) => makeAlbum(formValue)}
-        subActionLabel="취소"
-        onSubAction={() => setOnModal(false)}
-      />
+      <Container className="page-container">
+        <PhotoScroll
+          photos={photos ?? []}
+          leftLabel="취소"
+          rightLabel="추가"
+          onRightClick={() => {
+            if (selectedPhotos.current.length === 0) {
+              addToast('앨범에 만들기 위한 사진을 선택해주세요.');
+              return;
+            }
+            setOnModal(true);
+          }}
+          onLeftClick={() => navigate(-1)}
+        />
+        <Modal
+          onModal={onModal}
+          setOnModal={setOnModal}
+          title="앨범 생성"
+          mainActionLabel="확인"
+          onMainAction={(formValue) => makeAlbum(formValue)}
+          subActionLabel="취소"
+          onSubAction={() => setOnModal(false)}
+        />
+      </Container>
     </DataContext.Provider>
   );
 }

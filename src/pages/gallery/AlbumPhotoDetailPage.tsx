@@ -62,7 +62,7 @@ function AlbumPhotoDetailPage() {
   };
 
   return (
-    <>
+    <div className="page-container with-topbar">
       <TopBar
         title={title}
         subTitle={subTitle}
@@ -90,7 +90,7 @@ function AlbumPhotoDetailPage() {
           onSubAction={() => setOnModal(false)}
         />
       )}
-    </>
+    </div>
   );
 }
 

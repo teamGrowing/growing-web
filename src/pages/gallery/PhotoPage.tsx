@@ -16,6 +16,10 @@ import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import useToast from '../../hooks/common/useToast';
 
+const Container = styled.div`
+  position: relative;
+`;
+
 const Cancel = styled.div`
   font-family: 'PretendardRegular';
   font-size: 14px;
@@ -87,44 +91,46 @@ function PhotoPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <GalleryTitle
-        title="PHOTO"
-        backBtn
-        onBackBtnClick={() => navigate('/gallery')}
-        rightNode={
-          !selectingAvailable ? (
-            <Icon icon="IconCheck" />
-          ) : (
-            <Cancel className="text-gradient400">취소</Cancel>
-          )
-        }
-        onRightClick={selectingAvailable ? clearList : clickCheck}
-        rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
-        onRightSubClick={() => {
-          if (selectedPhotos.current.length <= 0) {
-            addToast('삭제할 사진을 선택해주세요.');
-            return;
+      <Container className="page-container with-navbar">
+        <GalleryTitle
+          title="PHOTO"
+          backBtn
+          onBackBtnClick={() => navigate('/gallery')}
+          rightNode={
+            !selectingAvailable ? (
+              <Icon icon="IconCheck" />
+            ) : (
+              <Cancel className="text-gradient400">취소</Cancel>
+            )
           }
-          setOnModal(true);
-        }}
-      />
-      <PaddingContainer>
-        <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
-      </PaddingContainer>
-      <FloatingButton onUpLoad={upLoadPhotos} />
-      {onModal && (
-        <Modal
-          onModal={onModal}
-          setOnModal={setOnModal}
-          description="삭제하시겠습니까?"
-          mainActionLabel="확인"
-          onMainAction={deletePhotos}
-          subActionLabel="취소"
-          onSubAction={() => {
-            setOnModal(false);
+          onRightClick={selectingAvailable ? clearList : clickCheck}
+          rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
+          onRightSubClick={() => {
+            if (selectedPhotos.current.length <= 0) {
+              addToast('삭제할 사진을 선택해주세요.');
+              return;
+            }
+            setOnModal(true);
           }}
         />
-      )}
+        <PaddingContainer>
+          <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
+        </PaddingContainer>
+        <FloatingButton onUpLoad={upLoadPhotos} />
+        {onModal && (
+          <Modal
+            onModal={onModal}
+            setOnModal={setOnModal}
+            description="삭제하시겠습니까?"
+            mainActionLabel="확인"
+            onMainAction={deletePhotos}
+            subActionLabel="취소"
+            onSubAction={() => {
+              setOnModal(false);
+            }}
+          />
+        )}
+      </Container>
     </DataContext.Provider>
   );
 }

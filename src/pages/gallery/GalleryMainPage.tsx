@@ -17,7 +17,6 @@ import useToast from '../../hooks/common/useToast';
 
 const Container = styled.div`
   position: relative;
-  width: 100%;
 `;
 
 const FixedContainer = styled.div`
@@ -45,7 +44,7 @@ function GalleryMainPage() {
   };
 
   return (
-    <Container>
+    <Container className="page-container with-navbar">
       <GalleryTitle
         title="ALBUM"
         plusBtn
