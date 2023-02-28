@@ -170,7 +170,7 @@ function Album({ albumInfo }: AlbumProps) {
   const [isSelected, setIsSelected] = useState(false);
   const clickHandler = () => {
     if (!ctx.selectingAvailable) {
-      navigate(`${albumInfo.id}`, {
+      navigate(`/gallery/album/${albumInfo.id}`, {
         state: {
           title: albumInfo.title,
           subTitle: albumInfo.subTitle,

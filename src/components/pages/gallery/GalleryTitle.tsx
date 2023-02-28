@@ -2,15 +2,12 @@ import styled from 'styled-components';
 import React from 'react';
 import Icon from '../../common/Icon/Icon';
 
-const Container = styled.div<{ top: string; left: string }>`
+const Container = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   padding: 0px;
   isolation: isolate;
-  position: fixed;
-  top: ${(props) => props.top};
-  left: ${(props) => props.left};
 
   width: 100%;
   height: 43px;
@@ -114,8 +111,6 @@ type GalleryTitleProps = {
   onRightClick?: React.MouseEventHandler<HTMLElement>;
   rightSubNode?: React.ReactNode;
   onRightSubClick?: React.MouseEventHandler<HTMLElement>;
-  top: string;
-  left: string;
 };
 
 function GalleryTitle({
@@ -128,11 +123,9 @@ function GalleryTitle({
   onRightClick,
   rightSubNode,
   onRightSubClick,
-  top,
-  left,
 }: GalleryTitleProps) {
   return (
-    <Container top={top} left={left}>
+    <Container>
       <TitleOption>
         {backBtn && (
           <BackBtn>

@@ -22,8 +22,6 @@ AllOptions.args = {
   onRightClick: () => {},
   rightSubNode: <Icon icon="IconCheck" />,
   onRightSubClick: () => {},
-  top: '0px',
-  left: '0px',
 };
 
 export const WithBackBtn = Template.bind({});
@@ -33,8 +31,6 @@ WithBackBtn.args = {
   onBackBtnClick: () => {},
   rightNode: <div className="text-gradient400">취소</div>,
   onRightClick: () => {},
-  top: '0px',
-  left: '0px',
 };
 
 export const NoBackBtn = Template.bind({});
@@ -46,6 +42,4 @@ NoBackBtn.args = {
   onRightClick: () => {},
   rightSubNode: <Icon icon="IconCheck" />,
   onRightSubClick: () => {},
-  top: '0px',
-  left: '0px',
 };
