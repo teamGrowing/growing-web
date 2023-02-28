@@ -69,3 +69,24 @@ export function usePetFeedMutation({
     ...options,
   });
 }
+
+// TODO: type 수정
+export function usePetPlayMutation({
+  coupleId,
+  petId,
+  options,
+}: {
+  coupleId: string | null | undefined;
+  petId: string | null | undefined;
+  options?: UseMutationOptionsType<unknown>;
+}): UseMutationResult<
+  AxiosResponse<PetReactionDto>,
+  AxiosError,
+  unknown,
+  unknown
+> {
+  return useMutation({
+    mutationFn: () => PET_API.postTouchPet(coupleId, petId),
+    ...options,
+  });
+}

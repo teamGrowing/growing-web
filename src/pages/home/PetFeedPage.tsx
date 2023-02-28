@@ -2,9 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { usePetFeedMutation } from '../../hooks/queries/pet.queries';
+import {
+  usePetFeedMutation,
+  usePetPlayMutation,
+} from '../../hooks/queries/pet.queries';
 import preventScroll from '../../util/utils';
 import changeEmojiToSpan from '../../util/Text';
 import store from '../../stores/RootStore';
@@ -29,7 +32,7 @@ const PetFeedContainer = styled.div`
 const Main = styled.section`
   width: 100%;
 `;
-const Title = styled.p`
+const Title = styled.div`
   margin-top: 34px;
   padding: 20px 0;
 
@@ -133,8 +136,13 @@ const Wave = styled.img`
   height: 45px;
 `;
 
+type PetOption = 'feed' | 'play';
+
 export default function PetFeedPage() {
   const navigation = useNavigate();
+  const { pathname } = useLocation();
+  const petOption: PetOption = pathname.split('/')[2] as PetOption;
+
   const queryClient = useQueryClient();
   const { userStore } = store;
 
@@ -165,9 +173,28 @@ export default function PetFeedPage() {
     },
   });
 
+  const { mutate: playPet } = usePetPlayMutation({
+    coupleId: userStore.user?.coupleId,
+    petId: userStore.petId,
+    options: {
+      onSuccess() {
+        setModalText(MENT_HOME.PET_PLAY_SUCCESS);
+        setOnModal(true);
+        /**
+         TODO: 굳이 필요없을수도
+        setModalText(MENT_HOME.PET_PLAY_FAIL);
+         */
+      },
+    },
+  });
+
   useEffect(() => {
     if (gauge === 100) {
-      feedPet({});
+      if (petOption === 'feed') {
+        feedPet({});
+      } else {
+        playPet({});
+      }
     }
   }, [gauge]);
 
@@ -185,10 +212,14 @@ export default function PetFeedPage() {
         border={false}
       />
       <Main>
-        <Title className="text-gradient400">
-          {MENT_HOME.PET_RAISING_FEED}
-          <span>🍽️</span>
-        </Title>
+        <Title
+          className="text-gradient400"
+          dangerouslySetInnerHTML={changeEmojiToSpan(
+            petOption === 'feed'
+              ? MENT_HOME.PET_RAISING_FEED
+              : MENT_HOME.PET_PLAY
+          )}
+        />
 
         <Bar>
           <ActiveBar level={gauge} />
@@ -200,19 +231,23 @@ export default function PetFeedPage() {
       </Main>
 
       <PetContainer>
-        <Lottie
-          lottieRef={foodLottieRef}
-          animationData={foodAnimation}
-          style={{
-            width: '120px',
-            marginRight: '-20px',
-          }}
-          loop={false}
-        />
+        {petOption === 'feed' && (
+          <Lottie
+            lottieRef={foodLottieRef}
+            animationData={foodAnimation}
+            style={{
+              width: '120px',
+              marginRight: '-20px',
+            }}
+            loop={false}
+          />
+        )}
+
         <Pet
           src={pet.imageUrl}
           onClick={() => {
-            setGauge(gauge + 20);
+            const increaseMount = petOption === 'feed' ? 100 / 4 : 100 / 5;
+            setGauge(gauge + increaseMount);
             foodLottieRef.current?.goToAndPlay(1);
             heartsLottieRef.current?.goToAndPlay(1);
           }}
@@ -243,7 +278,9 @@ export default function PetFeedPage() {
               <div
                 className="text-gradient400"
                 dangerouslySetInnerHTML={changeEmojiToSpan(
-                  MENT_HOME.PET_PLAY_TIP
+                  petOption === 'feed'
+                    ? MENT_HOME.PET_RAISING_FEED_HELPER
+                    : MENT_HOME.PET_PLAY_TIP
                 )}
               />
             </Letter>
