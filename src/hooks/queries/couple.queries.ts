@@ -1,14 +1,13 @@
 import {
   QueryKey,
   useMutation,
-  UseMutationOptions,
   UseMutationResult,
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from '../../constants/queryKeys';
-import { UseQueryOptionsType } from '../../services';
+import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
 import { COUPLE_API } from '../../services/couple.service';
 import store from '../../stores/RootStore';
 import { ChangeCoupleDto } from '../../types/couple/ChangeCouple.dto';
@@ -38,12 +37,7 @@ export function usePatchCoupleMutation({
   options,
 }: {
   coupleId: string;
-  options?: UseMutationOptions<
-    AxiosResponse,
-    AxiosError,
-    ChangeCoupleDto,
-    unknown
-  >;
+  options?: UseMutationOptionsType<ChangeCoupleDto>;
 }): UseMutationResult<AxiosResponse, AxiosError, ChangeCoupleDto, unknown> {
   const queryClinet = useQueryClient();
 

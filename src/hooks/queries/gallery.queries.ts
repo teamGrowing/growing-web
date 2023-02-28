@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from '../../constants/queryKeys';
-import { UseQueryOptionsType } from '../../services';
+import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
 import {
   GALLERY_API,
   GALLERY_COMMENT_API,
@@ -165,7 +165,7 @@ export function usePostCommentMutation({
 }: {
   coupleId: string;
   photoId: string;
-  options?: UseMutationOptions<AxiosResponse, AxiosError, string, unknown>;
+  options?: UseMutationOptionsType<string>;
 }): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
   const queryClinet = useQueryClient();
 
@@ -186,7 +186,7 @@ export function useDeleteCommentMutation({
 }: {
   coupleId: string;
   photoId: string;
-  options?: UseMutationOptions<AxiosResponse, AxiosError, string, unknown>;
+  options?: UseMutationOptionsType<string>;
 }): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
   const queryClinet = useQueryClient();
 
