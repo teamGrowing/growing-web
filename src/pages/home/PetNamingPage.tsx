@@ -78,6 +78,7 @@ export default function PetNamingPage() {
         queryClient.invalidateQueries(queryKeys.petKeys.all);
       },
       onError() {
+        // TODO: api error
         setOnModal(true);
       },
     },
@@ -107,7 +108,9 @@ export default function PetNamingPage() {
 
           <SubTitle
             className="text-gradient400"
-            dangerouslySetInnerHTML={changeEmojiToSpan(MENT_HOME.PET_NAME_HELP)}
+            dangerouslySetInnerHTML={changeEmojiToSpan(
+              MENT_HOME.PET_NAMING_HELP
+            )}
           />
 
           <Pet src={pet.imageUrl} />
@@ -119,7 +122,7 @@ export default function PetNamingPage() {
           <Modal
             onModal={onModal}
             setOnModal={setOnModal}
-            description={MENT_HOME.PET_NAMIMG_ERROR}
+            description={MENT_HOME.PET_NAMIMG_FAIL}
             mainActionLabel="이름 확인하기"
             onMainAction={() => navigation(-1)}
           />

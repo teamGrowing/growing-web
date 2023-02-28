@@ -48,7 +48,7 @@ export default function PetNameInput() {
 
   return (
     <Container>
-      <Title className="text-gradient400">{MENT_HOME.PET_NAME}</Title>
+      <Title className="text-gradient400">{MENT_HOME.PET_NAMING}</Title>
       <StyledInput
         {...register('name', {
           setValueAs: (v) => v.replace(ONLY_BLACKSPACE_REGEX, ''),

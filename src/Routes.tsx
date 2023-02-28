@@ -15,7 +15,7 @@ import AuthRoute from './util/AuthRoute';
 import Login from './pages/Login';
 import Home from './pages/home/Home';
 import PetNamingPage from './pages/home/PetNamingPage';
-import PetFeedPage from './pages/home/PetFeedPage';
+import PetFeedPage from './pages/home/PetRaisingPage';
 
 function GrowingRoutes() {
   return (

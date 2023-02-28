@@ -138,7 +138,7 @@ const Wave = styled.img`
 
 type PetOption = 'feed' | 'play';
 
-export default function PetFeedPage() {
+export default function PetRaising() {
   const navigation = useNavigate();
   const { pathname } = useLocation();
   const petOption: PetOption = pathname.split('/')[2] as PetOption;
@@ -215,9 +215,7 @@ export default function PetFeedPage() {
         <Title
           className="text-gradient400"
           dangerouslySetInnerHTML={changeEmojiToSpan(
-            petOption === 'feed'
-              ? MENT_HOME.PET_RAISING_FEED
-              : MENT_HOME.PET_PLAY
+            petOption === 'feed' ? MENT_HOME.PET_FEED : MENT_HOME.PET_PLAY
           )}
         />
 
@@ -226,7 +224,7 @@ export default function PetFeedPage() {
         </Bar>
 
         <SubTitle className="text-gradient400">
-          {MENT_HOME.PET_RAISING_SUBTITLE}
+          {MENT_HOME.PET_FEED_HELP}
         </SubTitle>
       </Main>
 
@@ -279,7 +277,7 @@ export default function PetFeedPage() {
                 className="text-gradient400"
                 dangerouslySetInnerHTML={changeEmojiToSpan(
                   petOption === 'feed'
-                    ? MENT_HOME.PET_RAISING_FEED_HELPER
+                    ? MENT_HOME.PET_FEED_TIP
                     : MENT_HOME.PET_PLAY_TIP
                 )}
               />

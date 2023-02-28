@@ -58,6 +58,7 @@ type PetGaugeProps = Pick<
   'hungryGauge' | 'attentionGauge' | 'loveGauge'
 >;
 
+// TODO: 3개 다 100이 되면 졸업시키기
 function PetGauge({ hungryGauge, attentionGauge, loveGauge }: PetGaugeProps) {
   function getGaugeToPercent(n: number | undefined) {
     if (!n) {
