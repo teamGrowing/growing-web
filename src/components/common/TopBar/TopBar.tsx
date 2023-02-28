@@ -1,37 +1,31 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-type TopBarMode = 'LIGHT' | 'DARK';
+type TopBarMode = 'LIGHT' | 'DARK' | 'PURPLE50';
 
 export interface TopBarProps {
   mode?: TopBarMode;
   leftNode?: React.ReactNode;
-  onLeftClick?: (
-    event: React.MouseEvent<HTMLElement | SVGSVGElement, MouseEvent>
-  ) => void;
+  onLeftClick?: () => void;
   title?: string;
   subTitle?: string;
   rightMainNode?: React.ReactNode;
-  onRightMainClick?: (
-    event: React.MouseEvent<HTMLElement | SVGSVGElement, MouseEvent>
-  ) => void;
+  onRightMainClick?: () => void;
   rightSubNode?: React.ReactNode;
-  onRightSubClick?: (
-    event: React.MouseEvent<HTMLElement | SVGSVGElement, MouseEvent>
-  ) => void;
+  onRightSubClick?: () => void;
   border?: boolean;
 }
 
-const Container = styled.div<{ mode: TopBarMode; border: boolean }>`
+const Container = styled.header<{ mode: TopBarMode; border: boolean }>`
   z-index: 10;
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
   padding: 0 4px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
   height: 48px;
   border-bottom: ${(props) =>
     props.border ? `1px solid ${props.theme.color.gray200}` : 'none'};
@@ -40,6 +34,10 @@ const Container = styled.div<{ mode: TopBarMode; border: boolean }>`
       case 'DARK':
         return css`
           background-color: ${({ theme }) => theme.color.black};
+        `;
+      case 'PURPLE50':
+        return css`
+          background-color: ${({ theme }) => theme.color.purple50};
         `;
       default:
         return css`
@@ -73,10 +71,6 @@ const Title = styled.div<{ mode: TopBarMode; hasSubTitle: boolean }>`
   font-size: ${({ hasSubTitle }) => (hasSubTitle ? '14px' : '16px')};
   line-height: ${({ hasSubTitle }) => (hasSubTitle ? '17px' : '19px')};
   text-align: center;
-  /* text overflow */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   ${({ mode }) => {
     switch (mode) {
       case 'DARK':
@@ -124,7 +118,7 @@ const RightMainNode = styled.div<{ mode: TopBarMode }>`
   justify-content: center;
   align-items: center;
   height: 100%;
-  & > div {
+  > * {
     font-size: 14px;
     line-height: 17px;
     ${({ mode }) => {
@@ -165,7 +159,11 @@ export default function TopBar({
       <LeftNode onClick={onLeftClick}>{leftNode}</LeftNode>
       <Center>
         {title && (
-          <Title mode={mode as TopBarMode} hasSubTitle={!!subTitle}>
+          <Title
+            className="text-ellipsis"
+            mode={mode as TopBarMode}
+            hasSubTitle={!!subTitle}
+          >
             {title}
           </Title>
         )}

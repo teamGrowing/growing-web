@@ -9,6 +9,7 @@ export { ReactComponent as IconBar } from './IconBar.svg';
 export { ReactComponent as IconBell } from './IconBell.svg';
 export { ReactComponent as IconCalendar } from './IconCalendar.svg';
 export { ReactComponent as IconCamera } from './IconCamera.svg';
+export { ReactComponent as IconCart } from './IconCart.svg';
 export { ReactComponent as IconChat } from './IconChat.svg';
 export { ReactComponent as IconCheck } from './IconCheck.svg';
 export { ReactComponent as IconComment } from './IconComment.svg';
