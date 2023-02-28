@@ -1,4 +1,4 @@
-import EMOJI_REGEX from '../constants/regex';
+import { EMOJI_REGEX } from '../constants/regexs';
 
 function changeEmojiToSpan(str: string) {
   return {
