@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { useMemo, useState, useRef, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useMemo, useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import DataContext from './context';
@@ -13,8 +13,8 @@ import {
   useGalleryList,
 } from '../../hooks/queries/gallery.queries';
 import store from '../../stores/RootStore';
-import ToastMessage from '../../components/common/ToastMessage/ToastMessage';
 import Modal from '../../components/common/Modal/Modal';
+import useToast from '../../hooks/common/useToast';
 
 const Cancel = styled.div`
   font-family: 'PretendardRegular';
@@ -34,11 +34,9 @@ const PaddingContainer = styled.div`
 
 function PhotoPage() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { addToast } = useToast();
   const selectedPhotos = useRef<string[]>([]);
   const [selectingAvailable, setSelectingAvailable] = useState(false);
-  const [onToast, setOnToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState('');
   const [onModal, setOnModal] = useState(false);
 
   const coupleId = store.userStore.user?.coupleId ?? '';
@@ -74,10 +72,7 @@ function PhotoPage() {
 
   const upLoadPhotos = (files: FileList) => {
     upLoadPhotosMutate(files, {
-      onSuccess: () => {
-        setToastMsg('업로드가 완료되었습니다.');
-        setOnToast(true);
-      },
+      onSuccess: () => addToast('업로드가 완료되었습니다.'),
     });
   };
 
@@ -85,25 +80,10 @@ function PhotoPage() {
     deletePhotosMutate(selectedPhotos.current, {
       onSuccess: () => {
         setSelectingAvailable(false);
-        setToastMsg('삭제가 완료되었습니다.');
-        setOnToast(true);
+        addToast('삭제가 완료되었습니다.');
       },
     });
   };
-
-  useEffect(() => {
-    if (location.state && location.state.toast) {
-      setOnToast(true);
-      setToastMsg(location.state.toast.message);
-      window.history.replaceState(
-        {
-          ...location.state,
-          toast: null,
-        },
-        ''
-      );
-    }
-  }, []);
 
   return (
     <DataContext.Provider value={ctxValue}>
@@ -124,8 +104,7 @@ function PhotoPage() {
         rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
         onRightSubClick={() => {
           if (selectedPhotos.current.length <= 0) {
-            setToastMsg('삭제할 사진을 선택해 주세요.');
-            setOnToast(true);
+            addToast('삭제할 사진을 선택해주세요.');
             return;
           }
           setOnModal(true);
@@ -148,7 +127,6 @@ function PhotoPage() {
           }}
         />
       )}
-      {onToast && <ToastMessage setOnToast={setOnToast} message={toastMsg} />}
     </DataContext.Provider>
   );
 }
