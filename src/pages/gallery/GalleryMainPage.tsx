@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import AlbumRowContainer from '../../components/pages/gallery/AlbumRowContainer';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
@@ -13,21 +13,24 @@ import {
 } from '../../hooks/queries/gallery.queries';
 import { useAlbumsList } from '../../hooks/queries/album.queries';
 import store from '../../stores/RootStore';
-import ToastMessage from '../../components/common/ToastMessage/ToastMessage';
+import useToast from '../../hooks/common/useToast';
 
-const Padding = styled.div`
-  padding-top: 43px;
+const Container = styled.div`
+  position: relative;
+  width: 100%;
 `;
 
 const FixedContainer = styled.div`
-  position: relative;
+  position: absolute;
+  width: 100%;
   height: calc(100vh - 43px - 176px - 81px);
   overflow: hidden;
 `;
 
 function GalleryMainPage() {
   const navigate = useNavigate();
-  const [onToast, setOnToast] = useState(false);
+  const { addToast } = useToast();
+  const touchPositionX = useRef<number | null>(null);
   const touchPositionY = useRef<number | null>(null);
 
   const coupleId = store.userStore.user?.coupleId ?? '';
@@ -36,25 +39,32 @@ function GalleryMainPage() {
   const { mutate: upLoadPhotos } = useCreatePhotosMutation({ coupleId });
 
   const upLoadHandler = (files: FileList) => {
-    upLoadPhotos(files, { onSuccess: () => setOnToast(true) });
+    upLoadPhotos(files, {
+      onSuccess: () => addToast('사진이 업로드 되었습니다.'),
+    });
   };
 
   return (
-    <>
+    <Container>
       <GalleryTitle
         title="ALBUM"
-        top="0"
-        left="0"
         plusBtn
         onPlusBtnClick={() => navigate('new-album')}
         rightNode={(albums ?? []).length > 0 && <Icon icon="IconCheck" />}
       />
-      <Padding>
-        <AlbumRowContainer
-          albums={albums ?? []}
-          onClick={() => navigate('album')}
-        />
-      </Padding>
+      <AlbumRowContainer
+        albums={albums ?? []}
+        onClick={() => {}}
+        onTouchStart={(e) => {
+          touchPositionX.current = e.touches[0].clientX;
+        }}
+        onTouchMove={(e) => {
+          if (!touchPositionX.current) return;
+
+          if (touchPositionX.current - e.touches[0].clientX > 50)
+            navigate('album');
+        }}
+      />
       <FixedContainer
         onTouchStart={(e) => {
           touchPositionY.current = e.touches[0].clientY;
@@ -62,28 +72,19 @@ function GalleryMainPage() {
         onTouchMove={(e) => {
           if (!touchPositionY.current) return;
 
-          if (touchPositionY.current - e.touches[0].clientY > 200)
+          if (touchPositionY.current - e.touches[0].clientY > 10)
             navigate('photo');
         }}
       >
         <GalleryTitle
           title="PHOTO"
-          top="219px"
-          left="0px"
           rightNode={(photos ?? []).length > 0 && <Icon icon="IconCheck" />}
         />
-        <Padding>
-          <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
-        </Padding>
+
+        <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
       </FixedContainer>
       <FloatingButton onUpLoad={upLoadHandler} />
-      {onToast && (
-        <ToastMessage
-          setOnToast={setOnToast}
-          message="사진이 업로드 되었습니다."
-        />
-      )}
-    </>
+    </Container>
   );
 }
 

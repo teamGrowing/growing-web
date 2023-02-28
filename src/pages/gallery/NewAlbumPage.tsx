@@ -7,14 +7,14 @@ import { useGalleryList } from '../../hooks/queries/gallery.queries';
 import store from '../../stores/RootStore';
 import { usePostAlbumsMutation } from '../../hooks/queries/album.queries';
 import Modal from '../../components/common/Modal/AlbumModal';
-import ToastMessage from '../../components/common/ToastMessage/ToastMessage';
 import { AlbumFormValues } from '../../types/InputSchema';
+import useToast from '../../hooks/common/useToast';
 
 function NewAlbumPage() {
   const navigate = useNavigate();
   const [onModal, setOnModal] = useState(false);
-  const [onToast, setOnToast] = useState(false);
   const selectedPhotos = useRef<string[]>([]);
+  const { addToast } = useToast();
 
   const coupleId = store.userStore.user?.coupleId ?? '';
 
@@ -44,14 +44,8 @@ function NewAlbumPage() {
       {
         onSuccess: () => {
           setOnModal(false);
-          navigate('/gallery/album', {
-            state: {
-              toast: {
-                showToast: true,
-                message: '앨범이 생성되었습니다.',
-              },
-            },
-          });
+          addToast('앨범 생성이 완료되었습니다.');
+          navigate('/gallery/album');
         },
       }
     );
@@ -63,10 +57,14 @@ function NewAlbumPage() {
         photos={photos ?? []}
         leftLabel="취소"
         rightLabel="추가"
-        onRightClick={() => setOnModal(true)}
-        onLeftClick={() => {
-          navigate(-1);
+        onRightClick={() => {
+          if (selectedPhotos.current.length === 0) {
+            addToast('앨범에 만들기 위한 사진을 선택해주세요.');
+            return;
+          }
+          setOnModal(true);
         }}
+        onLeftClick={() => navigate(-1)}
       />
       <Modal
         onModal={onModal}
@@ -77,12 +75,6 @@ function NewAlbumPage() {
         subActionLabel="취소"
         onSubAction={() => setOnModal(false)}
       />
-      {onToast && (
-        <ToastMessage
-          message="앨범 생성이 완료되었습니다."
-          setOnToast={setOnToast}
-        />
-      )}
     </DataContext.Provider>
   );
 }
