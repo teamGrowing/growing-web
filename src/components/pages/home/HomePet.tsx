@@ -6,7 +6,7 @@ import store from '../../../stores/RootStore';
 import Icon from '../../common/Icon/Icon';
 import PetRaisingMenu from './PetRaisingMenu';
 import PetGauge from './PetGauge';
-import usePetData from '../../../hooks/queries/pet.queries';
+import { usePetData } from '../../../hooks/queries/pet.queries';
 
 const EMOJI_SIZE = 200;
 

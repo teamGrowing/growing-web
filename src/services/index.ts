@@ -1,5 +1,9 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
-import { QueryKey, UseQueryOptions } from '@tanstack/react-query';
+import {
+  QueryKey,
+  UseMutationOptions,
+  UseQueryOptions,
+} from '@tanstack/react-query';
 
 class Fetcher {
   accessToken: string | undefined;
@@ -26,3 +30,6 @@ export default fetcher;
 
 export interface UseQueryOptionsType<T>
   extends UseQueryOptions<AxiosResponse<T>, AxiosError, T, QueryKey[]> {}
+
+export interface UseMutationOptionsType<T>
+  extends UseMutationOptions<AxiosResponse<T>, AxiosError, T, unknown> {}
