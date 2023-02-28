@@ -14,10 +14,12 @@ import {
 import { useDeletePhotosMutation } from '../../hooks/queries/album.queries';
 import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
+import useToast from '../../hooks/common/useToast';
 
 function AlbumPhotoDetailPage() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { addToast } = useToast();
   const { pId, aId } = useParams();
   const [commentIsVisible, setCommentIsvisible] = useState(false);
   const [onModal, setOnModal] = useState(false);
@@ -44,17 +46,19 @@ function AlbumPhotoDetailPage() {
   };
 
   const deletePhotos = () => {
-    if (photo?.id) deletePhotoMutate([photo?.id]);
-    navigate(`/gallery/album/${albumId}`, {
-      state: {
-        title,
-        subTitle,
-        toast: {
-          showToast: true,
-          message: '사진이 제거되었습니다.',
+    if (photo?.id) {
+      deletePhotoMutate([photo?.id], {
+        onSuccess: () => {
+          addToast('사진이 제거되었습니다.');
+          navigate(`/gallery/album/${albumId}`, {
+            state: {
+              title,
+              subTitle,
+            },
+          });
         },
-      },
-    });
+      });
+    }
   };
 
   return (
@@ -71,9 +75,7 @@ function AlbumPhotoDetailPage() {
       )}
       <BottomMenu
         border={!commentIsVisible}
-        onComment={() => {
-          setCommentIsvisible((prevState) => !prevState);
-        }}
+        onComment={() => setCommentIsvisible((prevState) => !prevState)}
         onMessage={() => {}}
         onTrash={() => setOnModal(true)}
       />

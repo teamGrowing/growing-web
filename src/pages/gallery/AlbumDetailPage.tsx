@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState, useMemo, useRef, useEffect } from 'react';
+import { useState, useMemo, useRef } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
@@ -16,8 +16,8 @@ import {
 import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import AlbumModal from '../../components/common/Modal/AlbumModal';
-import ToastMessage from '../../components/common/ToastMessage/ToastMessage';
 import { useCreatePhotosMutation } from '../../hooks/queries/gallery.queries';
+import useToast from '../../hooks/common/useToast';
 
 const Option = styled.div`
   width: 25px;
@@ -40,8 +40,6 @@ function AlbumDetailPage() {
   const location = useLocation();
   const { aId } = useParams();
   const [selectingAvailable, setSelectingAvailable] = useState(false);
-  const [onToast, setOnToast] = useState(false);
-  const [toastMsg, setToastMsg] = useState('');
   const [onModal, setOnModal] = useState(false);
   const [onAlbumModal, setOnAlbumModal] = useState(false);
   const selectedPhotos = useRef<string[]>([]);
@@ -59,6 +57,7 @@ function AlbumDetailPage() {
     albumId,
   });
   const { mutate: upLoadPhotos } = useCreatePhotosMutation({ coupleId });
+  const { addToast } = useToast();
 
   const ctxValue = useMemo(() => {
     return {
@@ -85,36 +84,16 @@ function AlbumDetailPage() {
 
   const deletePhotos = () => {
     deletePhotosMutate(selectedPhotos.current, {
-      onSuccess: () => {
-        setOnToast(true);
-        setToastMsg('사진이 앨범에서 제거되었습니다.');
-      },
+      onSuccess: () => addToast('사진이 앨범에서 제거되었습니다.'),
     });
     clearList();
   };
 
   const upLoadHandler = (files: FileList) => {
     upLoadPhotos(files, {
-      onSuccess: () => {
-        setToastMsg('업로드가 완료되었습니다.');
-        setOnToast(true);
-      },
+      onSuccess: () => addToast('업로드가 완료되었습니다.'),
     });
   };
-
-  useEffect(() => {
-    if (location.state && location.state.toast) {
-      setOnToast(true);
-      setToastMsg(location.state.toast.message);
-      window.history.replaceState(
-        {
-          ...location.state,
-          toast: null,
-        },
-        ''
-      );
-    }
-  }, [location]);
 
   return (
     <DataContext.Provider value={ctxValue}>
@@ -144,8 +123,7 @@ function AlbumDetailPage() {
           selectingAvailable
             ? () => {
                 if (selectedPhotos.current.length <= 0) {
-                  setToastMsg('삭제할 파일을 선택해 주세요.');
-                  setOnToast(true);
+                  addToast('삭제할 파일을 선택해 주세요.');
                   return;
                 }
                 setOnModal(true);
@@ -182,15 +160,8 @@ function AlbumDetailPage() {
               },
               {
                 onSuccess: () => {
-                  setToastMsg('앨범 이름이 변경되었습니다.');
-                  setOnToast(true);
-                  navigate(location.pathname, {
-                    replace: true,
-                    state: {
-                      title: data.albumTitle,
-                      subTitle: data.albumSubTitle,
-                    },
-                  });
+                  addToast('앨범 이름이 변경되었습니다.');
+                  navigate(location.pathname);
                 },
               }
             );
@@ -199,7 +170,6 @@ function AlbumDetailPage() {
           onSubAction={() => {}}
         />
       )}
-      {onToast && <ToastMessage setOnToast={setOnToast} message={toastMsg} />}
     </DataContext.Provider>
   );
 }

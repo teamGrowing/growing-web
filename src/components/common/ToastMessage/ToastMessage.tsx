@@ -1,6 +1,7 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
+import ToastContext from './ToastContext';
 
 const fade = keyframes`
   0% {
@@ -59,15 +60,15 @@ const Text = styled.div`
 
 type ToastMessageProps = {
   message: string;
-  setOnToast: Dispatch<SetStateAction<boolean>>;
+  id: number;
 };
 
-function ToastMessage({ message, setOnToast }: ToastMessageProps) {
+function ToastMessage({ message, id }: ToastMessageProps) {
   const root = document.getElementById('toast-message-root');
-
+  const ctx = useContext(ToastContext);
   useEffect(() => {
     const timer = setTimeout(() => {
-      setOnToast(false);
+      ctx.removeToast(id);
     }, 2000);
     return () => clearTimeout(timer);
   }, []);
