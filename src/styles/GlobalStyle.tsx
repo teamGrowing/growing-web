@@ -72,12 +72,21 @@ input {
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  span {
+  -webkit-text-fill-color: initial;
+  }
 }
 .text-gradient400 {
   background: linear-gradient(130.11deg, #7117EA 7.3%, #EA6060 100%);
-  color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  span {
+  -webkit-text-fill-color: initial;
+  }
 }
 .text-ellipsis {
   white-space: nowrap;
