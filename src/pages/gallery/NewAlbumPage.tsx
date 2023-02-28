@@ -1,100 +1,82 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react';
 import PhotoScroll from '../../components/pages/gallery/PhotoScroll';
-import PhotoDto from '../../types/gallery/Photo.dto';
 import DataContext from './context';
+import { useGalleryList } from '../../hooks/queries/gallery.queries';
+import store from '../../stores/RootStore';
+import { usePostAlbumsMutation } from '../../hooks/queries/album.queries';
+import Modal from '../../components/common/Modal/AlbumModal';
+import { AlbumFormValues } from '../../types/InputSchema';
+import useToast from '../../hooks/common/useToast';
 
 function NewAlbumPage() {
   const navigate = useNavigate();
+  const [onModal, setOnModal] = useState(false);
   const selectedPhotos = useRef<string[]>([]);
-  const dummyPhotos: PhotoDto[] = [
-    {
-      id: '1',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '2',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '3',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '4',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '5',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '6',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '7',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '8',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '9',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '10',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-  ];
-  const addToList = (photoId: string) => {
-    selectedPhotos.current.push(photoId);
-  };
-  const removeFromList = (photoId: string) => {
-    const idx = selectedPhotos.current.findIndex((id) => id === photoId);
-    selectedPhotos.current.splice(idx, 1);
-  };
+  const { addToast } = useToast();
+
+  const coupleId = store.userStore.user?.coupleId ?? '';
+
+  const { data: photos } = useGalleryList({ coupleId });
+  const { mutate: postAlbumMutate } = usePostAlbumsMutation({ coupleId });
+
   const ctxValue = useMemo(() => {
     return {
       selectingAvailable: true,
-      addToList,
-      removeFromList,
+      addToList: (photoId: string) => {
+        selectedPhotos.current.push(photoId);
+      },
+      removeFromList: (photoId: string) => {
+        const idx = selectedPhotos.current.findIndex((id) => id === photoId);
+        selectedPhotos.current.splice(idx, 1);
+      },
     };
   }, []);
+
+  const makeAlbum = ({ albumTitle, albumSubTitle }: AlbumFormValues) => {
+    postAlbumMutate(
+      {
+        title: albumTitle,
+        subTitle: albumSubTitle,
+        imageIds: selectedPhotos.current,
+      },
+      {
+        onSuccess: () => {
+          setOnModal(false);
+          addToast('앨범 생성이 완료되었습니다.');
+          navigate('/gallery/album');
+        },
+      }
+    );
+  };
 
   return (
     <DataContext.Provider value={ctxValue}>
       <PhotoScroll
-        photos={dummyPhotos}
-        onAdd={() => {}}
-        onCancel={() => {
-          navigate(-1);
+        photos={photos ?? []}
+        leftLabel="취소"
+        rightLabel="추가"
+        onRightClick={() => {
+          if (selectedPhotos.current.length === 0) {
+            addToast('앨범에 만들기 위한 사진을 선택해주세요.');
+            return;
+          }
+          setOnModal(true);
         }}
+        onLeftClick={() => navigate(-1)}
+      />
+      <Modal
+        onModal={onModal}
+        setOnModal={setOnModal}
+        title="앨범 생성"
+        mainActionLabel="확인"
+        onMainAction={(formValue) => makeAlbum(formValue)}
+        subActionLabel="취소"
+        onSubAction={() => setOnModal(false)}
       />
     </DataContext.Provider>
   );
 }
 
-export default NewAlbumPage;
+export default observer(NewAlbumPage);

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import GrowingRoutes from './Routes';
+import ToastProvider from './components/common/ToastMessage/ToastProvider';
 
 function App() {
   // webview 100vh
@@ -12,7 +13,11 @@ function App() {
     setVh();
   }, []);
 
-  return <GrowingRoutes />;
+  return (
+    <ToastProvider>
+      <GrowingRoutes />
+    </ToastProvider>
+  );
 }
 
 export default App;

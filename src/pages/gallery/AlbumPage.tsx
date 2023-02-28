@@ -1,102 +1,50 @@
 import styled from 'styled-components';
 import { useRef, useState, useMemo } from 'react';
-import TopBar from '../../components/common/TopBar/TopBar';
+import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react';
 import Icon from '../../components/common/Icon/Icon';
 import AlbumContainer from '../../components/pages/gallery/AlbumContainer';
-import PaddingContainer from '../../styles/common/layout';
 import DataContext from './context';
-import AlbumDto from '../../types/gallery/Album.dto';
+import GalleryTitle from '../../components/pages/gallery/GalleryTitle';
+import {
+  useAlbumsList,
+  useDeleteAlbumsMutation,
+} from '../../hooks/queries/album.queries';
+import store from '../../stores/RootStore';
+import Modal from '../../components/common/Modal/Modal';
+import useToast from '../../hooks/common/useToast';
 
-const BarTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: absolute;
-  left: 24px;
-
-  font-family: 'PretendardMedium';
-  font-size: 23px;
-
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`;
-
-const Option = styled.div`
-  width: 25px;
-  height: 17px;
-
-  font-family: 'PretendardMedium';
+const Cancel = styled.div`
+  font-family: 'PretendardRegular';
   font-size: 14px;
   line-height: 17px;
-
-  display: flex;
-  align-items: center;
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
 `;
 
 function AlbumPage() {
-  const dummyAlbums: AlbumDto[] = [
-    {
-      id: '1',
-      title: '1000일',
-      subTitle: '2020-06-06',
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2020-06-06',
-    },
-    {
-      id: '2',
-      title: '부산여행',
-      subTitle: '2020-06-06',
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2020-06-06',
-    },
-    {
-      id: '3',
-      title: '크리스마스',
-      subTitle: '2020-12-30',
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2020-06-06',
-    },
-    {
-      id: '4',
-      title: '1000일',
-      subTitle: '2020-06-06',
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2020-06-06',
-    },
-    {
-      id: '23',
-      title: '부산여행',
-      subTitle: '2020-06-06',
-      imageUrl: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2020-06-06',
-    },
-  ];
-  const selectedAlbums = useRef<string[]>([]);
+  const navigate = useNavigate();
+  const { addToast } = useToast();
   const [selectingAvailable, setSelectingAvailable] = useState(false);
+  const [onModal, setOnModal] = useState(false);
+  const selectedAlbums = useRef<string[]>([]);
 
-  const addToList = (albumId: string) => {
-    selectedAlbums.current.push(albumId);
-  };
-  const removeFromList = (albumId: string) => {
-    const idx = selectedAlbums.current.findIndex((id) => id === albumId);
-    selectedAlbums.current.splice(idx, 1);
-    if (selectedAlbums.current.length === 0) {
-      setSelectingAvailable(true);
-    }
-  };
+  const coupleId = store.userStore.user?.coupleId ?? '';
+
+  const { data: albums } = useAlbumsList({ coupleId });
+  const { mutate: deleteAlbumsMutate } = useDeleteAlbumsMutation({ coupleId });
 
   const ctxValue = useMemo(() => {
     return {
       selectingAvailable,
-      addToList,
-      removeFromList,
+      addToList: (albumId: string) => {
+        selectedAlbums.current.push(albumId);
+      },
+      removeFromList: (albumId: string) => {
+        const idx = selectedAlbums.current.findIndex((id) => id === albumId);
+        selectedAlbums.current.splice(idx, 1);
+        if (selectedAlbums.current.length === 0) {
+          setSelectingAvailable(true);
+        }
+      },
     };
   }, [selectingAvailable]);
 
@@ -105,35 +53,55 @@ function AlbumPage() {
     setSelectingAvailable(false);
   };
 
-  const deletePhotos = () => {
-    // selectedAlbums 삭제 요청 보내기
-    setSelectingAvailable(false);
-  };
-
-  const clickCheck = () => {
-    setSelectingAvailable(true);
+  const deleteAlbums = () => {
+    deleteAlbumsMutate(selectedAlbums.current, {
+      onSuccess: () => {
+        setSelectingAvailable(false);
+        addToast('앨범 삭제과 완료되었습니다.');
+      },
+    });
   };
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <TopBar
-        leftNode={<BarTitle>ALBUM</BarTitle>}
-        rightMainNode={
+      <GalleryTitle
+        title="ALBUM"
+        backBtn
+        onBackBtnClick={() => navigate('/gallery')}
+        plusBtn
+        onPlusBtnClick={() => navigate('/gallery/new-album')}
+        rightNode={
           !selectingAvailable ? (
             <Icon icon="IconCheck" />
           ) : (
-            <Option>취소</Option>
+            <Cancel className="text-gradient400">취소</Cancel>
           )
         }
-        onRightMainClick={selectingAvailable ? clearList : clickCheck}
+        onRightClick={
+          selectingAvailable ? clearList : () => setSelectingAvailable(true)
+        }
         rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
-        onRightSubClick={deletePhotos}
-        border={false}
+        onRightSubClick={() => {
+          if (selectedAlbums.current.length <= 0) {
+            addToast('삭제할 앨범을 선택해 주세요.');
+            return;
+          }
+          setOnModal(true);
+        }}
       />
-      <PaddingContainer>
-        <AlbumContainer albums={dummyAlbums} />
-      </PaddingContainer>
+      <AlbumContainer albums={albums ?? []} />
+      <Modal
+        onModal={onModal}
+        setOnModal={setOnModal}
+        description="앨범을 삭제하시겠습니까?"
+        mainActionLabel="확인"
+        onMainAction={deleteAlbums}
+        subActionLabel="취소"
+        onSubAction={() => {
+          setOnModal(false);
+        }}
+      />
     </DataContext.Provider>
   );
 }
-export default AlbumPage;
+export default observer(AlbumPage);

@@ -1,128 +1,66 @@
 import styled from 'styled-components';
 import { useMemo, useState, useRef } from 'react';
-import TopBar from '../../components/common/TopBar/TopBar';
+import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
-import PaddingContainer from '../../styles/common/layout';
 import DataContext from './context';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
-import PhotoDto from '../../types/gallery/Photo.dto';
 import Icon from '../../components/common/Icon/Icon';
+import GalleryTitle from '../../components/pages/gallery/GalleryTitle';
+import {
+  useCreatePhotosMutation,
+  useDeletePhotosMutation,
+  useGalleryList,
+} from '../../hooks/queries/gallery.queries';
+import store from '../../stores/RootStore';
+import Modal from '../../components/common/Modal/Modal';
+import useToast from '../../hooks/common/useToast';
 
-const BarTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  position: absolute;
-  left: 24px;
-
-  font-family: 'PretendardMedium';
-  font-size: 23px;
-
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`;
-
-const Option = styled.div`
-  width: 25px;
-  height: 17px;
-
-  font-family: 'PretendardMedium';
+const Cancel = styled.div`
+  font-family: 'PretendardRegular';
   font-size: 14px;
   line-height: 17px;
+`;
 
-  display: flex;
-  align-items: center;
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+const PaddingContainer = styled.div`
+  position: fixed;
+  top: 43px;
+
+  height: calc(100% - 43px - 81px);
+  width: 100%;
+
+  overflow: scroll;
 `;
 
 function PhotoPage() {
-  const dummyPhotos: PhotoDto[] = [
-    {
-      id: '1',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '2',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '3',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '4',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '5',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '6',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '7',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '8',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '9',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-    {
-      id: '10',
-      urls: 'https://picsum.photos/id/237/200/300',
-      createdAt: '2000',
-      name: 'string',
-    },
-  ];
+  const navigate = useNavigate();
+  const { addToast } = useToast();
   const selectedPhotos = useRef<string[]>([]);
   const [selectingAvailable, setSelectingAvailable] = useState(false);
+  const [onModal, setOnModal] = useState(false);
 
-  const addToList = (photoId: string) => {
-    selectedPhotos.current.push(photoId);
-  };
-  const removeFromList = (photoId: string) => {
-    const idx = selectedPhotos.current.findIndex((id) => id === photoId);
-    selectedPhotos.current.splice(idx, 1);
-    if (selectedPhotos.current.length === 0) {
-      setSelectingAvailable(true);
-    }
-  };
+  const coupleId = store.userStore.user?.coupleId ?? '';
+  const { data: photos } = useGalleryList({ coupleId });
+  const { mutateAsync: upLoadPhotosMutate } = useCreatePhotosMutation({
+    coupleId,
+  });
+  const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
+    coupleId,
+  });
 
   const ctxValue = useMemo(() => {
     return {
       selectingAvailable,
-      addToList,
-      removeFromList,
+      addToList: (photoId: string) => {
+        selectedPhotos.current.push(photoId);
+      },
+      removeFromList: (photoId: string) => {
+        const idx = selectedPhotos.current.findIndex((id) => id === photoId);
+        selectedPhotos.current.splice(idx, 1);
+        if (selectedPhotos.current.length === 0) {
+          setSelectingAvailable(true);
+        }
+      },
     };
   }, [selectingAvailable]);
 
@@ -130,37 +68,64 @@ function PhotoPage() {
     selectedPhotos.current = [];
     setSelectingAvailable(false);
   };
+  const clickCheck = () => setSelectingAvailable(true);
 
-  const deletePhotos = () => {
-    // selectedPhotos 삭제 요청 보내기
-    setSelectingAvailable(false);
+  const upLoadPhotos = (files: FileList) => {
+    upLoadPhotosMutate(files, {
+      onSuccess: () => addToast('업로드가 완료되었습니다.'),
+    });
   };
 
-  const clickCheck = () => {
-    setSelectingAvailable(true);
+  const deletePhotos = () => {
+    deletePhotosMutate(selectedPhotos.current, {
+      onSuccess: () => {
+        setSelectingAvailable(false);
+        addToast('삭제가 완료되었습니다.');
+      },
+    });
   };
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <TopBar
-        leftNode={<BarTitle>PHOTO</BarTitle>}
-        rightMainNode={
+      <GalleryTitle
+        title="PHOTO"
+        backBtn
+        onBackBtnClick={() => navigate('/gallery')}
+        rightNode={
           !selectingAvailable ? (
             <Icon icon="IconCheck" />
           ) : (
-            <Option>취소</Option>
+            <Cancel className="text-gradient400">취소</Cancel>
           )
         }
-        onRightMainClick={selectingAvailable ? clearList : clickCheck}
+        onRightClick={selectingAvailable ? clearList : clickCheck}
         rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
-        onRightSubClick={deletePhotos}
-        border={false}
+        onRightSubClick={() => {
+          if (selectedPhotos.current.length <= 0) {
+            addToast('삭제할 사진을 선택해주세요.');
+            return;
+          }
+          setOnModal(true);
+        }}
       />
       <PaddingContainer>
-        <PhotoContainer photoObjects={dummyPhotos} type="UPLOADED" />
-        <FloatingButton />
+        <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
       </PaddingContainer>
+      <FloatingButton onUpLoad={upLoadPhotos} />
+      {onModal && (
+        <Modal
+          onModal={onModal}
+          setOnModal={setOnModal}
+          description="삭제하시겠습니까?"
+          mainActionLabel="확인"
+          onMainAction={deletePhotos}
+          subActionLabel="취소"
+          onSubAction={() => {
+            setOnModal(false);
+          }}
+        />
+      )}
     </DataContext.Provider>
   );
 }
-export default PhotoPage;
+export default observer(PhotoPage);

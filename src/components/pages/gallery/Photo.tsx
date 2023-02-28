@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PhotoDto from '../../../types/gallery/Photo.dto';
 import DataContext from '../../../pages/gallery/context';
 import Icon from '../../common/Icon/Icon';
+import { PhotoLineDto } from '../../../types/gallery/PhotoLine.dto';
 
 const PhotoBox = styled.div<{ isSelected: boolean; imgUrl: string }>`
   position: relative;
@@ -32,28 +32,31 @@ const CheckIcon = styled(Icon)`
 `;
 
 type PhotoProps = {
-  photoInfo: PhotoDto;
+  photoInfo: PhotoLineDto;
 };
 
 function Photo({ photoInfo }: PhotoProps) {
   const navigate = useNavigate();
   const ctx = useContext(DataContext);
   const [isSelected, setIsSelected] = useState(false);
-
   const clickHandler = () => {
     if (!ctx.selectingAvailable) {
-      navigate(`/gallery/photo/${photoInfo.id}`, {
-        state: {
-          title: ctx.data?.title,
-          subTitle: ctx.data?.subTitle,
-        },
-      });
+      if (ctx.data) {
+        navigate(`photo/${photoInfo.i}`, {
+          state: {
+            title: ctx.data?.title,
+            subTitle: ctx.data?.subTitle,
+          },
+        });
+        return;
+      }
+      navigate(`/gallery/photo/${photoInfo.i}`);
       return;
     }
     if (isSelected) {
-      ctx.removeFromList(photoInfo.id);
+      ctx.removeFromList(photoInfo.i);
     } else {
-      ctx.addToList(photoInfo.id);
+      ctx.addToList(photoInfo.i);
     }
     setIsSelected((prevState) => !prevState);
   };
@@ -66,10 +69,10 @@ function Photo({ photoInfo }: PhotoProps) {
 
   return (
     <PhotoBox
-      key={photoInfo.id}
+      key={photoInfo.i}
       onClick={clickHandler}
       isSelected={isSelected}
-      imgUrl={photoInfo.urls}
+      imgUrl={photoInfo.u}
     >
       {isSelected && <CheckIcon icon="IconCheck" themeColor="gray50" />}
     </PhotoBox>

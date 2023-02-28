@@ -4,6 +4,7 @@ import AlbumDto from '../../../types/gallery/Album.dto';
 
 const Container = styled.div`
   width: 100%;
+  height: 176px;
   position: relative;
 `;
 const FixedContainer = styled.div`
@@ -55,6 +56,7 @@ const SlideContainer = styled.div`
   align-items: flex-start;
 
   width: 100%;
+  height: 176px;
 
   padding: 18px 0px 10px 14px;
   gap: 10px;
@@ -90,15 +92,27 @@ const Line = styled.div`
 
 interface AlbumRowContainerProps {
   albums: AlbumDto[];
+  onClick?: React.MouseEventHandler;
+  onTouchStart?: React.TouchEventHandler;
+  onTouchMove?: React.TouchEventHandler;
 }
 
-function AlbumRowContainer({ albums }: AlbumRowContainerProps) {
+function AlbumRowContainer({
+  albums,
+  onClick,
+  onTouchStart,
+  onTouchMove,
+}: AlbumRowContainerProps) {
   const albumComponents = albums.map((item: AlbumDto) => (
     <Album key={item.id} albumInfo={item} />
   ));
 
   return (
-    <Container>
+    <Container
+      onClick={onClick}
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+    >
       {albums.length === 0 && (
         <NoAlbumContainer>
           <Line />

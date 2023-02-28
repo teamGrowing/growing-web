@@ -1,93 +1,91 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import TopBar from '../../components/common/TopBar/TopBar';
+import { observer } from 'mobx-react';
+import { useRef } from 'react';
 import AlbumRowContainer from '../../components/pages/gallery/AlbumRowContainer';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
+import GalleryTitle from '../../components/pages/gallery/GalleryTitle';
 import Icon from '../../components/common/Icon/Icon';
-import PaddingContainer from '../../styles/common/layout';
-import AlbumDto from '../../types/gallery/Album.dto';
-import PhotoDto from '../../types/gallery/Photo.dto';
+import {
+  useCreatePhotosMutation,
+  useGalleryList,
+} from '../../hooks/queries/gallery.queries';
+import { useAlbumsList } from '../../hooks/queries/album.queries';
+import store from '../../stores/RootStore';
+import useToast from '../../hooks/common/useToast';
 
-const Bar = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
+const Container = styled.div`
+  position: relative;
   width: 100%;
-  height: 43px;
 `;
 
-const BarTitle = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
+const FixedContainer = styled.div`
   position: absolute;
-  left: 24px;
-
-  font-family: 'PretendardMedium';
-  font-size: 23px;
-
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`;
-
-const Option = styled.div`
-  position: absolute;
-  right: 4px;
-  width: 48px;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
+  height: calc(100vh - 43px - 176px - 81px);
+  overflow: hidden;
 `;
 
 function GalleryMainPage() {
   const navigate = useNavigate();
-  const albums: AlbumDto[] = [];
-  const photos: PhotoDto[] = [];
+  const { addToast } = useToast();
+  const touchPositionX = useRef<number | null>(null);
+  const touchPositionY = useRef<number | null>(null);
+
+  const coupleId = store.userStore.user?.coupleId ?? '';
+  const { data: photos } = useGalleryList({ coupleId });
+  const { data: albums } = useAlbumsList({ coupleId });
+  const { mutate: upLoadPhotos } = useCreatePhotosMutation({ coupleId });
+
+  const upLoadHandler = (files: FileList) => {
+    upLoadPhotos(files, {
+      onSuccess: () => addToast('사진이 업로드 되었습니다.'),
+    });
+  };
 
   return (
-    <>
-      <TopBar
-        leftNode={
-          <BarTitle>
-            ALBUM
-            <Icon icon="IconPlus" />
-          </BarTitle>
-        }
-        onLeftClick={() => {
-          navigate('new-album');
-        }}
-        rightMainNode={albums.length > 0 && <Icon icon="IconCheck" />}
-        border={false}
+    <Container>
+      <GalleryTitle
+        title="ALBUM"
+        plusBtn
+        onPlusBtnClick={() => navigate('new-album')}
+        rightNode={(albums ?? []).length > 0 && <Icon icon="IconCheck" />}
       />
-      <PaddingContainer>
-        <div
-          onClick={() => {
+      <AlbumRowContainer
+        albums={albums ?? []}
+        onClick={() => {}}
+        onTouchStart={(e) => {
+          touchPositionX.current = e.touches[0].clientX;
+        }}
+        onTouchMove={(e) => {
+          if (!touchPositionX.current) return;
+
+          if (touchPositionX.current - e.touches[0].clientX > 50)
             navigate('album');
-          }}
-        >
-          <AlbumRowContainer albums={albums} />
-        </div>
-        <Bar>
-          <BarTitle>PHOTO</BarTitle>
-          {photos.length > 0 && (
-            <Option>
-              <Icon icon="IconCheck" />
-            </Option>
-          )}
-        </Bar>
-        <PhotoContainer photoObjects={photos} type="UPLOADED" />
-        <FloatingButton />
-      </PaddingContainer>
-    </>
+        }}
+      />
+      <FixedContainer
+        onTouchStart={(e) => {
+          touchPositionY.current = e.touches[0].clientY;
+        }}
+        onTouchMove={(e) => {
+          if (!touchPositionY.current) return;
+
+          if (touchPositionY.current - e.touches[0].clientY > 10)
+            navigate('photo');
+        }}
+      >
+        <GalleryTitle
+          title="PHOTO"
+          rightNode={(photos ?? []).length > 0 && <Icon icon="IconCheck" />}
+        />
+
+        <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
+      </FixedContainer>
+      <FloatingButton onUpLoad={upLoadHandler} />
+    </Container>
   );
 }
 
-export default GalleryMainPage;
+export default observer(GalleryMainPage);
