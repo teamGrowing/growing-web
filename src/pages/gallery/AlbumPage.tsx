@@ -14,10 +14,6 @@ import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import useToast from '../../hooks/common/useToast';
 
-const Padding = styled.div`
-  padding-top: 43px;
-`;
-
 const Cancel = styled.div`
   font-family: 'PretendardRegular';
   font-size: 14px;
@@ -68,35 +64,31 @@ function AlbumPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <Padding>
-        <GalleryTitle
-          title="ALBUM"
-          top="0px"
-          left="0px"
-          backBtn
-          onBackBtnClick={() => navigate('/gallery')}
-          plusBtn
-          onPlusBtnClick={() => navigate('/gallery/new-album')}
-          rightNode={
-            !selectingAvailable ? (
-              <Icon icon="IconCheck" />
-            ) : (
-              <Cancel className="text-gradient400">취소</Cancel>
-            )
+      <GalleryTitle
+        title="ALBUM"
+        backBtn
+        onBackBtnClick={() => navigate('/gallery')}
+        plusBtn
+        onPlusBtnClick={() => navigate('/gallery/new-album')}
+        rightNode={
+          !selectingAvailable ? (
+            <Icon icon="IconCheck" />
+          ) : (
+            <Cancel className="text-gradient400">취소</Cancel>
+          )
+        }
+        onRightClick={
+          selectingAvailable ? clearList : () => setSelectingAvailable(true)
+        }
+        rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
+        onRightSubClick={() => {
+          if (selectedAlbums.current.length <= 0) {
+            addToast('삭제할 앨범을 선택해 주세요.');
+            return;
           }
-          onRightClick={
-            selectingAvailable ? clearList : () => setSelectingAvailable(true)
-          }
-          rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
-          onRightSubClick={() => {
-            if (selectedAlbums.current.length <= 0) {
-              addToast('삭제할 앨범을 선택해 주세요.');
-              return;
-            }
-            setOnModal(true);
-          }}
-        />
-      </Padding>
+          setOnModal(true);
+        }}
+      />
       <AlbumContainer albums={albums ?? []} />
       <Modal
         onModal={onModal}

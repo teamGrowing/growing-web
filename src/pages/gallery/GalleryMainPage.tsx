@@ -15,12 +15,14 @@ import { useAlbumsList } from '../../hooks/queries/album.queries';
 import store from '../../stores/RootStore';
 import useToast from '../../hooks/common/useToast';
 
-const Padding = styled.div`
-  padding-top: 43px;
+const Container = styled.div`
+  position: relative;
+  width: 100%;
 `;
 
 const FixedContainer = styled.div`
-  position: relative;
+  position: absolute;
+  width: 100%;
   height: calc(100vh - 43px - 176px - 81px);
   overflow: hidden;
 `;
@@ -28,6 +30,7 @@ const FixedContainer = styled.div`
 function GalleryMainPage() {
   const navigate = useNavigate();
   const { addToast } = useToast();
+  const touchPositionX = useRef<number | null>(null);
   const touchPositionY = useRef<number | null>(null);
 
   const coupleId = store.userStore.user?.coupleId ?? '';
@@ -42,21 +45,26 @@ function GalleryMainPage() {
   };
 
   return (
-    <>
+    <Container>
       <GalleryTitle
         title="ALBUM"
-        top="0"
-        left="0"
         plusBtn
         onPlusBtnClick={() => navigate('new-album')}
         rightNode={(albums ?? []).length > 0 && <Icon icon="IconCheck" />}
       />
-      <Padding>
-        <AlbumRowContainer
-          albums={albums ?? []}
-          onClick={() => navigate('album')}
-        />
-      </Padding>
+      <AlbumRowContainer
+        albums={albums ?? []}
+        onClick={() => {}}
+        onTouchStart={(e) => {
+          touchPositionX.current = e.touches[0].clientX;
+        }}
+        onTouchMove={(e) => {
+          if (!touchPositionX.current) return;
+
+          if (touchPositionX.current - e.touches[0].clientX > 50)
+            navigate('album');
+        }}
+      />
       <FixedContainer
         onTouchStart={(e) => {
           touchPositionY.current = e.touches[0].clientY;
@@ -64,22 +72,19 @@ function GalleryMainPage() {
         onTouchMove={(e) => {
           if (!touchPositionY.current) return;
 
-          if (touchPositionY.current - e.touches[0].clientY > 200)
+          if (touchPositionY.current - e.touches[0].clientY > 10)
             navigate('photo');
         }}
       >
         <GalleryTitle
           title="PHOTO"
-          top="219px"
-          left="0px"
           rightNode={(photos ?? []).length > 0 && <Icon icon="IconCheck" />}
         />
-        <Padding>
-          <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
-        </Padding>
+
+        <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
       </FixedContainer>
       <FloatingButton onUpLoad={upLoadHandler} />
-    </>
+    </Container>
   );
 }
 

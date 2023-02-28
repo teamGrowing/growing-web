@@ -89,8 +89,6 @@ function PhotoPage() {
     <DataContext.Provider value={ctxValue}>
       <GalleryTitle
         title="PHOTO"
-        top="0px"
-        left="0px"
         backBtn
         onBackBtnClick={() => navigate('/gallery')}
         rightNode={
