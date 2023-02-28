@@ -14,6 +14,10 @@ import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import useToast from '../../hooks/common/useToast';
 
+const Container = styled.div`
+  position: relative;
+`;
+
 const Cancel = styled.div`
   font-family: 'PretendardRegular';
   font-size: 14px;
@@ -64,43 +68,45 @@ function AlbumPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <GalleryTitle
-        title="ALBUM"
-        backBtn
-        onBackBtnClick={() => navigate('/gallery')}
-        plusBtn
-        onPlusBtnClick={() => navigate('/gallery/new-album')}
-        rightNode={
-          !selectingAvailable ? (
-            <Icon icon="IconCheck" />
-          ) : (
-            <Cancel className="text-gradient400">취소</Cancel>
-          )
-        }
-        onRightClick={
-          selectingAvailable ? clearList : () => setSelectingAvailable(true)
-        }
-        rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
-        onRightSubClick={() => {
-          if (selectedAlbums.current.length <= 0) {
-            addToast('삭제할 앨범을 선택해 주세요.');
-            return;
+      <Container className="page-container with-navbar">
+        <GalleryTitle
+          title="ALBUM"
+          backBtn
+          onBackBtnClick={() => navigate('/gallery')}
+          plusBtn
+          onPlusBtnClick={() => navigate('/gallery/new-album')}
+          rightNode={
+            !selectingAvailable ? (
+              <Icon icon="IconCheck" />
+            ) : (
+              <Cancel className="text-gradient400">취소</Cancel>
+            )
           }
-          setOnModal(true);
-        }}
-      />
-      <AlbumContainer albums={albums ?? []} />
-      <Modal
-        onModal={onModal}
-        setOnModal={setOnModal}
-        description="앨범을 삭제하시겠습니까?"
-        mainActionLabel="확인"
-        onMainAction={deleteAlbums}
-        subActionLabel="취소"
-        onSubAction={() => {
-          setOnModal(false);
-        }}
-      />
+          onRightClick={
+            selectingAvailable ? clearList : () => setSelectingAvailable(true)
+          }
+          rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
+          onRightSubClick={() => {
+            if (selectedAlbums.current.length <= 0) {
+              addToast('삭제할 앨범을 선택해 주세요.');
+              return;
+            }
+            setOnModal(true);
+          }}
+        />
+        <AlbumContainer albums={albums ?? []} />
+        <Modal
+          onModal={onModal}
+          setOnModal={setOnModal}
+          description="앨범을 삭제하시겠습니까?"
+          mainActionLabel="확인"
+          onMainAction={deleteAlbums}
+          subActionLabel="취소"
+          onSubAction={() => {
+            setOnModal(false);
+          }}
+        />
+      </Container>
     </DataContext.Provider>
   );
 }
