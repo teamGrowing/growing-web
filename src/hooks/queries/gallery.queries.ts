@@ -126,7 +126,7 @@ export function useCreatePhotosMutation({
   return useMutation({
     mutationFn: (data: FileList) => makePhotos(data),
     onSuccess: () => {
-      queryClinet.invalidateQueries([...queryKeys.galleryKeys.all]);
+      queryClinet.invalidateQueries(queryKeys.galleryKeys.all);
     },
     ...options,
   });
@@ -151,8 +151,8 @@ export function useDeletePhotosMutation({
   return useMutation({
     mutationFn: (photoIds: string[]) => deletePhotos(photoIds),
     onSuccess: () => {
-      queryClinet.invalidateQueries([...queryKeys.galleryKeys.all]);
-      queryClinet.invalidateQueries([...queryKeys.albumKeys.all]);
+      queryClinet.invalidateQueries(queryKeys.galleryKeys.all);
+      queryClinet.invalidateQueries(queryKeys.albumKeys.all);
     },
     ...options,
   });
@@ -173,9 +173,7 @@ export function usePostCommentMutation({
     mutationFn: (content: string) =>
       GALLERY_COMMENT_API.postComment(coupleId, photoId, { content }),
     onSuccess: () => {
-      queryClinet.invalidateQueries([
-        ...queryKeys.galleryKeys.commentById(photoId),
-      ]);
+      queryClinet.invalidateQueries(queryKeys.galleryKeys.commentById(photoId));
     },
     ...options,
   });
@@ -196,9 +194,7 @@ export function useDeleteCommentMutation({
     mutationFn: (commentId: string) =>
       GALLERY_COMMENT_API.deleteComment(coupleId, photoId, commentId),
     onSuccess: () => {
-      queryClinet.invalidateQueries([
-        ...queryKeys.galleryKeys.commentById(photoId),
-      ]);
+      queryClinet.invalidateQueries(queryKeys.galleryKeys.commentById(photoId));
     },
     ...options,
   });
