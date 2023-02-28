@@ -1,10 +1,16 @@
-import { QueryKey, useQuery } from '@tanstack/react-query';
+import {
+  QueryKey,
+  useQuery,
+  useMutation,
+  UseMutationResult,
+} from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from '../../constants/queryKeys';
-import { UseQueryOptionsType } from '../../services';
+import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
 import { PET_API } from '../../services/pet.service';
-import PostPetDto from '../../types/more/PostPet.dto';
+import { ChangePetDto } from '../../types/pet/ChangePet.dto';
 import { PetDto } from '../../types/pet/Pet.dto';
-import { PostPetLineDto } from '../../types/pet/PostPetLine.dto';
+import { PetReactionDto } from '../../types/pet/PetReaction.dto';
 
 export function usePetData({
   coupleId,
@@ -28,44 +34,59 @@ export function usePetData({
   );
 }
 
-export function useGraduatedPets({
-  coupleId,
-  storeCode,
-  options,
-}: {
-  coupleId: string;
-  storeCode?: QueryKey[];
-  options?: UseQueryOptionsType<PostPetLineDto[]>;
-}) {
-  return useQuery(
-    [...queryKeys.petKeys.all, ...(storeCode ?? [])],
-    () => PET_API.getGraduatedPets(coupleId),
-    {
-      select: ({ data }) => data,
-      suspense: true,
-      ...options,
-    }
-  );
-}
-
-export function useGraduatedPetDetail({
+export function usePetNameMutation({
   coupleId,
   petId,
-  storeCode,
   options,
 }: {
-  coupleId: string;
-  petId: string;
-  storeCode?: QueryKey[];
-  options?: UseQueryOptionsType<PostPetDto>;
-}) {
-  return useQuery(
-    [...queryKeys.petKeys.all, ...(storeCode ?? [])],
-    () => PET_API.getGraduatedPetDetail(coupleId, petId),
-    {
-      select: ({ data }) => data,
-      suspense: true,
-      ...options,
-    }
-  );
+  coupleId: string | null | undefined;
+  petId: string | null | undefined;
+  options?: UseMutationOptionsType<ChangePetDto>;
+}): UseMutationResult<AxiosResponse, AxiosError, ChangePetDto, unknown> {
+  return useMutation({
+    mutationFn: (dto: ChangePetDto) => PET_API.patchPet(coupleId, petId, dto),
+    ...options,
+  });
+}
+
+// TODO: type 수정
+export function usePetFeedMutation({
+  coupleId,
+  petId,
+  options,
+}: {
+  coupleId: string | null | undefined;
+  petId: string | null | undefined;
+  options?: UseMutationOptionsType<unknown>;
+}): UseMutationResult<
+  AxiosResponse<PetReactionDto>,
+  AxiosError,
+  unknown,
+  unknown
+> {
+  return useMutation({
+    mutationFn: () => PET_API.postFeedPet(coupleId, petId),
+    ...options,
+  });
+}
+
+// TODO: type 수정
+export function usePetPlayMutation({
+  coupleId,
+  petId,
+  options,
+}: {
+  coupleId: string | null | undefined;
+  petId: string | null | undefined;
+  options?: UseMutationOptionsType<unknown>;
+}): UseMutationResult<
+  AxiosResponse<PetReactionDto>,
+  AxiosError,
+  unknown,
+  unknown
+> {
+  return useMutation({
+    mutationFn: () => PET_API.postTouchPet(coupleId, petId),
+    ...options,
+  });
 }

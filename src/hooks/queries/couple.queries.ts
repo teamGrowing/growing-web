@@ -19,13 +19,13 @@ export function useCoupleData({
   storeCode,
   options,
 }: {
-  coupleId: string;
+  coupleId: string | null | undefined;
   storeCode?: QueryKey[];
   options?: UseQueryOptionsType<CoupleDto>;
 }) {
   useQuery(
     [...queryKeys.coupleKeys.all, ...(storeCode ?? [])],
-    () => COUPLE_API.getCouple(`${coupleId}`),
+    () => COUPLE_API.getCouple(`${coupleId ?? ''}`),
     {
       select: (data) => data.data,
       ...options,
