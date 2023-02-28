@@ -10,13 +10,17 @@ import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import DataContext from './context';
 import {
   useAlbumPhotosList,
-  useDeletePhotosMutation,
+  useDeletePhotosMutation as useDeletePhotosFromAlbumMutation,
   usePatchAlbumMutation,
+  usePostPhotosMutation,
 } from '../../hooks/queries/album.queries';
+import {
+  useDeletePhotosMutation,
+  useCreatePhotosMutation,
+} from '../../hooks/queries/gallery.queries';
 import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import AlbumModal from '../../components/common/Modal/AlbumModal';
-import { useCreatePhotosMutation } from '../../hooks/queries/gallery.queries';
 import useToast from '../../hooks/common/useToast';
 
 const Option = styled.div`
@@ -38,26 +42,38 @@ const Option = styled.div`
 function AlbumDetailPage() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { addToast } = useToast();
   const { aId } = useParams();
   const [selectingAvailable, setSelectingAvailable] = useState(false);
   const [onModal, setOnModal] = useState(false);
   const [onAlbumModal, setOnAlbumModal] = useState(false);
+  const [onConfirmModal, setOnConfirmModal] = useState(false);
   const selectedPhotos = useRef<string[]>([]);
+  const isDeleteOnlyFromAlbum = useRef<null | boolean>(null);
 
   const coupleId = store.userStore.user?.coupleId ?? '';
   const albumId = aId ?? '';
 
   const { data: photos } = useAlbumPhotosList({ coupleId, albumId });
+  const { mutate: deletePhotosFromAlbumMutate } =
+    useDeletePhotosFromAlbumMutation({
+      coupleId,
+      albumId,
+    });
   const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
     coupleId,
-    albumId,
   });
+
   const { mutate: modifyAlbumInfoMutate } = usePatchAlbumMutation({
     coupleId,
     albumId,
   });
-  const { mutate: upLoadPhotos } = useCreatePhotosMutation({ coupleId });
-  const { addToast } = useToast();
+
+  const { mutateAsync: upLoadPhotos } = useCreatePhotosMutation({ coupleId });
+  const { mutate: addPhotosToAlbumMutate } = usePostPhotosMutation({
+    coupleId,
+    albumId,
+  });
 
   const ctxValue = useMemo(() => {
     return {
@@ -82,16 +98,32 @@ function AlbumDetailPage() {
     setSelectingAvailable(true);
   };
 
-  const deletePhotos = () => {
-    deletePhotosMutate(selectedPhotos.current, {
+  const deletePhotosFromAlbum = () => {
+    deletePhotosFromAlbumMutate(selectedPhotos.current, {
       onSuccess: () => addToast('사진이 앨범에서 제거되었습니다.'),
     });
     clearList();
+    isDeleteOnlyFromAlbum.current = null;
   };
 
-  const upLoadHandler = (files: FileList) => {
-    upLoadPhotos(files, {
-      onSuccess: () => addToast('업로드가 완료되었습니다.'),
+  const deletePhotos = () => {
+    deletePhotosMutate(selectedPhotos.current, {
+      onSuccess: () => addToast('사진이 삭제되었습니다.'),
+    });
+    clearList();
+    isDeleteOnlyFromAlbum.current = null;
+  };
+
+  const upLoadHandler = async (files: FileList) => {
+    await upLoadPhotos(files, {
+      onSuccess: async (data) => {
+        const ids = [];
+        for (let i = 0; i < data.length; i += 1) {
+          // eslint-disable-next-line no-await-in-loop
+          ids.push((await data[i]).photoId);
+        }
+        addPhotosToAlbumMutate({ imageIds: ids });
+      },
     });
   };
 
@@ -139,11 +171,34 @@ function AlbumDetailPage() {
         <Modal
           onModal={onModal}
           setOnModal={setOnModal}
-          description="해당 파일이 앨범에서만 제거됩니다. 제거하시겠습니까?"
+          description="해당 파일을 앨범에서 제거하시겠습니까, 영구 삭제하시겠습니까?"
+          mainActionLabel="앨범에서 제거"
+          onMainAction={() => {
+            isDeleteOnlyFromAlbum.current = true;
+            setOnConfirmModal(true);
+          }}
+          subActionLabel="영구 삭제"
+          onSubAction={() => {
+            isDeleteOnlyFromAlbum.current = false;
+            setOnConfirmModal(true);
+          }}
+        />
+      )}
+      {onConfirmModal && (
+        <Modal
+          onModal={onConfirmModal}
+          setOnModal={setOnConfirmModal}
+          description="정말 삭제하시겠습니까?"
           mainActionLabel="확인"
-          onMainAction={deletePhotos}
+          onMainAction={() => {
+            if (isDeleteOnlyFromAlbum.current) {
+              deletePhotosFromAlbum();
+              return;
+            }
+            deletePhotos();
+          }}
           subActionLabel="취소"
-          onSubAction={() => setOnModal(false)}
+          onSubAction={() => {}}
         />
       )}
       {onAlbumModal && (
