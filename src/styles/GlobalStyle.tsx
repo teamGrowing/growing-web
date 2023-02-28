@@ -35,10 +35,18 @@ const GlobalStyle = createGlobalStyle`
   font-size: normal;
   src: url(${PretendardExtraBold}) format('woff');
 }
+:root {
+  --vh: 100%;
+}
+html,
 body {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100vh;
+  height: var(--vh);
 }
 *,
 *::before,
