@@ -52,8 +52,8 @@ type PhotoScrollProps = {
   photos: PhotoLineDto[];
   leftLabel: string;
   onLeftClick: () => void;
-  rightLabel: string;
-  onRightClick: () => void;
+  rightLabel?: string;
+  onRightClick?: () => void;
 };
 
 function PhotoScroll({

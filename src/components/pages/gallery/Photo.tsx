@@ -56,7 +56,7 @@ function Photo({ photoInfo }: PhotoProps) {
     if (isSelected) {
       ctx.removeFromList(photoInfo.i);
     } else {
-      ctx.addToList(photoInfo.i);
+      ctx.addToList(photoInfo.i, photoInfo.u);
     }
     setIsSelected((prevState) => !prevState);
   };
