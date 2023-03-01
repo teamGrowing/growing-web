@@ -3,16 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Icon from '../../components/common/Icon/Icon';
 import WhiteContainer from '../../components/pages/more/WhiteContainer';
+import PurpleBackground from '../../styles/common/PurpleBackground';
 
-const Background = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0px;
-  top: 0px;
-  z-index: -1;
-  background-color: ${({ theme }) => theme.color.purple50};
-`;
 const Box = styled.div`
   display: flex;
   flex-direction: row;
@@ -34,16 +26,15 @@ const Box = styled.div`
 const Border = styled.div`
   width: 100%;
   height: 1px;
-
   background: ${({ theme }) => theme.color.gradient400};
-
   flex: none;
 `;
 
 function SettingPage() {
   const navigate = useNavigate();
   return (
-    <Background>
+    <>
+      <PurpleBackground />
       <TopBar
         title="설정"
         leftNode={<Icon icon="IconArrowLeft" />}
@@ -61,7 +52,7 @@ function SettingPage() {
         <Box>알림설정</Box>
         <Border />
       </WhiteContainer>
-    </Background>
+    </>
   );
 }
 export default SettingPage;

@@ -7,11 +7,13 @@ import Icon from '../../components/common/Icon/Icon';
 import TopBar from '../../components/common/TopBar/TopBar';
 import PetCard from '../../components/pages/more/PetCard';
 import PetDetailCard from '../../components/pages/more/PetDetailCard';
-import PaddingContainer from '../../styles/common/layout';
 import PurpleBackground from '../../styles/common/PurpleBackground';
 import { useGraduatedPets } from '../../hooks/queries/pet.queries';
 import store from '../../stores/RootStore';
 
+const Container = styled.div`
+  position: relative;
+`;
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -32,13 +34,12 @@ const Layer = styled.div`
 `;
 
 const EmptyWrapper = styled.div`
-  margin-top: 250px;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  padding-top: 250px;
   gap: 16px;
 `;
 
@@ -69,32 +70,32 @@ function PetPage() {
   };
 
   return (
-    <PurpleBackground>
-      <TopBar
-        leftNode={<Icon icon="IconArrowLeft" />}
-        onLeftClick={() => navigate('/more')}
-        title="동물도감"
-      />
-      <PaddingContainer>
-        <EmptyWrapper>
-          {graduatedPets?.length === 0 && (
-            <>
-              <Icon icon="IconLogo" size={60} />
-              <Message>
-                <FontSpan className="text-gradient400">
-                  아직 졸업한 동물이 없네요
-                </FontSpan>
-                😢
-              </Message>
-            </>
-          )}
-        </EmptyWrapper>
-        <Wrapper>
-          {graduatedPets &&
-            graduatedPets.map((pet) => (
+    <>
+      <PurpleBackground />
+      <Container className="page-container with-topbar">
+        <TopBar
+          leftNode={<Icon icon="IconArrowLeft" />}
+          onLeftClick={() => navigate('/more')}
+          title="동물도감"
+        />
+        {graduatedPets?.length === 0 && (
+          <EmptyWrapper>
+            <Icon icon="IconLogo" size={60} />
+            <Message>
+              <FontSpan className="text-gradient400">
+                아직 졸업한 동물이 없네요
+              </FontSpan>
+              😢
+            </Message>
+          </EmptyWrapper>
+        )}
+        {graduatedPets && graduatedPets?.length > 0 && (
+          <Wrapper>
+            {graduatedPets.map((pet) => (
               <PetCard key={pet.id} petInfo={pet} onClick={clickCardHandler} />
             ))}
-        </Wrapper>
+          </Wrapper>
+        )}
         {detailPetId &&
           ReactDOM.createPortal(
             <>
@@ -106,8 +107,8 @@ function PetPage() {
             </>,
             document.getElementById('modal-root') as Element
           )}
-      </PaddingContainer>
-    </PurpleBackground>
+      </Container>
+    </>
   );
 }
 export default observer(PetPage);

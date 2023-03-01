@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const PurpleBackground = styled.div`
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   left: 0px;

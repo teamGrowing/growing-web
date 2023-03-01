@@ -11,7 +11,6 @@ import Profile from '../../components/pages/more/Profile';
 import SideButton from '../../components/pages/more/SideButton';
 import InputContainer from '../../components/pages/more/InputContainer';
 import { ProfileFormValues, profileSchema } from '../../types/InputSchema';
-import PaddingContainer from '../../styles/common/layout';
 import Modal from '../../components/common/Modal/Modal';
 import ModalBottomSheet from '../../components/common/Modal/ModalBottomSheet/ModalBottomSheet';
 import BottomSheetMenu from '../../components/common/Modal/ModalBottomSheet/BottomSheetMenu';
@@ -47,7 +46,7 @@ const ProfileContainer = styled.div`
 `;
 
 const Background = styled.div`
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   left: 0px;
@@ -156,6 +155,7 @@ function ProfilePage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
+      <Background />
       <StyledForm
         onSubmit={handleSubmit((data) => modifyProfile(data))}
         ref={formRef}
@@ -174,8 +174,7 @@ function ProfilePage() {
             }
           />
         )}
-        <PaddingContainer>
-          <Background />
+        <div className="page-container with-topbar">
           <ProfileContainer>
             <Profile imgUrl={profilePhoto.url ?? ''} border={false} />
             <SideButton
@@ -264,7 +263,7 @@ function ProfilePage() {
               </BottomSheetMenu>
             </ModalBottomSheet>
           )}
-        </PaddingContainer>
+        </div>
         {onPhotoScroll &&
           ReactDOM.createPortal(
             <>

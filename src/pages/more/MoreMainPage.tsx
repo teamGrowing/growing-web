@@ -7,15 +7,11 @@ import Profile from '../../components/pages/more/Profile';
 import SideButton from '../../components/pages/more/SideButton';
 import WhiteContainer from '../../components/pages/more/WhiteContainer';
 import store from '../../stores/RootStore';
+import PurpleBackground from '../../styles/common/PurpleBackground';
 
-const Background = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0px;
-  top: 0px;
-  z-index: -1;
-  background-color: ${({ theme }) => theme.color.purple50};
+const Container = styled.div`
+  position: relative;
+  overflow: scroll;
 `;
 
 const IconWrapper = styled.div`
@@ -77,43 +73,44 @@ const ProfileContainer = styled.div`
 function MoreMainPage() {
   const navigate = useNavigate();
   return (
-    <>
-      <Background />
-      <SideButton
-        value="프로필 수정"
-        abLeft="75%"
-        abTop="70px"
-        onClick={() => navigate('profile')}
-      />
-      <IconWrapper>
-        <Icon icon="IconLogo" themeColor="white" size={211} />
-      </IconWrapper>
-      <ProfileContainer>
-        <Profile imgUrl={store.userStore.user?.imageUrl ?? ''} border />
-      </ProfileContainer>
-      <WhiteContainer top="347px">
-        <Label>{store.userStore.user?.nickName}</Label>
-        <Row>
-          <MenuBox
-            title="동물도감"
-            icon="IconPet"
-            onClick={() => navigate('pet')}
-          />
-          <MenuBox
-            title="설정"
-            icon="IconSetting"
-            onClick={() => navigate('setting')}
-          />
-        </Row>
-        <Row>
-          <MenuBox
-            title="도움말"
-            icon="IconInfo"
-            onClick={() => navigate('info')}
-          />
-        </Row>
-      </WhiteContainer>
-    </>
+    <PurpleBackground>
+      <Container className="page-container with-navbar">
+        <IconWrapper>
+          <Icon icon="IconLogo" themeColor="white" size={211} />
+        </IconWrapper>
+        <SideButton
+          value="프로필 수정"
+          abLeft="75%"
+          abTop="70px"
+          onClick={() => navigate('profile')}
+        />
+        <ProfileContainer>
+          <Profile imgUrl={store.userStore.user?.imageUrl ?? ''} border />
+        </ProfileContainer>
+        <WhiteContainer top="347px">
+          <Label>{store.userStore.user?.nickName}</Label>
+          <Row>
+            <MenuBox
+              title="동물도감"
+              icon="IconPet"
+              onClick={() => navigate('pet')}
+            />
+            <MenuBox
+              title="설정"
+              icon="IconSetting"
+              onClick={() => navigate('setting')}
+            />
+          </Row>
+          <Row>
+            <MenuBox
+              title="도움말"
+              icon="IconInfo"
+              onClick={() => navigate('info')}
+            />
+          </Row>
+        </WhiteContainer>
+      </Container>
+    </PurpleBackground>
   );
 }
 export default observer(MoreMainPage);
