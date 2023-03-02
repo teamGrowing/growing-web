@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useRef, useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import Icon from '../../components/common/Icon/Icon';
 import AlbumContainer from '../../components/pages/gallery/AlbumContainer';
@@ -26,8 +26,11 @@ const Cancel = styled.div`
 
 function AlbumPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { addToast } = useToast();
-  const [selectingAvailable, setSelectingAvailable] = useState(false);
+  const [selectingAvailable, setSelectingAvailable] = useState(
+    location.state?.selectingAvailable ?? false
+  );
   const [onModal, setOnModal] = useState(false);
   const selectedAlbums = useRef<string[]>([]);
 
