@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useState, useRef, useMemo } from 'react';
+import { useState, useRef, useMemo, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import ReactDOM from 'react-dom';
@@ -26,6 +26,7 @@ import {
   useGalleryList,
 } from '../../hooks/queries/gallery.queries';
 import DataContext from '../gallery/context';
+import preventScroll from '../../util/utils';
 
 const StyledForm = styled.form`
   flex-direction: column;
@@ -153,6 +154,10 @@ function ProfilePage() {
     setOnButtomSheet(false);
   };
 
+  useEffect(() => {
+    preventScroll();
+  }, []);
+
   return (
     <DataContext.Provider value={ctxValue}>
       <Background />
@@ -264,19 +269,19 @@ function ProfilePage() {
             </ModalBottomSheet>
           )}
         </div>
-        {onPhotoScroll &&
-          ReactDOM.createPortal(
-            <>
-              <Layer />
-              <PhotoScroll
-                photos={photos ?? []}
-                leftLabel="취소"
-                onLeftClick={() => setOnPhotoScroll(false)}
-              />
-            </>,
-            document.getElementById('modal-root') as HTMLElement
-          )}
       </StyledForm>
+      {onPhotoScroll &&
+        ReactDOM.createPortal(
+          <>
+            <Layer />
+            <PhotoScroll
+              photos={photos ?? []}
+              leftLabel="취소"
+              onLeftClick={() => setOnPhotoScroll(false)}
+            />
+          </>,
+          document.getElementById('modal-root') as HTMLElement
+        )}
     </DataContext.Provider>
   );
 }
