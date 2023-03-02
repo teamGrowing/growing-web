@@ -9,6 +9,7 @@ import queryKeys from '../../constants/queryKeys';
 import { UseQueryOptionsType, UseMutationOptionsType } from '../../services';
 import { CHAT_QNA_API } from '../../services/chat.service';
 import { AnswerDto } from '../../types/chat/questions/Answer.dto';
+import { IsToDoQuestion } from '../../types/chat/questions/IsToDoQuestion';
 import { QuestionsAndAnswers } from '../../types/chat/questions/QuestionAndAnswers';
 
 const useQuestionBoxData = ({
@@ -23,6 +24,24 @@ const useQuestionBoxData = ({
   useQuery(
     [...queryKeys.qnaKeys.all, ...(storeCode ?? [])],
     () => CHAT_QNA_API.getQuestions(coupleId),
+    {
+      select: (data) => data.data,
+      ...options,
+    }
+  );
+
+export const useHasQuestionData = ({
+  coupleId,
+  storeCode,
+  options,
+}: {
+  coupleId: string;
+  storeCode?: QueryKey[];
+  options?: UseQueryOptionsType<IsToDoQuestion>;
+}) =>
+  useQuery(
+    [...queryKeys.qnaKeys.hasTodo, ...(storeCode ?? [])],
+    () => CHAT_QNA_API.getHasToDoQuestions(coupleId),
     {
       select: (data) => data.data,
       ...options,

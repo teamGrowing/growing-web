@@ -1,6 +1,9 @@
 import React from 'react';
+import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import store from '../../../stores/RootStore';
+import { useHasQuestionData } from '../../../hooks/queries/chat.queries';
 import { fadeInDown, fadeOutUp } from '../../../styles/common/keyframs';
 import Icon from '../../common/Icon/Icon';
 
@@ -25,6 +28,8 @@ const SubMenuContainer = styled.div<{ openEnvelope: boolean }>`
 const Item = styled.div`
   flex: 1;
 
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -34,15 +39,31 @@ const Item = styled.div`
   font-size: 12px;
   color: ${({ theme }) => theme.color.gray900};
 `;
+const Alarm = styled.div`
+  position: absolute;
+  top: 0;
+  left: calc(50% + 14px);
+  transform: translateX(-50%);
 
-export default function SubMenu({ open }: { open: boolean }) {
+  background-color: ${({ theme }) => theme.color.purple500};
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+`;
+
+function SubMenu({ open }: { open: boolean }) {
   const navigation = useNavigate();
+
+  const { userStore } = store;
+  const { data: isTodo } = useHasQuestionData({
+    coupleId: userStore.user?.coupleId ?? '',
+  });
 
   return (
     <SubMenuContainer openEnvelope={open}>
-      {/* TODO: 새 질문 표시 */}
       <Item onClick={() => navigation('/chat/question-box')}>
         <Icon icon="IconEnvelope" size={28} />
+        {isTodo?.result && <Alarm />}
         질문 우편함
       </Item>
       <Item onClick={() => navigation('/chat/archive')}>
@@ -60,3 +81,5 @@ export default function SubMenu({ open }: { open: boolean }) {
     </SubMenuContainer>
   );
 }
+
+export default observer(SubMenu);

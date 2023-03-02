@@ -29,6 +29,7 @@ const chatKeys = {
 
 const qnaKeys = {
   all: [Domain.qna] as unknown as QueryKey[],
+  hasTodo: [Domain.qna, 'todo'] as unknown as QueryKey[],
 };
 
 const galleryKeys = {
