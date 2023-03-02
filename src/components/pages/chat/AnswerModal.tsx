@@ -58,8 +58,10 @@ const StyledDate = styled.div`
   color: ${({ theme }) => theme.color.gray800};
 `;
 const StyledQuestion = styled.div`
+  padding: 0px 16px;
   font-size: 15px;
   color: ${({ theme }) => theme.color.gray900};
+  text-align: center;
 `;
 const Main = styled.div`
   display: flex;
