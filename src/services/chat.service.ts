@@ -128,7 +128,7 @@ export const CHAT_QNA_API = {
   getQuestions: (coupleId: string) =>
     fetcher
       .create()
-      .get<QuestionsAndAnswers[]>(`couples/${coupleId}/questions`),
+      .get<QuestionsAndAnswers[]>(`couples/${coupleId}/questions?to-do=false`),
   postQuestions: (coupleId: string, questionId: string, data: AnswerDto) =>
     fetcher
       .create()
