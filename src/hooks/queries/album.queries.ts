@@ -73,7 +73,7 @@ export function usePostAlbumsMutation({
   return useMutation({
     mutationFn: (data: CreateAlbumDto) => ALBUM_API.postAlbums(coupleId, data),
     onSuccess: () => {
-      queryClinet.invalidateQueries([...queryKeys.albumKeys.all]);
+      queryClinet.invalidateQueries(queryKeys.albumKeys.all);
     },
     ...options,
   });
@@ -94,7 +94,7 @@ export function usePostPhotosMutation({
     mutationFn: (imageIds: AddPhotoDto) =>
       ALBUM_API.postPhotos(coupleId, albumId, imageIds),
     onSuccess: () => {
-      queryClinet.invalidateQueries([...queryKeys.albumKeys.all]);
+      queryClinet.invalidateQueries(queryKeys.albumKeys.byId(albumId));
     },
     ...options,
   });
@@ -120,7 +120,7 @@ export function usePatchAlbumMutation({
     mutationFn: (data: ChangeAlbumTitleDto) =>
       ALBUM_API.patchAlbums(coupleId, albumId, data),
     onSuccess: () => {
-      queryClinet.invalidateQueries([...queryKeys.albumKeys.all, albumId]);
+      queryClinet.invalidateQueries(queryKeys.albumKeys.byId(albumId));
     },
     ...options,
   });
@@ -145,7 +145,7 @@ export function useDeleteAlbumsMutation({
   return useMutation({
     mutationFn: (albumIds: string[]) => deleteAlbums(albumIds),
     onSuccess: () => {
-      queryClinet.invalidateQueries([...queryKeys.albumKeys.all]);
+      queryClinet.invalidateQueries(queryKeys.albumKeys.all);
     },
     ...options,
   });
@@ -172,7 +172,7 @@ export function useDeletePhotosMutation({
   return useMutation({
     mutationFn: (photoIds: string[]) => deletePhotos(photoIds),
     onSuccess: () => {
-      queryClinet.invalidateQueries([...queryKeys.albumKeys.all, albumId]);
+      queryClinet.invalidateQueries(queryKeys.albumKeys.byId(albumId));
     },
     ...options,
   });

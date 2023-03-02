@@ -13,6 +13,7 @@ import {
   GALLERY_API,
   GALLERY_COMMENT_API,
 } from '../../services/gallery.service';
+import { CreatePhotoResponseDto } from '../../types/gallery/CreatePhotoResponse.dto';
 import PhotoDto from '../../types/gallery/Photo.dto';
 import PhotoCommentDto from '../../types/gallery/PhotoComment.dto';
 import { PhotoLineDto } from '../../types/gallery/PhotoLine.dto';
@@ -83,8 +84,18 @@ export function useCreatePhotosMutation({
   options,
 }: {
   coupleId: string;
-  options?: UseMutationOptions<void, AxiosError, FileList, unknown>;
-}): UseMutationResult<void, AxiosError, FileList, unknown> {
+  options?: UseMutationOptions<
+    Promise<CreatePhotoResponseDto>[],
+    AxiosError,
+    FileList,
+    unknown
+  >;
+}): UseMutationResult<
+  Promise<CreatePhotoResponseDto>[],
+  AxiosError,
+  FileList,
+  unknown
+> {
   const queryClinet = useQueryClient();
 
   const makePhoto = async (file: File) => {
@@ -96,21 +107,26 @@ export function useCreatePhotosMutation({
       headers: { 'Content-Type': 'multipart/form-data' },
     }); // 권한이 필요없나?
 
-    await GALLERY_API.createPhoto(coupleId, { s3Path: res.data.s3Path });
+    const axiosRes = await GALLERY_API.createPhoto(coupleId, {
+      s3Path: res.data.s3Path,
+    });
+
+    return axiosRes.data;
   };
 
   const makePhotos = async (files: FileList) => {
-    const promises: Promise<void>[] = [];
+    const promises: Promise<CreatePhotoResponseDto>[] = [];
     for (let i = 0; i < files.length; i += 1) {
       promises.push(makePhoto(files[i]));
     }
     await Promise.all(promises);
+    return promises;
   };
 
   return useMutation({
     mutationFn: (data: FileList) => makePhotos(data),
     onSuccess: () => {
-      queryClinet.invalidateQueries([...queryKeys.galleryKeys.all]);
+      queryClinet.invalidateQueries(queryKeys.galleryKeys.all);
     },
     ...options,
   });
@@ -135,7 +151,8 @@ export function useDeletePhotosMutation({
   return useMutation({
     mutationFn: (photoIds: string[]) => deletePhotos(photoIds),
     onSuccess: () => {
-      queryClinet.invalidateQueries([...queryKeys.galleryKeys.all]);
+      queryClinet.invalidateQueries(queryKeys.galleryKeys.all);
+      queryClinet.invalidateQueries(queryKeys.albumKeys.all);
     },
     ...options,
   });
@@ -156,9 +173,7 @@ export function usePostCommentMutation({
     mutationFn: (content: string) =>
       GALLERY_COMMENT_API.postComment(coupleId, photoId, { content }),
     onSuccess: () => {
-      queryClinet.invalidateQueries([
-        ...queryKeys.galleryKeys.commentById(photoId),
-      ]);
+      queryClinet.invalidateQueries(queryKeys.galleryKeys.commentById(photoId));
     },
     ...options,
   });
@@ -179,9 +194,7 @@ export function useDeleteCommentMutation({
     mutationFn: (commentId: string) =>
       GALLERY_COMMENT_API.deleteComment(coupleId, photoId, commentId),
     onSuccess: () => {
-      queryClinet.invalidateQueries([
-        ...queryKeys.galleryKeys.commentById(photoId),
-      ]);
+      queryClinet.invalidateQueries(queryKeys.galleryKeys.commentById(photoId));
     },
     ...options,
   });

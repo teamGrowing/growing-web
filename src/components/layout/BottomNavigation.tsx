@@ -40,23 +40,23 @@ function BottomNavigation() {
       <NavItems>
         <NavItem linkTo="/gallery">
           <Icon icon="IconPhotoHeart" />
-          <Label className="text-gradient400">앨범</Label>
+          <Label>앨범</Label>
         </NavItem>
         <NavItem linkTo="/chatting">
           <Icon icon="IconChat" />
-          <Label className="text-gradient400">채팅</Label>
+          <Label>채팅</Label>
         </NavItem>
         <NavItem linkTo="/">
           <Icon icon="IconHome" />
-          <Label className="text-gradient400">홈</Label>
+          <Label>홈</Label>
         </NavItem>
         <NavItem linkTo="/calendar">
           <Icon icon="IconCalendar" />
-          <Label className="text-gradient400">일정</Label>
+          <Label>일정</Label>
         </NavItem>
         <NavItem linkTo="/more">
           <Icon icon="IconBar" />
-          <Label className="text-gradient400">더보기</Label>
+          <Label>더보기</Label>
         </NavItem>
       </NavItems>
     </Nav>

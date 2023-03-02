@@ -39,7 +39,7 @@ function NavItem({ children, linkTo }: PropsWithChildren<NavItemProp>) {
       <NavLink
         to={linkTo}
         className={({ isActive }) =>
-          isActive ? ACTIVE_CLASSNAME : INACTIVE_CLASSNAME
+          isActive ? `${ACTIVE_CLASSNAME} text-gradient400` : INACTIVE_CLASSNAME
         }
       >
         {children}
