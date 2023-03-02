@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useMemo, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import FloatingButton from '../../components/pages/gallery/FloatingButton';
 import DataContext from './context';
@@ -38,9 +38,12 @@ const PaddingContainer = styled.div`
 
 function PhotoPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { addToast } = useToast();
   const selectedPhotos = useRef<string[]>([]);
-  const [selectingAvailable, setSelectingAvailable] = useState(false);
+  const [selectingAvailable, setSelectingAvailable] = useState(
+    location.state?.selectingAvailable ?? false
+  );
   const [onModal, setOnModal] = useState(false);
 
   const coupleId = store.userStore.user?.coupleId ?? '';

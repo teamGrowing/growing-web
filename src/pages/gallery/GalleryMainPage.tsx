@@ -50,6 +50,9 @@ function GalleryMainPage() {
         plusBtn
         onPlusBtnClick={() => navigate('new-album')}
         rightNode={(albums ?? []).length > 0 && <Icon icon="IconCheck" />}
+        onRightClick={() =>
+          navigate('album', { state: { selectingAvailable: true } })
+        }
       />
       <AlbumRowContainer
         albums={albums ?? []}
@@ -78,6 +81,9 @@ function GalleryMainPage() {
         <GalleryTitle
           title="PHOTO"
           rightNode={(photos ?? []).length > 0 && <Icon icon="IconCheck" />}
+          onRightClick={() =>
+            navigate('photo', { state: { selectingAvailable: true } })
+          }
         />
 
         <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
