@@ -41,6 +41,11 @@ input {
   border: none;
   outline: none;
 }
+textarea {
+  border: none;
+  outline: none;
+  resize: none;
+}
 .text-gradient300 {
   background: linear-gradient(130.11deg, #FCE38A 7.3%, #F38181 100%);
   background-clip: text;
