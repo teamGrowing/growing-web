@@ -52,7 +52,7 @@ const AnswerWrapper = styled.div`
 
   font-size: 14px;
   color: ${({ theme }) => theme.color.gray600};
-  padding: 10px 0;
+  padding: 10px 16px;
   text-align: center;
   border-radius: 12px;
   background-color: ${({ theme }) => theme.color.white};
