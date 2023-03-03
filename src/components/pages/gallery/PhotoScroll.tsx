@@ -13,7 +13,7 @@ const Scroll = styled.div`
 
   position: absolute;
   width: 100%;
-  height: calc(100% - 23px);
+  min-height: calc(100% - 23px);
   left: 0px;
   bottom: 0px;
 `;

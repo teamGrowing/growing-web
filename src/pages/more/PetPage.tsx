@@ -70,45 +70,43 @@ function PetPage() {
   };
 
   return (
-    <>
+    <Container className="page-container with-topbar">
       <PurpleBackground />
-      <Container className="page-container with-topbar">
-        <TopBar
-          leftNode={<Icon icon="IconArrowLeft" />}
-          onLeftClick={() => navigate('/more')}
-          title="동물도감"
-        />
-        {graduatedPets?.length === 0 && (
-          <EmptyWrapper>
-            <Icon icon="IconLogo" size={60} />
-            <Message>
-              <FontSpan className="text-gradient400">
-                아직 졸업한 동물이 없네요
-              </FontSpan>
-              😢
-            </Message>
-          </EmptyWrapper>
+      <TopBar
+        leftNode={<Icon icon="IconArrowLeft" />}
+        onLeftClick={() => navigate('/more')}
+        title="동물도감"
+      />
+      {graduatedPets?.length === 0 && (
+        <EmptyWrapper>
+          <Icon icon="IconLogo" size={60} />
+          <Message>
+            <FontSpan className="text-gradient400">
+              아직 졸업한 동물이 없네요
+            </FontSpan>
+            😢
+          </Message>
+        </EmptyWrapper>
+      )}
+      {graduatedPets && graduatedPets?.length > 0 && (
+        <Wrapper>
+          {graduatedPets.map((pet) => (
+            <PetCard key={pet.id} petInfo={pet} onClick={clickCardHandler} />
+          ))}
+        </Wrapper>
+      )}
+      {detailPetId &&
+        ReactDOM.createPortal(
+          <>
+            <Layer />
+            <PetDetailCard
+              petId={detailPetId}
+              onExit={() => setDetailPetId(null)}
+            />
+          </>,
+          document.getElementById('modal-root') as Element
         )}
-        {graduatedPets && graduatedPets?.length > 0 && (
-          <Wrapper>
-            {graduatedPets.map((pet) => (
-              <PetCard key={pet.id} petInfo={pet} onClick={clickCardHandler} />
-            ))}
-          </Wrapper>
-        )}
-        {detailPetId &&
-          ReactDOM.createPortal(
-            <>
-              <Layer />
-              <PetDetailCard
-                petId={detailPetId}
-                onExit={() => setDetailPetId(null)}
-              />
-            </>,
-            document.getElementById('modal-root') as Element
-          )}
-      </Container>
-    </>
+    </Container>
   );
 }
 export default observer(PetPage);

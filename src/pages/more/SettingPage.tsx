@@ -1,9 +1,15 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Icon from '../../components/common/Icon/Icon';
 import WhiteContainer from '../../components/pages/more/WhiteContainer';
 import PurpleBackground from '../../styles/common/PurpleBackground';
+import preventScroll from '../../util/utils';
+
+const Container = styled.div`
+  position: relative;
+`;
 
 const Box = styled.div`
   display: flex;
@@ -32,8 +38,12 @@ const Border = styled.div`
 
 function SettingPage() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    preventScroll();
+  }, []);
   return (
-    <>
+    <Container className="page-container">
       <PurpleBackground />
       <TopBar
         title="설정"
@@ -52,7 +62,7 @@ function SettingPage() {
         <Box>알림설정</Box>
         <Border />
       </WhiteContainer>
-    </>
+    </Container>
   );
 }
 export default SettingPage;

@@ -6,6 +6,9 @@ import WhiteContainer from '../../components/pages/more/WhiteContainer';
 import Icon from '../../components/common/Icon/Icon';
 import PurpleBackground from '../../styles/common/PurpleBackground';
 
+const Container = styled.div`
+  position: relative;
+`;
 const Row = styled.div`
   display: flex;
   flex-direction: row;
@@ -19,7 +22,7 @@ const Row = styled.div`
 function InfoPage() {
   const navigate = useNavigate();
   return (
-    <>
+    <Container className="page-container">
       <PurpleBackground />
       <TopBar
         leftNode={<Icon icon="IconArrowLeft" />}
@@ -35,7 +38,7 @@ function InfoPage() {
           <MenuBox title="카톡문의" icon="IconPet" onClick={() => {}} />
         </Row>
       </WhiteContainer>
-    </>
+    </Container>
   );
 }
 export default InfoPage;
