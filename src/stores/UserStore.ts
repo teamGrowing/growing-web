@@ -1,4 +1,4 @@
-import { makeAutoObservable } from 'mobx';
+import { action, makeAutoObservable } from 'mobx';
 import { COUPLE_API } from '../services/couple.service';
 import { USER_API } from '../services/user.service';
 import { UserDto } from '../types/user/User.dto';
@@ -13,12 +13,19 @@ class UserStore {
   }
 
   async getUserData(userId: string) {
-    const res = await USER_API.getUser(userId);
-    this.user = res.data;
+    await USER_API.getUser(userId).then(
+      action('fetchUser_Success', (res) => {
+        this.user = res.data;
+      })
+    );
 
-    if (!res.data.coupleId) return;
-    const response = await COUPLE_API.getCouple(res.data.coupleId);
-    this.petId = response.data.petId;
+    if (!this.user?.coupleId) return;
+
+    await COUPLE_API.getCouple(this.user.coupleId).then(
+      action('fetchCouple_Success', (response) => {
+        this.petId = response.data.petId;
+      })
+    );
   }
 }
 
