@@ -27,6 +27,7 @@ import {
 } from '../../hooks/queries/gallery.queries';
 import DataContext from '../gallery/context';
 import preventScroll from '../../util/utils';
+import defaultProfile from '../../assets/image/DefaultProfilePhoto.png';
 
 const StyledForm = styled.form`
   flex-direction: column;
@@ -85,7 +86,7 @@ function ProfilePage() {
     return {
       selectingAvailable: true,
       addToList: (photoId: string, photoUrl?: string) => {
-        setProfilePhoto({ url: photoUrl ?? '', id: photoId });
+        setProfilePhoto({ url: photoUrl ?? null, id: photoId });
         setOnPhotoScroll(false);
       },
       removeFromList: () => {},
@@ -260,7 +261,7 @@ function ProfilePage() {
               <BottomSheetMenu
                 onClick={() => {
                   setOnButtomSheet(false);
-                  setProfilePhoto({ url: null, id: null });
+                  setProfilePhoto({ url: defaultProfile, id: null });
                 }}
               >
                 <Icon icon="IconTrash" themeColor="gray50" />
