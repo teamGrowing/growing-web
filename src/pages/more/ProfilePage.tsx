@@ -75,9 +75,11 @@ function ProfilePage() {
   const [onBottomSheet, setOnButtomSheet] = useState(false);
   const [onPhotoScroll, setOnPhotoScroll] = useState(false);
   const [profilePhoto, setProfilePhoto] = useState<{
+    files: FileList | null;
     url: string | null;
     id: string | null;
   }>({
+    files: null,
     url: store.userStore.user?.imageUrl ?? '',
     id: '',
   });
@@ -86,7 +88,7 @@ function ProfilePage() {
     return {
       selectingAvailable: true,
       addToList: (photoId: string, photoUrl?: string) => {
-        setProfilePhoto({ url: photoUrl ?? null, id: photoId });
+        setProfilePhoto({ files: null, url: photoUrl ?? null, id: photoId });
         setOnPhotoScroll(false);
       },
       removeFromList: () => {},
@@ -137,6 +139,17 @@ function ProfilePage() {
     await patchCoupleInfo({
       anniversaryDay: data.anniversary,
     });
+
+    if (profilePhoto.files) {
+      addPhoto(profilePhoto.files, {
+        onSuccess: async (info) => {
+          const pId = (await info[0]).photoId;
+          setProfilePhoto((prevState) => {
+            return { ...prevState, id: pId ?? null };
+          });
+        },
+      });
+    }
     putPorfilePhoto(profilePhoto.id);
     setOnCompleteModal(true);
   };
@@ -145,12 +158,7 @@ function ProfilePage() {
     const files = inputFileRef.current?.files;
     if (!files) return;
 
-    addPhoto(files, {
-      onSuccess: async (data) => {
-        const pId = (await data[0]).photoId;
-        setProfilePhoto({ url: URL.createObjectURL(files[0]), id: pId });
-      },
-    });
+    setProfilePhoto({ files, url: URL.createObjectURL(files[0]), id: null });
 
     setOnButtomSheet(false);
   };
@@ -211,16 +219,14 @@ function ProfilePage() {
             {...register('anniversary')}
             error={errors.anniversary}
           />
-          {onCompleteModal && (
-            <Modal
-              onModal={onCompleteModal}
-              setOnModal={setOnCompleteModal}
-              title="프로필 수정 성공🎉"
-              description="프로필이 수정되었습니다."
-              mainActionLabel="확인"
-              onMainAction={() => navigate('/more')}
-            />
-          )}
+          <Modal
+            onModal={onCompleteModal}
+            setOnModal={setOnCompleteModal}
+            title="프로필 수정 성공🎉"
+            description="프로필이 수정되었습니다."
+            mainActionLabel="확인"
+            onMainAction={() => navigate('/more')}
+          />
           {onCancelModal && (
             <Modal
               onModal={onCancelModal}
@@ -261,7 +267,11 @@ function ProfilePage() {
               <BottomSheetMenu
                 onClick={() => {
                   setOnButtomSheet(false);
-                  setProfilePhoto({ url: defaultProfile, id: null });
+                  setProfilePhoto({
+                    files: null,
+                    url: defaultProfile,
+                    id: null,
+                  });
                 }}
               >
                 <Icon icon="IconTrash" themeColor="gray50" />
