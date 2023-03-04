@@ -17,6 +17,10 @@ import useToast from '../../hooks/common/useToast';
 
 const Container = styled.div`
   position: relative;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const FixedContainer = styled.div`
@@ -24,7 +28,6 @@ const FixedContainer = styled.div`
   width: 100%;
   max-width: 780px;
   height: calc(100vh - 43px - 176px - 81px);
-  overflow: hidden;
 `;
 
 function GalleryMainPage() {
@@ -45,7 +48,10 @@ function GalleryMainPage() {
   };
 
   return (
-    <Container className="page-container with-navbar">
+    <Container
+      className="page-container with-navbar"
+      onScroll={() => navigate('photo')}
+    >
       <GalleryTitle
         title="ALBUM"
         plusBtn
@@ -64,9 +70,16 @@ function GalleryMainPage() {
         onTouchMove={(e) => {
           if (!touchPositionX.current) return;
 
-          if (touchPositionX.current - e.touches[0].clientX > 50)
+          if (touchPositionX.current - e.touches[0].clientX > 200)
             navigate('album');
         }}
+      />
+      <GalleryTitle
+        title="PHOTO"
+        rightNode={(photos ?? []).length > 0 && <Icon icon="IconCheck" />}
+        onRightClick={() =>
+          navigate('photo', { state: { selectingAvailable: true } })
+        }
       />
       <FixedContainer
         onTouchStart={(e) => {
@@ -79,14 +92,6 @@ function GalleryMainPage() {
             navigate('photo');
         }}
       >
-        <GalleryTitle
-          title="PHOTO"
-          rightNode={(photos ?? []).length > 0 && <Icon icon="IconCheck" />}
-          onRightClick={() =>
-            navigate('photo', { state: { selectingAvailable: true } })
-          }
-        />
-
         <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
       </FixedContainer>
       <FloatingButton onUpLoad={upLoadHandler} />
