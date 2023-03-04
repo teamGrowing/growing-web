@@ -7,6 +7,9 @@ const Container = styled.div`
   width: 100%;
   text-align: center;
   overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const PhotosRow = styled.div`

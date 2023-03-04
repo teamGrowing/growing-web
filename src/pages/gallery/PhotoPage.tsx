@@ -27,11 +27,12 @@ const Cancel = styled.div`
 `;
 
 const PaddingContainer = styled.div`
-  position: fixed;
+  position: absolute;
   top: 43px;
 
-  height: calc(100% - 43px - 81px);
+  height: calc(100% - 43px);
   width: 100%;
+  max-width: 780px;
 
   overflow: scroll;
 `;
