@@ -1,6 +1,7 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { observer } from 'mobx-react';
+import styled from 'styled-components';
 import TopBar from '../../components/common/TopBar/TopBar';
 import PhotoDetail from '../../components/pages/gallery/PhotoDetail';
 import BottomMenu from '../../components/pages/gallery/BottomMenu';
@@ -15,6 +16,14 @@ import { useDeletePhotosMutation } from '../../hooks/queries/album.queries';
 import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import useToast from '../../hooks/common/useToast';
+
+const Container = styled.div`
+  position: relative;
+`;
+const DetailContainer = styled.div`
+  position: relative;
+  height: calc(100% - 72px);
+`;
 
 function AlbumPhotoDetailPage() {
   const location = useLocation();
@@ -62,14 +71,16 @@ function AlbumPhotoDetailPage() {
   };
 
   return (
-    <div className="page-container with-topbar">
+    <Container className="page-container with-topbar">
       <TopBar
         title={title}
         subTitle={subTitle}
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigate(-1)}
       />
-      {photo && <PhotoDetail photoInfo={photo} />}
+      <DetailContainer>
+        {photo && <PhotoDetail photoInfo={photo} />}
+      </DetailContainer>
       {commentIsVisible && (
         <CommentMenu comments={comments ?? []} onComment={makeComment} />
       )}
@@ -90,7 +101,7 @@ function AlbumPhotoDetailPage() {
           onSubAction={() => setOnModal(false)}
         />
       )}
-    </div>
+    </Container>
   );
 }
 

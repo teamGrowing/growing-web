@@ -88,6 +88,16 @@ input {
 .page-container.with-topbar {
   padding-top: 49px;
 }
+
+
+/* 웹에서 스크롤바 숨기기 */
+.hidden-scrollbar {
+  -ms-overflow-style: none; /* Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar { /*Chrome */
+    display: none;
+  }
+}
 `;
 
 export default GlobalStyle;

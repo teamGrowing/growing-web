@@ -117,7 +117,7 @@ function PhotoPage() {
             setOnModal(true);
           }}
         />
-        <PaddingContainer>
+        <PaddingContainer className="hidden-scrollbar">
           <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
         </PaddingContainer>
         <FloatingButton onUpLoad={upLoadPhotos} />

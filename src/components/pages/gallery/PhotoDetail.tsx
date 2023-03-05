@@ -5,7 +5,6 @@ const Scrolls = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 48px;
 
   position: absolute;
   width: 100%;
@@ -40,7 +39,7 @@ const Info = styled.div`
   gap: 6px;
 
   width: 100%;
-  height: calc(40% - 81px);
+  height: 40%;
 
   flex: none;
   order: 1;

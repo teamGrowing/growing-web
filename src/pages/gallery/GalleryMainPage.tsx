@@ -18,9 +18,6 @@ import useToast from '../../hooks/common/useToast';
 const Container = styled.div`
   position: relative;
   overflow-y: scroll;
-  &::-webkit-scrollbar {
-    display: none;
-  }
 `;
 
 const FixedContainer = styled.div`
@@ -49,7 +46,7 @@ function GalleryMainPage() {
 
   return (
     <Container
-      className="page-container with-navbar"
+      className="page-container with-navbar hidden-scrollbar"
       onScroll={() => navigate('photo')}
     >
       <GalleryTitle
