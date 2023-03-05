@@ -10,6 +10,7 @@ import WhiteContainer from '../../components/pages/more/WhiteContainer';
 import store from '../../stores/RootStore';
 import PurpleBackground from '../../styles/common/PurpleBackground';
 import preventScroll from '../../util/utils';
+import defaultProfile from '../../assets/image/DefaultProfile.png';
 
 const Container = styled.div`
   position: relative;
@@ -92,7 +93,7 @@ function MoreMainPage() {
       <IconWrapper>
         <Icon icon="IconLogo" themeColor="white" size={211} />
       </IconWrapper>
-      <ScrollArea>
+      <ScrollArea className="hidden-scrollbar">
         <SideButton
           value="프로필 수정"
           abLeft="75%"
@@ -100,7 +101,10 @@ function MoreMainPage() {
           onClick={() => navigate('profile')}
         />
         <ProfileContainer>
-          <Profile imgUrl={store.userStore.user?.imageUrl ?? ''} border />
+          <Profile
+            imgUrl={store.userStore.user?.imageUrl ?? defaultProfile}
+            border
+          />
         </ProfileContainer>
         <WhiteContainer top="347px">
           <Label>{store.userStore.user?.nickName}</Label>

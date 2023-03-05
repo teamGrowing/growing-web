@@ -27,7 +27,7 @@ import {
 } from '../../hooks/queries/gallery.queries';
 import DataContext from '../gallery/context';
 import preventScroll from '../../util/utils';
-import defaultProfile from '../../assets/image/DefaultProfilePhoto.png';
+import defaultProfile from '../../assets/image/DefaultProfile.png';
 
 const StyledForm = styled.form`
   flex-direction: column;
@@ -80,8 +80,8 @@ function ProfilePage() {
     id: string | null;
   }>({
     files: null,
-    url: store.userStore.user?.imageUrl ?? '',
-    id: '',
+    url: store.userStore.user?.imageUrl ?? null,
+    id: null,
   });
 
   const ctxValue = useMemo(() => {
@@ -159,7 +159,6 @@ function ProfilePage() {
     if (!files) return;
 
     setProfilePhoto({ files, url: URL.createObjectURL(files[0]), id: null });
-
     setOnButtomSheet(false);
   };
 
@@ -190,7 +189,10 @@ function ProfilePage() {
         )}
         <div className="page-container with-topbar">
           <ProfileContainer>
-            <Profile imgUrl={profilePhoto.url ?? ''} border={false} />
+            <Profile
+              imgUrl={profilePhoto.url ?? defaultProfile}
+              border={false}
+            />
             <SideButton
               value="사진 수정"
               abLeft="calc(50% + 19px)"
@@ -269,7 +271,7 @@ function ProfilePage() {
                   setOnButtomSheet(false);
                   setProfilePhoto({
                     files: null,
-                    url: defaultProfile,
+                    url: null,
                     id: null,
                   });
                 }}
