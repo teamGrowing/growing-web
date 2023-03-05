@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useState, useRef, useMemo, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import ReactDOM from 'react-dom';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Icon from '../../components/common/Icon/Icon';
 import Profile from '../../components/pages/more/Profile';
@@ -28,6 +27,10 @@ import {
 import DataContext from '../gallery/context';
 import preventScroll from '../../util/utils';
 import defaultProfile from '../../assets/image/DefaultProfile.png';
+
+const Container = styled.div`
+  position: relative;
+`;
 
 const StyledForm = styled.form`
   flex-direction: column;
@@ -174,125 +177,131 @@ function ProfilePage() {
         ref={formRef}
       >
         {!onPhotoScroll && (
-          <TopBar
-            leftNode={<Icon icon="IconArrowLeft" />}
-            onLeftClick={() => setOnCanelModal(true)}
-            title="프로필 수정"
-            rightMainNode={
-              <StyledInput
-                type="submit"
-                value="완료"
-                className="text-gradient400"
-              />
-            }
-          />
-        )}
-        <div className="page-container with-topbar">
-          <ProfileContainer>
-            <Profile
-              imgUrl={profilePhoto.url ?? defaultProfile}
-              border={false}
-            />
-            <SideButton
-              value="사진 수정"
-              abLeft="calc(50% + 19px)"
-              abTop="179px"
-              onClick={() => setOnButtomSheet(true)}
-            />
-          </ProfileContainer>
-          <InputContainer
-            title="애칭"
-            type="text"
-            value={nickname}
-            {...register('nickname', { required: '애칭을 입력해주세요!' })}
-            error={errors.nickname}
-          />
-          <InputContainer
-            title="생년월일"
-            type="date"
-            value={birthday}
-            {...register('birthday')}
-            error={errors.birthday}
-          />
-          <InputContainer
-            title="기념일"
-            type="date"
-            value={anniversary}
-            {...register('anniversary')}
-            error={errors.anniversary}
-          />
-          <Modal
-            onModal={onCompleteModal}
-            setOnModal={setOnCompleteModal}
-            title="프로필 수정 성공🎉"
-            description="프로필이 수정되었습니다."
-            mainActionLabel="확인"
-            onMainAction={() => navigate('/more')}
-          />
-          <Modal
-            onModal={onCancelModal}
-            setOnModal={setOnCanelModal}
-            title="프로필 수정 취소"
-            description={'변경하신 내용이 취소됩니다.\n정말 나가시겠습니까?'}
-            mainActionLabel="확인"
-            onMainAction={() => navigate('/more')}
-            subActionLabel="취소"
-            onSubAction={() => setOnCanelModal(false)}
-          />
-          {onBottomSheet && (
-            <ModalBottomSheet open={onBottomSheet} setOpen={setOnButtomSheet}>
-              <input
-                type="file"
-                ref={inputFileRef}
-                style={{ display: 'none' }}
-                onChange={upLoadFile}
-              />
-              <BottomSheetMenu
-                onClick={() => {
-                  inputFileRef.current?.click();
-                }}
-              >
-                <Icon icon="IconShare" themeColor="gray50" />
-                라이브러리에서 선택
-              </BottomSheetMenu>
-              <BottomSheetMenu
-                onClick={() => {
-                  setOnButtomSheet(false);
-                  setOnPhotoScroll(true);
-                }}
-              >
-                <Icon icon="IconGallery" themeColor="gray50" />앱 내 갤러리에서
-                선택
-              </BottomSheetMenu>
-              <BottomSheetMenu
-                onClick={() => {
-                  setOnButtomSheet(false);
-                  setProfilePhoto({
-                    files: null,
-                    url: null,
-                    id: null,
-                  });
-                }}
-              >
-                <Icon icon="IconTrash" themeColor="gray50" />
-                현재 사진 삭제
-              </BottomSheetMenu>
-            </ModalBottomSheet>
-          )}
-        </div>
-      </StyledForm>
-      {onPhotoScroll &&
-        ReactDOM.createPortal(
           <>
-            <Layer />
-            <PhotoScroll
-              photos={photos ?? []}
-              leftLabel="취소"
-              onLeftClick={() => setOnPhotoScroll(false)}
+            <TopBar
+              leftNode={<Icon icon="IconArrowLeft" />}
+              onLeftClick={() => setOnCanelModal(true)}
+              title="프로필 수정"
+              rightMainNode={
+                <StyledInput
+                  type="submit"
+                  value="완료"
+                  className="text-gradient400"
+                />
+              }
             />
-          </>,
-          document.getElementById('modal-root') as HTMLElement
+            <Container className="page-container with-topbar">
+              <ProfileContainer>
+                <Profile
+                  imgUrl={profilePhoto.url ?? defaultProfile}
+                  border={false}
+                />
+                <SideButton
+                  value="사진 수정"
+                  abLeft="calc(50% + 19px)"
+                  abTop="179px"
+                  onClick={() => setOnButtomSheet(true)}
+                />
+              </ProfileContainer>
+              <InputContainer
+                title="애칭"
+                type="text"
+                value={nickname}
+                {...register('nickname', { required: '애칭을 입력해주세요!' })}
+                error={errors.nickname}
+              />
+              <InputContainer
+                title="생년월일"
+                type="date"
+                value={birthday}
+                {...register('birthday')}
+                error={errors.birthday}
+              />
+              <InputContainer
+                title="기념일"
+                type="date"
+                value={anniversary}
+                {...register('anniversary')}
+                error={errors.anniversary}
+              />
+              <Modal
+                onModal={onCompleteModal}
+                setOnModal={setOnCompleteModal}
+                title="프로필 수정 성공🎉"
+                description="프로필이 수정되었습니다."
+                mainActionLabel="확인"
+                onMainAction={() => navigate('/more')}
+              />
+              <Modal
+                onModal={onCancelModal}
+                setOnModal={setOnCanelModal}
+                title="프로필 수정 취소"
+                description={
+                  '변경하신 내용이 취소됩니다.\n정말 나가시겠습니까?'
+                }
+                mainActionLabel="확인"
+                onMainAction={() => navigate('/more')}
+                subActionLabel="취소"
+                onSubAction={() => setOnCanelModal(false)}
+              />
+              {onBottomSheet && (
+                <ModalBottomSheet
+                  open={onBottomSheet}
+                  setOpen={setOnButtomSheet}
+                >
+                  <input
+                    type="file"
+                    accept=".jpg, .png"
+                    ref={inputFileRef}
+                    style={{ display: 'none' }}
+                    onChange={upLoadFile}
+                  />
+                  <BottomSheetMenu
+                    onClick={() => {
+                      inputFileRef.current?.click();
+                    }}
+                  >
+                    <Icon icon="IconShare" themeColor="gray50" />
+                    라이브러리에서 선택
+                  </BottomSheetMenu>
+                  <BottomSheetMenu
+                    onClick={() => {
+                      setOnButtomSheet(false);
+                      setOnPhotoScroll(true);
+                    }}
+                  >
+                    <Icon icon="IconGallery" themeColor="gray50" />앱 내
+                    갤러리에서 선택
+                  </BottomSheetMenu>
+                  <BottomSheetMenu
+                    onClick={() => {
+                      setOnButtomSheet(false);
+                      setProfilePhoto({
+                        files: null,
+                        url: null,
+                        id: null,
+                      });
+                    }}
+                  >
+                    <Icon icon="IconTrash" themeColor="gray50" />
+                    현재 사진 삭제
+                  </BottomSheetMenu>
+                </ModalBottomSheet>
+              )}
+            </Container>
+          </>
         )}
+      </StyledForm>
+      {onPhotoScroll && (
+        <Container className="page-container">
+          <Layer />
+          <PhotoScroll
+            photos={photos ?? []}
+            leftLabel="취소"
+            onLeftClick={() => setOnPhotoScroll(false)}
+          />
+        </Container>
+      )}
     </DataContext.Provider>
   );
 }
