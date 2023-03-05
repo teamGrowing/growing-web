@@ -125,7 +125,7 @@ function ProfilePage() {
   const { mutateAsync: putPorfilePhoto } = usePutProfilePhotoMutation({
     userId,
   });
-  const { mutate: addPhoto } = useCreatePhotosMutation({ coupleId });
+  const { mutateAsync: addPhoto } = useCreatePhotosMutation({ coupleId });
 
   const modifyProfile = async (data: {
     nickname: string;
@@ -139,25 +139,25 @@ function ProfilePage() {
     await patchCoupleInfo({
       anniversaryDay: data.anniversary,
     });
-
     if (profilePhoto.files) {
-      addPhoto(profilePhoto.files, {
+      await addPhoto(profilePhoto.files, {
         onSuccess: async (info) => {
           const pId = (await info[0]).photoId;
-          setProfilePhoto((prevState) => {
-            return { ...prevState, id: pId ?? null };
+          putPorfilePhoto(pId, {
+            onSuccess: () => setOnCompleteModal(true),
           });
         },
       });
+      return;
     }
-    putPorfilePhoto(profilePhoto.id);
-    setOnCompleteModal(true);
+    putPorfilePhoto(profilePhoto.id, {
+      onSuccess: () => setOnCompleteModal(true),
+    });
   };
 
   const upLoadFile = async () => {
     const files = inputFileRef.current?.files;
     if (!files) return;
-
     setProfilePhoto({ files, url: URL.createObjectURL(files[0]), id: null });
     setOnButtomSheet(false);
   };
@@ -229,18 +229,16 @@ function ProfilePage() {
             mainActionLabel="확인"
             onMainAction={() => navigate('/more')}
           />
-          {onCancelModal && (
-            <Modal
-              onModal={onCancelModal}
-              setOnModal={setOnCanelModal}
-              title="프로필 수정 취소"
-              description={'변경하신 내용이 취소됩니다.\n정말 나가시겠습니까?'}
-              mainActionLabel="확인"
-              onMainAction={() => navigate('/more')}
-              subActionLabel="취소"
-              onSubAction={() => setOnCanelModal(false)}
-            />
-          )}
+          <Modal
+            onModal={onCancelModal}
+            setOnModal={setOnCanelModal}
+            title="프로필 수정 취소"
+            description={'변경하신 내용이 취소됩니다.\n정말 나가시겠습니까?'}
+            mainActionLabel="확인"
+            onMainAction={() => navigate('/more')}
+            subActionLabel="취소"
+            onSubAction={() => setOnCanelModal(false)}
+          />
           {onBottomSheet && (
             <ModalBottomSheet open={onBottomSheet} setOpen={setOnButtomSheet}>
               <input
