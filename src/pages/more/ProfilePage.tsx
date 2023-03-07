@@ -78,10 +78,12 @@ function ProfilePage() {
   const [onBottomSheet, setOnButtomSheet] = useState(false);
   const [onPhotoScroll, setOnPhotoScroll] = useState(false);
   const [profilePhoto, setProfilePhoto] = useState<{
+    isChange: boolean;
     files: FileList | null;
     url: string | null;
     id: string | null;
   }>({
+    isChange: false,
     files: null,
     url: store.userStore.user?.imageUrl ?? null,
     id: null,
@@ -91,7 +93,12 @@ function ProfilePage() {
     return {
       selectingAvailable: true,
       addToList: (photoId: string, photoUrl?: string) => {
-        setProfilePhoto({ files: null, url: photoUrl ?? null, id: photoId });
+        setProfilePhoto({
+          isChange: true,
+          files: null,
+          url: photoUrl ?? null,
+          id: photoId,
+        });
         setOnPhotoScroll(false);
       },
       removeFromList: () => {},
@@ -142,6 +149,12 @@ function ProfilePage() {
     await patchCoupleInfo({
       anniversaryDay: data.anniversary,
     });
+
+    if (!profilePhoto.isChange) {
+      setOnCompleteModal(true);
+      return;
+    }
+
     if (profilePhoto.files) {
       await addPhoto(profilePhoto.files, {
         onSuccess: async (info) => {
@@ -153,6 +166,7 @@ function ProfilePage() {
       });
       return;
     }
+
     putPorfilePhoto(profilePhoto.id, {
       onSuccess: () => setOnCompleteModal(true),
     });
@@ -161,7 +175,12 @@ function ProfilePage() {
   const upLoadFile = async () => {
     const files = inputFileRef.current?.files;
     if (!files) return;
-    setProfilePhoto({ files, url: URL.createObjectURL(files[0]), id: null });
+    setProfilePhoto({
+      isChange: true,
+      files,
+      url: URL.createObjectURL(files[0]),
+      id: null,
+    });
     setOnButtomSheet(false);
   };
 
@@ -277,6 +296,7 @@ function ProfilePage() {
                     onClick={() => {
                       setOnButtomSheet(false);
                       setProfilePhoto({
+                        isChange: false,
                         files: null,
                         url: null,
                         id: null,
