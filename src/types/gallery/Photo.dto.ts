@@ -3,4 +3,5 @@ export default interface PhotoDto {
   urls: string;
   createdAt: string;
   name: string;
+  type: 'video' | 'photo';
 }

@@ -37,8 +37,10 @@ function FloatingButton({ onUpLoad }: FloatingButtonProps) {
       <Wrapper>
         <Icon icon="IconPlus" size={32} />
       </Wrapper>
+      {/* TODO 파일 확장자 체크 */}
       <input
         type="file"
+        accept="video/*,image/*"
         multiple
         ref={inputFileRef}
         style={{ display: 'none' }}

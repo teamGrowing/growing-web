@@ -109,6 +109,7 @@ export function useCreatePhotosMutation({
 
     const axiosRes = await GALLERY_API.createPhoto(coupleId, {
       s3Path: res.data.s3Path,
+      type: file.type.includes('video') ? 'video' : 'photo',
     });
 
     return axiosRes.data;

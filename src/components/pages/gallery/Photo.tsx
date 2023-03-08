@@ -72,9 +72,28 @@ function Photo({ photoInfo }: PhotoProps) {
       key={photoInfo.i}
       onClick={clickHandler}
       isSelected={isSelected}
-      imgUrl={photoInfo.u}
+      imgUrl={`${photoInfo.u}#t=0.5`}
     >
       {isSelected && <CheckIcon icon="IconCheck" themeColor="gray50" />}
+      {photoInfo.t === 'video' && (
+        <video
+          preload="metadata"
+          style={{
+            position: 'absolute',
+            left: '0',
+            top: '0',
+            width: '100%',
+            height: '100%',
+          }}
+        >
+          <source src={`${photoInfo.u}#t=0.5`} />
+          <track
+            src="captions_en.vtt"
+            kind="captions"
+            label="english_captions"
+          />
+        </video>
+      )}
     </PhotoBox>
   );
 }

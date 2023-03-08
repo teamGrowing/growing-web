@@ -30,6 +30,15 @@ const Photo = styled.div<{ backgroundUrl: string }>`
   flex-grow: 0;
 `;
 
+const Video = styled.video`
+  width: 100%;
+  height: 60%;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+`;
+
 const Info = styled.div`
   display: flex;
   flex-direction: column;
@@ -91,7 +100,17 @@ function PhotoDetail({ photoInfo }: PhotoDetailProps) {
 
   return (
     <Scrolls>
-      <Photo backgroundUrl={photoInfo.urls} />
+      {photoInfo.type === 'photo' && <Photo backgroundUrl={photoInfo.urls} />}
+      {photoInfo.type === 'video' && (
+        <Video controls preload="metadata" src={`${photoInfo.urls}#t=0.5`}>
+          <source src={photoInfo.urls} />
+          <track
+            src="captions_en.vtt"
+            kind="captions"
+            label="english_captions"
+          />
+        </Video>
+      )}
       <Info>
         <Name>{photoInfo.name}</Name>
         <CreatedAt>{`${date.getFullYear()}/${
