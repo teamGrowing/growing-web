@@ -102,7 +102,7 @@ function PhotoDetail({ photoInfo }: PhotoDetailProps) {
     <Scrolls>
       {!photoInfo.time && <Photo backgroundUrl={photoInfo.urls} />}
       {photoInfo.time && (
-        <Video controls preload="metadata" src={`${photoInfo.videoUrl}#t=0.5`}>
+        <Video controls>
           <source src={photoInfo.videoUrl!} />
           <track
             src="captions_en.vtt"
