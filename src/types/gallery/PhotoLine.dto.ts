@@ -2,5 +2,5 @@ export interface PhotoLineDto {
   i: string; // photo id
   u: string;
   c: string;
-  t: 'video' | 'photo';
+  t: number | null;
 }

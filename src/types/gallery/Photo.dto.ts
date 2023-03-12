@@ -1,7 +1,8 @@
 export default interface PhotoDto {
   id: string;
   urls: string;
+  videoUrl: string | null;
   createdAt: string;
   name: string;
-  type: 'video' | 'photo';
+  time: number | null;
 }

@@ -1,4 +1,4 @@
 export interface CreatePhotoDto {
   s3Path: string;
-  type: 'video' | 'photo';
+  time: number | null;
 }

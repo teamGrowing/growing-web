@@ -75,7 +75,7 @@ function Photo({ photoInfo }: PhotoProps) {
       imgUrl={`${photoInfo.u}#t=0.5`}
     >
       {isSelected && <CheckIcon icon="IconCheck" themeColor="gray50" />}
-      {photoInfo.t === 'video' && (
+      {photoInfo.t && (
         <video
           preload="metadata"
           style={{

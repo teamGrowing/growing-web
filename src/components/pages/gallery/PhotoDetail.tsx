@@ -100,10 +100,10 @@ function PhotoDetail({ photoInfo }: PhotoDetailProps) {
 
   return (
     <Scrolls>
-      {photoInfo.type === 'photo' && <Photo backgroundUrl={photoInfo.urls} />}
-      {photoInfo.type === 'video' && (
-        <Video controls preload="metadata" src={`${photoInfo.urls}#t=0.5`}>
-          <source src={photoInfo.urls} />
+      {!photoInfo.time && <Photo backgroundUrl={photoInfo.urls} />}
+      {photoInfo.time && (
+        <Video controls preload="metadata" src={`${photoInfo.videoUrl}#t=0.5`}>
+          <source src={photoInfo.videoUrl!} />
           <track
             src="captions_en.vtt"
             kind="captions"
