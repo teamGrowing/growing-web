@@ -26,6 +26,7 @@ const keyframe = keyframes`
 const Container = styled.div<{ isMine: boolean }>`
   z-index: 2;
 
+  /* TODO: height에 따라 위치 수정 */
   position: absolute;
   top: calc(100% + 8px);
   ${(props) => (props.isMine ? 'right: 0;' : 'left: 0;')}
