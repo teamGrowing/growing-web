@@ -45,7 +45,7 @@ function BottomNavigation() {
           <Icon icon="IconPhotoHeart" />
           <Label>앨범</Label>
         </NavItem>
-        <NavItem linkTo="/chatting">
+        <NavItem linkTo="/chat">
           <Icon icon="IconChat" />
           <Label>채팅</Label>
         </NavItem>

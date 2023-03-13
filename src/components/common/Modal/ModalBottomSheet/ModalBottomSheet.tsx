@@ -1,6 +1,7 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import ModalPortal from '../ModalPortal';
+import { fadeIn, fadeInUp } from '../../../../styles/common/keyframs';
 
 interface ModalBottomSheetProps {
   open: boolean;
@@ -8,14 +9,6 @@ interface ModalBottomSheetProps {
   children: React.ReactNode;
 }
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -25,16 +18,6 @@ const Overlay = styled.div`
   background-color: ${({ theme }) => theme.color.black}19;
   animation: ${fadeIn} 0.3s ease-in;
   z-index: 11;
-`;
-const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translateZ(0);
-  }
 `;
 const Wrapper = styled.div`
   position: fixed;

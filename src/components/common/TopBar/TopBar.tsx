@@ -20,13 +20,18 @@ const Container = styled.header<{ mode: TopBarMode; border: boolean }>`
   z-index: 10;
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
-  padding: 0 4px;
+  left: 50%;
+  transform: translateX(-50%);
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  width: 100%;
+  max-width: 780px;
   height: 48px;
+  padding: 0 4px;
+
   border-bottom: ${(props) =>
     props.border ? `1px solid ${props.theme.color.gray200}` : 'none'};
   ${({ mode }) => {
@@ -50,23 +55,26 @@ const LeftNode = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   min-width: 48px;
   width: 48px;
   height: 100%;
 `;
 const Center = styled.div`
-  margin-right: 48px;
-  padding: 0 48px;
-  width: calc(100% - 96px);
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 2px;
+
+  margin-right: 48px;
+  padding: 0 48px;
+  width: calc(100% - 96px);
+  height: 100%;
 `;
 const Title = styled.div<{ mode: TopBarMode; hasSubTitle: boolean }>`
   width: 100%;
+
   font-family: 'PretendardMedium';
   font-size: ${({ hasSubTitle }) => (hasSubTitle ? '14px' : '16px')};
   line-height: ${({ hasSubTitle }) => (hasSubTitle ? '17px' : '19px')};
@@ -90,12 +98,10 @@ const Title = styled.div<{ mode: TopBarMode; hasSubTitle: boolean }>`
 `;
 const SubTitle = styled.div<{ mode: TopBarMode }>`
   width: 100%;
+
   font-size: 12px;
   line-height: 14px;
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 
   ${({ mode }) => {
     switch (mode) {
@@ -113,10 +119,12 @@ const SubTitle = styled.div<{ mode: TopBarMode }>`
 const RightMainNode = styled.div<{ mode: TopBarMode }>`
   position: absolute;
   right: 4px;
-  width: 48px;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
+  width: 48px;
   height: 100%;
   > * {
     font-size: 14px;
@@ -167,7 +175,11 @@ export default function TopBar({
             {title}
           </Title>
         )}
-        {subTitle && <SubTitle mode={mode as TopBarMode}>{subTitle}</SubTitle>}
+        {subTitle && (
+          <SubTitle className="text-ellipsis" mode={mode as TopBarMode}>
+            {subTitle}
+          </SubTitle>
+        )}
       </Center>
       <RightSubNode mode={mode as TopBarMode} onClick={onRightSubClick}>
         {rightSubNode}
