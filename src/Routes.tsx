@@ -20,6 +20,7 @@ import AlbumPhotoDetailPage from './pages/gallery/AlbumPhotoDetailPage';
 import ChattingPage from './pages/chat/ChattingPage';
 import LongChattingPage from './pages/chat/LongChattingPage';
 import QuestionBoxPage from './pages/chat/QuestionBoxPage';
+import ChatNoticePage from './pages/chat/ChatNoticePage';
 
 function GrowingRoutes() {
   return (
@@ -37,6 +38,7 @@ function GrowingRoutes() {
         {/* chat */}
         <Route path="/chat" element={<ChattingPage />} />
         <Route path="/chat/all" element={<LongChattingPage />} />
+        <Route path="/chat/notice" element={<ChatNoticePage />} />
         <Route path="/chat/question-box" element={<QuestionBoxPage />} />
 
         {/* gallery */}

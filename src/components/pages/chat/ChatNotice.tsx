@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import { useQueryClient } from '@tanstack/react-query';
@@ -55,7 +56,7 @@ const NoticeContainer = styled.div`
   padding: 10px 0;
 `;
 
-const Contents = styled.div`
+const Contents = styled.div<{ onToggle: boolean }>`
   flex: 1;
 
   display: flex;
@@ -63,9 +64,20 @@ const Contents = styled.div`
   gap: 4px;
 
   font-family: 'PretendardLight';
-  font-size: 14px;
-  color: ${({ theme }) => theme.color.gray900};
+
   > p {
+    font-size: 14px;
+    color: ${({ theme }) => theme.color.gray900};
+
+    white-space: normal;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: ${(props) => (props.onToggle ? 3 : 1)};
+    -webkit-box-orient: vertical;
+  }
+
+  > span {
     font-size: 12px;
     color: ${({ theme }) => theme.color.gray500};
   }
@@ -89,6 +101,7 @@ const StyledButtonBorder = styled(StyledButton)`
 
 function ChatNotice() {
   const queryClient = useQueryClient();
+  const navigation = useNavigate();
   const { userStore } = store;
 
   const [onToggle, setOnToggle] = useState<boolean>(false);
@@ -113,6 +126,10 @@ function ChatNotice() {
     },
   });
 
+  const handleClick = () => {
+    navigation('/chat/notice');
+  };
+
   if (!notice) {
     return null;
   }
@@ -127,15 +144,18 @@ function ChatNotice() {
 
   return (
     <Container>
-      <NoticeContainer>
+      <NoticeContainer onClick={handleClick}>
         <Icon icon="IconBell" />
-        <Contents>
-          {notice.content}
-          <p>{notice.announcer} 등록</p>
+        <Contents onToggle={onToggle}>
+          <p>{notice.content}</p>
+          <span>{notice.announcer} 등록</span>
         </Contents>
         <Icon
           icon={!onToggle ? 'IconArrowDown' : 'IconArrowUp'}
-          onClick={() => setOnToggle(!onToggle)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setOnToggle(!onToggle);
+          }}
         />
       </NoticeContainer>
       {onToggle && (
