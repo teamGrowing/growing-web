@@ -25,6 +25,7 @@ const petKeys = {
 
 const chatKeys = {
   all: [Domain.chat] as unknown as QueryKey[],
+  notice: [Domain.chat, 'notice'] as unknown as QueryKey[],
 };
 
 const qnaKeys = {
