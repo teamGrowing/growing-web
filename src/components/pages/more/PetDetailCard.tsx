@@ -1,12 +1,13 @@
 import styled, { keyframes } from 'styled-components';
-import PetDto from '../../../types/more/PostPet.dto';
 import backgroundImg from '../../../assets/image/DetailCardBackground.png';
 import infoBackgroundImg from '../../../assets/image/DetailInfoBackground.png';
 import bearImg from '../../../assets/image/Bear.png'; // 임시로 넣어둠
 import Icon from '../../common/Icon/Icon';
+import store from '../../../stores/RootStore';
+import { useGraduatedPetDetail } from '../../../hooks/queries/pet.queries';
 
 const pulse = keyframes`
- from {
+  from {
     transform: scale3d(1, 1, 1);
   }
 
@@ -133,12 +134,15 @@ const Content = styled.div<{ width: string }>`
 `;
 
 type PetDetailCardProps = {
-  petInfo: PetDto;
-  onClick: React.MouseEventHandler;
+  petId: string;
+  onExit: React.MouseEventHandler;
 };
 
-function PetDetailCard({ petInfo, onClick }: PetDetailCardProps) {
-  const nickname = '별이';
+function PetDetailCard({ petId, onExit }: PetDetailCardProps) {
+  const { data } = useGraduatedPetDetail({
+    coupleId: store.userStore.user?.coupleId!,
+    petId,
+  });
 
   return (
     <Background>
@@ -151,29 +155,31 @@ function PetDetailCard({ petInfo, onClick }: PetDetailCardProps) {
           left: '277px',
           top: '9px',
         }}
-        onClick={onClick}
+        onClick={onExit}
       />
       <Image petImg={bearImg} />
       <InfoContainer>
-        <Name className="text-gradient400">{petInfo.name}</Name>
+        <Name className="text-gradient400">{data?.name}</Name>
         <InfoBox>
           <Row>
             <Info width="77px">
               <Title className="text-gradient400">태어난 날</Title>
               <Line width="69px" />
-              <Content width="69px">{petInfo.createdAt}</Content>
+              <Content width="69px">{data?.createdAt}</Content>
             </Info>
             <Info width="77px">
               <Title className="text-gradient400">독립한 날</Title>
               <Line width="69px" />
-              <Content width="69px">{petInfo.endedAt}</Content>
+              <Content width="69px">{data?.endedAt}</Content>
             </Info>
           </Row>
           <Row>
             <Info width="188px">
-              <Title className="text-gradient400">{nickname}에게 남긴말</Title>
+              <Title className="text-gradient400">
+                {store.userStore.user?.nickName!}에게 남긴말
+              </Title>
               <Line width="180px" />
-              <Content width="180px">{petInfo.description}</Content>
+              <Content width="180px">{data?.description}</Content>
             </Info>
           </Row>
         </InfoBox>

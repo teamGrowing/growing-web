@@ -19,7 +19,7 @@ export const USER_API = {
   getEmojiDetail: (userId: string, emojiId: string) =>
     fetcher.create().get<EmojiLineDto[]>(`users/${userId}/emojis/${emojiId}`),
   patchUser: (userId: string, data: ChangeUserDto) =>
-    fetcher.create().patch(`users/${userId}`, data),
+    fetcher.create().patch(`users/${userId}/update`, data),
   putProfilePhoto: (userId: string, data: ChangeUserPhotoDto) =>
     fetcher.create().put(`users/${userId}/profile-photos`, data),
   postCodeVerify: (userId: string, data: VerifyCodeDto) =>

@@ -21,6 +21,11 @@ import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import AlbumModal from '../../components/common/Modal/AlbumModal';
 import useToast from '../../hooks/common/useToast';
+import BottomNavigation from '../../components/layout/BottomNavigation';
+
+const Container = styled.div`
+  overflow-y: scroll;
+`;
 
 const Option = styled.div`
   width: 25px;
@@ -128,7 +133,7 @@ function AlbumDetailPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <div className="page-container with-topbar with-navbar">
+      <Container className="page-container with-topbar with-navbar hidden-scrollbar">
         <TopBar
           title={location.state.title}
           subTitle={location.state.subTitle}
@@ -223,7 +228,8 @@ function AlbumDetailPage() {
             onSubAction={() => {}}
           />
         )}
-      </div>
+      </Container>
+      <BottomNavigation />
     </DataContext.Provider>
   );
 }

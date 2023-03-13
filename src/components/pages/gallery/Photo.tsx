@@ -56,7 +56,7 @@ function Photo({ photoInfo }: PhotoProps) {
     if (isSelected) {
       ctx.removeFromList(photoInfo.i);
     } else {
-      ctx.addToList(photoInfo.i);
+      ctx.addToList(photoInfo.i, photoInfo.u);
     }
     setIsSelected((prevState) => !prevState);
   };
@@ -72,7 +72,7 @@ function Photo({ photoInfo }: PhotoProps) {
       key={photoInfo.i}
       onClick={clickHandler}
       isSelected={isSelected}
-      imgUrl={photoInfo.u}
+      imgUrl={`${photoInfo.u}#t=0.5`}
     >
       {isSelected && <CheckIcon icon="IconCheck" themeColor="gray50" />}
     </PhotoBox>

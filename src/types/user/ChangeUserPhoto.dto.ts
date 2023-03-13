@@ -1,3 +1,3 @@
 export interface ChangeUserPhotoDto {
-  imageId: string;
+  imageId: string | null;
 }

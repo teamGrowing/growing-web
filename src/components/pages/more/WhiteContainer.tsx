@@ -10,7 +10,7 @@ const Container = styled.div<{ top: string }>`
 
   position: absolute;
   width: 85%;
-  height: calc(100% - ${(props) => props.top});
+  min-height: calc(100% - ${(props) => props.top});
   left: calc(15% / 2);
   top: ${(props) => props.top};
 

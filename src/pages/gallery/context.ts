@@ -3,7 +3,7 @@ import React from 'react';
 const dataContext: {
   selectingAvailable: boolean;
   data?: any;
-  addToList: (photoId: string) => void;
+  addToList: (photoId: string, photoUrl?: string) => void;
   removeFromList: (photoId: string) => void;
 } = {
   selectingAvailable: false,

@@ -9,7 +9,7 @@ const Container = styled.div<{ border: boolean }>`
   padding: 20px 52px 28px;
   gap: 10px;
 
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 72px;
   left: 0px;
