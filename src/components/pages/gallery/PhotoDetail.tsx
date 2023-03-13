@@ -5,7 +5,6 @@ const Scrolls = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 48px;
 
   position: absolute;
   width: 100%;
@@ -31,6 +30,15 @@ const Photo = styled.div<{ backgroundUrl: string }>`
   flex-grow: 0;
 `;
 
+const Video = styled.video`
+  width: 100%;
+  height: 60%;
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+`;
+
 const Info = styled.div`
   display: flex;
   flex-direction: column;
@@ -40,7 +48,7 @@ const Info = styled.div`
   gap: 6px;
 
   width: 100%;
-  height: calc(40% - 81px);
+  height: 40%;
 
   flex: none;
   order: 1;
@@ -92,7 +100,17 @@ function PhotoDetail({ photoInfo }: PhotoDetailProps) {
 
   return (
     <Scrolls>
-      <Photo backgroundUrl={photoInfo.urls} />
+      {!photoInfo.time && <Photo backgroundUrl={photoInfo.urls} />}
+      {photoInfo.time && (
+        <Video controls>
+          <source src={photoInfo.videoUrl!} />
+          <track
+            src="captions_en.vtt"
+            kind="captions"
+            label="english_captions"
+          />
+        </Video>
+      )}
       <Info>
         <Name>{photoInfo.name}</Name>
         <CreatedAt>{`${date.getFullYear()}/${

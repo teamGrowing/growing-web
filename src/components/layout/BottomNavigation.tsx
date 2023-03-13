@@ -5,8 +5,11 @@ import Icon from '../common/Icon/Icon';
 
 const Nav = styled.nav`
   width: 100%;
+  max-width: 780px;
   position: fixed;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 const NavItems = styled.div`
   box-sizing: border-box;

@@ -4,15 +4,10 @@ import TopBar from '../../components/common/TopBar/TopBar';
 import MenuBox from '../../components/pages/more/MenuBox';
 import WhiteContainer from '../../components/pages/more/WhiteContainer';
 import Icon from '../../components/common/Icon/Icon';
+import PurpleBackground from '../../styles/common/PurpleBackground';
 
-const Background = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  left: 0px;
-  top: 0px;
-  z-index: -1;
-  background-color: ${({ theme }) => theme.color.purple50};
+const Container = styled.div`
+  position: relative;
 `;
 const Row = styled.div`
   display: flex;
@@ -27,7 +22,8 @@ const Row = styled.div`
 function InfoPage() {
   const navigate = useNavigate();
   return (
-    <Background>
+    <Container className="page-container">
+      <PurpleBackground />
       <TopBar
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigate('/more')}
@@ -42,7 +38,7 @@ function InfoPage() {
           <MenuBox title="카톡문의" icon="IconPet" onClick={() => {}} />
         </Row>
       </WhiteContainer>
-    </Background>
+    </Container>
   );
 }
 export default InfoPage;

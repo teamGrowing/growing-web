@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from '../../constants/queryKeys';
-import { UseQueryOptionsType } from '../../services';
+import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
 import AlbumDto from '../../types/gallery/Album.dto';
 import ALBUM_API from '../../services/album.service';
 import { PhotoLineDto } from '../../types/gallery/PhotoLine.dto';
@@ -61,12 +61,7 @@ export function usePostAlbumsMutation({
   options,
 }: {
   coupleId: string;
-  options?: UseMutationOptions<
-    AxiosResponse,
-    AxiosError,
-    CreateAlbumDto,
-    unknown
-  >;
+  options?: UseMutationOptionsType<CreateAlbumDto>;
 }): UseMutationResult<AxiosResponse, AxiosError, CreateAlbumDto, unknown> {
   const queryClinet = useQueryClient();
 
@@ -86,7 +81,7 @@ export function usePostPhotosMutation({
 }: {
   coupleId: string;
   albumId: string;
-  options?: UseMutationOptions<AxiosResponse, AxiosError, AddPhotoDto, unknown>;
+  options?: UseMutationOptionsType<AddPhotoDto>;
 }): UseMutationResult<AxiosResponse, AxiosError, AddPhotoDto, unknown> {
   const queryClinet = useQueryClient();
 
@@ -107,12 +102,7 @@ export function usePatchAlbumMutation({
 }: {
   coupleId: string;
   albumId: string;
-  options?: UseMutationOptions<
-    AxiosResponse,
-    AxiosError,
-    ChangeAlbumTitleDto,
-    unknown
-  >;
+  options?: UseMutationOptionsType<ChangeAlbumTitleDto>;
 }): UseMutationResult<AxiosResponse, AxiosError, ChangeAlbumTitleDto, unknown> {
   const queryClinet = useQueryClient();
 

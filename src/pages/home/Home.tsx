@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import dayjs from 'dayjs';
 import store from '../../stores/RootStore';
 import preventScroll from '../../util/utils';
-import useCoupleData from '../../hooks/queries/couple.queries';
+import { useCoupleData } from '../../hooks/queries/couple.queries';
 import HomePet from '../../components/pages/home/HomePet';
 
 const HomeContainer = styled.div`

@@ -18,6 +18,11 @@ const Container = styled.div`
   position: relative;
 `;
 
+const ScrollArea = styled.div`
+  height: calc(100% - 43px);
+  overflow-y: scroll;
+`;
+
 const Cancel = styled.div`
   font-family: 'PretendardRegular';
   font-size: 14px;
@@ -97,7 +102,9 @@ function AlbumPage() {
             setOnModal(true);
           }}
         />
-        <AlbumContainer albums={albums ?? []} />
+        <ScrollArea className="hidden-scrollbar">
+          <AlbumContainer albums={albums ?? []} />
+        </ScrollArea>
         <Modal
           onModal={onModal}
           setOnModal={setOnModal}
