@@ -1,7 +1,11 @@
 import fetcher from '.';
 import { ChatPhotoDto } from '../types/chat/ChatPhoto.dto';
 import { ChatPhotoLineDto } from '../types/chat/ChatPhotoLine.dto';
-import { ChattingDto } from '../types/chat/Chatting.dto';
+import ChatRequestDto from '../types/chat/ChatRequest.dto';
+import {
+  ChattingDto,
+  ParentChildChattingDto,
+} from '../types/chat/Chatting.dto';
 import { ChattingArchivedDto } from '../types/chat/ChattingArchived.dto';
 import { CreatePhotoDto } from '../types/chat/CreatePhoto.dto';
 import { CreateVoiceMsgDto } from '../types/chat/CreateVoiceMsg.dto';
@@ -16,8 +20,12 @@ import { QuestionsAndAnswers } from '../types/chat/questions/QuestionAndAnswers'
 import { VoiceMSGDto } from '../types/chat/VoiceMSG.dto';
 
 export const CHAT_API = {
-  getChats: (coupleId: string) =>
-    fetcher.create().get<ChattingDto[]>(`couples/${coupleId}/chattings`),
+  getChats: (coupleId: string, params: ChatRequestDto) =>
+    fetcher
+      .create()
+      .get<ParentChildChattingDto[]>(`couples/${coupleId}/chattings`, {
+        params,
+      }),
   deleteOurChat: (coupleId: string, chattingId: string) =>
     fetcher
       .create()
@@ -33,18 +41,18 @@ export const CHAT_NOTICE_API = {
     fetcher
       .create()
       .get<Notice | null>(`couples/${coupleId}/chattings/notices`),
-  postNotice: (coupleId: string, noticeId: string, data: Notice) =>
+  postNotice: (coupleId: string, chattingId: string) =>
+    fetcher.create().post(`couples/${coupleId}/chattings/${chattingId}/notify`),
+  postNoticeFold: (coupleId: string, noticeId: string) =>
     fetcher
       .create()
-      .post(`couples/${coupleId}/chattings/${noticeId}/notify`, data),
-  postNoticeFold: (coupleId: string, noticeId: string, data: NoticeIsFolden) =>
-    fetcher
-      .create()
-      .post(`couples/${coupleId}/chattings/${noticeId}/fold`, data),
+      .post<NoticeIsFolden>(
+        `couples/${coupleId}/chattings/notices/${noticeId}/fold`
+      ),
   postNoticeInvisible: (coupleId: string, noticeId: string) =>
     fetcher
       .create()
-      .post(`couples/${coupleId}/chattings/${noticeId}/invisible`),
+      .post(`couples/${coupleId}/chattings/notices/${noticeId}/invisible`),
 };
 
 export const CHAT_ARCHIVED_API = {
@@ -56,7 +64,7 @@ export const CHAT_ARCHIVED_API = {
     fetcher
       .create()
       .post<ChattingArchivedDto>(
-        `couples/${coupleId}/chatting/${chattingId}/archive`
+        `couples/${coupleId}/chattings/${chattingId}/archive`
       ),
   deleteArchivedChat: (coupleId: string, chattingId: string) =>
     fetcher
