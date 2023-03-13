@@ -18,6 +18,7 @@ import PetNamingPage from './pages/home/PetNamingPage';
 import PetFeedPage from './pages/home/PetRaisingPage';
 import AlbumPhotoDetailPage from './pages/gallery/AlbumPhotoDetailPage';
 import ChattingPage from './pages/chat/ChattingPage';
+import LongChattingPage from './pages/chat/LongChattingPage';
 import QuestionBoxPage from './pages/chat/QuestionBoxPage';
 
 function GrowingRoutes() {
@@ -35,6 +36,7 @@ function GrowingRoutes() {
 
         {/* chat */}
         <Route path="/chat" element={<ChattingPage />} />
+        <Route path="/chat/all" element={<LongChattingPage />} />
         <Route path="/chat/question-box" element={<QuestionBoxPage />} />
 
         {/* gallery */}
