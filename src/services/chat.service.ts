@@ -2,10 +2,7 @@ import fetcher from '.';
 import { ChatPhotoDto } from '../types/chat/ChatPhoto.dto';
 import { ChatPhotoLineDto } from '../types/chat/ChatPhotoLine.dto';
 import ChatRequestDto from '../types/chat/ChatRequest.dto';
-import {
-  ChattingDto,
-  ParentChildChattingDto,
-} from '../types/chat/Chatting.dto';
+import { ParentChildChattingDto } from '../types/chat/Chatting.dto';
 import { ChattingArchivedDto } from '../types/chat/ChattingArchived.dto';
 import { CreatePhotoDto } from '../types/chat/CreatePhoto.dto';
 import { CreateVoiceMsgDto } from '../types/chat/CreateVoiceMsg.dto';
@@ -69,9 +66,7 @@ export const CHAT_ARCHIVED_API = {
   deleteArchivedChat: (coupleId: string, chattingId: string) =>
     fetcher
       .create()
-      .delete<ChattingDto[]>(
-        `couples/${coupleId}/archived-chattings/${chattingId}`
-      ),
+      .delete(`couples/${coupleId}/archived-chattings/${chattingId}`),
 };
 
 export const CHAT_PHOTO_API = {
