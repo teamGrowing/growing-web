@@ -5,7 +5,10 @@ import { useQueryClient } from '@tanstack/react-query';
 import store from '../../../stores/RootStore';
 import Icon from '../../common/Icon/Icon';
 import queryKeys from '../../../constants/queryKeys';
+import { MENT_CHAT } from '../../../constants/ments';
 import { useNotifyChatMutate } from '../../../hooks/queries/chat-notice.queries';
+import { useArchivedChatMutate } from '../../../hooks/queries/chat-archived.queries';
+import useToast from '../../../hooks/common/useToast';
 
 interface ChatContextMenuProps {
   chatId: string;
@@ -59,6 +62,19 @@ const Item = styled.div`
 function ChatContextMenu({ chatId, isMine }: ChatContextMenuProps) {
   const queryClient = useQueryClient();
   const { userStore, chatStore } = store;
+  const { addToast } = useToast();
+
+  const { mutate: archiveChat } = useArchivedChatMutate({
+    coupleId: userStore.user?.coupleId ?? '',
+    chattingId: chatId ?? '',
+    options: {
+      onSuccess: () => {
+        chatStore.clear();
+        queryClient.invalidateQueries(queryKeys.chatKeys.archived);
+        addToast(MENT_CHAT.ARCHIVED_SUCCESS);
+      },
+    },
+  });
 
   const { mutate: notifyChat } = useNotifyChatMutate({
     coupleId: userStore.user?.coupleId ?? '',
@@ -81,7 +97,7 @@ function ChatContextMenu({ chatId, isMine }: ChatContextMenuProps) {
         <Icon icon="IconCopy" size={16} />
         <p>복사</p>
       </Item>
-      <Item>
+      <Item onClick={archiveChat}>
         <Icon icon="IconEnvelope" size={16} />
         <p>보관</p>
       </Item>
