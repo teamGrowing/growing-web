@@ -56,7 +56,7 @@ const NoticeContainer = styled.div`
   padding: 10px 0;
 `;
 
-const Contents = styled.div<{ onToggle: boolean }>`
+const Contents = styled.div<{ isToggle: boolean }>`
   flex: 1;
 
   display: flex;
@@ -73,7 +73,7 @@ const Contents = styled.div<{ onToggle: boolean }>`
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: ${(props) => (props.onToggle ? 3 : 1)};
+    -webkit-line-clamp: ${(props) => (props.isToggle ? 3 : 1)};
     -webkit-box-orient: vertical;
   }
 
@@ -104,7 +104,7 @@ function ChatNotice() {
   const navigation = useNavigate();
   const { userStore } = store;
 
-  const [onToggle, setOnToggle] = useState<boolean>(false);
+  const [isToggle, setIsToggle] = useState<boolean>(false);
 
   const { data: notice } = useChatNoticeData({
     coupleId: userStore.user?.coupleId ?? '',
@@ -146,19 +146,19 @@ function ChatNotice() {
     <Container>
       <NoticeContainer onClick={handleClick}>
         <Icon icon="IconBell" />
-        <Contents onToggle={onToggle}>
+        <Contents isToggle={isToggle}>
           <p>{notice.content}</p>
           <span>{notice.announcer} 등록</span>
         </Contents>
         <Icon
-          icon={!onToggle ? 'IconArrowDown' : 'IconArrowUp'}
+          icon={!isToggle ? 'IconArrowDown' : 'IconArrowUp'}
           onClick={(e) => {
             e.stopPropagation();
-            setOnToggle(!onToggle);
+            setIsToggle(!isToggle);
           }}
         />
       </NoticeContainer>
-      {onToggle && (
+      {isToggle && (
         <Buttons>
           <StyledButton onClick={invisibleNotice}>다시 열지 않음</StyledButton>
           <StyledButtonBorder onClick={foldNotice}>접어두기</StyledButtonBorder>
