@@ -27,7 +27,7 @@ const Month = styled.div`
 
 type CalendarTitleProps = {
   year: number;
-  month: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11;
+  month: number;
   onLeftArrowClick: React.MouseEventHandler;
   onRightArrowClick: React.MouseEventHandler;
 };
@@ -58,7 +58,9 @@ function CalendarTitle({
       <Icon icon="IconArrowLeft" onClick={onLeftArrowClick} />
       <Title>
         <Year className="text-gradient400">{year}</Year>
-        <Month className="text-gradient400">{months[month]}</Month>
+        <Month className="text-gradient400">
+          {months[(month % 12).toString() as unknown as keyof typeof months]}
+        </Month>
       </Title>
       <Icon icon="IconArrowRight" onClick={onRightArrowClick} />
     </Container>

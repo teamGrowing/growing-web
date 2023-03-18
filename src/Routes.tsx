@@ -17,6 +17,7 @@ import Home from './pages/home/Home';
 import PetNamingPage from './pages/home/PetNamingPage';
 import PetFeedPage from './pages/home/PetRaisingPage';
 import AlbumPhotoDetailPage from './pages/gallery/AlbumPhotoDetailPage';
+import CalendarPage from './pages/calendar/CalendarPage';
 
 function GrowingRoutes() {
   return (
@@ -44,6 +45,11 @@ function GrowingRoutes() {
           element={<AlbumPhotoDetailPage />}
         />
         <Route path="/gallery/new-album" element={<NewAlbumPage />} />
+
+        {/* calendar */}
+        <Route element={<Layout />}>
+          <Route path="/calendar" element={<CalendarPage />} />
+        </Route>
 
         {/* more */}
         <Route element={<Layout />}>
