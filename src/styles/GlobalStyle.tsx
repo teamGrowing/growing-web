@@ -111,6 +111,28 @@ textarea {
     display: none;
   }
 }
+
+/* swiper theme */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  ::after {
+  font-size: 24px;
+  }
+}
+.swiper-pagination-fraction {
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 2px 6px;
+  width: max-content;
+
+  background-color: #00000070;
+  border-radius: 10px;
+
+  font-size: 12px;
+  color: white;
+}
 `;
 
 export default GlobalStyle;
