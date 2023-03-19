@@ -94,7 +94,9 @@ function DateBox({
     >
       <Mark isToday={isToday}>{date.date()}</Mark>
       {data?.map((plan) => (
-        <Plan key={plan.id}>{plan.title}</Plan>
+        <Plan key={plan.id} className="hidden-scrollbar">
+          {plan.title}
+        </Plan>
       ))}
     </Box>
   );

@@ -30,7 +30,7 @@ function CalendarPage() {
   const [calInfo, setCalInfo] = useState(dayjs());
 
   return (
-    <div className="page-container">
+    <div className="page-container with-navbar">
       <TodayBtn onClick={() => setCalInfo(dayjs())}>Today</TodayBtn>
       <CalendarTitle
         year={calInfo.year()}
