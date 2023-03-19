@@ -29,6 +29,8 @@ export const MENT_CHAT = Object.freeze({
   ARCHIVED_DELELE:
     '보관된 대화를 삭제하시겠습니까?\n\n대화 보관함에서만 삭제되며,\n채팅방에는 그대로 존재합니다.',
   ARCHIVED_EMPTY: '아직 보관된 대화가 없어요.',
+  PHOTOBOX_DELETE:
+    '삭제하시겠습니까?\n\n상대방과의 채팅창에서도 전부 삭제됩니다.',
 });
 
 export default MENT_HOME;
