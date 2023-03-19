@@ -13,6 +13,7 @@ import useToast from '../../../hooks/common/useToast';
 interface ChatContextMenuProps {
   chatId: string;
   isMine: boolean;
+  type: 'CONTENT' | 'IMAGE';
 }
 
 const keyframe = keyframes`
@@ -32,7 +33,7 @@ const Container = styled.div<{ isMine: boolean }>`
   /* TODO: height에 따라 위치 수정 */
   position: absolute;
   top: calc(100% + 8px);
-  ${(props) => (props.isMine ? 'right: 0;' : 'left: 0;')}
+  ${(props) => (props.isMine ? 'right: 0;' : 'left: 38px;')}
 
   display: flex;
   flex-direction: column;
@@ -46,20 +47,21 @@ const Container = styled.div<{ isMine: boolean }>`
   animation: ${keyframe} 0.2s;
 `;
 
-const Item = styled.div`
+const Item = styled.div<{ lastItem?: boolean }>`
   display: flex;
   align-items: center;
   gap: 10px;
 
   padding: 10px 16px;
 
-  border-bottom: 1px solid ${({ theme }) => theme.color.gray200};
+  border-bottom: ${(props) =>
+    !props.lastItem ? `1px solid ${props.theme.color.gray200}` : ''};
 
   font-size: 14px;
   color: ${({ theme }) => theme.color.gray700};
 `;
 
-function ChatContextMenu({ chatId, isMine }: ChatContextMenuProps) {
+function ChatContextMenu({ chatId, isMine, type }: ChatContextMenuProps) {
   const queryClient = useQueryClient();
   const { userStore, chatStore } = store;
   const { addToast } = useToast();
@@ -93,19 +95,25 @@ function ChatContextMenu({ chatId, isMine }: ChatContextMenuProps) {
         <Icon icon="IconReply" size={16} />
         <p>답장</p>
       </Item>
-      <Item>
-        <Icon icon="IconCopy" size={16} />
-        <p>복사</p>
-      </Item>
-      <Item onClick={archiveChat}>
-        <Icon icon="IconEnvelope" size={16} />
-        <p>보관</p>
-      </Item>
-      <Item onClick={notifyChat}>
-        <Icon icon="IconBell" size={16} />
-        <p>공지</p>
-      </Item>
-      <Item>
+      {type === 'CONTENT' && (
+        <Item>
+          <Icon icon="IconCopy" size={16} />
+          <p>복사</p>
+        </Item>
+      )}
+      {type === 'CONTENT' && (
+        <Item onClick={archiveChat}>
+          <Icon icon="IconEnvelope" size={16} />
+          <p>보관</p>
+        </Item>
+      )}
+      {type === 'CONTENT' && (
+        <Item onClick={notifyChat}>
+          <Icon icon="IconBell" size={16} />
+          <p>공지</p>
+        </Item>
+      )}
+      <Item lastItem>
         <Icon icon="IconTrash" size={16} />
         <p>삭제</p>
       </Item>

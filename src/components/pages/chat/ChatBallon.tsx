@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { useCallback, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
@@ -25,12 +26,38 @@ const NewDay = styled.div`
 `;
 
 const Container = styled.div<{ isMine: boolean }>`
+  position: relative;
+
   display: flex;
   justify-content: ${(props) => (props.isMine ? 'flex-end' : 'flex-start')};
   align-items: flex-end;
   gap: 8px;
 
   padding: 4px 0;
+`;
+
+const OneChatImage = styled.img`
+  width: auto;
+  height: auto;
+  max-width: 50%;
+  max-height: 200px;
+  background-size: 50%;
+  border-radius: 12px;
+`;
+
+const ChatImage = styled.img`
+  width: 55px;
+  height: 55px;
+
+  border-radius: 6px;
+`;
+
+const ChatImageGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 55px;
+  grid-gap: 2px;
+  justify-items: center;
 `;
 
 const ProfileImg = styled.img`
@@ -104,6 +131,7 @@ function ChatBallon({
   const { chatStore } = store;
 
   const [isLongChat, setIsLongChat] = useState<boolean>(false);
+  const [isImageChat, setIsImageChat] = useState<boolean>(false);
 
   const showMenu = useCallback(() => {
     chatStore.setChatMode({
@@ -116,12 +144,12 @@ function ChatBallon({
     chatStore.clear();
   }, []);
 
-  const longPressMenu = useLongPress<HTMLDivElement>(
+  const longPressMenu = useLongPress<HTMLDivElement | HTMLImageElement>(
     {
       onLongPress: () => {
         showMenu();
       },
-      onClick: () => {
+      onClick: (e) => {
         if (chatStore.chatMode.mode === 'Context') {
           hideMenu();
         } else if (isLongChat) {
@@ -131,6 +159,12 @@ function ChatBallon({
             chat: { parentChatting, childChatting },
           });
           navigation('/chat/all');
+        } else if (isImageChat) {
+          navigation(`/chat/photo-box/${parentChatting.id}`, {
+            state: {
+              idx: e.currentTarget.dataset.index ?? 0,
+            },
+          });
         }
       },
     },
@@ -140,10 +174,11 @@ function ChatBallon({
   );
 
   useEffect(() => {
-    if (!parentChatting.content) {
-      return;
+    if (parentChatting.content) {
+      setIsLongChat(parentChatting.content?.length > 350);
+    } else if (parentChatting.imageUrls.length > 0) {
+      setIsImageChat(true);
     }
-    setIsLongChat(parentChatting.content?.length > 350);
   }, [parentChatting]);
 
   return (
@@ -156,7 +191,7 @@ function ChatBallon({
       <Container isMine={parentChatting.isMine!}>
         {parentChatting.isMine && (
           <DateWrapper>
-            {dayjs(parentChatting.createdAt).format('h:mm')}
+            {dayjs(parentChatting.createdAt).format('H:mm')}
           </DateWrapper>
         )}
 
@@ -164,33 +199,55 @@ function ChatBallon({
           <ProfileImg src={parentChatting.Writer?.imageUrl} />
         )}
 
-        <ChatWrapper isMine={parentChatting.isMine!}>
-          {!isLongChat ? (
-            <p {...longPressMenu}>{parentChatting.content}</p>
+        {isImageChat &&
+          (parentChatting.imageUrls.length === 1 ? (
+            <OneChatImage
+              {...longPressMenu}
+              src={parentChatting.imageUrls[0]}
+            />
           ) : (
-            <OverflowChat {...longPressMenu}>
-              <p>{parentChatting.content?.slice(0, 350)}...</p>
-              <ViewAllButton>
-                전체보기
-                <Icon icon="IconArrowRight" size={16} themeColor="gray600" />
-              </ViewAllButton>
-            </OverflowChat>
-          )}
-          {chatStore.chatMode.mode === 'Context' &&
-            chatStore.chatMode.chat?.parentChatting.id ===
-              parentChatting.id && (
-              <ChatContextMenu
-                chatId={parentChatting.id!}
-                isMine={parentChatting.isMine!}
-              />
+            <ChatImageGrid>
+              {parentChatting.imageUrls.map((imageUrl, idx) => (
+                <ChatImage
+                  key={idx}
+                  {...longPressMenu}
+                  src={imageUrl}
+                  data-index={idx}
+                />
+              ))}
+            </ChatImageGrid>
+          ))}
+
+        {parentChatting.content && (
+          <ChatWrapper isMine={parentChatting.isMine!}>
+            {!isLongChat ? (
+              <p {...longPressMenu}>{parentChatting.content}</p>
+            ) : (
+              <OverflowChat {...longPressMenu}>
+                <p>{parentChatting.content?.slice(0, 350)}...</p>
+                <ViewAllButton>
+                  전체보기
+                  <Icon icon="IconArrowRight" size={16} themeColor="gray600" />
+                </ViewAllButton>
+              </OverflowChat>
             )}
-        </ChatWrapper>
+          </ChatWrapper>
+        )}
 
         {!parentChatting.isMine && (
           <DateWrapper>
-            {dayjs(parentChatting.createdAt).format('h:mm')}
+            {dayjs(parentChatting.createdAt).format('H:mm')}
           </DateWrapper>
         )}
+
+        {chatStore.chatMode.mode === 'Context' &&
+          chatStore.chatMode.chat?.parentChatting.id === parentChatting.id && (
+            <ChatContextMenu
+              chatId={parentChatting.id!}
+              isMine={parentChatting.isMine!}
+              type={isImageChat ? 'IMAGE' : 'CONTENT'}
+            />
+          )}
       </Container>
     </>
   );
