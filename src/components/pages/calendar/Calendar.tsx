@@ -1,5 +1,5 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useCalendarDailyPlans } from '../../../hooks/queries/calendar.queries';
 import store from '../../../stores/RootStore';
@@ -52,6 +52,7 @@ const Container = styled.div`
 
   width: 100%;
   height: calc(100% - 535px);
+  min-height: 250px;
 `;
 
 const TodoTitle = styled.div`
@@ -82,12 +83,9 @@ const Todos = styled.div`
     rgba(252, 227, 138, 0.2) 7.3%,
     rgba(243, 129, 129, 0.2) 100%
   );
-  border-radius: 30px;
-
+  border-radius: 30px 30px 0 0;
   min-height: 200px;
-
   overflow-y: scroll;
-
   flex-grow: 1;
 `;
 
@@ -125,12 +123,13 @@ const Input = styled.input`
 type CalendarProps = {
   year: number;
   month: number;
+  clickedDate: Dayjs;
 };
 
 const week = ['일', '월', '화', '수', '목', '금', '토'];
 
-function Calendar({ year, month }: CalendarProps) {
-  const [selectedDate, setSelectedDate] = useState<Dayjs>(dayjs());
+function Calendar({ year, month, clickedDate }: CalendarProps) {
+  const [selectedDate, setSelectedDate] = useState<Dayjs>(clickedDate);
   const [onBottomSheetMenu, setOnBottomSheetMenu] = useState(false);
   const { data } = useCalendarDailyPlans({
     coupleId: store.userStore.user?.coupleId!,
@@ -151,11 +150,17 @@ function Calendar({ year, month }: CalendarProps) {
   for (let i = 1; i <= endDate; i += 1) dates.push(i);
   for (let i = 0; endDay + i + 1 < 7; i += 1) dates.push(i + 1);
 
+  useEffect(() => {
+    if (clickedDate.isSame(dayjs(), 'day')) setSelectedDate(clickedDate);
+  }, [clickedDate]);
+
   return (
     <>
       <DayContainer>
         {week.map((day, idx) => (
-          <DayBox day={idx}>{day}</DayBox>
+          <DayBox key={day} day={idx}>
+            {day}
+          </DayBox>
         ))}
       </DayContainer>
       <DateContainer>
@@ -184,7 +189,7 @@ function Calendar({ year, month }: CalendarProps) {
         </TodoTitle>
         <Todos className="hidden-scrollbar">
           {data?.map((plan) => (
-            <Todo>{plan.title}</Todo>
+            <Todo key={plan.id}>{plan.title}</Todo>
           ))}
         </Todos>
       </Container>
