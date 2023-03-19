@@ -6,7 +6,8 @@ import store from '../../../stores/RootStore';
 import { ChatType } from '../../../stores/ChatStore';
 import { CreateChattingDto } from '../../../types/chat/createChat.dto';
 import Icon from '../../common/Icon/Icon';
-import PlusMenu from './PlusMenu';
+import PlusMenu from './plus-menu/PlusMenu';
+import PlusMenuGallery from './plus-menu/PlusMenuGallery';
 
 const MIN_TEXTAREA_HEIGHT = 24;
 
@@ -88,7 +89,7 @@ function InputChat({ createChat }: InputChatProps) {
     setValue(e.target.value);
 
   const handleSubmit = () => {
-    // TODO: emoji, image, voice
+    // TODO: emoji, voice
     const dto: CreateChattingDto = {
       content: textareaRef.current?.value ?? '',
       emojiId: null,
@@ -112,6 +113,13 @@ function InputChat({ createChat }: InputChatProps) {
       MIN_TEXTAREA_HEIGHT
     )}px`;
   }, [textareaRef.current?.value]);
+
+  if (
+    chatStore.chatMode.mode === 'Gallery' ||
+    chatStore.chatMode.mode === 'GalleryAll'
+  ) {
+    return <PlusMenuGallery createChat={createChat} />;
+  }
 
   return (
     <Container>

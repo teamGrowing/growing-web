@@ -8,6 +8,7 @@ const CHAT_MODE = {
   longChat: 'LongChat',
   Menu: 'Menu',
   Gallery: 'Gallery',
+  GalleryAll: 'GalleryAll',
   Camera: 'Camera',
   Voice: 'Voice',
   Map: 'Map',
