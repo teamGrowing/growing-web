@@ -112,4 +112,32 @@ export function useAnswerMutation({
   });
 }
 
+export function useOurChatDelete({
+  coupleId,
+  options,
+}: {
+  coupleId: string;
+  options?: UseMutationOptionsType<unknown>;
+}): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
+  return useMutation({
+    mutationFn: (chattingId: string) =>
+      CHAT_API.deleteOurChat(coupleId, chattingId),
+    ...options,
+  });
+}
+
+export function useMyChatDelete({
+  coupleId,
+  options,
+}: {
+  coupleId: string;
+  options?: UseMutationOptionsType<unknown>;
+}): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
+  return useMutation({
+    mutationFn: (chattingId: string) =>
+      CHAT_API.deleteMyChat(coupleId, chattingId),
+    ...options,
+  });
+}
+
 export default useQuestionBoxData;

@@ -27,6 +27,8 @@ const chatKeys = {
   all: [Domain.chat] as unknown as QueryKey[],
   notice: [Domain.chat, 'notice'] as unknown as QueryKey[],
   archived: [Domain.chat, 'archived'] as unknown as QueryKey[],
+  photos: [Domain.chat, 'photos'] as unknown as QueryKey[],
+  photoById: (id: string) => [...chatKeys.photos, id] as unknown as QueryKey[],
 };
 
 const qnaKeys = {
