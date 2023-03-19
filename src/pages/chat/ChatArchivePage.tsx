@@ -112,8 +112,8 @@ function ChatArchivePage() {
         />
       )}
 
-      <Outer>
-        <Cards>
+      <Outer className="hidden-scrollbar">
+        <Cards className="hidden-scrollbar">
           {!chats ? (
             <EmptyCase className="text-gradient400">
               <Icon icon="IconLogo" size={60} />
