@@ -1,5 +1,5 @@
 import fetcher from '.';
-import { CreatePhotoDto } from '../types/chat/CreatePhoto.dto';
+import { CreatePhotoRequestDto } from '../types/chat/CreatePhotoRequest.dto';
 import { GetDownloadUrlResponseDto } from '../types/chat/GetDownloadUrlResponse.dto';
 import { GetUploadUrlRequestDto } from '../types/chat/GetUploadUrlRequest.dto';
 import { GetUploadUrlResponseDto } from '../types/chat/GetUploadUrlResponse.dto';
@@ -22,7 +22,7 @@ export const GALLERY_API = {
         `couples/${coupleId}/gallerys/photos/get-upload-url`,
         data
       ),
-  createPhoto: (coupleId: string, data: CreatePhotoDto) =>
+  createPhoto: (coupleId: string, data: CreatePhotoRequestDto) =>
     fetcher.create().post(`couples/${coupleId}/gallerys/photos/create`, data),
   getDownloadUrl: (coupleId: string, photoId: string) =>
     fetcher
