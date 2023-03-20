@@ -271,7 +271,7 @@ function ChatBallon({
             <ChatContextMenu
               chatId={parentChatting.id!}
               isMine={parentChatting.isMine!}
-              type={isImageChat ? 'IMAGE' : 'CONTENT'}
+              isContent={!isImageChat && !isVideo && !parentChatting.emojiUrl}
             />
           )}
       </Container>

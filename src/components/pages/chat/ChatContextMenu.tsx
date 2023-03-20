@@ -13,7 +13,7 @@ import useToast from '../../../hooks/common/useToast';
 interface ChatContextMenuProps {
   chatId: string;
   isMine: boolean;
-  type: 'CONTENT' | 'IMAGE';
+  isContent: boolean;
 }
 
 const keyframe = keyframes`
@@ -61,7 +61,7 @@ const Item = styled.div<{ lastItem?: boolean }>`
   color: ${({ theme }) => theme.color.gray700};
 `;
 
-function ChatContextMenu({ chatId, isMine, type }: ChatContextMenuProps) {
+function ChatContextMenu({ chatId, isMine, isContent }: ChatContextMenuProps) {
   const queryClient = useQueryClient();
   const { userStore, chatStore } = store;
   const { addToast } = useToast();
@@ -91,23 +91,23 @@ function ChatContextMenu({ chatId, isMine, type }: ChatContextMenuProps) {
 
   return (
     <Container isMine={isMine}>
-      <Item>
+      {/* <Item>
         <Icon icon="IconReply" size={16} />
         <p>답장</p>
-      </Item>
-      {type === 'CONTENT' && (
+      </Item> */}
+      {isContent && (
         <Item>
           <Icon icon="IconCopy" size={16} />
           <p>복사</p>
         </Item>
       )}
-      {type === 'CONTENT' && (
+      {isContent && (
         <Item onClick={archiveChat}>
           <Icon icon="IconEnvelope" size={16} />
           <p>보관</p>
         </Item>
       )}
-      {type === 'CONTENT' && (
+      {isContent && (
         <Item onClick={notifyChat}>
           <Icon icon="IconBell" size={16} />
           <p>공지</p>
