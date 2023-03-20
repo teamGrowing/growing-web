@@ -12,6 +12,7 @@ const CHAT_MODE = {
   Camera: 'Camera',
   Voice: 'Voice',
   Map: 'Map',
+  Emoji: 'Emoji',
 } as const;
 export type ChatType = typeof CHAT_MODE[keyof typeof CHAT_MODE];
 
