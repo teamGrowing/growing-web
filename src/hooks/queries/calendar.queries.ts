@@ -1,7 +1,6 @@
 import {
   QueryKey,
   useMutation,
-  UseMutationOptions,
   UseMutationResult,
   useQuery,
   useQueryClient,
@@ -9,8 +8,9 @@ import {
 import { AxiosError, AxiosResponse } from 'axios';
 
 import queryKeys from '../../constants/queryKeys';
-import { UseQueryOptionsType } from '../../services';
+import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
 import PLAN_API from '../../services/plan.service';
+import { CreatePlanDto } from '../../types/plan/CreatePlan.dto';
 import { DailyPlanDto } from '../../types/plan/DailyPlan.dto';
 import { MonthlyPlanDto } from '../../types/plan/MonthlyPlan.dto';
 
@@ -67,14 +67,32 @@ export function useDeletePlanMutation({
   options,
 }: {
   coupleId: string | null;
-  options?: UseMutationOptions<AxiosResponse, AxiosError, string, unknown>;
+  options?: UseMutationOptionsType<string>;
 }): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
   const queryClinet = useQueryClient();
 
   return useMutation({
     mutationFn: (planId: string) => PLAN_API.deletePlan(coupleId ?? '', planId),
     onSuccess: () => {
-      queryClinet.invalidateQueries(queryKeys.calendarKeys.plan); // TODO key 고쳐야함
+      queryClinet.invalidateQueries(queryKeys.calendarKeys.plan); // TODO key 좀더 효율적이게 바꾸기
+    },
+    ...options,
+  });
+}
+
+export function useAddPlanMutation({
+  coupleId,
+  options,
+}: {
+  coupleId: string | null;
+  options?: UseMutationOptionsType<CreatePlanDto>;
+}): UseMutationResult<AxiosResponse, AxiosError, CreatePlanDto, unknown> {
+  const queryClinet = useQueryClient();
+
+  return useMutation({
+    mutationFn: (planInfo) => PLAN_API.postPlan(coupleId ?? '', planInfo),
+    onSuccess: () => {
+      queryClinet.invalidateQueries(queryKeys.calendarKeys.plan); // TODO key 좀더 효율적이게 바꾸기
     },
     ...options,
   });
