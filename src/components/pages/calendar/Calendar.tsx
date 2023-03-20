@@ -1,8 +1,13 @@
 import dayjs, { Dayjs } from 'dayjs';
-import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useCalendarDailyPlans } from '../../../hooks/queries/calendar.queries';
+import { useEffect, useRef, useState } from 'react';
+import styled, { css } from 'styled-components';
+import {
+  useAddPlanMutation,
+  useCalendarDailyPlans,
+  useDeletePlanMutation,
+} from '../../../hooks/queries/calendar.queries';
 import store from '../../../stores/RootStore';
+import MyCalendar from '../../../util/Calendar';
 import Icon from '../../common/Icon/Icon';
 import BottomSheetMenu from '../../common/Modal/ModalBottomSheet/BottomSheetMenu';
 import ModalBottomSheet from '../../common/Modal/ModalBottomSheet/ModalBottomSheet';
@@ -92,7 +97,8 @@ const Todos = styled.div`
 const Todo = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: space-between;
   padding: 4px 8px;
   gap: 10px;
 
@@ -116,48 +122,92 @@ const Todo = styled.div`
 const Input = styled.input`
   background-color: ${({ theme }) => theme.color.gray200};
   border-radius: 10px;
-  height: 20px;
+  height: 30px;
   padding: 2px 5px;
 `;
 
+const SheetContainer = styled.div`
+  display: flex;
+
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ToggleSwitch = styled.div<{ isTrue: boolean }>`
+  width: 40px;
+  height: 20px;
+  display: block;
+  position: relative;
+  border-radius: 30px;
+  background-color: ${({ isTrue }) => (isTrue ? 'white' : '#d9d9d9')};
+  box-shadow: 0 0 16px 3px rgba(0 0 0 / 15%);
+  cursor: pointer;
+`;
+
+const ToggleBtn = styled.div<{ isTrue: boolean }>`
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 50%;
+  ${({ isTrue }) =>
+    isTrue
+      ? css`
+          left: 4px;
+        `
+      : css`
+          right: 4px;
+        `};
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background-color: ${({ isTrue }) => (isTrue ? '#d9d9d9' : 'white')};
+`;
+const Button = styled.button`
+  margin: 0 auto;
+
+  background-color: white;
+  height: 40px;
+  width: 150px;
+  border-radius: 10px;
+`;
 type CalendarProps = {
   year: number;
   month: number;
   clickedDate: Dayjs;
 };
 
-const week = ['일', '월', '화', '수', '목', '금', '토'];
-
 function Calendar({ year, month, clickedDate }: CalendarProps) {
+  const titleInputRef = useRef<HTMLInputElement | null>(null);
+  const descriptionInputRef = useRef<HTMLInputElement | null>(null);
+  // const startInputRef = useRef<HTMLInputElement | null>(null);
+  // const endInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedDate, setSelectedDate] = useState<Dayjs>(clickedDate);
   const [onBottomSheetMenu, setOnBottomSheetMenu] = useState(false);
+  const [toggleState, setToggleState] = useState(false);
   const { data } = useCalendarDailyPlans({
     coupleId: store.userStore.user?.coupleId!,
     year: selectedDate?.format('YYYY'),
     month: selectedDate?.format('MM'),
     day: selectedDate?.format('DD'),
   });
+  const { mutate: addPlan } = useAddPlanMutation({
+    coupleId: store.userStore.user?.coupleId!,
+  });
+  const { mutate: deletePlan } = useDeletePlanMutation({
+    coupleId: store.userStore.user?.coupleId!,
+  });
 
-  const start = dayjs(new Date(year, month, 0));
-  const startDate = start.date();
-  const startDay = start.day();
-  const end = dayjs(new Date(year, month + 1, 0));
-  const endDate = end.date();
-  const endDay = end.day();
-
-  const dates: number[] = [];
-  for (let i = 0; i <= startDay; i += 1) dates.push(startDate - (startDay - i));
-  for (let i = 1; i <= endDate; i += 1) dates.push(i);
-  for (let i = 0; endDay + i + 1 < 7; i += 1) dates.push(i + 1);
+  const calendar = new MyCalendar(year, month);
+  const dates: number[] = calendar.getDates();
 
   useEffect(() => {
-    if (clickedDate.isSame(dayjs(), 'day')) setSelectedDate(clickedDate);
+    if (clickedDate.isSame(dayjs(), 'date')) setSelectedDate(clickedDate);
   }, [clickedDate]);
 
   return (
     <>
       <DayContainer>
-        {week.map((day, idx) => (
+        {MyCalendar.days.map((day, idx) => (
           <DayBox key={day} day={idx}>
             {day}
           </DayBox>
@@ -166,15 +216,18 @@ function Calendar({ year, month, clickedDate }: CalendarProps) {
       <DateContainer>
         {dates.map((date, idx) => {
           let blockDate = dayjs(new Date(year, month, date));
-          if (idx <= startDay)
+          if (idx <= calendar.startDay)
             blockDate = dayjs(new Date(year, month - 1, date));
-          if (idx > startDay + endDate)
+          if (idx > calendar.startDay + calendar.endDate)
             blockDate = dayjs(new Date(year, month + 1, date));
           return (
             <DateBox
               key={`day-${blockDate.year()}-${blockDate.month()}-${blockDate.date()}`}
               date={blockDate}
-              isNotCurrMonth={idx <= startDay || idx > startDay + endDate}
+              isNotCurrMonth={
+                idx <= calendar.startDay ||
+                idx > calendar.startDay + calendar.endDate
+              }
               isToday={blockDate.isSame(dayjs(), 'day')}
               isSelected={dayjs(selectedDate).isSame(blockDate, 'day')}
               onClick={() => setSelectedDate(blockDate)}
@@ -189,20 +242,96 @@ function Calendar({ year, month, clickedDate }: CalendarProps) {
         </TodoTitle>
         <Todos className="hidden-scrollbar">
           {data?.map((plan) => (
-            <Todo key={plan.id}>{plan.title}</Todo>
+            <Todo key={plan.id}>
+              {plan.title}
+              <Icon
+                icon="IconTrash"
+                width={15}
+                height={15}
+                onClick={() => deletePlan(plan.id)}
+              />
+            </Todo>
           ))}
         </Todos>
       </Container>
       <ModalBottomSheet open={onBottomSheetMenu} setOpen={setOnBottomSheetMenu}>
         <BottomSheetMenu>
-          제목
-          <Input type="text" />
+          <SheetContainer>
+            제목
+            <Input type="text" ref={titleInputRef} />
+          </SheetContainer>
         </BottomSheetMenu>
-        <BottomSheetMenu>시작시간</BottomSheetMenu>
-        <BottomSheetMenu>종료시간</BottomSheetMenu>
+        <BottomSheetMenu>
+          <SheetContainer>
+            시작일
+            <Input
+              type="date"
+              defaultValue={selectedDate.format('YYYY-MM-DD')}
+            />
+          </SheetContainer>
+        </BottomSheetMenu>
+        <BottomSheetMenu>
+          <SheetContainer>
+            종료일
+            <Input
+              type="date"
+              defaultValue={selectedDate.format('YYYY-MM-DD')}
+            />
+          </SheetContainer>
+        </BottomSheetMenu>
+        <BottomSheetMenu>
+          <SheetContainer>
+            하루종일
+            <ToggleSwitch
+              isTrue={toggleState}
+              onClick={() => setToggleState((prev) => !prev)}
+            >
+              <ToggleBtn isTrue={toggleState} />
+            </ToggleSwitch>
+          </SheetContainer>
+        </BottomSheetMenu>
         <BottomSheetMenu>위치</BottomSheetMenu>
         <BottomSheetMenu>알림설정</BottomSheetMenu>
-        <BottomSheetMenu>설명</BottomSheetMenu>
+        <BottomSheetMenu>
+          <SheetContainer>
+            메모
+            <Input type="text" ref={descriptionInputRef} />
+          </SheetContainer>
+        </BottomSheetMenu>
+        <BottomSheetMenu>
+          <Button
+            onClick={() => {
+              // TODO react-hook-form 으로 바꾸고 나머지 기능들 추가
+
+              if (!titleInputRef.current?.value) {
+                alert('제목을 입력하세요');
+                return;
+              }
+              addPlan(
+                {
+                  title: titleInputRef.current?.value,
+                  // local time -> zulu time
+                  startAt: selectedDate.hour(selectedDate.hour() + 9).format(),
+                  endAt: selectedDate.hour(selectedDate.hour() + 9).format(),
+                  description: descriptionInputRef.current?.value ?? '',
+                  location: null,
+                  alarm: 'none',
+                },
+                {
+                  onSuccess: () => {
+                    if (!titleInputRef.current || !descriptionInputRef.current)
+                      return;
+                    titleInputRef.current.value = '';
+                    descriptionInputRef.current.value = '';
+                    setOnBottomSheetMenu(false);
+                  },
+                }
+              );
+            }}
+          >
+            일정 추가하기
+          </Button>
+        </BottomSheetMenu>
       </ModalBottomSheet>
     </>
   );
