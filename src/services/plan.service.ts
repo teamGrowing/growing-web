@@ -18,7 +18,7 @@ const PLAN_API = {
       .create()
       .post<DailyPlanDto>(`couples/${coupleId}/plans/${planId}`, data),
   deletePlan: (coupleId: string, planId: string) =>
-    fetcher.create().post(`couples/${coupleId}/plans/${planId}`),
+    fetcher.create().delete(`couples/${coupleId}/plans/${planId}`),
 };
 
 export default PLAN_API;
