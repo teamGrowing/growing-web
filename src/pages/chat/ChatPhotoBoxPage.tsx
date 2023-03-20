@@ -93,6 +93,18 @@ const PhotoSelect = styled.div<{ isSelected: boolean }>`
   text-align: center;
 `;
 
+const PhotoLengthLabel = styled.div`
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+
+  display: flex;
+  align-items: center;
+  gap: 2px;
+
+  font-size: 12px;
+`;
+
 function ChatPhotoBoxPage() {
   const navigation = useNavigate();
   const { userStore } = store;
@@ -175,6 +187,12 @@ function ChatPhotoBoxPage() {
                     <PhotoSelect isSelected={getSelected(photo.i)}>
                       {getIndex(photo.i) === 0 ? '' : getIndex(photo.i)}
                     </PhotoSelect>
+                  )}
+                  {photo.u.length > 1 && (
+                    <PhotoLengthLabel className="text-gradient400">
+                      <Icon icon="IconGallery" size={13} />
+                      {photo.u.length}
+                    </PhotoLengthLabel>
                   )}
                 </GridPhoto>
               </PhotoContainer>
