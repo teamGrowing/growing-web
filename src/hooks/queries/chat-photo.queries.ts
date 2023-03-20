@@ -92,3 +92,18 @@ export function useChatPhotoCreateMutate({
     ...options,
   });
 }
+
+export function useChatPhotoToGallery({
+  coupleId,
+  photoId,
+  options,
+}: {
+  coupleId: string;
+  photoId: string;
+  options?: UseMutationOptionsType<unknown>;
+}): UseMutationResult<AxiosResponse, AxiosError, unknown, unknown> {
+  return useMutation({
+    mutationFn: () => CHAT_PHOTO_API.postPutGallery(coupleId, photoId),
+    ...options,
+  });
+}

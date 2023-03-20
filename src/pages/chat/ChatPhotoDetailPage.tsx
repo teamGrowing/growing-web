@@ -1,17 +1,22 @@
-import React from 'react';
+/* eslint-disable react/no-array-index-key */
+import React, { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination } from 'swiper';
+import { Manipulation, Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import store from '../../stores/RootStore';
 import Icon from '../../components/common/Icon/Icon';
 import TopBar from '../../components/common/TopBar/TopBar';
-import { useChatPhotoDetailData } from '../../hooks/queries/chat-photo.queries';
+import {
+  useChatPhotoDetailData,
+  useChatPhotoToGallery,
+} from '../../hooks/queries/chat-photo.queries';
+import useToast from '../../hooks/common/useToast';
 
 const PageContainer = styled.div`
   position: relative;
@@ -62,15 +67,27 @@ const BottomBar = styled.div`
 function ChatPhotoDetailPage() {
   const navigation = useNavigate();
   const { userStore } = store;
+  const { addToast } = useToast();
 
   const { id } = useParams();
   const location = useLocation().state as { idx: number };
+
+  const [currentPhotoIdx, setCurrentPhotoIdx] = useState<number | null>(null);
 
   const { data: chat } = useChatPhotoDetailData({
     coupleId: userStore.user?.coupleId ?? '',
     chattingId: id ?? '',
   });
 
+  const { mutateAsync: putGallery } = useChatPhotoToGallery({
+    coupleId: userStore.user?.coupleId ?? '',
+    photoId: chat?.photos[currentPhotoIdx ?? 0].id ?? '',
+    options: {
+      onSuccess: () => {
+        addToast('갤러리로 이동되었습니다.');
+      },
+    },
+  });
   return (
     <PageContainer className="page-container with-topbar">
       <TopBar
@@ -82,25 +99,28 @@ function ChatPhotoDetailPage() {
         onLeftClick={() => navigation(-1)}
       />
 
-      <StyledSwiper
-        initialSlide={location?.idx ?? 0}
-        pagination={{
-          type: 'fraction',
-        }}
-        navigation
-        modules={[Pagination, Navigation]}
-        className="mySwiper"
-      >
-        {chat?.photos.map((photo, idx) => (
-          <StyledSwiperSlide key={photo.id} virtualIndex={idx}>
-            <Photo src={photo.url} />
-          </StyledSwiperSlide>
-        ))}
-      </StyledSwiper>
+      {chat?.photos.length && (
+        <StyledSwiper
+          initialSlide={location?.idx ?? 0}
+          pagination={{
+            type: 'fraction',
+          }}
+          navigation
+          modules={[Pagination, Navigation, Manipulation]}
+          className="mySwiper"
+          onSlideChange={(swiper) => setCurrentPhotoIdx(swiper.realIndex)}
+        >
+          {chat?.photos.map((photo, idx) => (
+            <StyledSwiperSlide key={idx}>
+              <Photo src={photo.url} />
+            </StyledSwiperSlide>
+          ))}
+        </StyledSwiper>
+      )}
 
       <BottomBar>
         <Icon icon="IconDownloadLocal" themeColor="gray50" />
-        <Icon icon="IconAddAlbum" themeColor="gray50" />
+        <Icon icon="IconAddAlbum" themeColor="gray50" onClick={putGallery} />
         <Icon icon="IconExport" themeColor="gray50" />
       </BottomBar>
     </PageContainer>
