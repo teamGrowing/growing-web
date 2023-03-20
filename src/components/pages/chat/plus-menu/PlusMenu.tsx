@@ -4,6 +4,8 @@ import { observer } from 'mobx-react';
 import { ChatType } from '../../../../stores/ChatStore';
 import store from '../../../../stores/RootStore';
 import Icon from '../../../common/Icon/Icon';
+import { CreateChattingDto } from '../../../../types/chat/createChat.dto';
+import PlusMenuEmoji from './PlusMenuEmoji';
 
 const Container = styled.div`
   width: 100%;
@@ -44,7 +46,11 @@ const StyledIcon = styled.div`
   border-radius: 20px;
 `;
 
-function PlusMenu() {
+type InputChatProps = {
+  createChat: (dto: CreateChattingDto) => void;
+};
+
+function PlusMenu({ createChat }: InputChatProps) {
   const { chatStore } = store;
   const { mode } = chatStore.chatMode;
 
@@ -54,10 +60,15 @@ function PlusMenu() {
     'Camera',
     'Voice',
     'Map',
+    'Emoji',
   ];
 
   if (!plusMenuProps.includes(mode)) {
     return null;
+  }
+
+  if (mode === 'Emoji') {
+    return <PlusMenuEmoji createChat={createChat} />;
   }
 
   return (

@@ -140,8 +140,12 @@ function InputChat({ createChat }: InputChatProps) {
           />
         )}
 
-        {/* TODO: emoji */}
-        <Icon icon="IconSmile" />
+        <Icon
+          icon="IconSmile"
+          onClick={() => {
+            chatStore.setChatMode({ mode: 'Emoji' });
+          }}
+        />
 
         <TextareaWrapper>
           <StyledTextarea
@@ -163,7 +167,7 @@ function InputChat({ createChat }: InputChatProps) {
           )}
         </TextareaWrapper>
       </InputContainer>
-      <PlusMenu />
+      <PlusMenu createChat={createChat} />
     </Container>
   );
 }
