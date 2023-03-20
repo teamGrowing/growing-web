@@ -205,6 +205,7 @@ function ChatBallon({
           <ProfileImg src={parentChatting.Writer?.imageUrl} />
         )}
 
+        {/* image */}
         {isImageChat &&
           (parentChatting.imageUrls.length === 1 ? (
             <OneChatImage
@@ -224,6 +225,7 @@ function ChatBallon({
             </ChatImageGrid>
           ))}
 
+        {/* video */}
         {/* TODO: video 재생 모양 */}
         {!!parentChatting.videoUrls[0] && (
           <OneChatImage
@@ -232,6 +234,16 @@ function ChatBallon({
           />
         )}
 
+        {/* emoji */}
+        {!!parentChatting.emojiUrl && (
+          <OneChatImage
+            {...longPressMenu}
+            src={parentChatting.emojiUrl}
+            style={{ width: '140px', height: '140px' }}
+          />
+        )}
+
+        {/* 일반 채팅 */}
         {parentChatting.content && (
           <ChatWrapper isMine={parentChatting.isMine!}>
             {!isLongChat ? (
