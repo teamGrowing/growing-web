@@ -192,23 +192,35 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
     coupleId: userStore.user?.coupleId ?? '',
   });
 
-  const handleSend = () => {
-    // TODO: video
-    sendGalleryPhotos()
-      .then((photoIds) => {
+  const handleSend = async () => {
+    const { imageIds, videoIds } = await sendGalleryPhotos();
+    if (imageIds.length > 0) {
+      const dto: CreateChattingDto = {
+        content: null,
+        emojiId: null,
+        imageIds,
+        voiceMsgIds: [],
+        userId: userStore.user?.id ?? '',
+        coupleId: userStore.user?.coupleId ?? '',
+      };
+      createChat(dto);
+    }
+    if (videoIds.length > 0) {
+      // video는 한개씩 전송
+      videoIds.map((id) => {
         const dto: CreateChattingDto = {
           content: null,
           emojiId: null,
-          imageIds: photoIds,
+          imageIds: [id],
           voiceMsgIds: [],
           userId: userStore.user?.id ?? '',
           coupleId: userStore.user?.coupleId ?? '',
         };
-        createChat(dto);
-      })
-      .finally(() => {
-        chatStore.setChatMode({ mode: 'Default' });
+        return createChat(dto);
       });
+    }
+
+    chatStore.setChatMode({ mode: 'Default' });
   };
 
   // 전체보기
@@ -230,7 +242,9 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
                 <GridPhoto
                   key={photo.i}
                   url={photo.u}
-                  onClick={() => updateId(photo.i)}
+                  onClick={() =>
+                    updateId({ id: photo.i, isPhoto: photo.t === null })
+                  }
                   isSelected={getSelected(photo.i)}
                 >
                   <PhotoSelect isSelected={getSelected(photo.i)}>
@@ -267,7 +281,9 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
             <Photo
               key={photo.i}
               url={photo.u}
-              onClick={() => updateId(photo.i)}
+              onClick={() =>
+                updateId({ id: photo.i, isPhoto: photo.t === null })
+              }
               isSelected={getSelected(photo.i)}
             >
               <PhotoSelect isSelected={getSelected(photo.i)}>

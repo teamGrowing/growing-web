@@ -8,11 +8,16 @@ import {
 } from '../queries/chat-photo.queries';
 import { useOurChatDelete } from '../queries/chat.queries';
 
+type Idtype = {
+  id: string;
+  isPhoto: boolean; // true: 사진, false: 비디오
+};
+
 export default function usePhotos({ coupleId }: { coupleId: string }) {
   const queryClient = useQueryClient();
   const { addToast } = useToast();
 
-  const [ids, setIds] = useState<Array<string>>([]);
+  const [ids, setIds] = useState<Array<Idtype>>([]);
 
   const { mutateAsync: uploadPhoto } = useChatPhotoUploadMutate({
     coupleId,
@@ -31,17 +36,22 @@ export default function usePhotos({ coupleId }: { coupleId: string }) {
     },
   });
 
-  function updateId(id: string): Promise<Number> {
-    if (!ids.includes(id)) {
+  function getIdArrays(): string[] {
+    const idArr = ids.map((prev) => prev.id);
+    return idArr;
+  }
+
+  function updateId({ id, isPhoto }: Idtype): Promise<Number> {
+    if (!getIdArrays().includes(id)) {
       if (ids.length === 30) {
         addToast('최대 30장까지 전송할 수 있습니다!');
         return Promise.resolve(ids.length);
       }
 
-      setIds([...ids, id]);
+      setIds([...ids, { id, isPhoto }]);
       return Promise.resolve(ids.length + 1);
     }
-    const arr = ids.filter((prev) => prev !== id);
+    const arr = ids.filter((prev) => prev.id !== id);
     setIds(arr);
     return Promise.resolve(ids.length - 1);
   }
@@ -51,12 +61,12 @@ export default function usePhotos({ coupleId }: { coupleId: string }) {
   }
 
   function getSelected(id: string): boolean {
-    if (ids.includes(id)) return true;
+    if (getIdArrays().includes(id)) return true;
     return false;
   }
 
   function getIndex(id: string): number {
-    return ids.indexOf(id) + 1;
+    return getIdArrays().indexOf(id) + 1;
   }
 
   function getLength(): number {
@@ -74,7 +84,7 @@ export default function usePhotos({ coupleId }: { coupleId: string }) {
     const photoIds: string[] = [];
     await Promise.all(
       ids.map(async (id) => {
-        const res1 = await uploadPhoto({ name: id });
+        const res1 = await uploadPhoto({ name: id.id });
         const res2 = await createPhoto({
           s3Path: res1.data.s3Path,
           time: null,
@@ -85,14 +95,20 @@ export default function usePhotos({ coupleId }: { coupleId: string }) {
     return photoIds;
   }
 
-  function sendGalleryPhotos(): Promise<string[]> {
-    return Promise.resolve(ids);
+  function sendGalleryPhotos() {
+    const imageIds = ids.filter((id) => id.isPhoto).map((prev) => prev.id);
+    const videoIds = ids.filter((id) => !id.isPhoto).map((prev) => prev.id);
+
+    return Promise.resolve({
+      imageIds,
+      videoIds,
+    });
   }
 
   async function deleteChats(): Promise<void> {
     await Promise.all(
       ids.map(async (id) => {
-        await deleteOurChat(id);
+        await deleteOurChat(id.id);
       })
     ).finally(() => {
       queryClient.invalidateQueries(queryKeys.chatKeys.all);
@@ -100,7 +116,7 @@ export default function usePhotos({ coupleId }: { coupleId: string }) {
   }
 
   return {
-    updateId: (id: string) => updateId(id),
+    updateId: ({ id, isPhoto }: Idtype) => updateId({ id, isPhoto }),
     clearIds,
     getSelected: (id: string) => getSelected(id),
     getIndex: (id: string) => getIndex(id),

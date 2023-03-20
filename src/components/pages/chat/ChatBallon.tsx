@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable react/no-array-index-key */
 import React, { useCallback, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
@@ -132,6 +133,7 @@ function ChatBallon({
 
   const [isLongChat, setIsLongChat] = useState<boolean>(false);
   const [isImageChat, setIsImageChat] = useState<boolean>(false);
+  const [isVideo, setIsVideo] = useState<boolean>(false);
 
   const showMenu = useCallback(() => {
     chatStore.setChatMode({
@@ -165,6 +167,8 @@ function ChatBallon({
               idx: e.currentTarget.dataset.index ?? 0,
             },
           });
+        } else if (isVideo) {
+          navigation(`/chat/photo-box/${parentChatting.id}`);
         }
       },
     },
@@ -178,6 +182,8 @@ function ChatBallon({
       setIsLongChat(parentChatting.content?.length > 350);
     } else if (parentChatting.imageUrls.length > 0) {
       setIsImageChat(true);
+    } else if (!!parentChatting.videoUrls[0]) {
+      setIsVideo(true);
     }
   }, [parentChatting]);
 
@@ -217,6 +223,14 @@ function ChatBallon({
               ))}
             </ChatImageGrid>
           ))}
+
+        {/* TODO: video 재생 모양 */}
+        {!!parentChatting.videoUrls[0] && (
+          <OneChatImage
+            {...longPressMenu}
+            src={parentChatting.videoUrls[0].thumbnailUrl}
+          />
+        )}
 
         {parentChatting.content && (
           <ChatWrapper isMine={parentChatting.isMine!}>

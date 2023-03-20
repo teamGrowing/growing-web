@@ -160,7 +160,10 @@ function ChatPhotoBoxPage() {
                   url={photo.u[0]}
                   onClick={() => {
                     if (isSelectMode) {
-                      return updateId(photo.i).then((value) => {
+                      return updateId({
+                        id: photo.i,
+                        isPhoto: photo.t === null,
+                      }).then((value) => {
                         if (!value) setIsSelectMode(false);
                       });
                     }
