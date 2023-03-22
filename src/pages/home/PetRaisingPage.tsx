@@ -206,6 +206,7 @@ export default function PetRaising() {
   return (
     <PetFeedContainer className="page-container with-topbar">
       <TopBar
+        mode="PURPLE50"
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigation(-1)}
         border={false}
@@ -259,8 +260,8 @@ export default function PetRaising() {
           width: '80px',
           position: 'absolute',
           top: '50%',
-          transform: 'translateY(-140px)',
-          right: '50px',
+          left: 'calc(50% + 110px)',
+          transform: 'translate3d(-50%, -140px, 0)',
         }}
         loop={false}
       />
