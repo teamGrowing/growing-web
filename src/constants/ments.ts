@@ -18,6 +18,10 @@ const MENT_HOME = Object.freeze({
     '그로잉펫은 하루에 2번 놀아주는 걸로 충분히 만족한답니다~\n\n앗! 만약 앱을 자주 방문해준다면, 그로잉펫이\n좋아할지도 몰라요 😉',
   PET_PLAY_SUCCESS: '그로잉펫이 행복해 보여요 😍',
   PET_PLAY_FAIL: '그로잉펫이 살짝 귀찮대요 😅',
+
+  PET_GRADUATE:
+    '아쉽게도 그로잉펫과 헤어질 시간이에요 😭\n그로잉펫이 덕분에 너~~무 행복했대요!\n\n그로잉펫이 그리울 땐 졸업앨범을 찾아주세요ㅎㅎ\n\n그럼 안녕~~👋',
+  PET_GRADUATE_NEW_PET: '새로운 그로잉펫 만나러 가기 ✨',
 });
 
 export default MENT_HOME;

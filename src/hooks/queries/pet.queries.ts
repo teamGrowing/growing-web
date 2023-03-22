@@ -99,3 +99,23 @@ export function usePetPlayMutation({
     ...options,
   });
 }
+
+export function useGradutePet({
+  coupleId,
+  petId,
+  options,
+}: {
+  coupleId: string;
+  petId: string;
+  options?: UseMutationOptions<
+    AxiosResponse<PetDto>,
+    AxiosError,
+    unknown,
+    unknown
+  >;
+}): UseMutationResult<AxiosResponse<PetDto>, AxiosError, unknown, unknown> {
+  return useMutation({
+    mutationFn: () => PET_API.postGraduate(coupleId, petId),
+    ...options,
+  });
+}
