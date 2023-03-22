@@ -15,6 +15,7 @@ import { PetDto } from '../../types/pet/Pet.dto';
 import Icon from '../../components/common/Icon/Icon';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Modal from '../../components/common/Modal/Modal';
+import Pet3DImg from '../../components/pages/home/Pet3D';
 import MENT_HOME from '../../constants/ments';
 import queryKeys from '../../constants/queryKeys';
 import foodAnimation from '../../assets/lottie/foodAnimation.json';
@@ -82,10 +83,8 @@ const PetContainer = styled.section`
 
   padding: 0 30px;
 `;
-const Pet = styled.img`
+const Pet = styled(Pet3DImg)`
   margin-bottom: 10px;
-  width: 200px;
-  height: 200px;
   z-index: 1;
 `;
 
@@ -242,7 +241,8 @@ export default function PetRaising() {
         )}
 
         <Pet
-          src={pet.imageUrl}
+          url={pet.imageUrl}
+          size={300}
           onClick={() => {
             const increaseMount = petOption === 'feed' ? 100 / 4 : 100 / 5;
             setGauge(gauge + increaseMount);

@@ -4,6 +4,9 @@
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",
+    "@react-three/drei": "9.58.1",
+    "@react-three/fiber": "8.12.0",
+    "@react-three/gltfjsx": "3.1.4",
     "@storybook/react": "^6.5.13",
     "@tanstack/react-query": "^4.20.9",
     "@tanstack/react-query-devtools": "^4.20.9",
@@ -24,6 +27,7 @@
     "react-scripts": "5.0.1",
     "storybook-addon-state": "^1.0.3",
     "styled-components": "^5.3.6",
+    "three": "0.150.1",
     "typescript": "^4.4.2",
     "web-vitals": "^2.1.0",
     "yup": "^0.32.11"
@@ -89,6 +93,7 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/styled-components": "^5.1.26",
+    "@types/three": "0.149.0",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.4Function component is not a function declaratione3.0",
     "babel-plugin-named-exports-order": "^0.0.2",

@@ -6,6 +6,7 @@ import store from '../../../stores/RootStore';
 import Icon from '../../common/Icon/Icon';
 import PetRaisingMenu from './PetRaisingMenu';
 import PetGauge from './PetGauge';
+import Pet3DImg from './Pet3D';
 import { usePetData } from '../../../hooks/queries/pet.queries';
 
 const EMOJI_SIZE = 200;
@@ -107,10 +108,6 @@ const PetInfo = styled.div`
   align-items: center;
   gap: 10px;
 `;
-const PetImg = styled.img`
-  width: ${EMOJI_SIZE}px;
-  height: ${EMOJI_SIZE}px;
-`;
 
 function HomePet() {
   const navigation = useNavigate();
@@ -136,7 +133,7 @@ function HomePet() {
 
         <Row>
           <PetInfo>
-            <PetImg src={pet?.imageUrl} />
+            <Pet3DImg size={EMOJI_SIZE} url={pet?.imageUrl} />
 
             <PetLabel>
               <PetName>
