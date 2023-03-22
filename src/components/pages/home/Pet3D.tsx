@@ -30,7 +30,7 @@ function Model({ url }: { url: string }) {
   }, [url]);
 
   return (
-    <mesh rotation-x={0.5}>
+    <mesh rotation-x={0.4}>
       <primitive object={scene} scale={scale} position={position} />
     </mesh>
   );

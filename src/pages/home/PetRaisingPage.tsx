@@ -151,38 +151,49 @@ export default function PetRaising() {
   const [gauge, setGauge] = useState<number>(0);
   const [onModal, setOnModal] = useState<boolean>(false);
   const [modalText, setModalText] = useState<string>('');
+  const [reactionUrl, setReactionUrl] = useState<string | null>(null);
 
   const { data: pet } = queryClient.getQueryData(
     queryKeys.petKeys.all
   ) as AxiosResponse<PetDto>;
 
-  const { mutate: feedPet } = usePetFeedMutation({
+  const { mutateAsync: feedPet } = usePetFeedMutation({
     coupleId: userStore.user?.coupleId,
     petId: userStore.petId,
     options: {
-      onSuccess() {
-        setModalText(MENT_HOME.PET_FEED_SUCCESS);
-        setOnModal(true);
-        /**
-         TODO: error
-        setModalText(MENT_HOME.PET_FEED_FAIL_NUMBER);
-        setModalText(MENT_HOME.PET_FEED_FAIL_TIME);
-         */
+      onSuccess(res) {
+        if (res.data.hungryGauge > pet.hungryGauge) {
+          heartsLottieRef.current?.goToAndPlay(1);
+          setReactionUrl(res.data.petImageUrl);
+          setTimeout(() => {
+            setModalText(MENT_HOME.PET_FEED_SUCCESS);
+            setOnModal(true);
+          }, 2000);
+        } else {
+          setModalText(MENT_HOME.PET_FEED_FAIL_TIME);
+          setOnModal(true);
+        }
+        // setModalText(MENT_HOME.PET_FEED_FAIL_NUMBER); TODO
       },
     },
   });
 
-  const { mutate: playPet } = usePetPlayMutation({
+  const { mutateAsync: playPet } = usePetPlayMutation({
     coupleId: userStore.user?.coupleId,
     petId: userStore.petId,
     options: {
-      onSuccess() {
-        setModalText(MENT_HOME.PET_PLAY_SUCCESS);
-        setOnModal(true);
-        /**
-         TODO: 굳이 필요없을수도
-        setModalText(MENT_HOME.PET_PLAY_FAIL);
-         */
+      onSuccess(res) {
+        if (res.data.attentionGauge > pet.attentionGauge) {
+          heartsLottieRef.current?.goToAndPlay(1);
+          setReactionUrl(res.data.petImageUrl);
+          setTimeout(() => {
+            setModalText(MENT_HOME.PET_PLAY_SUCCESS);
+            setOnModal(true);
+          }, 2000);
+        } else {
+          setModalText(MENT_HOME.PET_PLAY_FAIL);
+          setOnModal(true);
+        }
       },
     },
   });
@@ -196,6 +207,10 @@ export default function PetRaising() {
       }
     }
   }, [gauge]);
+
+  useEffect(() => {
+    setReactionUrl(pet.imageUrl);
+  }, [pet]);
 
   useEffect(() => {
     foodLottieRef.current?.pause();
@@ -242,7 +257,7 @@ export default function PetRaising() {
         )}
 
         <Pet
-          url={pet.imageUrl}
+          url={reactionUrl ?? pet.imageUrl}
           size={300}
           onClick={() => {
             const increaseMount = petOption === 'feed' ? 100 / 4 : 100 / 5;

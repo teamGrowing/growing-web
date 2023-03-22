@@ -3,6 +3,7 @@ import {
   useQuery,
   useMutation,
   UseMutationResult,
+  UseMutationOptions,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from '../../constants/queryKeys';
@@ -49,7 +50,6 @@ export function usePetNameMutation({
   });
 }
 
-// TODO: type 수정
 export function usePetFeedMutation({
   coupleId,
   petId,
@@ -57,7 +57,12 @@ export function usePetFeedMutation({
 }: {
   coupleId: string | null | undefined;
   petId: string | null | undefined;
-  options?: UseMutationOptionsType<unknown>;
+  options?: UseMutationOptions<
+    AxiosResponse<PetReactionDto>,
+    AxiosError,
+    unknown,
+    unknown
+  >;
 }): UseMutationResult<
   AxiosResponse<PetReactionDto>,
   AxiosError,
@@ -70,7 +75,6 @@ export function usePetFeedMutation({
   });
 }
 
-// TODO: type 수정
 export function usePetPlayMutation({
   coupleId,
   petId,
@@ -78,7 +82,12 @@ export function usePetPlayMutation({
 }: {
   coupleId: string | null | undefined;
   petId: string | null | undefined;
-  options?: UseMutationOptionsType<unknown>;
+  options?: UseMutationOptions<
+    AxiosResponse<PetReactionDto>,
+    AxiosError,
+    unknown,
+    unknown
+  >;
 }): UseMutationResult<
   AxiosResponse<PetReactionDto>,
   AxiosError,
