@@ -138,20 +138,22 @@ function HomePet() {
             <PetLabel>
               <PetName>
                 <Pin />
-                {`${pet?.name}`}
+                {`${pet?.name ? pet.name : ''}`}
                 <Pin />
               </PetName>
-              <Icon
-                icon="IconPencil"
-                size={20}
-                style={{
-                  position: 'absolute',
-                  right: -30,
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                }}
-                onClick={() => navigation('/pet/naming')}
-              />
+              {!pet.name && (
+                <Icon
+                  icon="IconPencil"
+                  size={20}
+                  style={{
+                    position: 'absolute',
+                    right: -30,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                  }}
+                  onClick={() => navigation('/pet/naming')}
+                />
+              )}
             </PetLabel>
           </PetInfo>
 

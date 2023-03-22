@@ -69,6 +69,7 @@ export default function PetNamingPage() {
     petId: userStore.petId,
     options: {
       onSuccess() {
+        // TODO: 동시에 바꿨을 때
         navigation(-1);
         addToast(MENT_HOME.PET_NAMING_SUCCESS);
         queryClient.invalidateQueries(queryKeys.petKeys.all);
