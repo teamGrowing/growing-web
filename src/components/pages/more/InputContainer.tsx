@@ -58,6 +58,12 @@ const Input = styled.input`
     outline: 0;
     background-color: ${({ theme }) => theme.color.white};
   }
+
+  // for ios
+  &:disabled {
+    -webkit-text-fill-color: black;
+    opacity: 1;
+  }
 `;
 
 const Title = styled.div`
@@ -96,6 +102,7 @@ type InputContainerProps = {
   onBlur: (e: SyntheticEvent) => void;
   error: FieldError | undefined;
 };
+
 const InputContainer = React.forwardRef<HTMLInputElement, InputContainerProps>(
   (
     { title, type, value, name, onChange, onBlur, error },

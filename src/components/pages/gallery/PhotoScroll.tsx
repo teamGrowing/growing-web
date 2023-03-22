@@ -13,9 +13,17 @@ const Scroll = styled.div`
 
   position: absolute;
   width: 100%;
+
   height: calc(100% - 23px);
   left: 0px;
   bottom: 0px;
+`;
+
+const ScrollArea = styled.div`
+  position: relative;
+  width: 100%;
+  height: calc(100% - 46px);
+  overflow-y: scroll;
 `;
 
 const Options = styled.div`
@@ -52,8 +60,8 @@ type PhotoScrollProps = {
   photos: PhotoLineDto[];
   leftLabel: string;
   onLeftClick: () => void;
-  rightLabel: string;
-  onRightClick: () => void;
+  rightLabel?: string;
+  onRightClick?: () => void;
 };
 
 function PhotoScroll({
@@ -69,7 +77,9 @@ function PhotoScroll({
         <Option onClick={onLeftClick}>{leftLabel}</Option>
         <Option onClick={onRightClick}>{rightLabel}</Option>
       </Options>
-      <PhotoContainer photoObjects={photos} type="UPLOADED" />
+      <ScrollArea className="hidden-scrollbar">
+        <PhotoContainer photoObjects={photos} type="UPLOADED" />
+      </ScrollArea>
     </Scroll>
   );
 }

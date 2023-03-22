@@ -8,7 +8,7 @@ import {
 } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from '../../constants/queryKeys';
-import { UseQueryOptionsType } from '../../services';
+import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
 import {
   GALLERY_API,
   GALLERY_COMMENT_API,
@@ -105,10 +105,32 @@ export function useCreatePhotosMutation({
 
     await axios.put(res.data.url, file, {
       headers: { 'Content-Type': 'multipart/form-data' },
-    }); // 권한이 필요없나?
+    });
+
+    /* 비디오 파일의 시간 구하는 함수 */
+    const getDuration = (video: File) => {
+      const videoBlob = new Blob([video], { type: video.type });
+      const videoUrl = URL.createObjectURL(videoBlob);
+      const videoElement = document.createElement('video');
+      videoElement.src = videoUrl;
+
+      return new Promise<number>((resolve) => {
+        videoElement.addEventListener('loadedmetadata', () => {
+          const { duration } = videoElement;
+          resolve(duration);
+        });
+      });
+    };
+
+    let fileTime: number | null = null;
+    if (file.type.includes('video')) {
+      const promise = await getDuration(file);
+      fileTime = promise;
+    }
 
     const axiosRes = await GALLERY_API.createPhoto(coupleId, {
       s3Path: res.data.s3Path,
+      time: fileTime,
     });
 
     return axiosRes.data;
@@ -165,7 +187,7 @@ export function usePostCommentMutation({
 }: {
   coupleId: string;
   photoId: string;
-  options?: UseMutationOptions<AxiosResponse, AxiosError, string, unknown>;
+  options?: UseMutationOptionsType<string>;
 }): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
   const queryClinet = useQueryClient();
 
@@ -186,7 +208,7 @@ export function useDeleteCommentMutation({
 }: {
   coupleId: string;
   photoId: string;
-  options?: UseMutationOptions<AxiosResponse, AxiosError, string, unknown>;
+  options?: UseMutationOptionsType<string>;
 }): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
   const queryClinet = useQueryClient();
 

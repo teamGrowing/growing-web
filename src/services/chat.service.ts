@@ -11,6 +11,7 @@ import { GetUploadUrlResponseDto } from '../types/chat/GetUploadUrlResponse.dto'
 import { Notice } from '../types/chat/Notice';
 import { NoticeIsFolden } from '../types/chat/NoticeIsFolden';
 import { AnswerDto } from '../types/chat/questions/Answer.dto';
+import { IsToDoQuestion } from '../types/chat/questions/IsToDoQuestion';
 import { QuestionsAndAnswers } from '../types/chat/questions/QuestionAndAnswers';
 import { VoiceMSGDto } from '../types/chat/VoiceMSG.dto';
 
@@ -128,7 +129,11 @@ export const CHAT_QNA_API = {
   getQuestions: (coupleId: string) =>
     fetcher
       .create()
-      .get<QuestionsAndAnswers[]>(`couples/${coupleId}/questions`),
+      .get<QuestionsAndAnswers[]>(`couples/${coupleId}/questions?to-do=false`),
+  getHasToDoQuestions: (coupleId: string) =>
+    fetcher
+      .create()
+      .get<IsToDoQuestion>(`couples/${coupleId}/questions?to-do=true`),
   postQuestions: (coupleId: string, questionId: string, data: AnswerDto) =>
     fetcher
       .create()

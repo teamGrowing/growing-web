@@ -5,8 +5,11 @@ import Icon from '../common/Icon/Icon';
 
 const Nav = styled.nav`
   width: 100%;
+  max-width: 780px;
   position: fixed;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 const NavItems = styled.div`
   box-sizing: border-box;
@@ -42,7 +45,7 @@ function BottomNavigation() {
           <Icon icon="IconPhotoHeart" />
           <Label>앨범</Label>
         </NavItem>
-        <NavItem linkTo="/chatting">
+        <NavItem linkTo="/chat">
           <Icon icon="IconChat" />
           <Label>채팅</Label>
         </NavItem>

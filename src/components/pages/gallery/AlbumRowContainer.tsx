@@ -69,10 +69,8 @@ const SlideContainer = styled.div`
   align-self: stretch;
   flex-grow: 0;
 
-  overflow: auto;
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  overflow-y: hidden;
+  overflow-x: scroll;
 `;
 
 const Line = styled.div`
@@ -128,7 +126,9 @@ function AlbumRowContainer({
       {albums.length > 3 && (
         <>
           <Line />
-          <SlideContainer>{albumComponents}</SlideContainer>
+          <SlideContainer className="hidden-scrollbar">
+            {albumComponents}
+          </SlideContainer>
         </>
       )}
     </Container>

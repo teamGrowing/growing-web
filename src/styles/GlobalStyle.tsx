@@ -41,6 +41,11 @@ input {
   border: none;
   outline: none;
 }
+textarea {
+  border: none;
+  outline: none;
+  resize: none;
+}
 .text-gradient300 {
   background: linear-gradient(130.11deg, #FCE38A 7.3%, #F38181 100%);
   background-clip: text;
@@ -87,6 +92,16 @@ input {
 }
 .page-container.with-topbar {
   padding-top: 49px;
+}
+
+
+/* 웹에서 스크롤바 숨기기 */
+.hidden-scrollbar {
+  -ms-overflow-style: none; /* Edge */
+  scrollbar-width: none; /* Firefox */
+  &::-webkit-scrollbar { /*Chrome */
+    display: none;
+  }
 }
 `;
 

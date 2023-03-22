@@ -1,7 +1,8 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { fadeIn } from '../../../styles/common/keyframs';
 import albumSchema, { AlbumFormValues } from '../../../types/InputSchema';
 import ModalPortal from './ModalPortal';
 
@@ -15,14 +16,6 @@ export interface AlbumModalProps {
   onSubAction?: () => void;
 }
 
-const fadeIn = keyframes`
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-`;
 const Overlay = styled.div`
   position: fixed;
   top: 0;

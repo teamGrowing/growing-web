@@ -27,11 +27,12 @@ const Cancel = styled.div`
 `;
 
 const PaddingContainer = styled.div`
-  position: fixed;
+  position: absolute;
   top: 43px;
 
-  height: calc(100% - 43px - 81px);
+  height: calc(100% - 43px);
   width: 100%;
+  max-width: 780px;
 
   overflow: scroll;
 `;
@@ -116,7 +117,7 @@ function PhotoPage() {
             setOnModal(true);
           }}
         />
-        <PaddingContainer>
+        <PaddingContainer className="hidden-scrollbar">
           <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
         </PaddingContainer>
         <FloatingButton onUpLoad={upLoadPhotos} />

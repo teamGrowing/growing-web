@@ -5,6 +5,7 @@ const Domain = {
   couple: 'COUPLE',
   pet: 'PET',
   chat: 'CHAT',
+  qna: 'QNA',
   plan: 'PLAN',
   gallery: 'GALLERY',
   album: 'ALBUM',
@@ -26,6 +27,11 @@ const chatKeys = {
   all: [Domain.chat] as unknown as QueryKey[],
 };
 
+const qnaKeys = {
+  all: [Domain.qna] as unknown as QueryKey[],
+  hasTodo: [Domain.qna, 'todo'] as unknown as QueryKey[],
+};
+
 const galleryKeys = {
   all: [Domain.gallery as unknown as QueryKey] as QueryKey[],
   list: () => [...galleryKeys.all, 'list'] as unknown as QueryKey[],
@@ -44,6 +50,7 @@ const queryKeys = {
   coupleKeys,
   petKeys,
   chatKeys,
+  qnaKeys,
   galleryKeys,
   albumKeys,
 };

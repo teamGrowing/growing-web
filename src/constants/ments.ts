@@ -24,4 +24,11 @@ const MENT_HOME = Object.freeze({
   PET_GRADUATE_NEW_PET: '새로운 그로잉펫 만나러 가기 ✨',
 });
 
+export const MENT_CHAT = Object.freeze({
+  QNA_EMPTY: '아직 도착한 질문이 없어요',
+  QNA_NOT_PARTER: '상대방이 아직 답변을 하지 않았어요!',
+  QNA_NOT_ME: '상대방이 답변을 애타게 기다리고 있어요 ㅠ.ㅠ',
+  QNA_SUCCESS: '답변이 등록되었어요!',
+});
+
 export default MENT_HOME;
