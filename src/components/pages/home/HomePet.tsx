@@ -75,6 +75,7 @@ const PetName = styled.div`
 
   width: max-content;
   max-width: calc(${EMOJI_SIZE}px - 30px);
+  min-height: 33px;
   padding: 5px 14px;
   background: linear-gradient(
     130.11deg,
