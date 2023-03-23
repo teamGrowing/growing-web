@@ -13,6 +13,8 @@ const Domain = {
 
 const userKeys = {
   all: [Domain.user] as unknown as QueryKey[],
+  emoji: [Domain.user, 'emoji'] as unknown as QueryKey[],
+  emojiById: (id: string) => [...userKeys.emoji, id] as unknown as QueryKey[],
 };
 
 const coupleKeys = {
@@ -25,6 +27,10 @@ const petKeys = {
 
 const chatKeys = {
   all: [Domain.chat] as unknown as QueryKey[],
+  notice: [Domain.chat, 'notice'] as unknown as QueryKey[],
+  archived: [Domain.chat, 'archived'] as unknown as QueryKey[],
+  photos: [Domain.chat, 'photos'] as unknown as QueryKey[],
+  photoById: (id: string) => [...chatKeys.photos, id] as unknown as QueryKey[],
 };
 
 const qnaKeys = {

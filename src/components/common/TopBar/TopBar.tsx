@@ -38,7 +38,7 @@ const Container = styled.header<{ mode: TopBarMode; border: boolean }>`
     switch (mode) {
       case 'DARK':
         return css`
-          background-color: ${({ theme }) => theme.color.black};
+          background-color: ${({ theme }) => theme.color.gray900};
         `;
       case 'PURPLE50':
         return css`

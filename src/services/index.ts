@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import {
   QueryKey,
+  UseInfiniteQueryOptions,
   UseMutationOptions,
   UseQueryOptions,
 } from '@tanstack/react-query';
@@ -27,6 +28,15 @@ class Fetcher {
 const fetcher = new Fetcher();
 
 export default fetcher;
+
+export interface UseInfiniteQueryOptionsType<T>
+  extends UseInfiniteQueryOptions<
+    AxiosResponse<T>,
+    AxiosError,
+    T,
+    AxiosResponse<T>,
+    QueryKey[]
+  > {}
 
 export interface UseQueryOptionsType<T>
   extends UseQueryOptions<AxiosResponse<T>, AxiosError, T, QueryKey[]> {}
