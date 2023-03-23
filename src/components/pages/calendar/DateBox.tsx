@@ -1,4 +1,4 @@
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import styled from 'styled-components';
 import { useCalendarDailyPlans } from '../../../hooks/queries/calendar.queries';
 import store from '../../../stores/RootStore';
@@ -46,14 +46,15 @@ const Mark = styled.div<{ isToday: boolean }>`
   border-radius: 100px;
 `;
 
-const Plan = styled.div`
-  background: linear-gradient(
-    130.11deg,
-    rgba(252, 227, 138, 0.4) 7.3%,
-    rgba(243, 129, 129, 0.4) 100%
-  );
+const Plan = styled.div<{ shape: string }>`
+  background: ${({ theme }) => theme.color.pink100};
   color: black;
-  border-radius: 20px;
+  border-radius: ${({ shape }) => {
+    if (shape === 'ROUND') return '20px';
+    if (shape === 'LEFT_ROUND') return '20px 0 0 20px';
+    if (shape === 'RIGHT_ROUND') return '0 20px 20px 0';
+    return 0;
+  }};
   text-align: center;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -85,6 +86,15 @@ function DateBox({
     month: date.format('MM'),
     day: date.format('DD'),
   });
+
+  const checkShape = (start: string, end: string) => {
+    if (dayjs(start).isSame(date, 'day') && dayjs(end).isSame(date, 'day'))
+      return 'ROUND';
+    if (dayjs(start).isSame(date, 'day')) return 'LEFT_ROUND';
+    if (dayjs(end).isSame(date, 'day')) return 'RIGHT_ROUND';
+    return 'NOT_ROUND';
+  };
+
   return (
     <Box
       day={date.day()}
@@ -93,11 +103,26 @@ function DateBox({
       onClick={onClick}
     >
       <Mark isToday={isToday}>{date.date()}</Mark>
-      {data?.map((plan) => (
-        <Plan key={plan.id} className="hidden-scrollbar">
-          {plan.title}
-        </Plan>
-      ))}
+      {data
+        ?.sort((a, b) => {
+          return (
+            dayjs(b.endAt).date() -
+            dayjs(b.startAt).date() -
+            (dayjs(a.endAt).date() - dayjs(a.startAt).date())
+          );
+        })
+        .map((plan, idx) => {
+          if (idx > 1) return null;
+          return (
+            <Plan
+              key={plan.id}
+              className="hidden-scrollbar"
+              shape={checkShape(plan.startAt, plan.endAt)}
+            >
+              {plan.title}
+            </Plan>
+          );
+        })}
     </Box>
   );
 }

@@ -1,12 +1,15 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import {
   useAddPlanMutation,
   useCalendarDailyPlans,
+  useCalendarMonthlyPlans,
   useDeletePlanMutation,
 } from '../../../hooks/queries/calendar.queries';
 import store from '../../../stores/RootStore';
+import { MonthlyPlanDto } from '../../../types/plan/MonthlyPlan.dto';
 import MyCalendar from '../../../util/Calendar';
 import Icon from '../../common/Icon/Icon';
 import BottomSheetMenu from '../../common/Modal/ModalBottomSheet/BottomSheetMenu';
@@ -14,6 +17,7 @@ import ModalBottomSheet from '../../common/Modal/ModalBottomSheet/ModalBottomShe
 import DateBox from './DateBox';
 
 const DayContainer = styled.div`
+  position: relative;
   display: grid;
   width: 100%;
   height: 51px;
@@ -40,6 +44,7 @@ const DayBox = styled.div<{ day: number }>`
 `;
 
 const DateContainer = styled.div`
+  position: relative;
   display: grid;
   width: 100%;
   grid-template-columns: repeat(7, 1fr);
@@ -170,6 +175,37 @@ const Button = styled.button`
   width: 150px;
   border-radius: 10px;
 `;
+
+const Plan = styled.div<{
+  row: number;
+  col: number;
+  rowLength: number;
+  length: number;
+}>`
+  background: linear-gradient(
+    130.11deg,
+    rgba(252, 227, 138, 0.2) 7.3%,
+    rgba(243, 129, 129, 0.2) 100%
+  );
+  color: black;
+
+  text-align: center;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow-x: hidden;
+  padding: 2px 4px;
+
+  position: absolute;
+  border-radius: 20px;
+  left: calc(100% / 7 * ${({ col }) => col});
+  top: calc(
+    100% / ${({ rowLength }) => rowLength} * ${({ row }) => row} + 20px
+  );
+
+  width: calc(100% / 7 * ${({ length }) => length});
+  height: 18px;
+`;
+
 type CalendarProps = {
   year: number;
   month: number;
@@ -190,6 +226,12 @@ function Calendar({ year, month, clickedDate }: CalendarProps) {
     month: selectedDate?.format('MM'),
     day: selectedDate?.format('DD'),
   });
+  const { data: monthlyPlans } = useCalendarMonthlyPlans({
+    coupleId: store.userStore.user?.coupleId!,
+    year: selectedDate?.format('YYYY'),
+    month: selectedDate?.format('MM'),
+  });
+
   const { mutate: addPlan } = useAddPlanMutation({
     coupleId: store.userStore.user?.coupleId!,
   });
@@ -204,6 +246,76 @@ function Calendar({ year, month, clickedDate }: CalendarProps) {
     if (clickedDate.isSame(dayjs(), 'date')) setSelectedDate(clickedDate);
   }, [clickedDate]);
 
+  const findPosition = (plan: MonthlyPlanDto) => {
+    const start = dayjs(plan.startAt);
+    const sIndex = dates.findIndex((e) => e === start.date());
+    const sRow = Math.floor(sIndex / 7);
+    const sCol = sIndex % 7;
+
+    const end = dayjs(plan.endAt);
+    const eIndex = dates.findIndex(
+      (e, idx) => e === end.date() && idx >= sIndex
+    );
+    const eRow = Math.floor(eIndex / 7);
+    const eCol = eIndex % 7;
+
+    if (eRow === sRow)
+      return {
+        sCol,
+        sRow,
+        len: end.day() - start.day() + 1,
+        content: plan.title,
+      };
+
+    return {
+      sCol,
+      sRow,
+      slen: 6 - start.day() + 1,
+      eCol,
+      eRow,
+      elen: end.day() + 1,
+      content: plan.title,
+    };
+  };
+
+  const makePosition = (plans: MonthlyPlanDto[]) => {
+    const positions: Array<{
+      row: number;
+      col: number;
+      len: number;
+      content: string;
+    }> = [];
+
+    plans?.forEach((plan: MonthlyPlanDto) => {
+      const position = findPosition(plan);
+
+      if (position.eCol !== undefined) {
+        positions.push({
+          row: position.eRow,
+          col: 0,
+          len: position.elen,
+          content: position.content,
+        });
+        positions.push({
+          row: position.sRow,
+          col: position.sCol,
+          len: position.slen ?? 0,
+          content: position.content,
+        });
+        return;
+      }
+
+      positions.push({
+        row: position.sRow,
+        col: position.sCol,
+        len: position.len ?? 0,
+        content: position.content,
+      });
+    });
+
+    return positions;
+  };
+
   return (
     <>
       <DayContainer>
@@ -214,6 +326,14 @@ function Calendar({ year, month, clickedDate }: CalendarProps) {
         ))}
       </DayContainer>
       <DateContainer>
+        {/* {makePosition(monthlyPlans ?? []).map((p) => {
+          return (
+            <Plan row={p.row} col={p.col} rowLength={5} length={p.len}>
+              {p.content}
+            </Plan>
+          );
+        })} */}
+
         {dates.map((date, idx) => {
           let blockDate = dayjs(new Date(year, month, date));
           if (idx <= calendar.startDay)
@@ -235,6 +355,7 @@ function Calendar({ year, month, clickedDate }: CalendarProps) {
           );
         })}
       </DateContainer>
+
       <Container>
         <TodoTitle>
           <div className="text-gradient400">Todo</div>

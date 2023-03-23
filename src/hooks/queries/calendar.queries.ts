@@ -25,7 +25,7 @@ export function useCalendarMonthlyPlans({
   year: string;
   month: string;
   storeCode?: QueryKey[];
-  options?: UseQueryOptionsType<MonthlyPlanDto>;
+  options?: UseQueryOptionsType<MonthlyPlanDto[]>;
 }) {
   return useQuery(
     [...queryKeys.calendarKeys.byMonth(year, month), ...(storeCode ?? [])],
