@@ -24,6 +24,15 @@ body {
   padding: 0;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-tap-highlight-color:rgba(255,255,255,0);
+  /* Keyword values */
+  -webkit-touch-callout: default;
+  -webkit-touch-callout: none;
+  /* Global values */
+  -webkit-touch-callout: initial;
+  -webkit-touch-callout: inherit;
+  -webkit-touch-callout: unset;
+
 }
 ul,
 li {
