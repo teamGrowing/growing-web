@@ -4,7 +4,7 @@ import Icon from '../../common/Icon/Icon';
 
 const Container = styled.div`
   width: 100%;
-  padding-top: 39px;
+  padding: 39px 0 20px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
