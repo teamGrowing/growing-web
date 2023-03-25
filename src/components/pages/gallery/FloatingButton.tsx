@@ -5,7 +5,7 @@ import Icon from '../../common/Icon/Icon';
 const ButtonStyle = styled.div`
   position: fixed;
   right: 28px;
-  bottom: 96px;
+  bottom: 48px;
 `;
 
 const Wrapper = styled.div`

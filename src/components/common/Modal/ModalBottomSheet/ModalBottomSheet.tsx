@@ -24,10 +24,15 @@ const Wrapper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 14px 24px 12px 24px;
+  padding: 14px 24px 0 24px;
+
+  padding-bottom: constants(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+
   background-color: ${({ theme }) => theme.color.gray600};
   box-shadow: 0px 0px 20px ${({ theme }) => theme.color.black}33;
   border-radius: 20px 20px 0px 0px;

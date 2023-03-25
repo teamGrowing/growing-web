@@ -1,9 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
-import { NAVBAR_HEIGHT } from '../constants/constants';
 
 const GlobalStyle = createGlobalStyle`
 :root {
-  --vh: 100%;
+  --navbar-height: 52px;
+  --topbar-height: 48px;
 }
 html,
 body {
@@ -13,7 +13,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  height: var(--vh);
 }
 *,
 *::before,
@@ -32,7 +31,6 @@ body {
   -webkit-touch-callout: initial;
   -webkit-touch-callout: inherit;
   -webkit-touch-callout: unset;
-
 }
 ul,
 li {
@@ -102,13 +100,18 @@ textarea {
   max-width: 780px;
   margin: 0 auto;
   height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
+
+  padding-top: calc(constant(safe-area-inset-top) + 16px); // IOS 11.0 버전
+  padding-top: calc(env(safe-area-inset-top) + 16px); // IOS 11.0 이상
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 .page-container.with-navbar {
-  height: calc(var(--vh, 1vh) * 100 - ${NAVBAR_HEIGHT}px);
+  height: calc(100vh - 52px);
 }
 .page-container.with-topbar {
-  padding-top: 49px;
+  padding-top: calc(var(--topbar-height) + constant(safe-area-inset-top));
+  padding-top: calc(var(--topbar-height) + env(safe-area-inset-top));
 }
 
 

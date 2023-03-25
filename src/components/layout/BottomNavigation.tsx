@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import NavItem from './NavItem';
 import Icon from '../common/Icon/Icon';
-import { NAVBAR_HEIGHT } from '../../constants/constants';
 
 const Nav = styled.nav`
   width: 100%;
@@ -18,12 +17,13 @@ const NavItems = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 16px 10px;
+  padding: 6px 16px 0;
+  padding-bottom: constants(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
   isolation: isolate;
 
   position: absolute;
   width: 100%;
-  height: ${NAVBAR_HEIGHT}px;
   left: -1px;
   bottom: 0px;
 

@@ -16,7 +16,8 @@ const FoldenContainer = styled.div`
   z-index: 1;
 
   position: absolute;
-  top: 65px;
+  top: calc(65px + constants(safe-area-inset-top));
+  top: calc(65px + env(safe-area-inset-top));
   right: 16px;
 
   display: flex;
@@ -35,7 +36,8 @@ const Container = styled.div`
   z-index: 1;
 
   position: fixed;
-  top: 48px;
+  top: calc(48px + constants(safe-area-inset-top));
+  top: calc(48px + env(safe-area-inset-top));
   left: 50%;
   transform: translateX(-50%);
 
@@ -92,6 +94,7 @@ const Buttons = styled.div`
 `;
 
 const StyledButton = styled.button`
+  color: ${({ theme }) => theme.color.gray900};
   flex: 1;
 `;
 

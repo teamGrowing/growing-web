@@ -63,7 +63,8 @@ const TextareaWrapper = styled.div`
 
 const StyledTextarea = styled.textarea`
   width: 100%;
-  min-height: ${MIN_TEXTAREA_HEIGHT};
+  min-height: calc(${MIN_TEXTAREA_HEIGHT} + constants(env-safe-inset-bottom));
+  min-height: calc(${MIN_TEXTAREA_HEIGHT} + env(env-safe-inset-bottom));
   resize: none;
 
   background-color: transparent;
