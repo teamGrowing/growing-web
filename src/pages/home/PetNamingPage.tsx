@@ -18,6 +18,7 @@ import Icon from '../../components/common/Icon/Icon';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Modal from '../../components/common/Modal/Modal';
 import PetNameInput from '../../components/pages/home/PetNameInput';
+import Pet3D from '../../components/pages/home/Pet3D';
 import Waves from '../../assets/image/HomeWaves.png';
 
 const PetRenameContainer = styled.div`
@@ -35,11 +36,6 @@ const SubTitle = styled.div`
   line-height: 16px;
   text-align: center;
   white-space: pre-wrap;
-`;
-
-const Pet = styled.img`
-  width: 240px;
-  height: 240px;
 `;
 
 const WaveWrapper = styled.div`
@@ -73,6 +69,7 @@ export default function PetNamingPage() {
     petId: userStore.petId,
     options: {
       onSuccess() {
+        // TODO: 동시에 바꿨을 때
         navigation(-1);
         addToast(MENT_HOME.PET_NAMING_SUCCESS);
         queryClient.invalidateQueries(queryKeys.petKeys.all);
@@ -113,7 +110,7 @@ export default function PetNamingPage() {
             )}
           />
 
-          <Pet src={pet.imageUrl} />
+          <Pet3D url={pet.imageUrl} size={240} />
 
           <WaveWrapper>
             <Wave src={Waves} />
