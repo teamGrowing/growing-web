@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { NAVBAR_HEIGHT } from '../constants/constants';
 
 const GlobalStyle = createGlobalStyle`
 :root {
@@ -21,6 +22,8 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
 }
 ul,
 li {
@@ -81,6 +84,11 @@ textarea {
 }
 /* page container 관련 */
 .page-container {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+
   width: 100%;
   max-width: 780px;
   margin: 0 auto;
@@ -88,7 +96,7 @@ textarea {
   height: calc(var(--vh, 1vh) * 100);
 }
 .page-container.with-navbar {
-  height: calc(var(--vh, 1vh) * 100 - 81px);
+  height: calc(var(--vh, 1vh) * 100 - ${NAVBAR_HEIGHT}px);
 }
 .page-container.with-topbar {
   padding-top: 49px;
@@ -102,6 +110,28 @@ textarea {
   &::-webkit-scrollbar { /*Chrome */
     display: none;
   }
+}
+
+/* swiper theme */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  ::after {
+  font-size: 24px;
+  }
+}
+.swiper-pagination-fraction {
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 2px 6px;
+  width: max-content;
+
+  background-color: #00000070;
+  border-radius: 10px;
+
+  font-size: 12px;
+  color: white;
 }
 `;
 

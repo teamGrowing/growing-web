@@ -41,3 +41,23 @@ export const fadeOutUp = keyframes`
         transform: translateY(-100%);
     }
 `;
+
+export const pulse = keyframes`
+  from {
+    transform: scale3d(0.8, 0.8, 0.8);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+`;
+
+export const clickPulse = keyframes`
+  from {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+`;
