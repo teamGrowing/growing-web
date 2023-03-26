@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import dayjs from 'dayjs';
 import { useRef, useState } from 'react';
 import styled from 'styled-components';
@@ -10,7 +9,6 @@ import CalendarTitle from '../../components/pages/calendar/CalendarTitle';
 import { useCalendarMonthlyPlans } from '../../hooks/queries/calendar.queries';
 import userStore from '../../stores/UserStore';
 import TodoArea from '../../components/pages/calendar/TodoArea';
-import CalendarBottomSheet from '../../components/pages/calendar/CalendarBottomSheet';
 
 const TodayBtn = styled.button`
   display: flex;
@@ -34,11 +32,13 @@ const TodayBtn = styled.button`
   border-radius: 20px;
 `;
 
-const CalenderStyleWrapper = styled.div`
+const CalenderStyleWrapper = styled.div<{ selectedDate?: string }>`
   --fc-border-color: none;
   --fc-event-bg-color: none;
   --fc-event-border-color: none;
-  --fc-today-bg-color: ${({ theme }) => theme.color.purple50};
+  --fc-today-bg-color: ${({ theme, selectedDate }) => {
+    return dayjs().isSame(selectedDate, 'D') ? theme.color.purple50 : 'none';
+  }};
 
   .fc-media-screen {
     height: 480px;
@@ -56,6 +56,12 @@ const CalenderStyleWrapper = styled.div`
   }
   .fc-day-sun {
     color: #ea6060;
+  }
+  .fc-day-today {
+    a {
+      border-radius: 50%;
+      background-color: ${({ theme }) => theme.color.purple200};
+    }
   }
   .fc-daygrid-day-top {
     font-size: 12px;
@@ -82,6 +88,10 @@ const CalenderStyleWrapper = styled.div`
     text-overflow: ellipsis;
     color: black;
     font-size: 12px;
+  }
+
+  td[data-date='${(props) => props.selectedDate}'] {
+    background-color: ${({ theme }) => theme.color.purple50};
   }
 `;
 
@@ -119,7 +129,7 @@ function CalendarPage() {
           calenderRef.current?.getApi().next();
         }}
       />
-      <CalenderStyleWrapper>
+      <CalenderStyleWrapper selectedDate={selectedDate.format('YYYY-MM-DD')}>
         <FullCalendar
           ref={calenderRef}
           plugins={[daygrid, timegrid, interaction]}
