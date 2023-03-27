@@ -20,4 +20,10 @@ const MENT_HOME = Object.freeze({
   PET_PLAY_FAIL: '그로잉펫이 살짝 귀찮대요 😅',
 });
 
+export const MENT_CALENDAR = Object.freeze({
+  PLAN_ADD_SUCCESS: '일정이 추가되었습니다.',
+  PLAN_MODIFY_SUCCESS: '일정이 수정되었습니다.',
+  PLAN_DELETE_SUCCESS: '일정이 삭제되었습니다.',
+});
+
 export default MENT_HOME;
