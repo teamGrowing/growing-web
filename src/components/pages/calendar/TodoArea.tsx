@@ -2,11 +2,14 @@ import { Dayjs } from 'dayjs';
 import { observer } from 'mobx-react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { MENT_CALENDAR } from '../../../constants/ments';
+import useToast from '../../../hooks/common/useToast';
 import {
   useCalendarDailyPlans,
   useDeletePlanMutation,
 } from '../../../hooks/queries/calendar.queries';
 import store from '../../../stores/RootStore';
+import { DailyPlanDto } from '../../../types/plan/DailyPlan.dto';
 import Icon from '../../common/Icon/Icon';
 import CalendarBottomSheet from './CalendarBottomSheet';
 
@@ -87,6 +90,10 @@ type TodoProps = {
 
 function TodoArea({ date }: TodoProps) {
   const [onBottomSheet, setOnBottomSheet] = useState(false);
+  const [selectedTodoData, setSelectedTodoData] = useState<DailyPlanDto | null>(
+    null
+  );
+  const { addToast } = useToast();
   const { data: dailyPlans } = useCalendarDailyPlans({
     coupleId: store.userStore.user?.coupleId!,
     year: date.format('YYYY'),
@@ -106,22 +113,34 @@ function TodoArea({ date }: TodoProps) {
       </TodoTitle>
       <Todos className="hidden-scrollbar">
         {dailyPlans?.map((plan) => (
-          <Todo key={plan.id}>
+          <Todo
+            key={plan.id}
+            onClick={() => {
+              setOnBottomSheet(true);
+              setSelectedTodoData(plan);
+            }}
+          >
             {plan.title}
             <Icon
               icon="IconTrash"
               width={15}
               height={15}
-              onClick={() => deletePlan(plan.id)}
+              onClick={(e) => {
+                deletePlan(plan.id, {
+                  onSuccess: () => addToast(MENT_CALENDAR.PLAN_DELETE_SUCCESS),
+                });
+                e.stopPropagation();
+              }}
             />
           </Todo>
         ))}
       </Todos>
       <CalendarBottomSheet
-        onSubmit={() => {}}
+        onClose={() => setSelectedTodoData(null)}
         open={onBottomSheet}
         setOpen={setOnBottomSheet}
         selectedDate={date}
+        defaultData={selectedTodoData ?? undefined}
       />
     </Container>
   );

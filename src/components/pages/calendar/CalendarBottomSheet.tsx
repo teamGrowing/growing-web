@@ -1,18 +1,25 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import dayjs, { Dayjs } from 'dayjs';
 import { observer } from 'mobx-react';
 import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { useAddPlanMutation } from '../../../hooks/queries/calendar.queries';
+import { MENT_CALENDAR } from '../../../constants/ments';
+import useToast from '../../../hooks/common/useToast';
+import {
+  useAddPlanMutation,
+  useModifyPlanMutation,
+} from '../../../hooks/queries/calendar.queries';
 import store from '../../../stores/RootStore';
+import { DailyPlanDto } from '../../../types/plan/DailyPlan.dto';
 import BottomSheetMenu from '../../common/Modal/ModalBottomSheet/BottomSheetMenu';
 import ModalBottomSheet from '../../common/Modal/ModalBottomSheet/ModalBottomSheet';
 
 const Input = styled.input`
-  background-color: ${({ theme }) => theme.color.gray200};
+  color: ${({ theme }) => theme.color.white};
+  background-color: ${({ theme }) => theme.color.gray600};
   border-radius: 10px;
   height: 30px;
   padding: 2px 5px;
+  text-align: right;
 `;
 
 const SheetContainer = styled.div`
@@ -61,34 +68,95 @@ const Button = styled.button`
 `;
 
 type CalendarBottomSheetProps = {
-  onSubmit: () => void;
+  onClose: () => void;
   selectedDate: Dayjs;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  defaultData?: DailyPlanDto;
 };
 
 function CalendarBottomSheet({
-  onSubmit,
+  onClose,
   selectedDate,
   open,
   setOpen,
+  defaultData,
 }: CalendarBottomSheetProps) {
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const descriptionInputRef = useRef<HTMLInputElement | null>(null);
   const startInputRef = useRef<HTMLInputElement | null>(null);
   const endInputRef = useRef<HTMLInputElement | null>(null);
   const [toggleState, setToggleState] = useState(false);
-
+  const { addToast } = useToast();
   const { mutate: addPlan } = useAddPlanMutation({
     coupleId: store.userStore.user?.coupleId!,
   });
+  const { mutate: modifyPlan } = useModifyPlanMutation({
+    coupleId: store.userStore.user?.coupleId!,
+  });
+
+  const clickCompleteBtnHandler = () => {
+    // TODO react-hook-form 으로 바꾸고 나머지 기능들 추가
+
+    if (
+      !titleInputRef.current?.value ||
+      !startInputRef.current?.value ||
+      !endInputRef.current?.value
+    ) {
+      // TODO 제목 입력하라는 메세지
+      return;
+    }
+
+    const data = {
+      title: titleInputRef.current?.value,
+      // local time -> zulu time
+      startAt: new Date(startInputRef.current?.value).toISOString(),
+      endAt: new Date(endInputRef.current?.value).toISOString(),
+      description: descriptionInputRef.current?.value ?? '',
+      location: null,
+      alarm: 'none',
+    };
+
+    if (defaultData) {
+      modifyPlan(
+        {
+          id: defaultData?.id ?? '',
+          info: data,
+        },
+        {
+          onSuccess: () => {
+            if (!titleInputRef.current || !descriptionInputRef.current) return;
+            titleInputRef.current.value = '';
+            descriptionInputRef.current.value = '';
+            setOpen(false);
+            addToast(MENT_CALENDAR.PLAN_MODIFY_SUCCESS);
+          },
+        }
+      );
+      return;
+    }
+    addPlan(data, {
+      onSuccess: () => {
+        if (!titleInputRef.current || !descriptionInputRef.current) return;
+        titleInputRef.current.value = '';
+        descriptionInputRef.current.value = '';
+        setOpen(false);
+        addToast(MENT_CALENDAR.PLAN_ADD_SUCCESS);
+      },
+    });
+  };
 
   return (
-    <ModalBottomSheet open={open} setOpen={setOpen}>
+    <ModalBottomSheet open={open} setOpen={setOpen} onClose={onClose}>
       <BottomSheetMenu>
         <SheetContainer>
           제목
-          <Input type="text" ref={titleInputRef} />
+          <Input
+            type="text"
+            ref={titleInputRef}
+            placeholder="제목"
+            defaultValue={defaultData?.title}
+          />
         </SheetContainer>
       </BottomSheetMenu>
       <BottomSheetMenu>
@@ -97,7 +165,9 @@ function CalendarBottomSheet({
           <Input
             ref={startInputRef}
             type="date"
-            defaultValue={selectedDate.format('YYYY-MM-DD')}
+            defaultValue={dayjs(defaultData?.startAt ?? selectedDate).format(
+              'YYYY-MM-DD'
+            )}
           />
         </SheetContainer>
       </BottomSheetMenu>
@@ -107,7 +177,9 @@ function CalendarBottomSheet({
           <Input
             ref={endInputRef}
             type="date"
-            defaultValue={selectedDate.format('YYYY-MM-DD')}
+            defaultValue={dayjs(defaultData?.endAt ?? selectedDate).format(
+              'YYYY-MM-DD'
+            )}
           />
         </SheetContainer>
       </BottomSheetMenu>
@@ -127,47 +199,16 @@ function CalendarBottomSheet({
       <BottomSheetMenu>
         <SheetContainer>
           메모
-          <Input type="text" ref={descriptionInputRef} />
+          <Input
+            type="text"
+            ref={descriptionInputRef}
+            placeholder="메모"
+            defaultValue={defaultData?.description ?? ''}
+          />
         </SheetContainer>
       </BottomSheetMenu>
       <BottomSheetMenu>
-        <Button
-          onClick={() => {
-            // TODO react-hook-form 으로 바꾸고 나머지 기능들 추가
-
-            if (!titleInputRef.current?.value) {
-              alert('제목을 입력하세요');
-              return;
-            }
-            addPlan(
-              {
-                title: titleInputRef.current?.value,
-                // local time -> zulu time
-                startAt: dayjs(startInputRef.current?.value)
-                  .hour(selectedDate.hour() + 9)
-                  .format(),
-                endAt: dayjs(endInputRef.current?.value)
-                  .hour(selectedDate.hour() + 9)
-                  .format(),
-                description: descriptionInputRef.current?.value ?? '',
-                location: null,
-                alarm: 'none',
-              },
-              {
-                onSuccess: () => {
-                  if (!titleInputRef.current || !descriptionInputRef.current)
-                    return;
-                  titleInputRef.current.value = '';
-                  descriptionInputRef.current.value = '';
-                  setOpen(false);
-                },
-              }
-            );
-            onSubmit();
-          }}
-        >
-          일정 추가하기
-        </Button>
+        <Button onClick={clickCompleteBtnHandler}>완료</Button>
       </BottomSheetMenu>
     </ModalBottomSheet>
   );

@@ -6,13 +6,13 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-
 import queryKeys from '../../constants/queryKeys';
 import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
 import PLAN_API from '../../services/plan.service';
 import { CreatePlanDto } from '../../types/plan/CreatePlan.dto';
 import { DailyPlanDto } from '../../types/plan/DailyPlan.dto';
 import { MonthlyPlanDto } from '../../types/plan/MonthlyPlan.dto';
+import { PatchPlanDto } from '../../types/plan/PatchPlan.dto';
 
 export function useCalendarMonthlyPlans({
   coupleId,
@@ -93,6 +93,30 @@ export function useAddPlanMutation({
     mutationFn: (planInfo) => PLAN_API.postPlan(coupleId ?? '', planInfo),
     onSuccess: () => {
       queryClinet.invalidateQueries(queryKeys.calendarKeys.plan); // TODO key 좀더 효율적이게 바꾸기
+    },
+    ...options,
+  });
+}
+
+export function useModifyPlanMutation({
+  coupleId,
+  options,
+}: {
+  coupleId: string;
+  options?: UseMutationOptionsType<{ id: string; info: PatchPlanDto }>;
+}): UseMutationResult<
+  AxiosResponse,
+  AxiosError,
+  { id: string; info: PatchPlanDto },
+  unknown
+> {
+  const queryClinet = useQueryClient();
+
+  return useMutation({
+    mutationFn: (planInfo: { id: string; info: PatchPlanDto }) =>
+      PLAN_API.patchPlan(coupleId, planInfo.id, planInfo.info),
+    onSuccess: () => {
+      queryClinet.invalidateQueries(queryKeys.calendarKeys.plan);
     },
     ...options,
   });
