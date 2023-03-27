@@ -16,7 +16,7 @@ const PLAN_API = {
   patchPlan: (coupleId: string, planId: string, data: PatchPlanDto) =>
     fetcher
       .create()
-      .post<DailyPlanDto>(`couples/${coupleId}/plans/${planId}`, data),
+      .patch<DailyPlanDto>(`couples/${coupleId}/plans/${planId}`, data),
   deletePlan: (coupleId: string, planId: string) =>
     fetcher.create().delete(`couples/${coupleId}/plans/${planId}`),
 };
