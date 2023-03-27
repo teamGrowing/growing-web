@@ -5,10 +5,16 @@ import FullCalendar from '@fullcalendar/react';
 import daygrid from '@fullcalendar/daygrid';
 import timegrid from '@fullcalendar/timegrid';
 import interaction from '@fullcalendar/interaction';
+import { EventDropArg } from '@fullcalendar/core';
 import CalendarTitle from '../../components/pages/calendar/CalendarTitle';
-import { useCalendarMonthlyPlans } from '../../hooks/queries/calendar.queries';
+import {
+  useCalendarMonthlyPlans,
+  useModifyPlanMutation,
+} from '../../hooks/queries/calendar.queries';
 import userStore from '../../stores/UserStore';
 import TodoArea from '../../components/pages/calendar/TodoArea';
+import useToast from '../../hooks/common/useToast';
+import { MENT_CALENDAR } from '../../constants/ments';
 
 const TodayBtn = styled.button`
   display: flex;
@@ -39,6 +45,7 @@ const CalenderStyleWrapper = styled.div<{ selectedDate?: string }>`
   --fc-today-bg-color: ${({ theme, selectedDate }) => {
     return dayjs().isSame(selectedDate, 'D') ? theme.color.purple50 : 'none';
   }};
+  --fc-highlight-color: ${({ theme }) => theme.color.gray100};
 
   .fc-media-screen {
     height: 480px;
@@ -72,14 +79,6 @@ const CalenderStyleWrapper = styled.div<{ selectedDate?: string }>`
     height: 60px;
   }
 
-  .fc-event-title-container {
-    border-radius: 10px;
-    background: linear-gradient(
-      130.11deg,
-      rgba(252, 227, 138, 0.4) 7.3%,
-      rgba(243, 129, 129, 0.4) 100%
-    );
-  }
   .fc-event-title {
     width: 100%;
     padding: 2px 5px;
@@ -88,6 +87,19 @@ const CalenderStyleWrapper = styled.div<{ selectedDate?: string }>`
     text-overflow: ellipsis;
     color: black;
     font-size: 12px;
+    font-weight: 500;
+    border-radius: 10px;
+    background: linear-gradient(
+      130.11deg,
+      rgba(252, 227, 138, 0.4) 7.3%,
+      rgba(243, 129, 129, 0.4) 100%
+    );
+  }
+  .fc-daygrid-event-dot {
+    display: none;
+  }
+  .fc-event-time {
+    display: none;
   }
 
   td[data-date='${(props) => props.selectedDate}'] {
@@ -99,12 +111,33 @@ function CalendarPage() {
   const calenderRef = useRef<FullCalendar | null>(null);
   const [calInfo, setCalInfo] = useState(dayjs());
   const [selectedDate, setSelectedDate] = useState(dayjs());
+  const { addToast } = useToast();
+
+  const { mutate: modifyPlanMutate } = useModifyPlanMutation({
+    coupleId: userStore.user?.coupleId!,
+  });
 
   const { data: monthlyPlans } = useCalendarMonthlyPlans({
     coupleId: userStore.user?.coupleId!,
     year: calInfo.format('YYYY'),
     month: calInfo.format('MM'),
   });
+
+  const modifyPlan = (info: EventDropArg) => {
+    modifyPlanMutate(
+      {
+        // eslint-disable-next-line no-underscore-dangle
+        id: info.event._def.publicId,
+        info: {
+          startAt: info.event.start?.toISOString(),
+          endAt: info.event.start?.toISOString(),
+        },
+      },
+      {
+        onSuccess: () => addToast(MENT_CALENDAR.PLAN_MODIFY_SUCCESS),
+      }
+    );
+  };
 
   return (
     <div className="page-container with-navbar">
@@ -141,11 +174,13 @@ function CalendarPage() {
             return {
               id: p.id,
               title: p.title,
-              start: dayjs(new Date(p.startAt)).format('YYYY-MM-DD'),
-              end: dayjs(new Date(p.endAt)).format('YYYY-MM-DD'),
+              start: p.startAt,
+              end: p.endAt,
             };
           })}
           dateClick={(arg) => setSelectedDate(dayjs(arg.date))}
+          editable
+          eventDrop={(info) => modifyPlan(info)}
         />
       </CalenderStyleWrapper>
       <TodoArea date={selectedDate} />
