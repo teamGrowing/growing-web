@@ -20,6 +20,7 @@ const queryClient = new QueryClient({
       suspense: true,
       useErrorBoundary: true,
       staleTime: 1000 * 20, //  default to 20 seconds
+      refetchOnWindowFocus: false,
     },
     mutations: {
       useErrorBoundary: true,

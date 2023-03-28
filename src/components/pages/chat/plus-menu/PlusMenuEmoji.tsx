@@ -56,6 +56,9 @@ function PlusMenuEmoji({ createChat }: InputChatProps) {
 
   const { data: emojiPacks } = useEmojiData({
     userId: userStore.user?.id ?? '',
+    options: {
+      suspense: false,
+    },
   });
 
   const handleClick = (idx: number) => {
