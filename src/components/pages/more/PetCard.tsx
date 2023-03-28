@@ -53,7 +53,9 @@ function PetCard({ petInfo, onClick }: PetCardProps) {
   };
   return (
     <Card onClick={clickHandler}>
-      <Name className="text-gradient400">{petInfo.name}</Name>
+      <Name className="text-gradient400">
+        {petInfo.name.length ? petInfo.name : '그로잉펫'}
+      </Name>
       <Image petImg={petInfo.imageUrl} />
     </Card>
   );
