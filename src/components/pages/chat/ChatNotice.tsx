@@ -16,7 +16,7 @@ const FoldenContainer = styled.div`
   z-index: 1;
 
   position: absolute;
-  top: calc(65px + constants(safe-area-inset-top));
+  top: calc(65px + constant(safe-area-inset-top));
   top: calc(65px + env(safe-area-inset-top));
   right: 16px;
 
@@ -36,7 +36,7 @@ const Container = styled.div`
   z-index: 1;
 
   position: fixed;
-  top: calc(48px + constants(safe-area-inset-top));
+  top: calc(48px + constant(safe-area-inset-top));
   top: calc(48px + env(safe-area-inset-top));
   left: 50%;
   transform: translateX(-50%);

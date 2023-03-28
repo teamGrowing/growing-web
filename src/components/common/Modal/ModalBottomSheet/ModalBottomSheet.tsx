@@ -30,7 +30,7 @@ const Wrapper = styled.div`
   align-items: center;
   padding: 14px 24px 0 24px;
 
-  padding-bottom: constants(safe-area-inset-bottom);
+  padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 
   background-color: ${({ theme }) => theme.color.gray600};

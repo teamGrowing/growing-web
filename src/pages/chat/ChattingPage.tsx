@@ -15,8 +15,12 @@ import ChatNotice from '../../components/pages/chat/ChatNotice';
 const ChattingPageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  height: calc(100vh - 24px);
 
   background-color: ${({ theme }) => theme.color.gray50};
+
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 `;
 
 const Chats = styled.section`
@@ -26,6 +30,8 @@ const Chats = styled.section`
   flex-direction: column;
 
   padding: 0 16px 8px;
+  padding-bottom: calc(24px + constant(safe-area-inset-bottom));
+  padding-bottom: calc(24px + env(safe-area-inset-bottom));
 
   height: 100%;
 

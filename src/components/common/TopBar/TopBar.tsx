@@ -29,9 +29,10 @@ const Container = styled.header<{ mode: TopBarMode; border: boolean }>`
 
   width: 100%;
   max-width: 780px;
-  height: calc(constants(safe-area-inset-top) + var(--topbar-height));
+  height: calc(constant(safe-area-inset-top) + var(--topbar-height));
   height: calc(env(safe-area-inset-top) + var(--topbar-height));
   padding: 0 4px;
+  padding-top: calc(constant(safe-area-inset-top));
   padding-top: calc(env(safe-area-inset-top));
 
   border-bottom: ${(props) =>

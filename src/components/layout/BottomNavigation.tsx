@@ -18,7 +18,7 @@ const NavItems = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 6px 16px 0;
-  padding-bottom: constants(safe-area-inset-bottom);
+  padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
   isolation: isolate;
 

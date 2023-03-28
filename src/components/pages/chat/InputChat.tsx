@@ -12,6 +12,12 @@ import PlusMenuGallery from './plus-menu/PlusMenuGallery';
 const MIN_TEXTAREA_HEIGHT = 24;
 
 const Container = styled.div`
+  position: fixed;
+  bottom: 0;
+
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+
   width: 100%;
   max-width: 780px;
 
@@ -63,7 +69,7 @@ const TextareaWrapper = styled.div`
 
 const StyledTextarea = styled.textarea`
   width: 100%;
-  min-height: calc(${MIN_TEXTAREA_HEIGHT} + constants(env-safe-inset-bottom));
+  min-height: calc(${MIN_TEXTAREA_HEIGHT} + constant(env-safe-inset-bottom));
   min-height: calc(${MIN_TEXTAREA_HEIGHT} + env(env-safe-inset-bottom));
   resize: none;
 

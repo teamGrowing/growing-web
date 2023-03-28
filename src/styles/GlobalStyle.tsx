@@ -4,6 +4,8 @@ const GlobalStyle = createGlobalStyle`
 :root {
   --navbar-height: 52px;
   --topbar-height: 48px;
+  --min-chat-textarea-height: calc(constant(safe-area-inset-bottom) + 24px);
+  --min-chat-textarea-height: calc(env(safe-area-inset-bottom) + 24px);
 }
 html,
 body {
