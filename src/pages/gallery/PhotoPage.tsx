@@ -10,7 +10,7 @@ import GalleryTitle from '../../components/pages/gallery/GalleryTitle';
 import {
   useCreatePhotosMutation,
   useDeletePhotosMutation,
-  useGalleryList,
+  useInfiniteGalleryList,
 } from '../../hooks/queries/gallery.queries';
 import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
@@ -48,7 +48,7 @@ function PhotoPage() {
   const [onModal, setOnModal] = useState(false);
 
   const coupleId = store.userStore.user?.coupleId ?? '';
-  const { data: photos } = useGalleryList({ coupleId });
+  const { data: photos, fetchNextPage } = useInfiniteGalleryList({ coupleId });
   const { mutateAsync: upLoadPhotosMutate } = useCreatePhotosMutation({
     coupleId,
   });
@@ -118,7 +118,11 @@ function PhotoPage() {
           }}
         />
         <PaddingContainer className="hidden-scrollbar">
-          <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
+          <PhotoContainer
+            photoObjects={photos?.pages.flatMap((res) => res) ?? []}
+            type="UPLOADED"
+            fetchNextPage={fetchNextPage}
+          />
         </PaddingContainer>
         <FloatingButton onUpLoad={upLoadPhotos} />
         {onModal && (

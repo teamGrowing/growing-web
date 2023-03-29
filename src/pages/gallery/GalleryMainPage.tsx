@@ -9,7 +9,7 @@ import GalleryTitle from '../../components/pages/gallery/GalleryTitle';
 import Icon from '../../components/common/Icon/Icon';
 import {
   useCreatePhotosMutation,
-  useGalleryList,
+  useInfiniteGalleryList,
 } from '../../hooks/queries/gallery.queries';
 import { useAlbumsList } from '../../hooks/queries/album.queries';
 import store from '../../stores/RootStore';
@@ -34,7 +34,7 @@ function GalleryMainPage() {
   const touchPositionY = useRef<number | null>(null);
 
   const coupleId = store.userStore.user?.coupleId ?? '';
-  const { data: photos } = useGalleryList({ coupleId });
+  const { data: photos } = useInfiniteGalleryList({ coupleId });
   const { data: albums } = useAlbumsList({ coupleId });
   const { mutate: upLoadPhotos } = useCreatePhotosMutation({ coupleId });
 
@@ -73,7 +73,9 @@ function GalleryMainPage() {
       />
       <GalleryTitle
         title="PHOTO"
-        rightNode={(photos ?? []).length > 0 && <Icon icon="IconCheck" />}
+        rightNode={
+          (photos?.pages[0] ?? []).length > 0 && <Icon icon="IconCheck" />
+        }
         onRightClick={() =>
           navigate('photo', { state: { selectingAvailable: true } })
         }
@@ -89,7 +91,10 @@ function GalleryMainPage() {
             navigate('photo');
         }}
       >
-        <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
+        <PhotoContainer
+          photoObjects={photos?.pages.flatMap((res) => res) ?? []}
+          type="UPLOADED"
+        />
       </FixedContainer>
       <FloatingButton onUpLoad={upLoadHandler} />
     </Container>

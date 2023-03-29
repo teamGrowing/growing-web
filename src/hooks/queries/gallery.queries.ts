@@ -5,10 +5,17 @@ import {
   UseMutationOptions,
   UseMutationResult,
   useQueryClient,
+  useInfiniteQuery,
 } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import {
+  UseInfiniteQueryOptionsType,
+  UseMutationOptionsType,
+  UseQueryOptionsType,
+} from '../../services/index';
+import { PHOTO_LIMIT } from '../../constants/constants';
 import queryKeys from '../../constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
+
 import {
   GALLERY_API,
   GALLERY_COMMENT_API,
@@ -35,6 +42,36 @@ export function useGalleryList({
       ...options,
     }
   );
+}
+
+export function useInfiniteGalleryList({
+  coupleId,
+  storeCode,
+  options,
+}: {
+  coupleId: string;
+  storeCode?: QueryKey[];
+  options?: Omit<
+    UseInfiniteQueryOptionsType<PhotoLineDto[]>,
+    'queryKey' | 'queryFn'
+  >;
+}) {
+  return useInfiniteQuery({
+    queryKey: [...queryKeys.galleryKeys.list(), ...(storeCode ?? [])],
+    queryFn: ({ pageParam = 0 }) => {
+      return GALLERY_API.getPhotos(coupleId, {
+        base: pageParam,
+        limit: PHOTO_LIMIT,
+      });
+    },
+    getNextPageParam: (lastPages, allPages) =>
+      lastPages.data.length === 0 ? undefined : allPages.length * PHOTO_LIMIT,
+    select: (data) => ({
+      pages: data.pages.map((res) => res.data),
+      pageParams: data.pageParams,
+    }),
+    ...options,
+  });
 }
 
 export function useGalleryDetail({
