@@ -102,7 +102,6 @@ export function usePetPlayMutation({
   });
 }
 
-
 export function useGraduatedPets({
   coupleId,
   storeCode,
@@ -113,7 +112,7 @@ export function useGraduatedPets({
   options?: UseQueryOptionsType<PostPetLineDto[]>;
 }) {
   return useQuery(
-    [...queryKeys.petKeys.all, ...(storeCode ?? [])],
+    [...queryKeys.petKeys.list, ...(storeCode ?? [])],
     () => PET_API.getGraduatedPets(coupleId),
     {
       select: ({ data }) => data,
@@ -122,11 +121,31 @@ export function useGraduatedPets({
     }
   );
 }
-
 export function useGraduatedPetDetail({
   coupleId,
   petId,
   storeCode,
+  options,
+}: {
+  coupleId: string;
+  petId: string;
+  storeCode?: QueryKey[];
+  options?: UseQueryOptionsType<PostPetDto>;
+}) {
+  return useQuery(
+    [...queryKeys.petKeys.byId(petId), ...(storeCode ?? [])],
+    () => PET_API.getGraduatedPetDetail(coupleId, petId),
+    {
+      select: ({ data }) => data,
+      suspense: true,
+      ...options,
+    }
+  );
+}
+
+export function useGradutePet({
+  coupleId,
+  petId,
   options,
 }: {
   coupleId: string;
@@ -142,20 +161,4 @@ export function useGraduatedPetDetail({
     mutationFn: () => PET_API.postGraduate(coupleId, petId),
     ...options,
   });
-
-export function useGradutePet({
-  coupleId,
-  petId,
-  storeCode?: QueryKey[];
-  options?: UseQueryOptionsType<PostPetDto>;
-}) {
-  return useQuery(
-    [...queryKeys.petKeys.all, ...(storeCode ?? [])],
-    () => PET_API.getGraduatedPetDetail(coupleId, petId),
-    {
-      select: ({ data }) => data,
-      suspense: true,
-      ...options,
-    }
-  );
 }

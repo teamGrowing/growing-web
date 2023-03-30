@@ -23,6 +23,8 @@ const coupleKeys = {
 
 const petKeys = {
   all: [Domain.pet] as unknown as QueryKey[],
+  list: [Domain.pet, 'list'] as unknown as QueryKey[],
+  byId: (id: string) => [...petKeys.all, id] as unknown as QueryKey[],
 };
 
 const chatKeys = {

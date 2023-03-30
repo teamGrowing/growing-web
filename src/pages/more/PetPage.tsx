@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -17,6 +17,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 100%;
   height: 100%;
+  overflow-y: scroll;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -89,7 +90,10 @@ function PetPage() {
         </EmptyWrapper>
       )}
       {graduatedPets && graduatedPets?.length > 0 && (
-        <Wrapper>
+        <Wrapper className="hidden-scrollbar">
+          {graduatedPets.map((pet) => (
+            <PetCard key={pet.id} petInfo={pet} onClick={clickCardHandler} />
+          ))}
           {graduatedPets.map((pet) => (
             <PetCard key={pet.id} petInfo={pet} onClick={clickCardHandler} />
           ))}

@@ -34,6 +34,9 @@ function Emojis({ createChat, id }: InputChatProps) {
   const { data: emojis } = useEmojiDetailData({
     userId: userStore.user?.id ?? '',
     emojiId: id,
+    options: {
+      suspense: false,
+    },
   });
 
   const handleClick = (emojiId: string) => {

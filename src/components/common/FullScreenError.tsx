@@ -81,14 +81,14 @@ export default function FullScreenError({
       <TopBar
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => {
-          navigation('-1');
+          navigation('/', { replace: true }); // TODO
           resetErrorBoundary();
         }}
         border={false}
       />
       <Lottie
         animationData={errorAnimation}
-        style={{ width: '50vw', marginTop: '-90px' }}
+        style={{ width: '200px', marginTop: '-90px' }}
         loop={false}
       />
       <TextContainer>
@@ -97,7 +97,7 @@ export default function FullScreenError({
       </TextContainer>
       <Button
         onClick={() => {
-          navigation('/');
+          navigation('/', { replace: true });
           resetErrorBoundary();
         }}
       >

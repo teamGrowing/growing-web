@@ -8,19 +8,19 @@ import Profile from '../../components/pages/more/Profile';
 import SideButton from '../../components/pages/more/SideButton';
 import WhiteContainer from '../../components/pages/more/WhiteContainer';
 import store from '../../stores/RootStore';
-import PurpleBackground from '../../styles/common/PurpleBackground';
 import preventScroll from '../../util/utils';
 import defaultProfile from '../../assets/image/DefaultProfile.png';
 
 const Container = styled.div`
   position: relative;
+  background-color: ${({ theme }) => theme.color.purple50};
 `;
 const ScrollArea = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(var(--vh, 1vh) * 100 - 81px);
+  height: calc(100vh - 81px);
   overflow-y: scroll;
 `;
 
@@ -89,7 +89,7 @@ function MoreMainPage() {
 
   return (
     <Container className="page-container with-navbar">
-      <PurpleBackground />
+      {/* <PurpleBackground /> */}
       <IconWrapper>
         <Icon icon="IconLogo" themeColor="white" size={211} />
       </IconWrapper>
