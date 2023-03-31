@@ -133,41 +133,41 @@ function AlbumDetailPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <Container className="page-container with-topbar with-navbar hidden-scrollbar">
-        <TopBar
-          title={location.state.title}
-          subTitle={location.state.subTitle}
-          leftNode={<Icon icon="IconArrowLeft" />}
-          onLeftClick={() => navigate('/gallery/album')}
-          rightMainNode={
-            selectingAvailable ? (
-              <Option>취소</Option>
-            ) : (
-              <Icon icon="IconPencil" />
-            )
-          }
-          onRightMainClick={
-            selectingAvailable ? clearList : () => setOnAlbumModal(true)
-          }
-          rightSubNode={
-            selectingAvailable ? (
-              <Icon icon="IconTrash" />
-            ) : (
-              <Icon icon="IconCheck" />
-            )
-          }
-          onRightSubClick={
-            selectingAvailable
-              ? () => {
-                  if (selectedPhotos.current.length <= 0) {
-                    addToast('삭제할 파일을 선택해 주세요.');
-                    return;
-                  }
-                  setOnModal(true);
+      <TopBar
+        title={location.state.title}
+        subTitle={location.state.subTitle}
+        leftNode={<Icon icon="IconArrowLeft" />}
+        onLeftClick={() => navigate('/gallery/album')}
+        rightMainNode={
+          selectingAvailable ? (
+            <Option>취소</Option>
+          ) : (
+            <Icon icon="IconPencil" />
+          )
+        }
+        onRightMainClick={
+          selectingAvailable ? clearList : () => setOnAlbumModal(true)
+        }
+        rightSubNode={
+          selectingAvailable ? (
+            <Icon icon="IconTrash" />
+          ) : (
+            <Icon icon="IconCheck" />
+          )
+        }
+        onRightSubClick={
+          selectingAvailable
+            ? () => {
+                if (selectedPhotos.current.length <= 0) {
+                  addToast('삭제할 파일을 선택해 주세요.');
+                  return;
                 }
-              : clickCheck
-          }
-        />
+                setOnModal(true);
+              }
+            : clickCheck
+        }
+      />
+      <Container className="page-container with-topbar with-navbar hidden-scrollbar">
         <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
         <FloatingButton onUpLoad={upLoadHandler} />
         {onModal && (

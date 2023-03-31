@@ -15,6 +15,7 @@ import { PetDto } from '../../types/pet/Pet.dto';
 import Icon from '../../components/common/Icon/Icon';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Modal from '../../components/common/Modal/Modal';
+import Pet3DImg from '../../components/pages/home/Pet3D';
 import MENT_HOME from '../../constants/ments';
 import queryKeys from '../../constants/queryKeys';
 import foodAnimation from '../../assets/lottie/foodAnimation.json';
@@ -82,15 +83,15 @@ const PetContainer = styled.section`
 
   padding: 0 30px;
 `;
-const Pet = styled.img`
+const Pet = styled(Pet3DImg)`
   margin-bottom: 10px;
-  width: 200px;
-  height: 200px;
   z-index: 1;
 `;
 
 const Info = styled.section`
   position: relative;
+  margin-bottom: calc(constant(safe-area-inset-bottom) * -1);
+  margin-bottom: calc(env(safe-area-inset-bottom) * -1);
 
   width: 100%;
 `;
@@ -128,7 +129,7 @@ const Letter = styled.div`
   white-space: pre-wrap;
 `;
 const Wave = styled.img`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
 
@@ -152,38 +153,49 @@ export default function PetRaising() {
   const [gauge, setGauge] = useState<number>(0);
   const [onModal, setOnModal] = useState<boolean>(false);
   const [modalText, setModalText] = useState<string>('');
+  const [reactionUrl, setReactionUrl] = useState<string | null>(null);
 
   const { data: pet } = queryClient.getQueryData(
     queryKeys.petKeys.all
   ) as AxiosResponse<PetDto>;
 
-  const { mutate: feedPet } = usePetFeedMutation({
+  const { mutateAsync: feedPet } = usePetFeedMutation({
     coupleId: userStore.user?.coupleId,
     petId: userStore.petId,
     options: {
-      onSuccess() {
-        setModalText(MENT_HOME.PET_FEED_SUCCESS);
-        setOnModal(true);
-        /**
-         TODO: error
-        setModalText(MENT_HOME.PET_FEED_FAIL_NUMBER);
-        setModalText(MENT_HOME.PET_FEED_FAIL_TIME);
-         */
+      onSuccess(res) {
+        if (res.data.hungryGauge > pet.hungryGauge) {
+          heartsLottieRef.current?.goToAndPlay(1);
+          setReactionUrl(res.data.petImageUrl);
+          setTimeout(() => {
+            setModalText(MENT_HOME.PET_FEED_SUCCESS);
+            setOnModal(true);
+          }, 3000);
+        } else {
+          setModalText(MENT_HOME.PET_FEED_FAIL_TIME);
+          setOnModal(true);
+        }
+        // setModalText(MENT_HOME.PET_FEED_FAIL_NUMBER); TODO
       },
     },
   });
 
-  const { mutate: playPet } = usePetPlayMutation({
+  const { mutateAsync: playPet } = usePetPlayMutation({
     coupleId: userStore.user?.coupleId,
     petId: userStore.petId,
     options: {
-      onSuccess() {
-        setModalText(MENT_HOME.PET_PLAY_SUCCESS);
-        setOnModal(true);
-        /**
-         TODO: 굳이 필요없을수도
-        setModalText(MENT_HOME.PET_PLAY_FAIL);
-         */
+      onSuccess(res) {
+        if (res.data.attentionGauge > pet.attentionGauge) {
+          heartsLottieRef.current?.goToAndPlay(1);
+          setReactionUrl(res.data.petImageUrl);
+          setTimeout(() => {
+            setModalText(MENT_HOME.PET_PLAY_SUCCESS);
+            setOnModal(true);
+          }, 2000);
+        } else {
+          setModalText(MENT_HOME.PET_PLAY_FAIL);
+          setOnModal(true);
+        }
       },
     },
   });
@@ -199,6 +211,10 @@ export default function PetRaising() {
   }, [gauge]);
 
   useEffect(() => {
+    setReactionUrl(pet.imageUrl);
+  }, [pet]);
+
+  useEffect(() => {
     foodLottieRef.current?.pause();
     heartsLottieRef.current?.pause();
     preventScroll();
@@ -207,6 +223,7 @@ export default function PetRaising() {
   return (
     <PetFeedContainer className="page-container with-topbar">
       <TopBar
+        mode="PURPLE50"
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigation(-1)}
         border={false}
@@ -242,7 +259,8 @@ export default function PetRaising() {
         )}
 
         <Pet
-          src={pet.imageUrl}
+          url={reactionUrl ?? pet.imageUrl}
+          size={300}
           onClick={() => {
             const increaseMount = petOption === 'feed' ? 100 / 4 : 100 / 5;
             setGauge(gauge + increaseMount);
@@ -259,8 +277,8 @@ export default function PetRaising() {
           width: '80px',
           position: 'absolute',
           top: '50%',
-          transform: 'translateY(-140px)',
-          right: '50px',
+          left: 'calc(50% + 110px)',
+          transform: 'translate3d(-50%, -140px, 0)',
         }}
         loop={false}
       />

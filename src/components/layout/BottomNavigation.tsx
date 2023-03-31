@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-
 import NavItem from './NavItem';
 import Icon from '../common/Icon/Icon';
 
@@ -18,12 +17,13 @@ const NavItems = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 16px 20px;
+  padding: 6px 16px 0;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
   isolation: isolate;
 
   position: absolute;
   width: 100%;
-  height: 81px;
   left: -1px;
   bottom: 0px;
 
@@ -45,7 +45,7 @@ function BottomNavigation() {
           <Icon icon="IconPhotoHeart" />
           <Label>앨범</Label>
         </NavItem>
-        <NavItem linkTo="/chatting">
+        <NavItem linkTo="/chat">
           <Icon icon="IconChat" />
           <Label>채팅</Label>
         </NavItem>

@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { observer } from 'mobx-react';
+import { useQueryClient } from '@tanstack/react-query';
+import store from '../../../stores/RootStore';
+import { useGradutePet } from '../../../hooks/queries/pet.queries';
 import PET_GAUGE_MAX from '../../../constants/constants';
 import { PetDto } from '../../../types/pet/Pet.dto';
 import { ReactComponent as IconBowl } from '../../../assets/icons/home/IconBowl.svg';
 import { ReactComponent as IconSmile } from '../../../assets/icons/home/IconSmile.svg';
 import { ReactComponent as IconLetter } from '../../../assets/icons/home/IconLetter.svg';
+import queryKeys from '../../../constants/queryKeys';
 
 const Wrapper = styled.div`
   flex: 1;
@@ -58,14 +64,38 @@ type PetGaugeProps = Pick<
   'hungryGauge' | 'attentionGauge' | 'loveGauge'
 >;
 
-// TODO: 3개 다 100이 되면 졸업시키기
 function PetGauge({ hungryGauge, attentionGauge, loveGauge }: PetGaugeProps) {
+  const navigation = useNavigate();
+  const { userStore } = store;
+  const queryClient = useQueryClient();
+
+  const { mutateAsync: graduatePet } = useGradutePet({
+    coupleId: userStore.user?.coupleId ?? '',
+    petId: userStore.petId ?? '',
+    options: {
+      onSuccess() {
+        navigation('/pet/graduate', { replace: true });
+        queryClient.invalidateQueries(queryKeys.petKeys.list);
+      },
+    },
+  });
+
   function getGaugeToPercent(n: number | undefined) {
     if (!n) {
       return 0;
     }
     return (n / PET_GAUGE_MAX) * 100;
   }
+
+  useEffect(() => {
+    if (
+      hungryGauge === PET_GAUGE_MAX &&
+      attentionGauge === PET_GAUGE_MAX &&
+      loveGauge === PET_GAUGE_MAX
+    ) {
+      graduatePet({});
+    }
+  }, [hungryGauge, attentionGauge, loveGauge]);
 
   return (
     <Wrapper>
@@ -95,4 +125,4 @@ function PetGauge({ hungryGauge, attentionGauge, loveGauge }: PetGaugeProps) {
   );
 }
 
-export default PetGauge;
+export default observer(PetGauge);

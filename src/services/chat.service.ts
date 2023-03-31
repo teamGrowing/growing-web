@@ -1,9 +1,11 @@
 import fetcher from '.';
 import { ChatPhotoDto } from '../types/chat/ChatPhoto.dto';
 import { ChatPhotoLineDto } from '../types/chat/ChatPhotoLine.dto';
-import { ChattingDto } from '../types/chat/Chatting.dto';
+import ChatRequestDto from '../types/chat/ChatRequest.dto';
+import { ParentChildChattingDto } from '../types/chat/Chatting.dto';
 import { ChattingArchivedDto } from '../types/chat/ChattingArchived.dto';
-import { CreatePhotoDto } from '../types/chat/CreatePhoto.dto';
+import { CreatePhotoRequestDto } from '../types/chat/CreatePhotoRequest.dto';
+import { CreatePhotoResponseDto } from '../types/chat/CreatePhotoResponse.dto';
 import { CreateVoiceMsgDto } from '../types/chat/CreateVoiceMsg.dto';
 import { GetDownloadUrlResponseDto } from '../types/chat/GetDownloadUrlResponse.dto';
 import { GetUploadUrlRequestDto } from '../types/chat/GetUploadUrlRequest.dto';
@@ -11,12 +13,17 @@ import { GetUploadUrlResponseDto } from '../types/chat/GetUploadUrlResponse.dto'
 import { Notice } from '../types/chat/Notice';
 import { NoticeIsFolden } from '../types/chat/NoticeIsFolden';
 import { AnswerDto } from '../types/chat/questions/Answer.dto';
+import { IsToDoQuestion } from '../types/chat/questions/IsToDoQuestion';
 import { QuestionsAndAnswers } from '../types/chat/questions/QuestionAndAnswers';
 import { VoiceMSGDto } from '../types/chat/VoiceMSG.dto';
 
 export const CHAT_API = {
-  getChats: (coupleId: string) =>
-    fetcher.create().get<ChattingDto[]>(`couples/${coupleId}/chattings`),
+  getChats: (coupleId: string, params: ChatRequestDto) =>
+    fetcher
+      .create()
+      .get<ParentChildChattingDto[]>(`couples/${coupleId}/chattings`, {
+        params,
+      }),
   deleteOurChat: (coupleId: string, chattingId: string) =>
     fetcher
       .create()
@@ -32,18 +39,18 @@ export const CHAT_NOTICE_API = {
     fetcher
       .create()
       .get<Notice | null>(`couples/${coupleId}/chattings/notices`),
-  postNotice: (coupleId: string, noticeId: string, data: Notice) =>
+  postNotice: (coupleId: string, chattingId: string) =>
+    fetcher.create().post(`couples/${coupleId}/chattings/${chattingId}/notify`),
+  postNoticeFold: (coupleId: string, noticeId: string) =>
     fetcher
       .create()
-      .post(`couples/${coupleId}/chattings/${noticeId}/notify`, data),
-  postNoticeFold: (coupleId: string, noticeId: string, data: NoticeIsFolden) =>
-    fetcher
-      .create()
-      .post(`couples/${coupleId}/chattings/${noticeId}/fold`, data),
+      .post<NoticeIsFolden>(
+        `couples/${coupleId}/chattings/notices/${noticeId}/fold`
+      ),
   postNoticeInvisible: (coupleId: string, noticeId: string) =>
     fetcher
       .create()
-      .post(`couples/${coupleId}/chattings/${noticeId}/invisible`),
+      .post(`couples/${coupleId}/chattings/notices/${noticeId}/invisible`),
 };
 
 export const CHAT_ARCHIVED_API = {
@@ -55,14 +62,12 @@ export const CHAT_ARCHIVED_API = {
     fetcher
       .create()
       .post<ChattingArchivedDto>(
-        `couples/${coupleId}/chatting/${chattingId}/archive`
+        `couples/${coupleId}/chattings/${chattingId}/archive`
       ),
   deleteArchivedChat: (coupleId: string, chattingId: string) =>
     fetcher
       .create()
-      .delete<ChattingDto[]>(
-        `couples/${coupleId}/archived-chattings/${chattingId}`
-      ),
+      .delete(`couples/${coupleId}/archived-chattings/${chattingId}`),
 };
 
 export const CHAT_PHOTO_API = {
@@ -84,19 +89,20 @@ export const CHAT_PHOTO_API = {
       .post<GetDownloadUrlResponseDto>(
         `couples/${coupleId}/chattings/photos/${photoId}/get-download-url`
       ),
-  getUploadUrl: (
-    coupleId: string,
-    photoId: string,
-    data: GetUploadUrlRequestDto
-  ) =>
+  getUploadUrl: (coupleId: string, data: GetUploadUrlRequestDto) =>
     fetcher
       .create()
       .post<GetUploadUrlResponseDto>(
-        `couples/${coupleId}/chattings/photos/${photoId}/get-upload-url`,
+        `couples/${coupleId}/chattings/photos/get-upload-url`,
         data
       ),
-  createPhoto: (coupleId: string, data: CreatePhotoDto) =>
-    fetcher.create().post(`couples/${coupleId}/chattings/photos/create`, data),
+  createPhoto: (coupleId: string, data: CreatePhotoRequestDto) =>
+    fetcher
+      .create()
+      .post<CreatePhotoResponseDto>(
+        `couples/${coupleId}/chattings/photos/create`,
+        data
+      ),
 };
 
 export const CHAT_VOICE_API = {
@@ -128,7 +134,11 @@ export const CHAT_QNA_API = {
   getQuestions: (coupleId: string) =>
     fetcher
       .create()
-      .get<QuestionsAndAnswers[]>(`couples/${coupleId}/questions`),
+      .get<QuestionsAndAnswers[]>(`couples/${coupleId}/questions?to-do=false`),
+  getHasToDoQuestions: (coupleId: string) =>
+    fetcher
+      .create()
+      .get<IsToDoQuestion>(`couples/${coupleId}/questions?to-do=true`),
   postQuestions: (coupleId: string, questionId: string, data: AnswerDto) =>
     fetcher
       .create()

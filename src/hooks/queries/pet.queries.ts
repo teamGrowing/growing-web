@@ -3,6 +3,7 @@ import {
   useQuery,
   useMutation,
   UseMutationResult,
+  UseMutationOptions,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from '../../constants/queryKeys';
@@ -51,7 +52,6 @@ export function usePetNameMutation({
   });
 }
 
-// TODO: type 수정
 export function usePetFeedMutation({
   coupleId,
   petId,
@@ -59,7 +59,12 @@ export function usePetFeedMutation({
 }: {
   coupleId: string | null | undefined;
   petId: string | null | undefined;
-  options?: UseMutationOptionsType<unknown>;
+  options?: UseMutationOptions<
+    AxiosResponse<PetReactionDto>,
+    AxiosError,
+    unknown,
+    unknown
+  >;
 }): UseMutationResult<
   AxiosResponse<PetReactionDto>,
   AxiosError,
@@ -72,7 +77,6 @@ export function usePetFeedMutation({
   });
 }
 
-// TODO: type 수정
 export function usePetPlayMutation({
   coupleId,
   petId,
@@ -80,7 +84,12 @@ export function usePetPlayMutation({
 }: {
   coupleId: string | null | undefined;
   petId: string | null | undefined;
-  options?: UseMutationOptionsType<unknown>;
+  options?: UseMutationOptions<
+    AxiosResponse<PetReactionDto>,
+    AxiosError,
+    unknown,
+    unknown
+  >;
 }): UseMutationResult<
   AxiosResponse<PetReactionDto>,
   AxiosError,
@@ -103,7 +112,7 @@ export function useGraduatedPets({
   options?: UseQueryOptionsType<PostPetLineDto[]>;
 }) {
   return useQuery(
-    [...queryKeys.petKeys.all, ...(storeCode ?? [])],
+    [...queryKeys.petKeys.list, ...(storeCode ?? [])],
     () => PET_API.getGraduatedPets(coupleId),
     {
       select: ({ data }) => data,
@@ -112,7 +121,6 @@ export function useGraduatedPets({
     }
   );
 }
-
 export function useGraduatedPetDetail({
   coupleId,
   petId,
@@ -125,7 +133,7 @@ export function useGraduatedPetDetail({
   options?: UseQueryOptionsType<PostPetDto>;
 }) {
   return useQuery(
-    [...queryKeys.petKeys.all, ...(storeCode ?? [])],
+    [...queryKeys.petKeys.byId(petId), ...(storeCode ?? [])],
     () => PET_API.getGraduatedPetDetail(coupleId, petId),
     {
       select: ({ data }) => data,
@@ -133,4 +141,24 @@ export function useGraduatedPetDetail({
       ...options,
     }
   );
+}
+
+export function useGradutePet({
+  coupleId,
+  petId,
+  options,
+}: {
+  coupleId: string;
+  petId: string;
+  options?: UseMutationOptions<
+    AxiosResponse<PetDto>,
+    AxiosError,
+    unknown,
+    unknown
+  >;
+}): UseMutationResult<AxiosResponse<PetDto>, AxiosError, unknown, unknown> {
+  return useMutation({
+    mutationFn: () => PET_API.postGraduate(coupleId, petId),
+    ...options,
+  });
 }

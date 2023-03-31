@@ -1,6 +1,7 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import ModalPortal from '../ModalPortal';
+import { fadeIn, fadeInUp } from '../../../../styles/common/keyframs';
 
 interface ModalBottomSheetProps {
   open: boolean;
@@ -9,14 +10,6 @@ interface ModalBottomSheetProps {
   onClose?: () => void;
 }
 
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -27,25 +20,20 @@ const Overlay = styled.div`
   animation: ${fadeIn} 0.3s ease-in;
   z-index: 11;
 `;
-const fadeInUp = keyframes`
-  from {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translateZ(0);
-  }
-`;
 const Wrapper = styled.div`
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 14px 24px 12px 24px;
+  padding: 14px 24px 0 24px;
+
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+
   background-color: ${({ theme }) => theme.color.gray600};
   box-shadow: 0px 0px 20px ${({ theme }) => theme.color.black}33;
   border-radius: 20px 20px 0px 0px;

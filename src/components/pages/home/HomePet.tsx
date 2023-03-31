@@ -6,6 +6,7 @@ import store from '../../../stores/RootStore';
 import Icon from '../../common/Icon/Icon';
 import PetRaisingMenu from './PetRaisingMenu';
 import PetGauge from './PetGauge';
+import Pet3DImg from './Pet3D';
 import { usePetData } from '../../../hooks/queries/pet.queries';
 
 const EMOJI_SIZE = 200;
@@ -74,6 +75,7 @@ const PetName = styled.div`
 
   width: max-content;
   max-width: calc(${EMOJI_SIZE}px - 30px);
+  min-height: 33px;
   padding: 5px 14px;
   background: linear-gradient(
     130.11deg,
@@ -107,10 +109,6 @@ const PetInfo = styled.div`
   align-items: center;
   gap: 10px;
 `;
-const PetImg = styled.img`
-  width: ${EMOJI_SIZE}px;
-  height: ${EMOJI_SIZE}px;
-`;
 
 function HomePet() {
   const navigation = useNavigate();
@@ -136,25 +134,27 @@ function HomePet() {
 
         <Row>
           <PetInfo>
-            <PetImg src={pet?.imageUrl} />
+            <Pet3DImg size={EMOJI_SIZE} url={pet?.imageUrl} />
 
             <PetLabel>
               <PetName>
                 <Pin />
-                {`${pet?.name}`}
+                {`${pet?.name ? pet.name : ''}`}
                 <Pin />
               </PetName>
-              <Icon
-                icon="IconPencil"
-                size={20}
-                style={{
-                  position: 'absolute',
-                  right: -30,
-                  top: '50%',
-                  transform: 'translateY(-50%)',
-                }}
-                onClick={() => navigation('/pet/naming')}
-              />
+              {!pet.name && (
+                <Icon
+                  icon="IconPencil"
+                  size={20}
+                  style={{
+                    position: 'absolute',
+                    right: -30,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                  }}
+                  onClick={() => navigation('/pet/naming')}
+                />
+              )}
             </PetLabel>
           </PetInfo>
 

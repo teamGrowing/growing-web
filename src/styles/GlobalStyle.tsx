@@ -2,8 +2,10 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 :root {
-  --vh: 100%;
-
+  --navbar-height: 52px;
+  --topbar-height: 48px;
+  --min-chat-textarea-height: calc(constant(safe-area-inset-bottom) + 24px);
+  --min-chat-textarea-height: calc(env(safe-area-inset-bottom) + 24px);
 }
 html,
 body {
@@ -13,7 +15,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  height: var(--vh);
 }
 *,
 *::before,
@@ -22,6 +23,16 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color:rgba(255,255,255,0);
+  /* Keyword values */
+  -webkit-touch-callout: default;
+  -webkit-touch-callout: none;
+  /* Global values */
+  -webkit-touch-callout: initial;
+  -webkit-touch-callout: inherit;
+  -webkit-touch-callout: unset;
 }
 ul,
 li {
@@ -41,6 +52,11 @@ button {
 input {
   border: none;
   outline: none;
+}
+textarea {
+  border: none;
+  outline: none;
+  resize: none;
 }
 .text-gradient300 {
   background: linear-gradient(130.11deg, #FCE38A 7.3%, #F38181 100%);
@@ -77,17 +93,27 @@ input {
 }
 /* page container 관련 */
 .page-container {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+
   width: 100%;
   max-width: 780px;
   margin: 0 auto;
   height: 100vh;
-  height: calc(var(--vh, 1vh) * 100);
+
+  padding-top: calc(constant(safe-area-inset-top) + 16px); // IOS 11.0 버전
+  padding-top: calc(env(safe-area-inset-top) + 16px); // IOS 11.0 이상
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
 }
 .page-container.with-navbar {
-  height: calc(var(--vh, 1vh) * 100 - 81px);
+  height: calc(100vh - 52px);
 }
 .page-container.with-topbar {
-  padding-top: 49px;
+  padding-top: calc(var(--topbar-height) + constant(safe-area-inset-top));
+  padding-top: calc(var(--topbar-height) + env(safe-area-inset-top));
 }
 
 
@@ -98,6 +124,28 @@ input {
   &::-webkit-scrollbar { /*Chrome */
     display: none;
   }
+}
+
+/* swiper theme */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  ::after {
+  font-size: 24px;
+  }
+}
+.swiper-pagination-fraction {
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 2px 6px;
+  width: max-content;
+
+  background-color: #00000070;
+  border-radius: 10px;
+
+  font-size: 12px;
+  color: white;
 }
 `;
 

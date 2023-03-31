@@ -1,6 +1,7 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import ModalPortal from './ModalPortal';
+import { fadeIn } from '../../../styles/common/keyframs';
 
 export interface ModalProps {
   onModal: boolean;
@@ -13,14 +14,6 @@ export interface ModalProps {
   onSubAction?: () => void;
 }
 
-const fadeIn = keyframes`
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-`;
 const Overlay = styled.div`
   position: fixed;
   top: 0;

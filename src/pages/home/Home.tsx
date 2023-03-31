@@ -8,7 +8,7 @@ import { useCoupleData } from '../../hooks/queries/couple.queries';
 import HomePet from '../../components/pages/home/HomePet';
 
 const HomeContainer = styled.div`
-  padding: 49px 16px 0 16px;
+  padding: 20px 0 0 0;
 
   display: flex;
   flex-direction: column;
@@ -76,7 +76,7 @@ const StyledName = styled.div`
 
 const Shop = styled.div`
   width: 36px;
-  height: 36px;
+  height: 20px;
   margin: 2px 0 8px 31px;
   padding: 6px;
   /* box-shadow: 3px 3px 10px #00000033; */

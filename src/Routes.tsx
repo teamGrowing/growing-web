@@ -18,6 +18,14 @@ import PetNamingPage from './pages/home/PetNamingPage';
 import PetFeedPage from './pages/home/PetRaisingPage';
 import AlbumPhotoDetailPage from './pages/gallery/AlbumPhotoDetailPage';
 import CalendarPage from './pages/calendar/CalendarPage';
+import PetGraduatePage from './pages/home/PetGraudatePage';
+import ChattingPage from './pages/chat/ChattingPage';
+import LongChattingPage from './pages/chat/LongChattingPage';
+import QuestionBoxPage from './pages/chat/QuestionBoxPage';
+import ChatNoticePage from './pages/chat/ChatNoticePage';
+import ChatArchivePage from './pages/chat/ChatArchivePage';
+import ChatPhotoBoxPage from './pages/chat/ChatPhotoBoxPage';
+import ChatPhotoDetailPage from './pages/chat/ChatPhotoDetailPage';
 
 function GrowingRoutes() {
   return (
@@ -31,6 +39,16 @@ function GrowingRoutes() {
         <Route path="/pet/naming" element={<PetNamingPage />} />
         <Route path="/pet/feed" element={<PetFeedPage />} />
         <Route path="/pet/play" element={<PetFeedPage />} />
+        <Route path="/pet/graduate" element={<PetGraduatePage />} />
+
+        {/* chat */}
+        <Route path="/chat" element={<ChattingPage />} />
+        <Route path="/chat/all" element={<LongChattingPage />} />
+        <Route path="/chat/notice" element={<ChatNoticePage />} />
+        <Route path="/chat/question-box" element={<QuestionBoxPage />} />
+        <Route path="/chat/archive" element={<ChatArchivePage />} />
+        <Route path="/chat/photo-box" element={<ChatPhotoBoxPage />} />
+        <Route path="/chat/photo-box/:id" element={<ChatPhotoDetailPage />} />
 
         {/* gallery */}
         <Route element={<Layout />}>

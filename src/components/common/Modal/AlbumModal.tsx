@@ -1,7 +1,8 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import { fadeIn } from '../../../styles/common/keyframs';
 import albumSchema, { AlbumFormValues } from '../../../types/InputSchema';
 import ModalPortal from './ModalPortal';
 
@@ -15,14 +16,6 @@ export interface AlbumModalProps {
   onSubAction?: () => void;
 }
 
-const fadeIn = keyframes`
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-`;
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -33,6 +26,8 @@ const Overlay = styled.div`
   animation: ${fadeIn} 0.3s ease-in;
 `;
 const Wrapper = styled.div`
+  z-index: 10;
+
   position: fixed;
   left: 50%;
   top: 50%;
@@ -51,6 +46,7 @@ const Wrapper = styled.div`
 const Main = styled.div`
   width: 100%;
   padding: 17px 24px 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -99,6 +95,8 @@ const InputRow = styled.div`
   }
 `;
 const StyledInput = styled.input`
+  width: 100%;
+
   padding: 4px 10px;
   height: 25px;
   background: ${({ theme }) => theme.color.white};
@@ -106,9 +104,10 @@ const StyledInput = styled.input`
   opacity: 0.8;
   font-size: 13px;
   color: ${({ theme }) => theme.color.gray900};
-  flex: 1;
 `;
 const InputWithError = styled.div`
+  flex: 1;
+
   display: flex;
   flex-direction: column;
   gap: 4px;

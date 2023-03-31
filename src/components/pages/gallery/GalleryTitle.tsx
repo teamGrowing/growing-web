@@ -4,51 +4,28 @@ import Icon from '../../common/Icon/Icon';
 
 const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 0px;
-  isolation: isolate;
-
-  width: 100%;
-  height: 43px;
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-`;
-const TitleOption = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   align-items: center;
-  padding: 8px 24px;
+  padding: 8px 16px;
   gap: 10px;
 
   width: 100%;
-  height: 43px;
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
   z-index: 0;
 `;
 
 const Left = styled.div`
+  height: 100%;
+
   display: flex;
-  flex-direction: row;
   align-items: center;
-  padding: 0px;
   gap: 4px;
 
-  height: 27px;
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  flex: 1;
 `;
+
 const Right = styled.div`
+  height: 100%;
+
   display: flex;
-  flex-direction: row;
   align-items: center;
   padding: 0px;
   gap: 10px;
@@ -61,43 +38,13 @@ const Right = styled.div`
 `;
 
 const Title = styled.div`
-  width: 79px;
-  height: 27px;
-
   font-family: 'PretendardMedium';
   font-size: 23px;
-  line-height: 27px;
-  display: flex;
-  align-items: center;
 
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  flex: 1;
 `;
 
 const Div = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const BackBtn = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding-bottom: 2px;
-
-  position: absolute;
-  width: 43px;
-  height: 43px;
-  left: 0px;
-  top: 0px;
-`;
-
-const Block = styled.div`
-  width: 12px;
   height: 100%;
 `;
 
@@ -126,22 +73,15 @@ function GalleryTitle({
 }: GalleryTitleProps) {
   return (
     <Container>
-      <TitleOption>
-        {backBtn && (
-          <BackBtn>
-            <Icon icon="IconArrowLeft" onClick={onBackBtnClick} />
-          </BackBtn>
-        )}
-        <Left>
-          {backBtn && <Block />}
-          <Title className="text-gradient400">{title}</Title>
-          {plusBtn && <Icon icon="IconPlus" onClick={onPlusBtnClick} />}
-        </Left>
-        <Right>
-          {rightSubNode && <Div onClick={onRightSubClick}>{rightSubNode}</Div>}
-          {rightNode && <Div onClick={onRightClick}>{rightNode}</Div>}
-        </Right>
-      </TitleOption>
+      {backBtn && <Icon icon="IconArrowLeft" onClick={onBackBtnClick} />}
+      <Left>
+        <Title className="text-gradient400">{title}</Title>
+        {plusBtn && <Icon icon="IconPlus" onClick={onPlusBtnClick} />}
+      </Left>
+      <Right>
+        {rightSubNode && <Div onClick={onRightSubClick}>{rightSubNode}</Div>}
+        {rightNode && <Div onClick={onRightClick}>{rightNode}</Div>}
+      </Right>
     </Container>
   );
 }

@@ -18,6 +18,23 @@ const MENT_HOME = Object.freeze({
     '그로잉펫은 하루에 2번 놀아주는 걸로 충분히 만족한답니다~\n\n앗! 만약 앱을 자주 방문해준다면, 그로잉펫이\n좋아할지도 몰라요 😉',
   PET_PLAY_SUCCESS: '그로잉펫이 행복해 보여요 😍',
   PET_PLAY_FAIL: '그로잉펫이 살짝 귀찮대요 😅',
+
+  PET_GRADUATE:
+    '아쉽게도 그로잉펫과 헤어질 시간이에요 😭\n그로잉펫이 덕분에 너~~무 행복했대요!\n\n그로잉펫이 그리울 땐 졸업앨범을 찾아주세요ㅎㅎ\n\n그럼 안녕~~👋',
+  PET_GRADUATE_NEW_PET: '새로운 그로잉펫 만나러 가기 ✨',
+});
+
+export const MENT_CHAT = Object.freeze({
+  QNA_EMPTY: '아직 도착한 질문이 없어요.',
+  QNA_NOT_PARTER: '상대방이 아직 답변을 하지 않았어요!',
+  QNA_NOT_ME: '상대방이 답변을 애타게 기다리고 있어요 ㅠ.ㅠ',
+  QNA_SUCCESS: '답변이 등록되었어요!',
+  ARCHIVED_SUCCESS: '채팅이 보관되었어요!',
+  ARCHIVED_DELELE:
+    '보관된 대화를 삭제하시겠습니까?\n\n대화 보관함에서만 삭제되며,\n채팅방에는 그대로 존재합니다.',
+  ARCHIVED_EMPTY: '아직 보관된 대화가 없어요.',
+  PHOTOBOX_DELETE:
+    '삭제하시겠습니까?\n\n상대방과의 채팅창에서도 전부 삭제됩니다.',
 });
 
 export const MENT_CALENDAR = Object.freeze({

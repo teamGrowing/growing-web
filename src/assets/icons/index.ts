@@ -1,4 +1,5 @@
 // 🚀 헷갈리지 않도록 알파벳 순으로 정리할 것!
+export { ReactComponent as IconAddAlbum } from './IconAddAlbum.svg';
 export { ReactComponent as IconAirplane } from './IconAirplane.svg';
 export { ReactComponent as IconArrowDown } from './IconArrowDown.svg';
 export { ReactComponent as IconArrowLeft } from './IconArrowLeft.svg';
@@ -14,12 +15,14 @@ export { ReactComponent as IconChat } from './IconChat.svg';
 export { ReactComponent as IconCheck } from './IconCheck.svg';
 export { ReactComponent as IconComment } from './IconComment.svg';
 export { ReactComponent as IconCopy } from './IconCopy.svg';
+export { ReactComponent as IconDownloadLocal } from './IconDownloadLocal.svg';
 export { ReactComponent as IconEnvelope } from './IconEnvelope.svg';
 export { ReactComponent as IconEnvelopePaper } from './IconEnvelopePaper.svg';
 export { ReactComponent as IconExit } from './IconExit.svg';
 export { ReactComponent as IconExitCircle } from './IconExitCircle.svg';
 export { ReactComponent as IconExport } from './IconExport.svg';
 export { ReactComponent as IconGallery } from './IconGallery.svg';
+export { ReactComponent as IconGrid } from './IconGrid.svg';
 export { ReactComponent as IconHome } from './IconHome.svg';
 export { ReactComponent as IconInfo } from './IconInfo.svg';
 export { ReactComponent as IconLogo } from './IconLogo.svg';
