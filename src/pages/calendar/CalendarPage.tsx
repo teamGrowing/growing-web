@@ -47,9 +47,6 @@ const CalenderStyleWrapper = styled.div<{ selectedDate?: string }>`
   }};
   --fc-highlight-color: ${({ theme }) => theme.color.gray100};
 
-  .fc-media-screen {
-    height: 480px;
-  }
   .fc-col-header-cell-cushion {
     font-size: 12px;
     font-weight: 200;
@@ -181,6 +178,7 @@ function CalendarPage() {
           dateClick={(arg) => setSelectedDate(dayjs(arg.date))}
           editable
           eventDrop={(info) => modifyPlan(info)}
+          contentHeight="auto"
         />
       </CalenderStyleWrapper>
       <TodoArea date={selectedDate} />
