@@ -28,7 +28,7 @@ const TodayBtn = styled.button`
   width: 55.71px;
   height: 18px;
   right: 13.29px;
-  top: 12px;
+  top: 28px;
 
   background: linear-gradient(
     130.11deg,
