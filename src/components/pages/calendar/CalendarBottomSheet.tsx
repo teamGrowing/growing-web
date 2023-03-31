@@ -49,10 +49,10 @@ const ToggleBtn = styled.div<{ isTrue: boolean }>`
   ${({ isTrue }) =>
     isTrue
       ? css`
-          left: 4px;
+          right: 4px;
         `
       : css`
-          right: 4px;
+          left: 4px;
         `};
   transform: translateY(-50%);
   border-radius: 50%;
@@ -86,7 +86,7 @@ function CalendarBottomSheet({
   const descriptionInputRef = useRef<HTMLInputElement | null>(null);
   const startInputRef = useRef<HTMLInputElement | null>(null);
   const endInputRef = useRef<HTMLInputElement | null>(null);
-  const [toggleState, setToggleState] = useState(false);
+  const [toggleState, setToggleState] = useState(true);
   const { addToast } = useToast();
   const { mutate: addPlan } = useAddPlanMutation({
     coupleId: store.userStore.user?.coupleId!,
@@ -162,25 +162,31 @@ function CalendarBottomSheet({
       <BottomSheetMenu>
         <SheetContainer>
           시작일
-          <Input
-            ref={startInputRef}
-            type="date"
-            defaultValue={dayjs(defaultData?.startAt ?? selectedDate).format(
-              'YYYY-MM-DD'
-            )}
-          />
+          <div>
+            <Input
+              ref={startInputRef}
+              type="date"
+              defaultValue={dayjs(defaultData?.startAt ?? selectedDate).format(
+                'YYYY-MM-DD'
+              )}
+            />
+            {!toggleState && <Input type="time" defaultValue="00:00" />}
+          </div>
         </SheetContainer>
       </BottomSheetMenu>
       <BottomSheetMenu>
         <SheetContainer>
           종료일
-          <Input
-            ref={endInputRef}
-            type="date"
-            defaultValue={dayjs(defaultData?.endAt ?? selectedDate).format(
-              'YYYY-MM-DD'
-            )}
-          />
+          <div>
+            <Input
+              ref={endInputRef}
+              type="date"
+              defaultValue={dayjs(defaultData?.endAt ?? selectedDate).format(
+                'YYYY-MM-DD'
+              )}
+            />
+            {!toggleState && <Input type="time" defaultValue="23:59" />}
+          </div>
         </SheetContainer>
       </BottomSheetMenu>
       <BottomSheetMenu>
