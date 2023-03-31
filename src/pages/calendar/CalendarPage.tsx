@@ -130,7 +130,7 @@ function CalendarPage() {
         id: info.event._def.publicId,
         info: {
           startAt: info.event.start?.toISOString(),
-          endAt: info.event.start?.toISOString(),
+          endAt: info.event.end?.toISOString(),
         },
       },
       {
