@@ -89,7 +89,7 @@ type TodoProps = {
 };
 
 function TodoArea({ date }: TodoProps) {
-  const [onBottomSheet, setOnBottomSheet] = useState(false);
+  const [onBottomSheet, setOnBottomSheet] = useState<boolean>(false);
   const [selectedTodoData, setSelectedTodoData] = useState<DailyPlanDto | null>(
     null
   );

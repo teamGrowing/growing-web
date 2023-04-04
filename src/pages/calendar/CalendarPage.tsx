@@ -16,6 +16,9 @@ import TodoArea from '../../components/pages/calendar/TodoArea';
 import useToast from '../../hooks/common/useToast';
 import { MENT_CALENDAR } from '../../constants/ments';
 
+const PageContainer = styled.div`
+  overflow: scroll;
+`;
 const TodayBtn = styled.button`
   display: flex;
   flex-direction: row;
@@ -95,6 +98,7 @@ const CalenderStyleWrapper = styled.div<{ selectedDate?: string }>`
   .fc-daygrid-event-dot {
     display: none;
   }
+
   .fc-event-time {
     display: none;
   }
@@ -118,6 +122,7 @@ function CalendarPage() {
     coupleId: userStore.user?.coupleId!,
     year: calInfo.format('YYYY'),
     month: calInfo.format('MM'),
+    options: { suspense: false },
   });
 
   const modifyPlan = (info: EventDropArg) => {
@@ -137,7 +142,7 @@ function CalendarPage() {
   };
 
   return (
-    <div className="page-container with-navbar">
+    <PageContainer className="page-container with-navbar hidden-scrollbar">
       <TodayBtn
         onClick={() => {
           setSelectedDate(dayjs());
@@ -182,7 +187,7 @@ function CalendarPage() {
         />
       </CalenderStyleWrapper>
       <TodoArea date={selectedDate} />
-    </div>
+    </PageContainer>
   );
 }
 export default CalendarPage;
