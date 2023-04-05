@@ -14,7 +14,8 @@ const Scroll = styled.div`
   position: absolute;
   width: 100%;
 
-  height: calc(100% - 23px);
+  height: calc(100% - 23px - constant(safe-area-inset-top));
+  height: calc(100% - 23px - env(safe-area-inset-top));
   left: 0px;
   bottom: 0px;
 `;

@@ -28,7 +28,7 @@ function Login() {
         }
         fetcher.setAccessToken(res.data.accessToken);
         userStore.getUserData(userId).then(() => {
-          navigation(-1);
+          navigation('/', { replace: true });
         });
       },
     }

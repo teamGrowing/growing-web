@@ -179,6 +179,9 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
 
   const { data: photos } = useGalleryList({
     coupleId: userStore.user?.coupleId ?? '',
+    options: {
+      suspense: false,
+    },
   });
 
   const {

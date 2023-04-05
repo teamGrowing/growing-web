@@ -90,6 +90,8 @@ const Pet = styled(Pet3DImg)`
 
 const Info = styled.section`
   position: relative;
+  margin-bottom: calc(constant(safe-area-inset-bottom) * -1);
+  margin-bottom: calc(env(safe-area-inset-bottom) * -1);
 
   width: 100%;
 `;
@@ -127,7 +129,7 @@ const Letter = styled.div`
   white-space: pre-wrap;
 `;
 const Wave = styled.img`
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
 
@@ -168,7 +170,7 @@ export default function PetRaising() {
           setTimeout(() => {
             setModalText(MENT_HOME.PET_FEED_SUCCESS);
             setOnModal(true);
-          }, 2000);
+          }, 3000);
         } else {
           setModalText(MENT_HOME.PET_FEED_FAIL_TIME);
           setOnModal(true);

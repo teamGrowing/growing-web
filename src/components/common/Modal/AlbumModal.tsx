@@ -26,6 +26,8 @@ const Overlay = styled.div`
   animation: ${fadeIn} 0.3s ease-in;
 `;
 const Wrapper = styled.div`
+  z-index: 10;
+
   position: fixed;
   left: 50%;
   top: 50%;
@@ -44,6 +46,7 @@ const Wrapper = styled.div`
 const Main = styled.div`
   width: 100%;
   padding: 17px 24px 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -92,6 +95,8 @@ const InputRow = styled.div`
   }
 `;
 const StyledInput = styled.input`
+  width: 100%;
+
   padding: 4px 10px;
   height: 25px;
   background: ${({ theme }) => theme.color.white};
@@ -99,9 +104,10 @@ const StyledInput = styled.input`
   opacity: 0.8;
   font-size: 13px;
   color: ${({ theme }) => theme.color.gray900};
-  flex: 1;
 `;
 const InputWithError = styled.div`
+  flex: 1;
+
   display: flex;
   flex-direction: column;
   gap: 4px;
