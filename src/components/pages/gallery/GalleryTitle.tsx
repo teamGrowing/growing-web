@@ -5,6 +5,7 @@ import Icon from '../../common/Icon/Icon';
 const Container = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 8px 16px;
   gap: 10px;
 
@@ -18,8 +19,6 @@ const Left = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
-
-  flex: 1;
 `;
 
 const Right = styled.div`
@@ -46,6 +45,9 @@ const Title = styled.div`
 
 const Div = styled.div`
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 type GalleryTitleProps = {
@@ -73,12 +75,12 @@ function GalleryTitle({
 }: GalleryTitleProps) {
   return (
     <Container>
-      {backBtn && <Icon icon="IconArrowLeft" onClick={onBackBtnClick} />}
       <Left>
+        {backBtn && <Icon icon="IconArrowLeft" onClick={onBackBtnClick} />}
         <Title className="text-gradient400">{title}</Title>
-        {plusBtn && <Icon icon="IconPlus" onClick={onPlusBtnClick} />}
       </Left>
       <Right>
+        {plusBtn && <Icon icon="IconPlus" onClick={onPlusBtnClick} />}
         {rightSubNode && <Div onClick={onRightSubClick}>{rightSubNode}</Div>}
         {rightNode && <Div onClick={onRightClick}>{rightNode}</Div>}
       </Right>

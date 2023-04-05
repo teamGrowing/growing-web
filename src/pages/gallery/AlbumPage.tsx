@@ -81,7 +81,7 @@ function AlbumPage() {
           title="ALBUM"
           backBtn
           onBackBtnClick={() => navigate('/gallery')}
-          plusBtn
+          plusBtn={!selectingAvailable}
           onPlusBtnClick={() => navigate('/gallery/new-album')}
           rightNode={
             !selectingAvailable ? (
