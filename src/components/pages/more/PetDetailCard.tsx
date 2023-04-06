@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
+import dayjs from 'dayjs';
 import backgroundImg from '../../../assets/image/DetailCardBackground.png';
 import infoBackgroundImg from '../../../assets/image/DetailInfoBackground.png';
-import bearImg from '../../../assets/image/Bear.png'; // 임시로 넣어둠
 import Icon from '../../common/Icon/Icon';
 import store from '../../../stores/RootStore';
 import { useGraduatedPetDetail } from '../../../hooks/queries/pet.queries';
@@ -38,12 +38,13 @@ const Background = styled.div`
 
 const Image = styled.div<{ petImg: string }>`
   position: absolute;
-  width: 208px;
-  height: 180px;
-  left: 60px;
-  top: 20px;
-  background: url(${(props) => props.petImg});
+  width: 150px;
+  height: 150px;
+  left: 79px;
+  top: 15px;
+  background: url(${(props) => props.petImg}) no-repeat;
   background-size: contain;
+  background-position: center;
 `;
 
 const InfoContainer = styled.div`
@@ -76,32 +77,22 @@ const Name = styled.div`
 
 const InfoBox = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 18px 60px;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+
+  padding: 18px 40px;
   gap: 4px;
   position: absolute;
   width: 308px;
-  height: 230px;
+  height: 190px;
   left: 0px;
   top: 58px;
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 10px 0px;
-  gap: 40px;
-  width: 188px;
-  height: 65px;
 `;
 
 const Info = styled.div<{ width: string }>`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   padding: 4px;
   gap: 3px;
   width: ${(props) => props.width};
@@ -128,8 +119,8 @@ const Content = styled.div<{ width: string }>`
   font-family: 'PretendardLight';
   font-size: 12px;
   line-height: 14px;
-  display: flex;
-  align-items: center;
+  text-align: center;
+  word-wrap: break-word;
   color: ${({ theme }) => theme.color.black};
 `;
 
@@ -157,31 +148,33 @@ function PetDetailCard({ petId, onExit }: PetDetailCardProps) {
         }}
         onClick={onExit}
       />
-      <Image petImg={bearImg} />
+      <Image petImg={data?.imageUrl ?? ''} />
       <InfoContainer>
-        <Name className="text-gradient400">{data?.name}</Name>
+        <Name className="text-gradient400">
+          {data?.name.length ? data.name : '그로잉펫'}
+        </Name>
         <InfoBox>
-          <Row>
-            <Info width="77px">
-              <Title className="text-gradient400">태어난 날</Title>
-              <Line width="69px" />
-              <Content width="69px">{data?.createdAt}</Content>
-            </Info>
-            <Info width="77px">
-              <Title className="text-gradient400">독립한 날</Title>
-              <Line width="69px" />
-              <Content width="69px">{data?.endedAt}</Content>
-            </Info>
-          </Row>
-          <Row>
-            <Info width="188px">
-              <Title className="text-gradient400">
-                {store.userStore.user?.nickName!}에게 남긴말
-              </Title>
-              <Line width="180px" />
-              <Content width="180px">{data?.description}</Content>
-            </Info>
-          </Row>
+          <Info width="77px">
+            <Title className="text-gradient400">태어난 날</Title>
+            <Line width="69px" />
+            <Content width="69px">
+              {dayjs(new Date(data?.createdAt ?? '')).format('YYYY/MM/DD')}
+            </Content>
+          </Info>
+          <Info width="77px">
+            <Title className="text-gradient400">독립한 날</Title>
+            <Line width="69px" />
+            <Content width="69px">
+              {dayjs(new Date(data?.endedAt ?? '')).format('YYYY/MM/DD')}
+            </Content>
+          </Info>
+          <Info width="188px">
+            <Title className="text-gradient400">
+              {store.userStore.user?.nickName!}에게 남긴말
+            </Title>
+            <Line width="180px" />
+            <Content width="180px">{data?.description}</Content>
+          </Info>
         </InfoBox>
       </InfoContainer>
     </Background>
