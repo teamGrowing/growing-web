@@ -42,6 +42,21 @@ export const fadeOutUp = keyframes`
     }
 `;
 
+export const fadeInOut = keyframes`
+  0% {
+    opacity: 0;
+    visibility:hidden;
+  }
+  50% {
+    opacity: 1;
+    visibility:visible;
+  }
+  100%{
+    opacity:0;
+    visibility:hidden;
+  }
+`;
+
 export const pulse = keyframes`
   from {
     transform: scale3d(0.8, 0.8, 0.8);

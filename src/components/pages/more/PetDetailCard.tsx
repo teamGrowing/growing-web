@@ -1,25 +1,11 @@
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import dayjs from 'dayjs';
 import backgroundImg from '../../../assets/image/DetailCardBackground.png';
 import infoBackgroundImg from '../../../assets/image/DetailInfoBackground.png';
 import Icon from '../../common/Icon/Icon';
 import store from '../../../stores/RootStore';
 import { useGraduatedPetDetail } from '../../../hooks/queries/pet.queries';
-
-const pulse = keyframes`
-  from {
-    transform: scale3d(1, 1, 1);
-  }
-
-  50% {
-    transform: scale3d(1.05, 1.05, 1.05);
-  }
-
-  to {
-    transform: scale3d(1, 1, 1);
-  }
-
-`;
+import { clickPulse } from '../../../styles/common/keyframs';
 
 const Background = styled.div`
   position: fixed;
@@ -33,7 +19,7 @@ const Background = styled.div`
   background-size: contain;
   border-radius: 20px 20px 0px 0px;
 
-  animation: 0.5s ${pulse};
+  animation: 0.5s ${clickPulse};
 `;
 
 const Image = styled.div<{ petImg: string }>`
@@ -133,6 +119,9 @@ function PetDetailCard({ petId, onExit }: PetDetailCardProps) {
   const { data } = useGraduatedPetDetail({
     coupleId: store.userStore.user?.coupleId!,
     petId,
+    options: {
+      suspense: false,
+    },
   });
 
   return (
