@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fullcalendar/core": "^6.1.5",
+    "@fullcalendar/daygrid": "^6.1.5",
+    "@fullcalendar/interaction": "^6.1.5",
+    "@fullcalendar/react": "^6.1.5",
+    "@fullcalendar/timegrid": "^6.1.5",
     "@hookform/resolvers": "^2.9.10",
     "@react-three/drei": "9.58.1",
     "@react-three/fiber": "8.12.0",

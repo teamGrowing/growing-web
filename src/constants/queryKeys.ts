@@ -9,6 +9,7 @@ const Domain = {
   plan: 'PLAN',
   gallery: 'GALLERY',
   album: 'ALBUM',
+  calendar: 'CALENDAR',
 };
 
 const userKeys = {
@@ -40,6 +41,15 @@ const qnaKeys = {
   hasTodo: [Domain.qna, 'todo'] as unknown as QueryKey[],
 };
 
+const calendarKeys = {
+  all: [Domain.calendar] as unknown as QueryKey[],
+  plan: [Domain.calendar, 'plan'] as unknown as QueryKey[],
+  byMonth: (year: string, month: string) =>
+    [...calendarKeys.plan, year, month] as unknown as QueryKey[],
+  byDay: (year: string, month: string, day: string) =>
+    [...calendarKeys.plan, year, month, day] as unknown as QueryKey[],
+};
+
 const galleryKeys = {
   all: [Domain.gallery as unknown as QueryKey] as QueryKey[],
   list: () => [...galleryKeys.all, 'list'] as unknown as QueryKey[],
@@ -61,6 +71,7 @@ const queryKeys = {
   qnaKeys,
   galleryKeys,
   albumKeys,
+  calendarKeys,
 };
 
 export default queryKeys;

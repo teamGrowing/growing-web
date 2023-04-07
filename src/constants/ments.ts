@@ -37,4 +37,10 @@ export const MENT_CHAT = Object.freeze({
     '삭제하시겠습니까?\n\n상대방과의 채팅창에서도 전부 삭제됩니다.',
 });
 
+export const MENT_CALENDAR = Object.freeze({
+  PLAN_ADD_SUCCESS: '일정이 추가되었습니다.',
+  PLAN_MODIFY_SUCCESS: '일정이 수정되었습니다.',
+  PLAN_DELETE_SUCCESS: '일정이 삭제되었습니다.',
+});
+
 export default MENT_HOME;

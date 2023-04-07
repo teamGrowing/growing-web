@@ -7,6 +7,6 @@ export interface PatchPlanDto {
     latitude: number;
     longitude: number;
     address: string;
-  };
+  } | null;
   alarm?: string; // none, on-event, before-5m, before-10m
 }
