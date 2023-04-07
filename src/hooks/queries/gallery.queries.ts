@@ -8,6 +8,7 @@ import {
   useInfiniteQuery,
 } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import {
   UseInfiniteQueryOptionsType,
   UseMutationOptionsType,
@@ -137,7 +138,7 @@ export function useCreatePhotosMutation({
 
   const makePhoto = async (file: File) => {
     const res = await GALLERY_API.getUploadUrl(coupleId, {
-      name: file.name,
+      name: uuidv4(),
     });
 
     await axios.put(res.data.url, file, {
