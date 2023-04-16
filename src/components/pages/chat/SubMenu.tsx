@@ -76,10 +76,11 @@ function SubMenu({ open }: { open: boolean }) {
         <Icon icon="IconGallery" size={28} />
         사진 모아보기
       </Item>
-      <Item onClick={() => navigation('/chat/voice-box')}>
+      {/* TODO */}
+      {/* <Item onClick={() => navigation('/chat/voice-box')}>
         <Icon icon="IconVoice" size={28} />
         음성 모아보기
-      </Item>
+      </Item> */}
     </SubMenuContainer>
   );
 }
