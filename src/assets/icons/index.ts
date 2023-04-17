@@ -32,6 +32,7 @@ export { ReactComponent as IconOpenEnvelope } from './IconOpenEnvelope.svg';
 export { ReactComponent as IconPencil } from './IconPencil.svg';
 export { ReactComponent as IconPet } from './IconPet.svg';
 export { ReactComponent as IconPhotoHeart } from './IconPhotoHeart.svg';
+export { ReactComponent as IconPlay } from './IconPlay.svg';
 export { ReactComponent as IconPlus } from './IconPlus.svg';
 export { ReactComponent as IconReply } from './IconReply.svg';
 export { ReactComponent as IconSetting } from './IconSetting.svg';

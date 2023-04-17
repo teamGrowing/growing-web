@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import store from '../../../../stores/RootStore';
 import Icon from '../../../common/Icon/Icon';
 import TopBar from '../../../common/TopBar/TopBar';
+import VideoPlayBtn from '../VideoPlayBtn';
 import usePhotos from '../../../../hooks/chat/usePhotos';
 import { useGalleryList } from '../../../../hooks/queries/gallery.queries';
 import { NAVBAR_HEIGHT } from '../../../../constants/constants';
@@ -253,6 +254,7 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
                   <PhotoSelect isSelected={getSelected(photo.i)}>
                     {getIndex(photo.i) === 0 ? '' : getIndex(photo.i)}
                   </PhotoSelect>
+                  {photo.t && <VideoPlayBtn />}
                 </GridPhoto>
               </PhotoContainer>
             ))}
@@ -292,6 +294,7 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
               <PhotoSelect isSelected={getSelected(photo.i)}>
                 {getIndex(photo.i) === 0 ? '' : getIndex(photo.i)}
               </PhotoSelect>
+              {photo.t && <VideoPlayBtn />}
             </Photo>
           ))}
         </Photos>

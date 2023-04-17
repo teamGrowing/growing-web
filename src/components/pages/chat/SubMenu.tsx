@@ -8,10 +8,11 @@ import { fadeInDown, fadeOutUp } from '../../../styles/common/keyframs';
 import Icon from '../../common/Icon/Icon';
 
 const SubMenuContainer = styled.div<{ openEnvelope: boolean }>`
-  z-index: 1;
+  z-index: 2;
+
   position: fixed;
-  top: calc(49px + constant(safe-area-inset-top));
-  top: calc(49px + env(safe-area-inset-top));
+  top: calc(48px + constant(safe-area-inset-top));
+  top: calc(48px + env(safe-area-inset-top));
   left: 0;
   right: 0;
 
