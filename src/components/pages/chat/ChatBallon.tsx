@@ -244,11 +244,8 @@ function ChatBallon({
 
         {/* video */}
         {!!parentChatting.videoUrls[0] && (
-          <VideoWrapper>
-            <OneChatImage
-              {...longPressMenu}
-              src={parentChatting.videoUrls[0].thumbnailUrl}
-            />
+          <VideoWrapper {...longPressMenu}>
+            <OneChatImage src={parentChatting.videoUrls[0].thumbnailUrl} />
             <VideoPlayBtn style={{ zIndex: 1 }} />
           </VideoWrapper>
         )}
