@@ -1,23 +1,9 @@
 import { useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 import changeEmojiToSpan from '../../../util/Text';
 import ToastContext from './ToastContext';
-
-const fade = keyframes`
-  0% {
-    opacity: 0;
-    visibility:hidden;
-  }
-  50% {
-    opacity: 1;
-    visibility:visible;
-  }
-  100%{
-    opacity:0;
-    visibility:hidden;
-  }
-`;
+import { fadeInOut } from '../../../styles/common/keyframs';
 
 const MessageBox = styled.div`
   display: flex;
@@ -39,7 +25,7 @@ const MessageBox = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   border-radius: 10px;
 
-  animation: ${fade} 2s;
+  animation: ${fadeInOut} 2s;
 `;
 
 const Text = styled.div`

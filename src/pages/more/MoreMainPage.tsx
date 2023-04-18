@@ -20,7 +20,7 @@ const ScrollArea = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh - 81px);
+  height: calc(100vh - 52px);
   overflow-y: scroll;
 `;
 
@@ -37,14 +37,15 @@ const IconWrapper = styled.div`
   top: 40px;
 `;
 
-const Row = styled.div`
+const Menus = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
-
   width: 100%;
-  padding: 10px 5px;
-  gap: 10px;
+
+  gap: 30px 20%;
+  padding: 0 10px;
 `;
 
 const Label = styled.div`
@@ -89,7 +90,6 @@ function MoreMainPage() {
 
   return (
     <Container className="page-container with-navbar">
-      {/* <PurpleBackground /> */}
       <IconWrapper>
         <Icon icon="IconLogo" themeColor="white" size={211} />
       </IconWrapper>
@@ -108,7 +108,7 @@ function MoreMainPage() {
         </ProfileContainer>
         <WhiteContainer top="347px">
           <Label>{store.userStore.user?.nickName}</Label>
-          <Row>
+          <Menus>
             <MenuBox
               title="동물도감"
               icon="IconPet"
@@ -119,14 +119,12 @@ function MoreMainPage() {
               icon="IconSetting"
               onClick={() => navigate('setting')}
             />
-          </Row>
-          <Row>
             <MenuBox
               title="도움말"
               icon="IconInfo"
               onClick={() => navigate('info')}
             />
-          </Row>
+          </Menus>
         </WhiteContainer>
       </ScrollArea>
     </Container>

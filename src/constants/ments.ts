@@ -56,4 +56,10 @@ export const MENT_GALLERY = Object.freeze({
   ALBUM_CREATE_FAIL_NO_SELECTED: '앨범을 만들기 위한 사진을 선택해주세요',
 });
 
+export const MENT_CALENDAR = Object.freeze({
+  PLAN_ADD_SUCCESS: '일정이 추가되었습니다.',
+  PLAN_MODIFY_SUCCESS: '일정이 수정되었습니다.',
+  PLAN_DELETE_SUCCESS: '일정이 삭제되었습니다.',
+});
+
 export default MENT_HOME;

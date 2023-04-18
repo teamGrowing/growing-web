@@ -9,14 +9,16 @@ import PurpleBackground from '../../styles/common/PurpleBackground';
 const Container = styled.div`
   position: relative;
 `;
-const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
 
+const Menus = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  padding: 10px 5px;
-  gap: 10px;
+
+  gap: 30px 20%;
+  padding: 0 10px;
 `;
 
 function InfoPage() {
@@ -30,13 +32,11 @@ function InfoPage() {
         title="도움말"
       />
       <WhiteContainer top="89px">
-        <Row>
+        <Menus>
           <MenuBox title="공지사항" icon="IconPet" onClick={() => {}} />
           <MenuBox title="이용방법" icon="IconPet" onClick={() => {}} />
-        </Row>
-        <Row>
           <MenuBox title="카톡문의" icon="IconPet" onClick={() => {}} />
-        </Row>
+        </Menus>
       </WhiteContainer>
     </Container>
   );

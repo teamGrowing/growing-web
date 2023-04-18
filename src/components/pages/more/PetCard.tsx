@@ -29,17 +29,18 @@ const Name = styled.div`
   width: 154px;
   height: 27px;
   left: 0px;
-  top: 55px;
+  top: 45px;
 `;
 
 const Image = styled.div<{ petImg: string }>`
   position: absolute;
-  width: 154px;
-  height: 154px;
-  left: -2px;
-  top: 56px;
-  background: url(${(props) => props.petImg});
-  background-size: contain;
+  width: 100px;
+  height: 125px;
+  left: 27px;
+  top: 80px;
+  background: url(${(props) => props.petImg}) no-repeat;
+  background-size: cover;
+  background-position: 0 0;
 `;
 
 type PetCardProps = {
