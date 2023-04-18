@@ -7,6 +7,7 @@ interface ModalBottomSheetProps {
   open: boolean;
   setOpen: (state: boolean) => void;
   children: React.ReactNode;
+  onClose?: () => void;
 }
 
 const Overlay = styled.div`
@@ -58,6 +59,7 @@ export default function ModalBottomSheet({
   open,
   setOpen,
   children,
+  onClose,
 }: ModalBottomSheetProps) {
   if (!open) {
     return null;
@@ -65,7 +67,12 @@ export default function ModalBottomSheet({
 
   return (
     <ModalPortal>
-      <Overlay onClick={() => setOpen(false)} />
+      <Overlay
+        onClick={() => {
+          if (onClose) onClose();
+          setOpen(false);
+        }}
+      />
       <Wrapper>
         <Border />
         <Menus>{children}</Menus>

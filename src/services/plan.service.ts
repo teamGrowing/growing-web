@@ -4,9 +4,11 @@ import { DailyPlanDto } from '../types/plan/DailyPlan.dto';
 import { PatchPlanDto } from '../types/plan/PatchPlan.dto';
 
 const PLAN_API = {
-  // TODO: query 문 작성 필요
-  getPlans: (coupleId: string) =>
-    fetcher.create().get(`couples/${coupleId}/plans`),
+  getPlans: (coupleId: string, year: string, month: string, day?: string) => {
+    let url = `couples/${coupleId}/plans?year=${year}&month=${month}`;
+    if (day) url += `&day=${day}`;
+    return fetcher.create().get(url);
+  },
   postPlan: (coupleId: string, data: CreatePlanDto) =>
     fetcher
       .create()
@@ -14,9 +16,9 @@ const PLAN_API = {
   patchPlan: (coupleId: string, planId: string, data: PatchPlanDto) =>
     fetcher
       .create()
-      .post<DailyPlanDto>(`couples/${coupleId}/plans/${planId}`, data),
+      .patch<DailyPlanDto>(`couples/${coupleId}/plans/${planId}`, data),
   deletePlan: (coupleId: string, planId: string) =>
-    fetcher.create().post(`couples/${coupleId}/plans/${planId}`),
+    fetcher.create().delete(`couples/${coupleId}/plans/${planId}`),
 };
 
 export default PLAN_API;
