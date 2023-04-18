@@ -15,6 +15,7 @@ import {
 import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import useToast from '../../hooks/common/useToast';
+import { MENT_GALLERY } from '../../constants/ments';
 
 const Container = styled.div`
   position: relative;
@@ -87,7 +88,7 @@ function PhotoPage() {
 
   const upLoadPhotos = (files: FileList) => {
     upLoadPhotosMutate(files, {
-      onSuccess: () => addToast('업로드가 완료되었습니다.'),
+      onSuccess: () => addToast(MENT_GALLERY.PHOTO_UPLOAD_SUCCESS),
     });
   };
 
@@ -95,7 +96,7 @@ function PhotoPage() {
     deletePhotosMutate(selectedPhotos.current, {
       onSuccess: () => {
         setSelectingAvailable(false);
-        addToast('삭제가 완료되었습니다.');
+        addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS);
       },
     });
   };
@@ -118,7 +119,7 @@ function PhotoPage() {
           rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
           onRightSubClick={() => {
             if (selectedPhotos.current.length <= 0) {
-              addToast('삭제할 사진을 선택해주세요.');
+              addToast(MENT_GALLERY.PHOTO_DELETE_FAIL_NO_SELECTED);
               return;
             }
             setOnModal(true);
@@ -136,7 +137,7 @@ function PhotoPage() {
           <Modal
             onModal={onModal}
             setOnModal={setOnModal}
-            description="삭제하시겠습니까?"
+            description={MENT_GALLERY.PHOTO_DELETE_CONFIRM}
             mainActionLabel="확인"
             onMainAction={deletePhotos}
             subActionLabel="취소"

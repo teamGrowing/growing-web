@@ -14,6 +14,7 @@ import {
 import { useAlbumsList } from '../../hooks/queries/album.queries';
 import store from '../../stores/RootStore';
 import useToast from '../../hooks/common/useToast';
+import { MENT_GALLERY } from '../../constants/ments';
 
 const Container = styled.div`
   position: relative;
@@ -40,7 +41,7 @@ function GalleryMainPage() {
 
   const upLoadHandler = (files: FileList) => {
     upLoadPhotos(files, {
-      onSuccess: () => addToast('사진이 업로드 되었습니다.'),
+      onSuccess: () => addToast(MENT_GALLERY.PHOTO_UPLOAD_SUCCESS),
     });
   };
 

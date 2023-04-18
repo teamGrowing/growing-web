@@ -13,6 +13,7 @@ import {
 import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import useToast from '../../hooks/common/useToast';
+import { MENT_GALLERY } from '../../constants/ments';
 
 const Container = styled.div`
   position: relative;
@@ -69,7 +70,7 @@ function AlbumPage() {
     deleteAlbumsMutate(selectedAlbums.current, {
       onSuccess: () => {
         setSelectingAvailable(false);
-        addToast('앨범 삭제과 완료되었습니다.');
+        addToast(MENT_GALLERY.ALBUM_DELETE_SUCCESS);
       },
     });
   };
@@ -96,7 +97,7 @@ function AlbumPage() {
           rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
           onRightSubClick={() => {
             if (selectedAlbums.current.length <= 0) {
-              addToast('삭제할 앨범을 선택해 주세요.');
+              addToast(MENT_GALLERY.ALBUM_DELETE_FAIL_NO_SELECTED);
               return;
             }
             setOnModal(true);
@@ -108,7 +109,7 @@ function AlbumPage() {
         <Modal
           onModal={onModal}
           setOnModal={setOnModal}
-          description="앨범을 삭제하시겠습니까?"
+          description={MENT_GALLERY.ALBUM_DELETE_CONFIRM}
           mainActionLabel="확인"
           onMainAction={deleteAlbums}
           subActionLabel="취소"

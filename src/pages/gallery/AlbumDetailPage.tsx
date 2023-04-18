@@ -22,6 +22,7 @@ import Modal from '../../components/common/Modal/Modal';
 import AlbumModal from '../../components/common/Modal/AlbumModal';
 import useToast from '../../hooks/common/useToast';
 import BottomNavigation from '../../components/layout/BottomNavigation';
+import { MENT_GALLERY } from '../../constants/ments';
 
 const Container = styled.div`
   overflow-y: scroll;
@@ -104,7 +105,7 @@ function AlbumDetailPage() {
 
   const deletePhotosFromAlbum = () => {
     deletePhotosFromAlbumMutate(selectedPhotos.current, {
-      onSuccess: () => addToast('사진이 앨범에서 제거되었습니다.'),
+      onSuccess: () => addToast(MENT_GALLERY.ALBUM_PHOTO_DELETE_SUCCESS),
     });
     clearList();
     isDeleteOnlyFromAlbum.current = null;
@@ -112,7 +113,7 @@ function AlbumDetailPage() {
 
   const deletePhotos = () => {
     deletePhotosMutate(selectedPhotos.current, {
-      onSuccess: () => addToast('사진이 삭제되었습니다.'),
+      onSuccess: () => addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS),
     });
     clearList();
     isDeleteOnlyFromAlbum.current = null;
@@ -159,7 +160,7 @@ function AlbumDetailPage() {
           selectingAvailable
             ? () => {
                 if (selectedPhotos.current.length <= 0) {
-                  addToast('삭제할 파일을 선택해 주세요.');
+                  addToast(MENT_GALLERY.PHOTO_DELETE_FAIL_NO_SELECTED);
                   return;
                 }
                 setOnModal(true);
@@ -174,7 +175,7 @@ function AlbumDetailPage() {
           <Modal
             onModal={onModal}
             setOnModal={setOnModal}
-            description="해당 파일을 앨범에서 제거하시겠습니까, 영구 삭제하시겠습니까?"
+            description={MENT_GALLERY.ALBUM_CHOOSE_DELETE_OPTION}
             mainActionLabel="앨범에서 제거"
             onMainAction={() => {
               isDeleteOnlyFromAlbum.current = true;
@@ -191,7 +192,7 @@ function AlbumDetailPage() {
           <Modal
             onModal={onConfirmModal}
             setOnModal={setOnConfirmModal}
-            description="정말 삭제하시겠습니까?"
+            description={MENT_GALLERY.PHOTO_DELETE_CONFIRM}
             mainActionLabel="확인"
             onMainAction={() => {
               if (isDeleteOnlyFromAlbum.current) {
@@ -218,7 +219,7 @@ function AlbumDetailPage() {
                 },
                 {
                   onSuccess: () => {
-                    addToast('앨범 이름이 변경되었습니다.');
+                    addToast(MENT_GALLERY.ALBUM_MODIFY);
                     navigate(location.pathname);
                   },
                 }
