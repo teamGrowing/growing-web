@@ -12,6 +12,8 @@ import PlusMenuGallery from './plus-menu/PlusMenuGallery';
 const MIN_TEXTAREA_HEIGHT = 24;
 
 const Container = styled.div`
+  z-index: 2;
+
   position: fixed;
   bottom: 0;
 

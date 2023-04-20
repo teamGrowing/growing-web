@@ -3,9 +3,17 @@ export interface ChatPhotoDto {
   createdAt: string;
   name: string;
   photos: PhotoDto[];
+  video: VideoDto;
 }
 
 interface PhotoDto {
   id: string;
   url: string;
+}
+
+export interface VideoDto {
+  id: string;
+  thumbnailUrl: string;
+  time: number;
+  videoUrl: string;
 }

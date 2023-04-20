@@ -213,7 +213,10 @@ function ArchivedCard({
                 <Icon icon="IconComment" size={44} />
               </StyledIcon>
 
-              <PopUpCardInner isPopUp={Math.floor(content.length / 12) > 22}>
+              <PopUpCardInner
+                className="hidden-scrollbar"
+                isPopUp={Math.floor(content.length / 12) > 22}
+              >
                 <ArchivedCardLines n={Math.floor(content.length / 12)} />
 
                 <p>{writerName}이가</p>

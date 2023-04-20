@@ -6,6 +6,7 @@ import store from '../../stores/RootStore';
 import Icon from '../../components/common/Icon/Icon';
 import TopBar from '../../components/common/TopBar/TopBar';
 import Modal from '../../components/common/Modal/Modal';
+import VideoPlayBtn from '../../components/pages/chat/VideoPlayBtn';
 import usePhotos from '../../hooks/chat/usePhotos';
 import { useChatPhotoBoxData } from '../../hooks/queries/chat-photo.queries';
 import { MENT_CHAT } from '../../constants/ments';
@@ -194,6 +195,7 @@ function ChatPhotoBoxPage() {
                       {photo.u.length}
                     </PhotoLengthLabel>
                   )}
+                  {photo.t && <VideoPlayBtn />}
                 </GridPhoto>
               </PhotoContainer>
             ))
