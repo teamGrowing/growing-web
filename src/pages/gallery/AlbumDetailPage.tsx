@@ -220,7 +220,14 @@ function AlbumDetailPage() {
                 {
                   onSuccess: () => {
                     addToast(MENT_GALLERY.ALBUM_MODIFY);
-                    navigate(location.pathname);
+                    navigate(location.pathname, {
+                      state: {
+                        ...location.state,
+                        title: data.albumTitle,
+                        subTitle: data.albumSubTitle,
+                      },
+                      replace: true,
+                    });
                   },
                 }
               );
