@@ -13,9 +13,10 @@ const Container = styled.div`
 `;
 
 const MenuContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2px;
+  justify-items: center;
 
   padding: 16px 32px;
 
@@ -87,7 +88,8 @@ function PlusMenu({ createChat }: InputChatProps) {
             </StyledIcon>
             <p className="text-gradient400">카메라</p>
           </Item>
-          <Item onClick={() => chatStore.setChatMode({ mode: 'Voice' })}>
+          {/* TODO */}
+          {/* <Item onClick={() => chatStore.setChatMode({ mode: 'Voice' })}>
             <StyledIcon>
               <Icon icon="IconVoice" size={30} />
             </StyledIcon>
@@ -98,7 +100,7 @@ function PlusMenu({ createChat }: InputChatProps) {
               <Icon icon="IconMap" size={30} />
             </StyledIcon>
             <p className="text-gradient400">지도</p>
-          </Item>
+          </Item> */}
         </MenuContainer>
       )}
     </Container>

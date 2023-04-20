@@ -10,6 +10,7 @@ import useLongPress from '../../../hooks/common/useLongPress';
 import { ParentChildChattingDto } from '../../../types/chat/Chatting.dto';
 import ChatContextMenu from './ChatContextMenu';
 import Icon from '../../common/Icon/Icon';
+import VideoPlayBtn from './VideoPlayBtn';
 
 const NewDay = styled.div`
   margin: 24px auto 13px;
@@ -37,10 +38,26 @@ const Container = styled.div<{ isMine: boolean }>`
   padding: 4px 0;
 `;
 
+const VideoWrapper = styled.div`
+  position: relative;
+
+  ::after {
+    content: '';
+    display: block;
+
+    position: absolute;
+    top: 0;
+    bottom: 4px;
+    left: 0;
+    right: 0;
+
+    background-color: #00000070;
+    border-radius: 12px;
+  }
+`;
+
 const OneChatImage = styled.img`
-  width: auto;
-  height: auto;
-  max-width: 50%;
+  max-width: 140px;
   max-height: 200px;
   background-size: 50%;
   border-radius: 12px;
@@ -226,12 +243,11 @@ function ChatBallon({
           ))}
 
         {/* video */}
-        {/* TODO: video 재생 모양 */}
         {!!parentChatting.videoUrls[0] && (
-          <OneChatImage
-            {...longPressMenu}
-            src={parentChatting.videoUrls[0].thumbnailUrl}
-          />
+          <VideoWrapper {...longPressMenu}>
+            <OneChatImage src={parentChatting.videoUrls[0].thumbnailUrl} />
+            <VideoPlayBtn style={{ zIndex: 1 }} />
+          </VideoWrapper>
         )}
 
         {/* emoji */}

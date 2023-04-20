@@ -12,6 +12,7 @@ import 'swiper/css/navigation';
 import store from '../../stores/RootStore';
 import Icon from '../../components/common/Icon/Icon';
 import TopBar from '../../components/common/TopBar/TopBar';
+import ChatVideo from '../../components/pages/chat/ChatVideo';
 import {
   useChatPhotoDetailData,
   useChatPhotoToGallery,
@@ -81,13 +82,16 @@ function ChatPhotoDetailPage() {
 
   const { mutateAsync: putGallery } = useChatPhotoToGallery({
     coupleId: userStore.user?.coupleId ?? '',
-    photoId: chat?.photos[currentPhotoIdx ?? 0].id ?? '',
+    photoId: chat?.video
+      ? chat.video.id
+      : chat?.photos[currentPhotoIdx ?? 0].id ?? '',
     options: {
       onSuccess: () => {
         addToast('갤러리로 이동되었습니다.');
       },
     },
   });
+
   return (
     <PageContainer className="page-container with-topbar">
       <TopBar
@@ -99,7 +103,7 @@ function ChatPhotoDetailPage() {
         onLeftClick={() => navigation(-1)}
       />
 
-      {chat?.photos.length && (
+      {chat?.photos && (
         <StyledSwiper
           initialSlide={location?.idx ?? 0}
           pagination={{
@@ -117,6 +121,8 @@ function ChatPhotoDetailPage() {
           ))}
         </StyledSwiper>
       )}
+
+      {chat?.video && <ChatVideo {...chat.video} />}
 
       <BottomBar>
         <Icon icon="IconDownloadLocal" themeColor="gray50" />
