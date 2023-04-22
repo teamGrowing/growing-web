@@ -22,10 +22,8 @@ export const USER_API = {
     fetcher.create().patch(`users/${userId}/update`, data),
   putProfilePhoto: (userId: string, data: ChangeUserPhotoDto) =>
     fetcher.create().put(`users/${userId}/profile-photos`, data),
-  postCodeVerify: (userId: string, data: VerifyCodeDto) =>
-    fetcher
-      .create()
-      .post<VerifyCodeResponseDto>(`users/${userId}/codes/verify`, data),
+  postCodeVerify: (data: VerifyCodeDto) =>
+    fetcher.create().post<VerifyCodeResponseDto>(`users/codes/verify`, data),
   postPwdCreate: (userId: string, data: CreatePassword) =>
     fetcher.create().post(`users/${userId}/passwords/create`, data),
   postPwdVerify: (userId: string, data: VerifyPassword) =>
