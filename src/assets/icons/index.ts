@@ -40,6 +40,7 @@ export { ReactComponent as IconReply } from './IconReply.svg';
 export { ReactComponent as IconSetting } from './IconSetting.svg';
 export { ReactComponent as IconShare } from './IconShare.svg';
 export { ReactComponent as IconSmile } from './IconSmile.svg';
+export { ReactComponent as IconTalk } from './IconTalk.svg';
 export { ReactComponent as IconTrash } from './IconTrash.svg';
 export { ReactComponent as IconUnmute } from './IconUnmute.svg';
 export { ReactComponent as IconVoice } from './IconVoice.svg';
