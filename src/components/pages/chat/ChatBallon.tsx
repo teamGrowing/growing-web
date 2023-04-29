@@ -1,6 +1,6 @@
 /* eslint-disable no-extra-boolean-cast */
 /* eslint-disable react/no-array-index-key */
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -148,6 +148,9 @@ function ChatBallon({
   const navigation = useNavigate();
   const { chatStore } = store;
 
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [isTop, setIsTop] = useState<boolean>(false);
+
   const [isLongChat, setIsLongChat] = useState<boolean>(false);
   const [isImageChat, setIsImageChat] = useState<boolean>(false);
   const [isVideo, setIsVideo] = useState<boolean>(false);
@@ -166,6 +169,10 @@ function ChatBallon({
   const longPressMenu = useLongPress<HTMLDivElement | HTMLImageElement>(
     {
       onLongPress: () => {
+        setIsTop(
+          (ref.current?.getBoundingClientRect().top ?? 0) <
+            window.innerHeight / 2
+        );
         showMenu();
       },
       onClick: (e) => {
@@ -211,7 +218,7 @@ function ChatBallon({
           {dayjs(parentChatting.createdAt).format('YYYY년 M월 D일')}
         </NewDay>
       )}
-      <Container isMine={parentChatting.isMine!}>
+      <Container isMine={parentChatting.isMine!} ref={ref}>
         {parentChatting.isMine && (
           <DateWrapper>
             {dayjs(parentChatting.createdAt).format('H:mm')}
@@ -288,6 +295,7 @@ function ChatBallon({
               chatId={parentChatting.id!}
               isMine={parentChatting.isMine!}
               text={parentChatting.content}
+              isTop={isTop}
             />
           )}
       </Container>

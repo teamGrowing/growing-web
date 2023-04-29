@@ -16,6 +16,7 @@ interface ChatContextMenuProps {
   chatId: string;
   isMine: boolean;
   text: string | null;
+  isTop: boolean;
 }
 
 const keyframe = keyframes`
@@ -29,12 +30,12 @@ const keyframe = keyframes`
   }
 `;
 
-const Container = styled.div<{ isMine: boolean }>`
+const Container = styled.div<{ isMine: boolean; isTop: boolean }>`
   z-index: 2;
 
-  /* TODO: height에 따라 위치 수정 */
   position: absolute;
-  top: calc(100% + 8px);
+  ${(props) =>
+    props.isTop ? 'top: calc(100% + 8px);' : 'bottom: calc(100% + 8px);'}
   ${(props) => (props.isMine ? 'right: 0;' : 'left: 38px;')}
 
   display: flex;
@@ -63,7 +64,12 @@ const Item = styled.div<{ lastItem?: boolean }>`
   color: ${({ theme }) => theme.color.gray700};
 `;
 
-function ChatContextMenu({ chatId, isMine, text }: ChatContextMenuProps) {
+function ChatContextMenu({
+  chatId,
+  isMine,
+  text,
+  isTop,
+}: ChatContextMenuProps) {
   const queryClient = useQueryClient();
   const { userStore, chatStore } = store;
   const { addToast } = useToast();
@@ -102,7 +108,7 @@ function ChatContextMenu({ chatId, isMine, text }: ChatContextMenuProps) {
   });
 
   return (
-    <Container isMine={isMine}>
+    <Container isMine={isMine} isTop={isTop}>
       {/* <Item>
         <Icon icon="IconReply" size={16} />
         <p>답장</p>
