@@ -1,6 +1,7 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import styled, { keyframes } from 'styled-components';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import { useQueryClient } from '@tanstack/react-query';
 import store from '../../../stores/RootStore';
 import Icon from '../../common/Icon/Icon';
@@ -13,7 +14,7 @@ import useToast from '../../../hooks/common/useToast';
 interface ChatContextMenuProps {
   chatId: string;
   isMine: boolean;
-  isContent: boolean;
+  text: string | null;
 }
 
 const keyframe = keyframes`
@@ -61,7 +62,7 @@ const Item = styled.div<{ lastItem?: boolean }>`
   color: ${({ theme }) => theme.color.gray700};
 `;
 
-function ChatContextMenu({ chatId, isMine, isContent }: ChatContextMenuProps) {
+function ChatContextMenu({ chatId, isMine, text }: ChatContextMenuProps) {
   const queryClient = useQueryClient();
   const { userStore, chatStore } = store;
   const { addToast } = useToast();
@@ -95,19 +96,26 @@ function ChatContextMenu({ chatId, isMine, isContent }: ChatContextMenuProps) {
         <Icon icon="IconReply" size={16} />
         <p>답장</p>
       </Item> */}
-      {isContent && (
-        <Item>
-          <Icon icon="IconCopy" size={16} />
-          <p>복사</p>
-        </Item>
+      {!!text && (
+        <CopyToClipboard
+          text={text}
+          onCopy={() => {
+            addToast(MENT_CHAT.COPY);
+          }}
+        >
+          <Item>
+            <Icon icon="IconCopy" size={16} />
+            <p>복사</p>
+          </Item>
+        </CopyToClipboard>
       )}
-      {isContent && (
+      {!!text && (
         <Item onClick={archiveChat}>
           <Icon icon="IconEnvelope" size={16} />
           <p>보관</p>
         </Item>
       )}
-      {isContent && (
+      {!!text && (
         <Item onClick={notifyChat}>
           <Icon icon="IconBell" size={16} />
           <p>공지</p>

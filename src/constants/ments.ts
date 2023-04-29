@@ -35,6 +35,7 @@ export const MENT_CHAT = Object.freeze({
   ARCHIVED_EMPTY: '아직 보관된 대화가 없어요.',
   PHOTOBOX_DELETE:
     '삭제하시겠습니까?\n\n상대방과의 채팅창에서도 전부 삭제됩니다.',
+  COPY: '채팅이 복사되었어요!',
 });
 
 export const MENT_CALENDAR = Object.freeze({
