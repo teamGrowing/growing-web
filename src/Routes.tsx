@@ -12,7 +12,6 @@ import SettingPage from './pages/more/SettingPage';
 import PhotoDetailPage from './pages/gallery/PhotoDetailPage';
 import PetPage from './pages/more/PetPage';
 import AuthRoute from './util/AuthRoute';
-import Login from './pages/Login';
 import Home from './pages/home/Home';
 import PetNamingPage from './pages/home/PetNamingPage';
 import PetFeedPage from './pages/home/PetRaisingPage';
@@ -26,12 +25,25 @@ import ChatNoticePage from './pages/chat/ChatNoticePage';
 import ChatArchivePage from './pages/chat/ChatArchivePage';
 import ChatPhotoBoxPage from './pages/chat/ChatPhotoBoxPage';
 import ChatPhotoDetailPage from './pages/chat/ChatPhotoDetailPage';
+import LoginKakaoPage from './pages/login/LoginKakaoPage';
+import LoginSelectPage from './pages/login/LoginSelectPage';
+import LoginInvitedPage from './pages/login/LoginInvitedPage';
+import LoginCreatePage from './pages/login/LoginCreatePage';
+import LoginPetBornPage from './pages/login/LoginPetBornPage';
+import LoginWaitingPage from './pages/login/LoginWaitingPage';
 
 function GrowingRoutes() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login/kakao" element={<LoginKakaoPage />} />
+
       <Route element={<AuthRoute />}>
+        {/* login */}
+        <Route path="/login/select" element={<LoginSelectPage />} />
+        <Route path="/login/invited" element={<LoginInvitedPage />} />
+        <Route path="/login/create" element={<LoginCreatePage />} />
+        <Route path="/login/waiting" element={<LoginWaitingPage />} />
+        <Route path="/login/born" element={<LoginPetBornPage />} />
         {/* home */}
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />

@@ -125,7 +125,7 @@ function ChattingPage() {
         title="growing"
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => {
-          navigation(-1);
+          navigation('/');
           chatStore.clear();
         }}
         rightMainNode={
