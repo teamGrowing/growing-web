@@ -9,6 +9,7 @@ import queryKeys from '../../../constants/queryKeys';
 import { MENT_CHAT } from '../../../constants/ments';
 import { useNotifyChatMutate } from '../../../hooks/queries/chat-notice.queries';
 import { useArchivedChatMutate } from '../../../hooks/queries/chat-archived.queries';
+import { useOurChatDelete } from '../../../hooks/queries/chat.queries';
 import useToast from '../../../hooks/common/useToast';
 
 interface ChatContextMenuProps {
@@ -90,6 +91,16 @@ function ChatContextMenu({ chatId, isMine, text }: ChatContextMenuProps) {
     },
   });
 
+  const { mutateAsync: deleteOurChat } = useOurChatDelete({
+    coupleId: userStore.user?.coupleId ?? '',
+    options: {
+      onSuccess: () => {
+        addToast('삭제되었습니다');
+        queryClient.invalidateQueries(queryKeys.chatKeys.all);
+      },
+    },
+  });
+
   return (
     <Container isMine={isMine}>
       {/* <Item>
@@ -121,7 +132,7 @@ function ChatContextMenu({ chatId, isMine, text }: ChatContextMenuProps) {
           <p>공지</p>
         </Item>
       )}
-      <Item lastItem>
+      <Item lastItem onClick={() => deleteOurChat(chatId)}>
         <Icon icon="IconTrash" size={16} />
         <p>삭제</p>
       </Item>
