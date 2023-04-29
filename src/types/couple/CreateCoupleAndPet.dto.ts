@@ -1,4 +1,4 @@
 export interface CreateCoupleAndPetDto {
   anniversaryDay: string;
-  coupleId: string;
+  partnerId: string;
 }
