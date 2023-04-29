@@ -48,10 +48,16 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
+  color: black;
 }
 input {
   border: none;
   outline: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 textarea {
   border: none;
