@@ -79,7 +79,7 @@ export function useUserIsCouple({
   options?: UseQueryOptionsType<ResultDto>;
 }) {
   return useQuery(
-    [...(storeCode ?? [])],
+    [...queryKeys.userKeys.isCouple, ...(storeCode ?? [])],
     () => USER_API.getUserIsCouple(userId),
     {
       select: ({ data }) => data,
