@@ -16,6 +16,7 @@ const userKeys = {
   all: [Domain.user] as unknown as QueryKey[],
   emoji: [Domain.user, 'emoji'] as unknown as QueryKey[],
   emojiById: (id: string) => [...userKeys.emoji, id] as unknown as QueryKey[],
+  isCouple: [Domain.user, 'isCouple'] as unknown as QueryKey[],
 };
 
 const coupleKeys = {

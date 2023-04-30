@@ -116,11 +116,16 @@ function HomePet() {
   const { data: pet } = usePetData({
     coupleId: userStore.user?.coupleId!,
     petId: userStore.petId!,
+    options: {
+      refetchInterval: (data) => (!data ? 3000 : false),
+      enabled: !!userStore.petId,
+      suspense: false,
+    },
   });
 
   if (!pet) {
     // TODO
-    return <div />;
+    return <div style={{ width: '200px', height: '200px' }} />;
   }
 
   return (

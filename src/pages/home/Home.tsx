@@ -87,7 +87,11 @@ const Shop = styled.div`
 function Home() {
   const { userStore } = store;
   const { data: couple } = useCoupleData({
-    coupleId: userStore.user?.coupleId,
+    coupleId: userStore.user?.coupleId ?? '',
+    options: {
+      enabled: !!userStore.user?.coupleId,
+      suspense: false,
+    },
   });
 
   useEffect(() => {
