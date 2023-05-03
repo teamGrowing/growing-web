@@ -15,12 +15,9 @@ import ChatNotice from '../../components/pages/chat/ChatNotice';
 const ChattingPageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 24px);
+  height: 100%;
 
   background-color: ${({ theme }) => theme.color.gray50};
-
-  padding-bottom: constant(safe-area-inset-bottom);
-  padding-bottom: env(safe-area-inset-bottom);
 `;
 
 const Chats = styled.section`
@@ -29,12 +26,11 @@ const Chats = styled.section`
   display: flex;
   flex-direction: column;
 
-  padding: 0 16px 8px;
-  padding-bottom: calc(24px + constant(safe-area-inset-bottom));
-  padding-bottom: calc(24px + env(safe-area-inset-bottom));
+  padding: 0 16px;
 
   height: 100%;
 
+  overflow-x: hidden;
   overflow-y: scroll;
 `;
 
@@ -59,8 +55,16 @@ function ChattingPage() {
     userId: userStore.user?.id ?? '',
   });
 
+  const scrollByMenu = (isOpen: boolean) => {
+    if (!chatsRef.current) return;
+
+    const num = isOpen ? 260 : -260;
+    chatsRef.current.scrollTop += num;
+  };
+
   const handleDefaultMode = () => {
     chatStore.clear();
+    scrollByMenu(false);
   };
 
   function scrollToBottom() {
@@ -120,7 +124,10 @@ function ChattingPage() {
   }, []);
 
   return (
-    <ChattingPageContainer className="page-container with-topbar">
+    <ChattingPageContainer
+      className="page-container with-topbar"
+      style={{ paddingBottom: '0' }}
+    >
       <TopBar
         title="growing"
         leftNode={<Icon icon="IconArrowLeft" />}
@@ -148,11 +155,10 @@ function ChattingPage() {
               {...chat}
             />
           ))}
-
         <div ref={chatEndRef} />
-      </Chats>
 
-      <InputChat createChat={createChat} />
+        <InputChat createChat={createChat} scrollByMenu={scrollByMenu} />
+      </Chats>
     </ChattingPageContainer>
   );
 }
