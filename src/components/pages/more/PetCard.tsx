@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import cardBackgroundImg from '../../../assets/image/Card.png';
-import PetLineDto from '../../../types/more/PostPetLine.dto';
+import cardBackgroundImg from 'assets/image/Card.png';
+import PetLineDto from 'types/more/PostPetLine.dto';
 
 const Card = styled.div`
   position: relative;

@@ -3,14 +3,14 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useQueryClient } from '@tanstack/react-query';
-import store from '../../../stores/RootStore';
-import { useGradutePet } from '../../../hooks/queries/pet.queries';
-import PET_GAUGE_MAX from '../../../constants/constants';
-import { PetDto } from '../../../types/pet/Pet.dto';
-import { ReactComponent as IconBowl } from '../../../assets/icons/home/IconBowl.svg';
-import { ReactComponent as IconSmile } from '../../../assets/icons/home/IconSmile.svg';
-import { ReactComponent as IconLetter } from '../../../assets/icons/home/IconLetter.svg';
-import queryKeys from '../../../constants/queryKeys';
+import store from 'stores/RootStore';
+import { useGradutePet } from 'hooks/queries/pet.queries';
+import PET_GAUGE_MAX from 'constants/constants';
+import { PetDto } from 'types/pet/Pet.dto';
+import { ReactComponent as IconBowl } from 'assets/icons/home/IconBowl.svg';
+import { ReactComponent as IconSmile } from 'assets/icons/home/IconSmile.svg';
+import { ReactComponent as IconLetter } from 'assets/icons/home/IconLetter.svg';
+import queryKeys from 'constants/queryKeys';
 
 const Wrapper = styled.div`
   flex: 1;

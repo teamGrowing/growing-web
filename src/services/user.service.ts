@@ -1,14 +1,14 @@
+import { ChangeUserDto } from 'types/user/CangeUser.dto';
+import { ChangeUserPhotoDto } from 'types/user/ChangeUserPhoto.dto';
+import { CreatePassword } from 'types/user/CreatePassword.dto';
+import { EmojiLineDto } from 'types/user/EmojiLine.dto';
+import { EmojiPackageLineDto } from 'types/user/EmojiPackageLine.dto';
+import { ResultDto } from 'types/user/Result.dto';
+import { UserDto } from 'types/user/User.dto';
+import { VerifyCodeDto } from 'types/user/VerifyCode.dto';
+import { VerifyCodeResponseDto } from 'types/user/VerifyCodeResponse.dto';
+import { VerifyPassword } from 'types/user/VerifyPassword.dto';
 import fetcher from '.';
-import { ChangeUserDto } from '../types/user/CangeUser.dto';
-import { ChangeUserPhotoDto } from '../types/user/ChangeUserPhoto.dto';
-import { CreatePassword } from '../types/user/CreatePassword.dto';
-import { EmojiLineDto } from '../types/user/EmojiLine.dto';
-import { EmojiPackageLineDto } from '../types/user/EmojiPackageLine.dto';
-import { ResultDto } from '../types/user/Result.dto';
-import { UserDto } from '../types/user/User.dto';
-import { VerifyCodeDto } from '../types/user/VerifyCode.dto';
-import { VerifyCodeResponseDto } from '../types/user/VerifyCodeResponse.dto';
-import { VerifyPassword } from '../types/user/VerifyPassword.dto';
 
 export const USER_API = {
   getUser: (userId: string) => fetcher.create().get<UserDto>(`users/${userId}`),

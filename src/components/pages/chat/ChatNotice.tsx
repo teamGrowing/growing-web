@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import { useQueryClient } from '@tanstack/react-query';
-import store from '../../../stores/RootStore';
-import Icon from '../../common/Icon/Icon';
+import store from 'stores/RootStore';
+import Icon from 'components/common/Icon/Icon';
 import {
   useChatNoticeData,
   useFoldNoticeMutate,
   useInvisibleNoticeMutate,
-} from '../../../hooks/queries/chat-notice.queries';
-import queryKeys from '../../../constants/queryKeys';
+} from 'hooks/queries/chat-notice.queries';
+import queryKeys from 'constants/queryKeys';
 
 const FoldenContainer = styled.div`
   z-index: 1;

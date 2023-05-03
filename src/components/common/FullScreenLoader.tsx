@@ -1,7 +1,7 @@
 import React from 'react';
 import Lottie from 'lottie-react';
 import styled from 'styled-components';
-import loadingAnimation from '../../assets/lottie/loadingAnimation.json';
+import loadingAnimation from 'assets/lottie/loadingAnimation.json';
 
 const FullScreen = styled.div`
   z-index: 999;

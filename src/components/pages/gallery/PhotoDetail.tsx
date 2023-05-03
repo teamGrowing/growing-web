@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import PhotoDto from '../../../types/gallery/Photo.dto';
+import PhotoDto from 'types/gallery/Photo.dto';
 
 const Scrolls = styled.div`
   display: flex;

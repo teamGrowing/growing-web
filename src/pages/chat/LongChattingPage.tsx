@@ -2,9 +2,9 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import Icon from '../../components/common/Icon/Icon';
-import TopBar from '../../components/common/TopBar/TopBar';
-import store from '../../stores/RootStore';
+import Icon from 'components/common/Icon/Icon';
+import TopBar from 'components/common/TopBar/TopBar';
+import store from 'stores/RootStore';
 
 const LongChattingPageContainer = styled.div`
   background-color: ${({ theme }) => theme.color.gray50};

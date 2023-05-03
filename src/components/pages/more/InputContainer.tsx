@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React, { useState, SyntheticEvent, useRef } from 'react';
 import { mergeRefs } from 'react-merge-refs';
 import { FieldError } from 'react-hook-form';
-import Icon from '../../common/Icon/Icon';
+import Icon from 'components/common/Icon/Icon';
 
 const Container = styled.div`
   display: flex;

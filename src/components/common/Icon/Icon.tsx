@@ -1,6 +1,6 @@
 import React, { SVGAttributes } from 'react';
-import * as icons from '../../../assets/icons/index';
-import myTheme from '../../../styles/theme/DefaultTheme';
+import * as icons from 'assets/icons/index';
+import myTheme from 'styles/theme/DefaultTheme';
 
 export type IconType = keyof typeof icons;
 export const iconTypes: IconType[] = Object.keys(icons) as IconType[];

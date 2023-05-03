@@ -6,13 +6,13 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import queryKeys from '../../constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
-import PLAN_API from '../../services/plan.service';
-import { CreatePlanDto } from '../../types/plan/CreatePlan.dto';
-import { DailyPlanDto } from '../../types/plan/DailyPlan.dto';
-import { MonthlyPlanDto } from '../../types/plan/MonthlyPlan.dto';
-import { PatchPlanDto } from '../../types/plan/PatchPlan.dto';
+import queryKeys from 'constants/queryKeys';
+import { UseMutationOptionsType, UseQueryOptionsType } from 'services';
+import PLAN_API from 'services/plan.service';
+import { CreatePlanDto } from 'types/plan/CreatePlan.dto';
+import { DailyPlanDto } from 'types/plan/DailyPlan.dto';
+import { MonthlyPlanDto } from 'types/plan/MonthlyPlan.dto';
+import { PatchPlanDto } from 'types/plan/PatchPlan.dto';
 
 export function useCalendarMonthlyPlans({
   coupleId,

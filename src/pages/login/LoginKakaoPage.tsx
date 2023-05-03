@@ -3,14 +3,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import Cookies from 'js-cookie';
-import store from '../../stores/RootStore';
-import { ImgLogo } from '../../assets/image';
-import Icon from '../../components/common/Icon/Icon';
-import {
-  useKakaoLogin,
-  useUserIsCouple,
-} from '../../hooks/queries/user.queries';
-import fetcher from '../../services';
+import store from 'stores/RootStore';
+import { ImgLogo } from 'assets/image';
+import Icon from 'components/common/Icon/Icon';
+import { useKakaoLogin, useUserIsCouple } from 'hooks/queries/user.queries';
+import fetcher from 'services';
 
 const PageContainer = styled.div`
   padding-left: 40px;

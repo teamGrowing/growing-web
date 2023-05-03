@@ -2,21 +2,21 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
-import TopBar from '../../components/common/TopBar/TopBar';
-import PhotoDetail from '../../components/pages/gallery/PhotoDetail';
-import BottomMenu from '../../components/pages/gallery/BottomMenu';
-import CommentMenu from '../../components/pages/gallery/CommentMenu';
-import Icon from '../../components/common/Icon/Icon';
+import TopBar from 'components/common/TopBar/TopBar';
+import PhotoDetail from 'components/pages/gallery/PhotoDetail';
+import BottomMenu from 'components/pages/gallery/BottomMenu';
+import CommentMenu from 'components/pages/gallery/CommentMenu';
+import Icon from 'components/common/Icon/Icon';
 import {
   useCommentList,
   useDeletePhotosMutation,
   useGalleryDetail,
   usePostCommentMutation,
-} from '../../hooks/queries/gallery.queries';
-import store from '../../stores/RootStore';
-import Modal from '../../components/common/Modal/Modal';
-import useToast from '../../hooks/common/useToast';
-import preventScroll from '../../util/utils';
+} from 'hooks/queries/gallery.queries';
+import store from 'stores/RootStore';
+import Modal from 'components/common/Modal/Modal';
+import useToast from 'hooks/common/useToast';
+import preventScroll from 'util/utils';
 
 const Container = styled.div`
   position: relative;

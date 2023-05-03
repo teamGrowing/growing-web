@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import store from '../../stores/RootStore';
-import { MENT_LOGIN } from '../../constants/ments';
-import Wave from '../../components/pages/login/Wave';
-import { ImgPetsWaiting } from '../../assets/image';
-import { useUserIsCouple } from '../../hooks/queries/user.queries';
-import useToast from '../../hooks/common/useToast';
+import store from 'stores/RootStore';
+import { MENT_LOGIN } from 'constants/ments';
+import Wave from 'components/pages/login/Wave';
+import { ImgPetsWaiting } from 'assets/image';
+import { useUserIsCouple } from 'hooks/queries/user.queries';
+import useToast from 'hooks/common/useToast';
 
 const PageContainer = styled.div`
   display: flex;

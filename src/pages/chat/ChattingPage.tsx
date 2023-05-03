@@ -2,15 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import store from '../../stores/RootStore';
-import { useChatData } from '../../hooks/queries/chat.queries';
-import useReactQuerySubscription from '../../hooks/chat/useReactQuerySubscription';
-import Icon from '../../components/common/Icon/Icon';
-import TopBar from '../../components/common/TopBar/TopBar';
-import ChatBallon from '../../components/pages/chat/ChatBallon';
-import InputChat from '../../components/pages/chat/InputChat';
-import SubMenu from '../../components/pages/chat/SubMenu';
-import ChatNotice from '../../components/pages/chat/ChatNotice';
+import store from 'stores/RootStore';
+import { useChatData } from 'hooks/queries/chat.queries';
+import useReactQuerySubscription from 'hooks/chat/useReactQuerySubscription';
+import Icon from 'components/common/Icon/Icon';
+import TopBar from 'components/common/TopBar/TopBar';
+import ChatBallon from 'components/pages/chat/ChatBallon';
+import InputChat from 'components/pages/chat/InputChat';
+import SubMenu from 'components/pages/chat/SubMenu';
+import ChatNotice from 'components/pages/chat/ChatNotice';
 
 const ChattingPageContainer = styled.div`
   display: flex;

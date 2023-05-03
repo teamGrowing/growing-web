@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
-import changeEmojiToSpan from '../../../util/Text';
+import changeEmojiToSpan from 'util/Text';
+import { fadeInOut } from 'styles/common/keyframs';
 import ToastContext from './ToastContext';
-import { fadeInOut } from '../../../styles/common/keyframs';
 
 const MessageBox = styled.div`
   display: flex;

@@ -1,10 +1,10 @@
 import { action, makeAutoObservable } from 'mobx';
 import Cookies from 'js-cookie';
-import { COUPLE_API } from '../services/couple.service';
-import { USER_API } from '../services/user.service';
-import { UserDto } from '../types/user/User.dto';
-import AUTH_API from '../services/auth.service';
-import fetcher from '../services';
+import { COUPLE_API } from 'services/couple.service';
+import { USER_API } from 'services/user.service';
+import { UserDto } from 'types/user/User.dto';
+import AUTH_API from 'services/auth.service';
+import fetcher from 'services';
 
 class UserStore {
   user: UserDto | null = null;

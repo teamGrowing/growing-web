@@ -6,15 +6,15 @@ import daygrid from '@fullcalendar/daygrid';
 import timegrid from '@fullcalendar/timegrid';
 import interaction from '@fullcalendar/interaction';
 import { EventDropArg } from '@fullcalendar/core';
-import CalendarTitle from '../../components/pages/calendar/CalendarTitle';
+import CalendarTitle from 'components/pages/calendar/CalendarTitle';
 import {
   useCalendarMonthlyPlans,
   useModifyPlanMutation,
-} from '../../hooks/queries/calendar.queries';
-import userStore from '../../stores/UserStore';
-import TodoArea from '../../components/pages/calendar/TodoArea';
-import useToast from '../../hooks/common/useToast';
-import { MENT_CALENDAR } from '../../constants/ments';
+} from 'hooks/queries/calendar.queries';
+import userStore from 'stores/UserStore';
+import TodoArea from 'components/pages/calendar/TodoArea';
+import useToast from 'hooks/common/useToast';
+import { MENT_CALENDAR } from 'constants/ments';
 
 const PageContainer = styled.div`
   overflow: scroll;

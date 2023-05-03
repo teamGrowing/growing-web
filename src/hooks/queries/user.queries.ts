@@ -7,17 +7,17 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import queryKeys from '../../constants/queryKeys';
-import { UseQueryOptionsType } from '../../services';
-import { USER_API } from '../../services/user.service';
-import AUTH_API from '../../services/auth.service';
-import store from '../../stores/RootStore';
-import { ChangeUserDto } from '../../types/user/CangeUser.dto';
-import { ResultDto } from '../../types/user/Result.dto';
-import { VerifyCodeDto } from '../../types/user/VerifyCode.dto';
-import { VerifyCodeResponseDto } from '../../types/user/VerifyCodeResponse.dto';
-import { KakaoCodeDto } from '../../types/auth/KakaoCode.dto';
-import { LogInResultDto } from '../../types/auth/LogInResult.dto';
+import queryKeys from 'constants/queryKeys';
+import { UseQueryOptionsType } from 'services';
+import { USER_API } from 'services/user.service';
+import AUTH_API from 'services/auth.service';
+import store from 'stores/RootStore';
+import { ChangeUserDto } from 'types/user/CangeUser.dto';
+import { ResultDto } from 'types/user/Result.dto';
+import { VerifyCodeDto } from 'types/user/VerifyCode.dto';
+import { VerifyCodeResponseDto } from 'types/user/VerifyCodeResponse.dto';
+import { KakaoCodeDto } from 'types/auth/KakaoCode.dto';
+import { LogInResultDto } from 'types/auth/LogInResult.dto';
 
 export function usePutProfilePhotoMutation({
   userId,

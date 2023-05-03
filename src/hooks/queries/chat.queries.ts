@@ -6,18 +6,18 @@ import {
   useQuery,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import { CHAT_LIMIT } from '../../constants/constants';
-import queryKeys from '../../constants/queryKeys';
+import { CHAT_LIMIT } from 'constants/constants';
+import queryKeys from 'constants/queryKeys';
 import {
   UseQueryOptionsType,
   UseMutationOptionsType,
   UseInfiniteQueryOptionsType,
-} from '../../services';
-import { CHAT_API, CHAT_QNA_API } from '../../services/chat.service';
-import { ParentChildChattingDto } from '../../types/chat/Chatting.dto';
-import { AnswerDto } from '../../types/chat/questions/Answer.dto';
-import { IsToDoQuestion } from '../../types/chat/questions/IsToDoQuestion';
-import { QuestionsAndAnswers } from '../../types/chat/questions/QuestionAndAnswers';
+} from 'services';
+import { CHAT_API, CHAT_QNA_API } from 'services/chat.service';
+import { ParentChildChattingDto } from 'types/chat/Chatting.dto';
+import { AnswerDto } from 'types/chat/questions/Answer.dto';
+import { IsToDoQuestion } from 'types/chat/questions/IsToDoQuestion';
+import { QuestionsAndAnswers } from 'types/chat/questions/QuestionAndAnswers';
 
 export const useChatData = ({
   coupleId,

@@ -3,15 +3,11 @@ import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import store from '../../../../stores/RootStore';
-import { useEmojiData } from '../../../../hooks/queries/chat-emoji.queries';
-import { CreateChattingDto } from '../../../../types/chat/createChat.dto';
+import store from 'stores/RootStore';
+import { useEmojiData } from 'hooks/queries/chat-emoji.queries';
+import { CreateChattingDto } from 'types/chat/createChat.dto';
+import { ImgEmojiBear, ImgEmojiCat, ImgEmojiRabbit } from 'assets/image';
 import Emojis from './Emojis';
-import {
-  ImgEmojiBear,
-  ImgEmojiCat,
-  ImgEmojiRabbit,
-} from '../../../../assets/image';
 
 const Container = styled.div`
   position: relative;

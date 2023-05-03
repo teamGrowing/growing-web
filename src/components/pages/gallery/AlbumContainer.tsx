@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AlbumDto from '../../../types/gallery/Album.dto';
+import AlbumDto from 'types/gallery/Album.dto';
 import AlbumRowContainer from './AlbumRowContainer';
 
 interface AlbumContainerProps {

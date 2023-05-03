@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import styled from 'styled-components';
-import PhotoCommentDto from '../../../types/gallery/PhotoComment.dto';
-import Icon from '../../common/Icon/Icon';
+import PhotoCommentDto from 'types/gallery/PhotoComment.dto';
+import Icon from 'components/common/Icon/Icon';
 import Comment from './Comment';
 
 const Box = styled.div`

@@ -2,10 +2,10 @@ import React, { SetStateAction } from 'react';
 import styled, { css } from 'styled-components';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
-import Icon from '../../common/Icon/Icon';
+import Icon from 'components/common/Icon/Icon';
+import { ChattingArchivedDto } from 'types/chat/ChattingArchived.dto';
+import { clickPulse, pulse } from 'styles/common/keyframs';
 import ArchivedCardLines from './ArchivedCardLines';
-import { ChattingArchivedDto } from '../../../types/chat/ChattingArchived.dto';
-import { clickPulse, pulse } from '../../../styles/common/keyframs';
 
 const Outer = styled.div<{ isSelected: boolean }>`
   position: relative;

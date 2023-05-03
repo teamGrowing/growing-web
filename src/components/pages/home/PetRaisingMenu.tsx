@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { ReactComponent as IconBowl } from '../../../assets/icons/home/IconBowl.svg';
-import { ReactComponent as IconSmile } from '../../../assets/icons/home/IconSmile.svg';
-import { ReactComponent as IconLetter } from '../../../assets/icons/home/IconLetter.svg';
-import { ReactComponent as IconHeart } from '../../../assets/icons/home/IconHeart.svg';
+import { ReactComponent as IconBowl } from 'assets/icons/home/IconBowl.svg';
+import { ReactComponent as IconSmile } from 'assets/icons/home/IconSmile.svg';
+import { ReactComponent as IconLetter } from 'assets/icons/home/IconLetter.svg';
+import { ReactComponent as IconHeart } from 'assets/icons/home/IconHeart.svg';
 
 const Container = styled.div`
   width: 70px;
