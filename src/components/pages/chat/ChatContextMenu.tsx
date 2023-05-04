@@ -2,13 +2,13 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import styled, { keyframes } from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
-import store from '../../../stores/RootStore';
-import Icon from '../../common/Icon/Icon';
-import queryKeys from '../../../constants/queryKeys';
-import { MENT_CHAT } from '../../../constants/ments';
-import { useNotifyChatMutate } from '../../../hooks/queries/chat-notice.queries';
-import { useArchivedChatMutate } from '../../../hooks/queries/chat-archived.queries';
-import useToast from '../../../hooks/common/useToast';
+import store from 'stores/RootStore';
+import Icon from 'components/common/Icon/Icon';
+import queryKeys from 'constants/queryKeys';
+import { MENT_CHAT } from 'constants/ments';
+import { useNotifyChatMutate } from 'hooks/queries/chat-notice.queries';
+import { useArchivedChatMutate } from 'hooks/queries/chat-archived.queries';
+import useToast from 'hooks/common/useToast';
 
 interface ChatContextMenuProps {
   chatId: string;

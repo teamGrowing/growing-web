@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import store from '../../stores/RootStore';
-import { MENT_CHAT } from '../../constants/ments';
-import Icon from '../../components/common/Icon/Icon';
-import TopBar from '../../components/common/TopBar/TopBar';
-import Modal from '../../components/common/Modal/Modal';
-import ArchivedCard from '../../components/pages/chat/ArchivedCard';
-import useToast from '../../hooks/common/useToast';
-import useDeleteArchived from '../../hooks/chat/useDeleteArchived';
-import { useArchivedChatData } from '../../hooks/queries/chat-archived.queries';
+import store from 'stores/RootStore';
+import { MENT_CHAT } from 'constants/ments';
+import Icon from 'components/common/Icon/Icon';
+import TopBar from 'components/common/TopBar/TopBar';
+import Modal from 'components/common/Modal/Modal';
+import ArchivedCard from 'components/pages/chat/ArchivedCard';
+import useToast from 'hooks/common/useToast';
+import useDeleteArchived from 'hooks/chat/useDeleteArchived';
+import { useArchivedChatData } from 'hooks/queries/chat-archived.queries';
 
 const PageContainer = styled.div`
   background: linear-gradient(

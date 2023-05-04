@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Icon from '../../common/Icon/Icon';
+import Icon from 'components/common/Icon/Icon';
 
 const Container = styled.div<{ border: boolean }>`
   display: flex;

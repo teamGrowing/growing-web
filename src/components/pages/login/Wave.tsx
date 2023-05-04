@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Waves from '../../../assets/image/HomeWaves.png';
+import Waves from 'assets/image/HomeWaves.png';
 
 const WaveWrapper = styled.div`
   position: fixed;

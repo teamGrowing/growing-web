@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import TopBar from '../../components/common/TopBar/TopBar';
-import Icon from '../../components/common/Icon/Icon';
-import WhiteContainer from '../../components/pages/more/WhiteContainer';
-import PurpleBackground from '../../styles/common/PurpleBackground';
-import preventScroll from '../../util/utils';
+import TopBar from 'components/common/TopBar/TopBar';
+import Icon from 'components/common/Icon/Icon';
+import WhiteContainer from 'components/pages/more/WhiteContainer';
+import PurpleBackground from 'styles/common/PurpleBackground';
+import preventScroll from 'util/utils';
 
 const Container = styled.div`
   position: relative;

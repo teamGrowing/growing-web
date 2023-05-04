@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import Icon from '../../common/Icon/Icon';
+import Icon from 'components/common/Icon/Icon';
 import GalleryTitle from './GalleryTitle';
 
 export default {

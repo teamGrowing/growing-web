@@ -4,23 +4,20 @@ import { AxiosResponse } from 'axios';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  usePetFeedMutation,
-  usePetPlayMutation,
-} from '../../hooks/queries/pet.queries';
-import preventScroll from '../../util/utils';
-import changeEmojiToSpan from '../../util/Text';
-import store from '../../stores/RootStore';
-import { PetDto } from '../../types/pet/Pet.dto';
-import Icon from '../../components/common/Icon/Icon';
-import TopBar from '../../components/common/TopBar/TopBar';
-import Modal from '../../components/common/Modal/Modal';
-import Pet3DImg from '../../components/pages/home/Pet3D';
-import MENT_HOME from '../../constants/ments';
-import queryKeys from '../../constants/queryKeys';
-import foodAnimation from '../../assets/lottie/foodAnimation.json';
-import heartsAnimation from '../../assets/lottie/heartsAnimation.json';
-import Waves from '../../assets/image/FeedWaves.png';
+import { usePetFeedMutation, usePetPlayMutation } from 'hooks/queries/pet.queries';
+import preventScroll from 'util/utils';
+import changeEmojiToSpan from 'util/Text';
+import store from 'stores/RootStore';
+import { PetDto } from 'types/pet/Pet.dto';
+import Icon from 'components/common/Icon/Icon';
+import TopBar from 'components/common/TopBar/TopBar';
+import Modal from 'components/common/Modal/Modal';
+import Pet3DImg from 'components/pages/home/Pet3D';
+import MENT_HOME from 'constants/ments';
+import queryKeys from 'constants/queryKeys';
+import foodAnimation from 'assets/lottie/foodAnimation.json';
+import heartsAnimation from 'assets/lottie/heartsAnimation.json';
+import Waves from 'assets/image/FeedWaves.png';
 
 const PetFeedContainer = styled.div`
   display: flex;

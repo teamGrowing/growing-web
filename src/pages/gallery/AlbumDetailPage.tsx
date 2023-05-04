@@ -2,26 +2,26 @@ import styled from 'styled-components';
 import { useState, useMemo, useRef } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
-import TopBar from '../../components/common/TopBar/TopBar';
-import Icon from '../../components/common/Icon/Icon';
-import FloatingButton from '../../components/pages/gallery/FloatingButton';
-import DataContext from './context';
+import PhotoContainer from 'components/pages/gallery/PhotoContainer';
+import TopBar from 'components/common/TopBar/TopBar';
+import Icon from 'components/common/Icon/Icon';
+import FloatingButton from 'components/pages/gallery/FloatingButton';
 import {
   useAlbumPhotosList,
   useDeletePhotosMutation as useDeletePhotosFromAlbumMutation,
   usePatchAlbumMutation,
   usePostPhotosMutation,
-} from '../../hooks/queries/album.queries';
+} from 'hooks/queries/album.queries';
 import {
   useDeletePhotosMutation,
   useCreatePhotosMutation,
-} from '../../hooks/queries/gallery.queries';
-import store from '../../stores/RootStore';
-import Modal from '../../components/common/Modal/Modal';
-import AlbumModal from '../../components/common/Modal/AlbumModal';
-import useToast from '../../hooks/common/useToast';
-import BottomNavigation from '../../components/layout/BottomNavigation';
+} from 'hooks/queries/gallery.queries';
+import store from 'stores/RootStore';
+import Modal from 'components/common/Modal/Modal';
+import AlbumModal from 'components/common/Modal/AlbumModal';
+import useToast from 'hooks/common/useToast';
+import BottomNavigation from 'components/layout/BottomNavigation';
+import DataContext from './context';
 
 const Container = styled.div`
   overflow-y: scroll;

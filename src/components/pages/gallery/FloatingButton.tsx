@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
-import Icon from '../../common/Icon/Icon';
+import Icon from 'components/common/Icon/Icon';
 
 const ButtonStyle = styled.div`
   position: fixed;

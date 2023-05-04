@@ -1,9 +1,9 @@
+import { AddPhotoDto } from 'types/gallery/AddPhoto.dto';
+import AlbumDto from 'types/gallery/Album.dto';
+import { ChangeAlbumTitleDto } from 'types/gallery/ChangeAlbumTitle.dto';
+import { CreateAlbumDto } from 'types/gallery/CreateAlbum.dto';
+import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
 import fetcher from '.';
-import { AddPhotoDto } from '../types/gallery/AddPhoto.dto';
-import AlbumDto from '../types/gallery/Album.dto';
-import { ChangeAlbumTitleDto } from '../types/gallery/ChangeAlbumTitle.dto';
-import { CreateAlbumDto } from '../types/gallery/CreateAlbum.dto';
-import { PhotoLineDto } from '../types/gallery/PhotoLine.dto';
 
 const ALBUM_API = {
   getAlbums: (coupleId: string) =>

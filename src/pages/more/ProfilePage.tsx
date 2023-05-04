@@ -4,29 +4,26 @@ import styled from 'styled-components';
 import { useState, useRef, useMemo, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import TopBar from '../../components/common/TopBar/TopBar';
-import Icon from '../../components/common/Icon/Icon';
-import Profile from '../../components/pages/more/Profile';
-import SideButton from '../../components/pages/more/SideButton';
-import InputContainer from '../../components/pages/more/InputContainer';
-import { ProfileFormValues, profileSchema } from '../../types/InputSchema';
-import Modal from '../../components/common/Modal/Modal';
-import ModalBottomSheet from '../../components/common/Modal/ModalBottomSheet/ModalBottomSheet';
-import BottomSheetMenu from '../../components/common/Modal/ModalBottomSheet/BottomSheetMenu';
-import store from '../../stores/RootStore';
+import TopBar from 'components/common/TopBar/TopBar';
+import Icon from 'components/common/Icon/Icon';
+import Profile from 'components/pages/more/Profile';
+import SideButton from 'components/pages/more/SideButton';
+import InputContainer from 'components/pages/more/InputContainer';
+import { ProfileFormValues, profileSchema } from 'types/InputSchema';
+import Modal from 'components/common/Modal/Modal';
+import ModalBottomSheet from 'components/common/Modal/ModalBottomSheet/ModalBottomSheet';
+import BottomSheetMenu from 'components/common/Modal/ModalBottomSheet/BottomSheetMenu';
+import store from 'stores/RootStore';
 import {
   usePatchUserInfoMutation,
   usePutProfilePhotoMutation,
-} from '../../hooks/queries/user.queries';
-import { usePatchCoupleMutation } from '../../hooks/queries/couple.queries';
-import PhotoScroll from '../../components/pages/gallery/PhotoScroll';
-import {
-  useCreatePhotosMutation,
-  useGalleryList,
-} from '../../hooks/queries/gallery.queries';
+} from 'hooks/queries/user.queries';
+import { usePatchCoupleMutation } from 'hooks/queries/couple.queries';
+import PhotoScroll from 'components/pages/gallery/PhotoScroll';
+import { useCreatePhotosMutation, useGalleryList } from 'hooks/queries/gallery.queries';
+import preventScroll from 'util/utils';
+import defaultProfile from 'assets/image/DefaultProfile.png';
 import DataContext from '../gallery/context';
-import preventScroll from '../../util/utils';
-import defaultProfile from '../../assets/image/DefaultProfile.png';
 
 const Container = styled.div`
   position: relative;

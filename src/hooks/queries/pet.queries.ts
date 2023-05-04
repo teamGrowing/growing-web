@@ -6,14 +6,14 @@ import {
   UseMutationOptions,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import queryKeys from '../../constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
-import { PET_API } from '../../services/pet.service';
-import PostPetDto from '../../types/more/PostPet.dto';
-import PostPetLineDto from '../../types/more/PostPetLine.dto';
-import { ChangePetDto } from '../../types/pet/ChangePet.dto';
-import { PetDto } from '../../types/pet/Pet.dto';
-import { PetReactionDto } from '../../types/pet/PetReaction.dto';
+import queryKeys from 'constants/queryKeys';
+import { UseMutationOptionsType, UseQueryOptionsType } from 'services';
+import { PET_API } from 'services/pet.service';
+import PostPetDto from 'types/more/PostPet.dto';
+import PostPetLineDto from 'types/more/PostPetLine.dto';
+import { ChangePetDto } from 'types/pet/ChangePet.dto';
+import { PetDto } from 'types/pet/Pet.dto';
+import { PetReactionDto } from 'types/pet/PetReaction.dto';
 
 export function usePetData({
   coupleId,

@@ -3,9 +3,9 @@ import Lottie from 'lottie-react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { FallbackProps } from 'react-error-boundary';
+import errorAnimation from 'assets/lottie/errorAnimation.json';
 import TopBar from './TopBar/TopBar';
 import Icon from './Icon/Icon';
-import errorAnimation from '../../assets/lottie/errorAnimation.json';
 
 const FullScreen = styled.div`
   z-index: 999;

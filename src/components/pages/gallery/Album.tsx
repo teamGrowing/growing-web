@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AlbumDto from '../../../types/gallery/Album.dto';
+import AlbumDto from 'types/gallery/Album.dto';
+import Icon from 'components/common/Icon/Icon';
 import DataContext from '../../../pages/gallery/context';
-import Icon from '../../common/Icon/Icon';
 
 const AlbumBox = styled.div`
   position: relative;

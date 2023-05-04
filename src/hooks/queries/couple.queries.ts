@@ -7,13 +7,13 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import queryKeys from '../../constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
-import { COUPLE_API } from '../../services/couple.service';
-import store from '../../stores/RootStore';
-import { ChangeCoupleDto } from '../../types/couple/ChangeCouple.dto';
-import { CoupleDto } from '../../types/couple/Couple.dto';
-import { CreateCoupleAndPetDto } from '../../types/couple/CreateCoupleAndPet.dto';
+import queryKeys from 'constants/queryKeys';
+import { UseMutationOptionsType, UseQueryOptionsType } from 'services';
+import { COUPLE_API } from 'services/couple.service';
+import store from 'stores/RootStore';
+import { ChangeCoupleDto } from 'types/couple/ChangeCouple.dto';
+import { CoupleDto } from 'types/couple/Couple.dto';
+import { CreateCoupleAndPetDto } from 'types/couple/CreateCoupleAndPet.dto';
 
 export function useCoupleData({
   coupleId,
