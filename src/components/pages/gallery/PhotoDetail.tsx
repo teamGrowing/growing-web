@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import PhotoDto from '../../../types/gallery/Photo.dto';
+import Video from '../chat/ChatVideo';
 
 const Scrolls = styled.div`
   display: flex;
@@ -24,15 +25,6 @@ const Photo = styled.div<{ backgroundUrl: string }>`
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-`;
-
-const Video = styled.video`
-  width: 100%;
-  height: 60%;
 
   flex: none;
   order: 0;
@@ -100,16 +92,15 @@ function PhotoDetail({ photoInfo }: PhotoDetailProps) {
 
   return (
     <Scrolls>
-      {!photoInfo.time && <Photo backgroundUrl={photoInfo.urls} />}
-      {photoInfo.time && (
-        <Video controls>
-          <source src={photoInfo.videoUrl!} />
-          <track
-            src="captions_en.vtt"
-            kind="captions"
-            label="english_captions"
-          />
-        </Video>
+      {!photoInfo.videoUrl && <Photo backgroundUrl={photoInfo.urls} />}
+      {photoInfo.videoUrl && photoInfo.time && (
+        <Video
+          id={photoInfo.id}
+          thumbnailUrl={photoInfo.urls}
+          time={photoInfo.time}
+          videoUrl={photoInfo.videoUrl}
+          height="60%"
+        />
       )}
       <Info>
         <Name>{photoInfo.name}</Name>

@@ -12,12 +12,12 @@ import 'swiper/css/navigation';
 import store from '../../stores/RootStore';
 import Icon from '../../components/common/Icon/Icon';
 import TopBar from '../../components/common/TopBar/TopBar';
-import ChatVideo from '../../components/pages/chat/ChatVideo';
 import {
   useChatPhotoDetailData,
   useChatPhotoToGallery,
 } from '../../hooks/queries/chat-photo.queries';
 import useToast from '../../hooks/common/useToast';
+import ChatVideo from '../../components/pages/chat/ChatVideo';
 
 const PageContainer = styled.div`
   position: relative;
@@ -122,7 +122,7 @@ function ChatPhotoDetailPage() {
         </StyledSwiper>
       )}
 
-      {chat?.video && <ChatVideo {...chat.video} />}
+      {chat?.video && <ChatVideo {...chat.video} height="calc(100% - 80px)" />}
 
       <BottomBar>
         <Icon icon="IconDownloadLocal" themeColor="gray50" />

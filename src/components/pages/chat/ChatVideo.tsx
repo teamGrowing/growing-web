@@ -6,10 +6,10 @@ import { VideoDto } from '../../../types/chat/ChatPhoto.dto';
 import { secondsToText } from '../../../util/Text';
 import useVideo from '../../../hooks/common/useVideo';
 
-const Container = styled.div`
+const Container = styled.div<{ height: string }>`
   position: relative;
   width: 100%;
-  height: calc(100% - 80px);
+  height: ${(props) => props.height};
 `;
 
 const StyledVideo = styled.video`
@@ -60,12 +60,17 @@ const Progress = styled.progress`
   }
 `;
 
+interface VideoProps extends VideoDto {
+  height: string;
+}
+
 export default function ChatVideo({
   id,
   thumbnailUrl,
   time,
   videoUrl,
-}: VideoDto) {
+  height,
+}: VideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const videoEl = ref && ref.current;
 
@@ -79,6 +84,7 @@ export default function ChatVideo({
       onClick={() => {
         setShowController(!showController);
       }}
+      height={height}
     >
       <StyledVideo
         id="video"
@@ -90,7 +96,6 @@ export default function ChatVideo({
         <source src={videoUrl} />
         <track kind="captions" />
       </StyledVideo>
-
       {showController && (
         <VideoController onClick={(e) => e.stopPropagation()}>
           <ControlBar>
@@ -103,7 +108,6 @@ export default function ChatVideo({
               onClick={onMute}
             />
           </ControlBar>
-
           <PlayBtn
             icon={playing ? 'IconPause' : 'IconPlay'}
             size={40}
