@@ -80,7 +80,13 @@ export default function ChatVideo({
         setShowController(!showController);
       }}
     >
-      <StyledVideo id="video" ref={ref} onTimeUpdate={onSink}>
+      <StyledVideo
+        id="video"
+        ref={ref}
+        playsInline
+        poster={thumbnailUrl}
+        onTimeUpdate={onSink}
+      >
         <source src={videoUrl} />
         <track kind="captions" />
       </StyledVideo>

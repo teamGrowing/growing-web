@@ -2,14 +2,14 @@
 import React, { Suspense, useEffect, useRef, useState } from 'react';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { PetModel,Loader } from './PetModel';
+import { PetModel, Loader } from './PetModel';
 
 const Pet3D = ({
   url,
   size,
   onClick,
 }: {
-  url: string;
+  url: string | undefined;
   size?: number;
   onClick?: () => void;
 }) => {
@@ -24,6 +24,7 @@ const Pet3D = ({
   }, []);
 
   if (!show) return null;
+  if (!url) return null;
 
   return (
     <Canvas
