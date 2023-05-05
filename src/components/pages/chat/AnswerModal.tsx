@@ -3,14 +3,14 @@ import { observer } from 'mobx-react';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
 import { useQueryClient } from '@tanstack/react-query';
-import store from '../../../stores/RootStore';
-import { fadeIn } from '../../../styles/common/keyframs';
-import useToast from '../../../hooks/common/useToast';
-import { useAnswerMutation } from '../../../hooks/queries/chat.queries';
-import { QuestionsAndAnswers } from '../../../types/chat/questions/QuestionAndAnswers';
-import { MENT_CHAT } from '../../../constants/ments';
-import queryKeys from '../../../constants/queryKeys';
-import ModalPortal from '../../common/Modal/ModalPortal';
+import store from 'stores/RootStore';
+import { fadeIn } from 'styles/common/keyframs';
+import useToast from 'hooks/common/useToast';
+import { useAnswerMutation } from 'hooks/queries/chat.queries';
+import { QuestionsAndAnswers } from 'types/chat/questions/QuestionAndAnswers';
+import { MENT_CHAT } from 'constants/ments';
+import queryKeys from 'constants/queryKeys';
+import ModalPortal from 'components/common/Modal/ModalPortal';
 
 export interface ModalProps extends Pick<QuestionsAndAnswers, 'question'> {
   onModal: boolean;

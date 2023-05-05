@@ -2,14 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import { useEffect } from 'react';
-import Icon from '../../components/common/Icon/Icon';
-import MenuBox from '../../components/pages/more/MenuBox';
-import Profile from '../../components/pages/more/Profile';
-import SideButton from '../../components/pages/more/SideButton';
-import WhiteContainer from '../../components/pages/more/WhiteContainer';
-import store from '../../stores/RootStore';
-import preventScroll from '../../util/utils';
-import defaultProfile from '../../assets/image/DefaultProfile.png';
+import Icon from 'components/common/Icon/Icon';
+import MenuBox from 'components/pages/more/MenuBox';
+import Profile from 'components/pages/more/Profile';
+import SideButton from 'components/pages/more/SideButton';
+import WhiteContainer from 'components/pages/more/WhiteContainer';
+import store from 'stores/RootStore';
+import preventScroll from 'util/utils';
+import defaultProfile from 'assets/image/DefaultProfile.png';
 
 const Container = styled.div`
   position: relative;

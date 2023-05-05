@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import calendarUtil from '../../../util/Calendar';
-import Icon from '../../common/Icon/Icon';
+import calendarUtil from 'util/Calendar';
+import Icon from 'components/common/Icon/Icon';
 
 const Container = styled.div`
   width: 100%;

@@ -2,20 +2,20 @@ import styled from 'styled-components';
 import { useMemo, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import FloatingButton from '../../components/pages/gallery/FloatingButton';
-import DataContext from './context';
-import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
-import Icon from '../../components/common/Icon/Icon';
-import GalleryTitle from '../../components/pages/gallery/GalleryTitle';
+import FloatingButton from 'components/pages/gallery/FloatingButton';
+import PhotoContainer from 'components/pages/gallery/PhotoContainer';
+import Icon from 'components/common/Icon/Icon';
+import GalleryTitle from 'components/pages/gallery/GalleryTitle';
 import {
   useCreatePhotosMutation,
   useDeletePhotosMutation,
   useInfiniteGalleryList,
-} from '../../hooks/queries/gallery.queries';
+} from 'hooks/queries/gallery.queries';
 import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import useToast from '../../hooks/common/useToast';
 import { MENT_GALLERY } from '../../constants/ments';
+import DataContext from './context';
 
 const Container = styled.div`
   position: relative;

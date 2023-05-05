@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { observer } from 'mobx-react';
-import store from '../../stores/RootStore';
-import { MENT_LOGIN } from '../../constants/ments';
-import { useCodyVerify } from '../../hooks/queries/user.queries';
-import Wave from '../../components/pages/login/Wave';
-import Egg from '../../components/pages/login/Egg';
-import LoginButton from '../../components/pages/login/LoginButton';
-import { CodeFormValues, codeSchema } from '../../types/InputSchema';
+import store from 'stores/RootStore';
+import { MENT_LOGIN } from 'constants/ments';
+import { useCodyVerify } from 'hooks/queries/user.queries';
+import Wave from 'components/pages/login/Wave';
+import Egg from 'components/pages/login/Egg';
+import LoginButton from 'components/pages/login/LoginButton';
+import { CodeFormValues, codeSchema } from 'types/InputSchema';
 
 const PageContainer = styled.div`
   display: flex;

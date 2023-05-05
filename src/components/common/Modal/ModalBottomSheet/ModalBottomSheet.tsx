@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { fadeIn, fadeInUp } from 'styles/common/keyframs';
 import ModalPortal from '../ModalPortal';
-import { fadeIn, fadeInUp } from '../../../../styles/common/keyframs';
 
 interface ModalBottomSheetProps {
   open: boolean;

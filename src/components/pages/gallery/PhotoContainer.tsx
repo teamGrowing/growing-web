@@ -4,9 +4,9 @@ import {
   UseInfiniteQueryResult,
 } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
-import Photo from './Photo';
-import Icon from '../../common/Icon/Icon';
-import { PhotoLineDto } from '../../../types/gallery/PhotoLine.dto';
+import Icon from 'components/common/Icon/Icon';
+import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
+import Photo from 'components/pages/gallery/Photo';
 
 const Container = styled.div`
   position: relative;

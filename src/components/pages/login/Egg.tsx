@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ImgEgg } from '../../../assets/image';
-import { MENT_LOGIN } from '../../../constants/ments';
-import changeEmojiToSpan from '../../../util/Text';
+import { ImgEgg } from 'assets/image';
+import { MENT_LOGIN } from 'constants/ments';
+import changeEmojiToSpan from 'util/Text';
 
 const Container = styled.button`
   z-index: 1;

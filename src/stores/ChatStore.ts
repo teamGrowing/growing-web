@@ -1,5 +1,5 @@
 import { makeAutoObservable } from 'mobx';
-import { ParentChildChattingDto } from '../types/chat/Chatting.dto';
+import { ParentChildChattingDto } from 'types/chat/Chatting.dto';
 
 const CHAT_MODE = {
   Default: 'Default',

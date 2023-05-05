@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { observer } from 'mobx-react';
-import store from '../../stores/RootStore';
-import useSignUp from '../../hooks/user/useSignUp';
-import Wave from '../../components/pages/login/Wave';
-import Egg from '../../components/pages/login/Egg';
-import LoginButton from '../../components/pages/login/LoginButton';
-import { SignUpFormValues, signUpSchema } from '../../types/InputSchema';
+import store from 'stores/RootStore';
+import useSignUp from 'hooks/user/useSignUp';
+import Wave from 'components/pages/login/Wave';
+import Egg from 'components/pages/login/Egg';
+import LoginButton from 'components/pages/login/LoginButton';
+import { SignUpFormValues, signUpSchema } from 'types/InputSchema';
 
 const PageContainer = styled.div`
   display: flex;

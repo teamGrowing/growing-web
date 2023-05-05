@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import PhotoDto from '../../../types/gallery/Photo.dto';
-import Video from '../chat/ChatVideo';
+import Video from 'components/pages/chat/ChatVideo';
+import PhotoDto from 'types/gallery/Photo.dto';
 
 const Scrolls = styled.div`
   display: flex;

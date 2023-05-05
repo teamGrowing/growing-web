@@ -1,8 +1,8 @@
 import React from 'react';
 
-import GlobalStyle from '../src/styles/GlobalStyle';
+import GlobalStyle from 'styles/GlobalStyle';
 import { ThemeProvider } from 'styled-components';
-import myTheme from '../src/styles/theme/DefaultTheme';
+import myTheme from 'styles/theme/DefaultTheme';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
 
 export const decorators = [

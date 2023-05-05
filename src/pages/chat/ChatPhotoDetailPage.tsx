@@ -9,15 +9,15 @@ import { Manipulation, Navigation, Pagination } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import store from '../../stores/RootStore';
-import Icon from '../../components/common/Icon/Icon';
-import TopBar from '../../components/common/TopBar/TopBar';
+import store from 'stores/RootStore';
+import Icon from 'components/common/Icon/Icon';
+import TopBar from 'components/common/TopBar/TopBar';
+import ChatVideo from 'components/pages/chat/ChatVideo';
 import {
   useChatPhotoDetailData,
   useChatPhotoToGallery,
-} from '../../hooks/queries/chat-photo.queries';
-import useToast from '../../hooks/common/useToast';
-import ChatVideo from '../../components/pages/chat/ChatVideo';
+} from 'hooks/queries/chat-photo.queries';
+import useToast from 'hooks/common/useToast';
 
 const PageContainer = styled.div`
   position: relative;

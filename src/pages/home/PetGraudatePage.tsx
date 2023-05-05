@@ -3,16 +3,16 @@ import styled from 'styled-components';
 import Lottie from 'lottie-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
-import changeEmojiToSpan from '../../util/Text';
-import preventScroll from '../../util/utils';
-import queryKeys from '../../constants/queryKeys';
-import MENT_HOME from '../../constants/ments';
-import { PetDto } from '../../types/pet/Pet.dto';
-import TopBar from '../../components/common/TopBar/TopBar';
-import Modal from '../../components/common/Modal/Modal';
-import Pet3D from '../../components/pages/home/Pet3D';
-import Waves from '../../assets/image/HomeWaves.png';
-import congratsAnimation from '../../assets/lottie/congratsAnimation.json';
+import changeEmojiToSpan from 'util/Text';
+import preventScroll from 'util/utils';
+import queryKeys from 'constants/queryKeys';
+import MENT_HOME from 'constants/ments';
+import { PetDto } from 'types/pet/Pet.dto';
+import TopBar from 'components/common/TopBar/TopBar';
+import Modal from 'components/common/Modal/Modal';
+import Pet3D from 'components/pages/home/Pet3D';
+import Waves from 'assets/image/HomeWaves.png';
+import congratsAnimation from 'assets/lottie/congratsAnimation.json';
 
 const PetRenameContainer = styled.div`
   position: relative;

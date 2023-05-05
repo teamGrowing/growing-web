@@ -2,12 +2,12 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
-import store from '../../stores/RootStore';
-import useQuestionBoxData from '../../hooks/queries/chat.queries';
-import Icon from '../../components/common/Icon/Icon';
-import TopBar from '../../components/common/TopBar/TopBar';
-import QuestionCard from '../../components/pages/chat/QuestionCard';
-import { MENT_CHAT } from '../../constants/ments';
+import store from 'stores/RootStore';
+import useQuestionBoxData from 'hooks/queries/chat.queries';
+import Icon from 'components/common/Icon/Icon';
+import TopBar from 'components/common/TopBar/TopBar';
+import QuestionCard from 'components/pages/chat/QuestionCard';
+import { MENT_CHAT } from 'constants/ments';
 
 const PageContainer = styled.div`
   background-color: ${({ theme }) => theme.color.gray50};

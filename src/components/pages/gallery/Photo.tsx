@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Icon from 'components/common/Icon/Icon';
+import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
 import DataContext from '../../../pages/gallery/context';
-import Icon from '../../common/Icon/Icon';
-import { PhotoLineDto } from '../../../types/gallery/PhotoLine.dto';
 
 const PhotoBox = styled.div<{ isSelected: boolean; imgUrl: string }>`
   position: relative;

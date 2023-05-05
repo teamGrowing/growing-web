@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { useDeleteCommentMutation } from '../../../hooks/queries/gallery.queries';
-import store from '../../../stores/RootStore';
-import PhotoCommentDto from '../../../types/gallery/PhotoComment.dto';
-import Modal from '../../common/Modal/Modal';
+import { useDeleteCommentMutation } from 'hooks/queries/gallery.queries';
+import store from 'stores/RootStore';
+import PhotoCommentDto from 'types/gallery/PhotoComment.dto';
+import Modal from 'components/common/Modal/Modal';
 
 const CommentContainer = styled.div`
   display: flex;

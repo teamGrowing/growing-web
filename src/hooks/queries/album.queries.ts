@@ -7,14 +7,14 @@ import {
   UseMutationResult,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import queryKeys from '../../constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
-import AlbumDto from '../../types/gallery/Album.dto';
-import ALBUM_API from '../../services/album.service';
-import { PhotoLineDto } from '../../types/gallery/PhotoLine.dto';
-import { CreateAlbumDto } from '../../types/gallery/CreateAlbum.dto';
-import { AddPhotoDto } from '../../types/gallery/AddPhoto.dto';
-import { ChangeAlbumTitleDto } from '../../types/gallery/ChangeAlbumTitle.dto';
+import queryKeys from 'constants/queryKeys';
+import { UseMutationOptionsType, UseQueryOptionsType } from 'services';
+import AlbumDto from 'types/gallery/Album.dto';
+import ALBUM_API from 'services/album.service';
+import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
+import { CreateAlbumDto } from 'types/gallery/CreateAlbum.dto';
+import { AddPhotoDto } from 'types/gallery/AddPhoto.dto';
+import { ChangeAlbumTitleDto } from 'types/gallery/ChangeAlbumTitle.dto';
 
 export function useAlbumsList({
   coupleId,

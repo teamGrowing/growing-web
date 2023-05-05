@@ -4,11 +4,11 @@ import dayjs from 'dayjs';
 import styled from 'styled-components';
 import { AxiosResponse } from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
-import queryKeys from '../../../constants/queryKeys';
-import { MENT_CHAT } from '../../../constants/ments';
-import { CoupleDto } from '../../../types/couple/Couple.dto';
-import { QuestionsAndAnswers } from '../../../types/chat/questions/QuestionAndAnswers';
-import Icon from '../../common/Icon/Icon';
+import queryKeys from 'constants/queryKeys';
+import { MENT_CHAT } from 'constants/ments';
+import { CoupleDto } from 'types/couple/Couple.dto';
+import { QuestionsAndAnswers } from 'types/chat/questions/QuestionAndAnswers';
+import Icon from 'components/common/Icon/Icon';
 import AnswerModal from './AnswerModal';
 
 const Container = styled.div<{ openCard: boolean }>`

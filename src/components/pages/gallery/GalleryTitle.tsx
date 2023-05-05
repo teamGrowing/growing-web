@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
-import Icon from '../../common/Icon/Icon';
+import Icon from 'components/common/Icon/Icon';
 
 const Container = styled.div`
   display: flex;

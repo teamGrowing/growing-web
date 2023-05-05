@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import { ChatType } from '../../../../stores/ChatStore';
-import store from '../../../../stores/RootStore';
-import Icon from '../../../common/Icon/Icon';
-import { CreateChattingDto } from '../../../../types/chat/createChat.dto';
+import { ChatType } from 'stores/ChatStore';
+import store from 'stores/RootStore';
+import Icon from 'components/common/Icon/Icon';
+import { CreateChattingDto } from 'types/chat/createChat.dto';
 import PlusMenuEmoji from './PlusMenuEmoji';
 
 const Container = styled.div`

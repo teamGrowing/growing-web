@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import TopBar from '../../components/common/TopBar/TopBar';
-import MenuBox from '../../components/pages/more/MenuBox';
-import WhiteContainer from '../../components/pages/more/WhiteContainer';
-import Icon from '../../components/common/Icon/Icon';
-import PurpleBackground from '../../styles/common/PurpleBackground';
+import TopBar from 'components/common/TopBar/TopBar';
+import MenuBox from 'components/pages/more/MenuBox';
+import WhiteContainer from 'components/pages/more/WhiteContainer';
+import Icon from 'components/common/Icon/Icon';
+import PurpleBackground from 'styles/common/PurpleBackground';
 
 const Container = styled.div`
   position: relative;

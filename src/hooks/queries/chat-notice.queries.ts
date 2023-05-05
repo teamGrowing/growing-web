@@ -5,11 +5,11 @@ import {
   useQuery,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import queryKeys from '../../constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
-import { CHAT_NOTICE_API } from '../../services/chat.service';
-import { Notice } from '../../types/chat/Notice';
-import { NoticeIsFolden } from '../../types/chat/NoticeIsFolden';
+import queryKeys from 'constants/queryKeys';
+import { UseMutationOptionsType, UseQueryOptionsType } from 'services';
+import { CHAT_NOTICE_API } from 'services/chat.service';
+import { Notice } from 'types/chat/Notice';
+import { NoticeIsFolden } from 'types/chat/NoticeIsFolden';
 
 export function useChatNoticeData({
   coupleId,

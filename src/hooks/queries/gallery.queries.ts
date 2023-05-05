@@ -13,18 +13,14 @@ import {
   UseInfiniteQueryOptionsType,
   UseMutationOptionsType,
   UseQueryOptionsType,
-} from '../../services/index';
-import { PHOTO_LIMIT } from '../../constants/constants';
-import queryKeys from '../../constants/queryKeys';
-
-import {
-  GALLERY_API,
-  GALLERY_COMMENT_API,
-} from '../../services/gallery.service';
-import { CreatePhotoResponseDto } from '../../types/gallery/CreatePhotoResponse.dto';
-import PhotoDto from '../../types/gallery/Photo.dto';
-import PhotoCommentDto from '../../types/gallery/PhotoComment.dto';
-import { PhotoLineDto } from '../../types/gallery/PhotoLine.dto';
+} from 'services/index';
+import { PHOTO_LIMIT } from 'constants/constants';
+import queryKeys from 'constants/queryKeys';
+import { GALLERY_API, GALLERY_COMMENT_API } from 'services/gallery.service';
+import { CreatePhotoResponseDto } from 'types/gallery/CreatePhotoResponse.dto';
+import PhotoDto from 'types/gallery/Photo.dto';
+import PhotoCommentDto from 'types/gallery/PhotoComment.dto';
+import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
 
 export function useGalleryList({
   coupleId,

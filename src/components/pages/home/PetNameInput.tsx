@@ -1,9 +1,9 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import styled from 'styled-components';
-import MENT_HOME from '../../../constants/ments';
-import { ONLY_BLACKSPACE_REGEX } from '../../../constants/regexs';
-import { PetFormValues } from '../../../types/InputSchema';
+import MENT_HOME from 'constants/ments';
+import { ONLY_BLACKSPACE_REGEX } from 'constants/regexs';
+import { PetFormValues } from 'types/InputSchema';
 
 const Container = styled.div``;
 

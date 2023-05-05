@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import Icon from '../../components/common/Icon/Icon';
-import TopBar from '../../components/common/TopBar/TopBar';
-import PetCard from '../../components/pages/more/PetCard';
-import PetDetailCard from '../../components/pages/more/PetDetailCard';
-import PurpleBackground from '../../styles/common/PurpleBackground';
-import { useGraduatedPets } from '../../hooks/queries/pet.queries';
-import store from '../../stores/RootStore';
+import Icon from 'components/common/Icon/Icon';
+import TopBar from 'components/common/TopBar/TopBar';
+import PetCard from 'components/pages/more/PetCard';
+import PetDetailCard from 'components/pages/more/PetDetailCard';
+import PurpleBackground from 'styles/common/PurpleBackground';
+import { useGraduatedPets } from 'hooks/queries/pet.queries';
+import store from 'stores/RootStore';
 
 const Container = styled.div`
   position: relative;

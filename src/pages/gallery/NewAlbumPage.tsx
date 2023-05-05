@@ -2,7 +2,7 @@ import { useRef, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
-import PhotoScroll from '../../components/pages/gallery/PhotoScroll';
+import PhotoScroll from 'components/pages/gallery/PhotoScroll';
 import DataContext from './context';
 import { useGalleryList } from '../../hooks/queries/gallery.queries';
 import store from '../../stores/RootStore';
