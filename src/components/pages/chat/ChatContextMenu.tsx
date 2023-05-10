@@ -1,19 +1,22 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import styled, { keyframes } from 'styled-components';
+import CopyToClipboard from 'react-copy-to-clipboard';
 import { useQueryClient } from '@tanstack/react-query';
-import store from 'stores/RootStore';
-import Icon from 'components/common/Icon/Icon';
-import queryKeys from 'constants/queryKeys';
-import { MENT_CHAT } from 'constants/ments';
-import { useNotifyChatMutate } from 'hooks/queries/chat-notice.queries';
-import { useArchivedChatMutate } from 'hooks/queries/chat-archived.queries';
-import useToast from 'hooks/common/useToast';
+import store from '../../../stores/RootStore';
+import Icon from '../../common/Icon/Icon';
+import queryKeys from '../../../constants/queryKeys';
+import { MENT_CHAT } from '../../../constants/ments';
+import { useNotifyChatMutate } from '../../../hooks/queries/chat-notice.queries';
+import { useArchivedChatMutate } from '../../../hooks/queries/chat-archived.queries';
+import { useOurChatDelete } from '../../../hooks/queries/chat.queries';
+import useToast from '../../../hooks/common/useToast';
 
 interface ChatContextMenuProps {
   chatId: string;
   isMine: boolean;
-  isContent: boolean;
+  text: string | null;
+  isTop: boolean;
 }
 
 const keyframe = keyframes`
@@ -27,12 +30,12 @@ const keyframe = keyframes`
   }
 `;
 
-const Container = styled.div<{ isMine: boolean }>`
+const Container = styled.div<{ isMine: boolean; isTop: boolean }>`
   z-index: 2;
 
-  /* TODO: height에 따라 위치 수정 */
   position: absolute;
-  top: calc(100% + 8px);
+  ${(props) =>
+    props.isTop ? 'top: calc(100% + 8px);' : 'bottom: calc(100% + 8px);'}
   ${(props) => (props.isMine ? 'right: 0;' : 'left: 38px;')}
 
   display: flex;
@@ -61,7 +64,12 @@ const Item = styled.div<{ lastItem?: boolean }>`
   color: ${({ theme }) => theme.color.gray700};
 `;
 
-function ChatContextMenu({ chatId, isMine, isContent }: ChatContextMenuProps) {
+function ChatContextMenu({
+  chatId,
+  isMine,
+  text,
+  isTop,
+}: ChatContextMenuProps) {
   const queryClient = useQueryClient();
   const { userStore, chatStore } = store;
   const { addToast } = useToast();
@@ -89,31 +97,48 @@ function ChatContextMenu({ chatId, isMine, isContent }: ChatContextMenuProps) {
     },
   });
 
+  const { mutateAsync: deleteOurChat } = useOurChatDelete({
+    coupleId: userStore.user?.coupleId ?? '',
+    options: {
+      onSuccess: () => {
+        addToast('삭제되었습니다');
+        queryClient.invalidateQueries(queryKeys.chatKeys.all);
+      },
+    },
+  });
+
   return (
-    <Container isMine={isMine}>
+    <Container isMine={isMine} isTop={isTop}>
       {/* <Item>
         <Icon icon="IconReply" size={16} />
         <p>답장</p>
       </Item> */}
-      {isContent && (
-        <Item>
-          <Icon icon="IconCopy" size={16} />
-          <p>복사</p>
-        </Item>
+      {!!text && (
+        <CopyToClipboard
+          text={text}
+          onCopy={() => {
+            addToast(MENT_CHAT.COPY);
+          }}
+        >
+          <Item>
+            <Icon icon="IconCopy" size={16} />
+            <p>복사</p>
+          </Item>
+        </CopyToClipboard>
       )}
-      {isContent && (
+      {!!text && (
         <Item onClick={archiveChat}>
           <Icon icon="IconEnvelope" size={16} />
           <p>보관</p>
         </Item>
       )}
-      {isContent && (
+      {!!text && (
         <Item onClick={notifyChat}>
           <Icon icon="IconBell" size={16} />
           <p>공지</p>
         </Item>
       )}
-      <Item lastItem>
+      <Item lastItem onClick={() => deleteOurChat(chatId)}>
         <Icon icon="IconTrash" size={16} />
         <p>삭제</p>
       </Item>

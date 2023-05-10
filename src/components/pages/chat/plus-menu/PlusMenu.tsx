@@ -74,7 +74,7 @@ function PlusMenu({ createChat }: InputChatProps) {
 
   return (
     <Container>
-      {chatStore.chatMode.mode === 'Menu' && (
+      {mode === 'Menu' && (
         <MenuContainer>
           <Item onClick={() => chatStore.setChatMode({ mode: 'Gallery' })}>
             <StyledIcon>

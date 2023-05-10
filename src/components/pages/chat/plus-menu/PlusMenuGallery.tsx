@@ -69,18 +69,20 @@ const GridPhoto = styled.div<{ url: string; isSelected: boolean }>`
 
 // 하단 메뉴
 const PlusMenuGalleryContainer = styled.div`
+  z-index: 2;
+
+  position: sticky;
+  bottom: 0;
+
   display: flex;
   flex-direction: column;
 
-  width: 100%;
-  max-width: 780px;
-  height: 314px;
+  margin-left: -16px;
 
-  background: linear-gradient(
-    130.11deg,
-    rgba(113, 23, 234, 0.1) 7.3%,
-    rgba(234, 96, 96, 0.1) 100%
-  );
+  width: calc(100% + 32px);
+  max-width: 780px;
+
+  background-color: ${({ theme }) => theme.color.white};
 `;
 
 const SendSection = styled.section`
@@ -90,6 +92,12 @@ const SendSection = styled.section`
   gap: 10px;
 
   padding: 10px 16px;
+
+  background: linear-gradient(
+    130.11deg,
+    rgba(113, 23, 234, 0.1) 7.3%,
+    rgba(234, 96, 96, 0.1) 100%
+  );
 `;
 
 const PhotoSection = styled.section`
@@ -110,8 +118,6 @@ const PhotoSection = styled.section`
 const Photos = styled.div`
   flex: 1;
 
-  height: 100%;
-
   display: flex;
   padding-left: 2px;
   gap: 2px;
@@ -123,9 +129,11 @@ const Photo = styled.div<{ url: string; isSelected: boolean }>`
   position: relative;
 
   width: 140px;
+  height: 252px;
 
   background-image: ${(props) => `url(${props.url})`};
   background-size: cover;
+  background-position: center;
   opacity: ${(props) => props.isSelected && '0.5'};
 
   ${(props) =>
@@ -161,10 +169,18 @@ const FooterSection = styled.section`
   align-items: center;
   gap: 4px;
 
-  width: 100%;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+
   height: 52px;
 
   padding: 12px 16px 20px;
+
+  background: linear-gradient(
+    130.11deg,
+    rgba(113, 23, 234, 0.1) 7.3%,
+    rgba(234, 96, 96, 0.1) 100%
+  );
 
   > p {
     font-size: 14px;
@@ -230,7 +246,7 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
   // 전체보기
   if (chatStore.chatMode.mode === 'GalleryAll') {
     return (
-      <ViewAllContainer>
+      <ViewAllContainer onClick={(e) => e.stopPropagation()}>
         <TopBar
           title={`${getLength()}개가 선택되었습니다.`}
           leftNode={<Icon icon="IconExit" />}
@@ -266,7 +282,7 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
 
   // 채팅창 하단 메뉴
   return (
-    <PlusMenuGalleryContainer>
+    <PlusMenuGalleryContainer onClick={(e) => e.stopPropagation()}>
       <SendSection>
         <Icon
           icon="IconArrowLeft"

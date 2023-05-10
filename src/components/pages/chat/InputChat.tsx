@@ -14,13 +14,14 @@ const MIN_TEXTAREA_HEIGHT = 24;
 const Container = styled.div`
   z-index: 2;
 
-  position: fixed;
+  position: sticky;
   bottom: 0;
 
+  margin-left: -16px;
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 
-  width: 100%;
+  width: calc(100% + 32px);
   max-width: 780px;
 
   background-color: ${({ theme }) => theme.color.white};
@@ -84,9 +85,10 @@ const StyledTextarea = styled.textarea`
 
 type InputChatProps = {
   createChat: (dto: CreateChattingDto) => void;
+  scrollByMenu: (isOpen: boolean) => void;
 };
 
-function InputChat({ createChat }: InputChatProps) {
+function InputChat({ createChat, scrollByMenu }: InputChatProps) {
   const { userStore, chatStore } = store;
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -131,13 +133,14 @@ function InputChat({ createChat }: InputChatProps) {
   }
 
   return (
-    <Container>
+    <Container onClick={(e) => e.stopPropagation()}>
       <InputContainer>
         {plusBtnModes.includes(chatStore.chatMode.mode) ? (
           <Icon
             icon="IconPlus"
             onClick={() => {
               chatStore.setChatMode({ mode: 'Menu' });
+              scrollByMenu(true);
             }}
           />
         ) : (
@@ -145,6 +148,7 @@ function InputChat({ createChat }: InputChatProps) {
             icon="IconExit"
             onClick={() => {
               chatStore.setChatMode({ mode: 'Default' });
+              scrollByMenu(false);
             }}
           />
         )}
@@ -153,6 +157,7 @@ function InputChat({ createChat }: InputChatProps) {
           icon="IconSmile"
           onClick={() => {
             chatStore.setChatMode({ mode: 'Emoji' });
+            scrollByMenu(true);
           }}
         />
 
