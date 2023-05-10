@@ -5,11 +5,11 @@ import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import dayjs from 'dayjs';
-import store from '../../../stores/RootStore';
-import useLongPress from '../../../hooks/common/useLongPress';
-import { ParentChildChattingDto } from '../../../types/chat/Chatting.dto';
+import store from 'stores/RootStore';
+import useLongPress from 'hooks/common/useLongPress';
+import { ParentChildChattingDto } from 'types/chat/Chatting.dto';
+import Icon from 'components/common/Icon/Icon';
 import ChatContextMenu from './ChatContextMenu';
-import Icon from '../../common/Icon/Icon';
 import VideoPlayBtn from './VideoPlayBtn';
 
 const NewDay = styled.div`

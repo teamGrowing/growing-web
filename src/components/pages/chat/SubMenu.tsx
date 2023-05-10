@@ -2,10 +2,10 @@ import React from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import store from '../../../stores/RootStore';
-import { useHasQuestionData } from '../../../hooks/queries/chat.queries';
-import { fadeInDown, fadeOutUp } from '../../../styles/common/keyframs';
-import Icon from '../../common/Icon/Icon';
+import store from 'stores/RootStore';
+import { useHasQuestionData } from 'hooks/queries/chat.queries';
+import { fadeInDown, fadeOutUp } from 'styles/common/keyframs';
+import Icon from 'components/common/Icon/Icon';
 
 const SubMenuContainer = styled.div<{ openEnvelope: boolean }>`
   z-index: 2;

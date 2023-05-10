@@ -2,10 +2,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import store from '../../../stores/RootStore';
-import { ChatType } from '../../../stores/ChatStore';
-import { CreateChattingDto } from '../../../types/chat/createChat.dto';
-import Icon from '../../common/Icon/Icon';
+import store from 'stores/RootStore';
+import { ChatType } from 'stores/ChatStore';
+import { CreateChattingDto } from 'types/chat/createChat.dto';
+import Icon from 'components/common/Icon/Icon';
 import PlusMenu from './plus-menu/PlusMenu';
 import PlusMenuGallery from './plus-menu/PlusMenuGallery';
 

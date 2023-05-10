@@ -2,14 +2,14 @@ import { useRef, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
-import PhotoScroll from '../../components/pages/gallery/PhotoScroll';
+import PhotoScroll from 'components/pages/gallery/PhotoScroll';
+import { useGalleryList } from 'hooks/queries/gallery.queries';
+import store from 'stores/RootStore';
+import { usePostAlbumsMutation } from 'hooks/queries/album.queries';
+import Modal from 'components/common/Modal/AlbumModal';
+import { AlbumFormValues } from 'types/InputSchema';
+import useToast from 'hooks/common/useToast';
 import DataContext from './context';
-import { useGalleryList } from '../../hooks/queries/gallery.queries';
-import store from '../../stores/RootStore';
-import { usePostAlbumsMutation } from '../../hooks/queries/album.queries';
-import Modal from '../../components/common/Modal/AlbumModal';
-import { AlbumFormValues } from '../../types/InputSchema';
-import useToast from '../../hooks/common/useToast';
 
 const Container = styled.div`
   position: relative;

@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { normalize } from 'styled-normalize';
 
 const GlobalStyle = createGlobalStyle`
 :root {
@@ -7,6 +8,9 @@ const GlobalStyle = createGlobalStyle`
   --min-chat-textarea-height: calc(constant(safe-area-inset-bottom) + 24px);
   --min-chat-textarea-height: calc(env(safe-area-inset-bottom) + 24px);
 }
+
+${normalize}
+
 html,
 body {
   margin: 0;
@@ -48,10 +52,16 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
+  color: black;
 }
 input {
   border: none;
   outline: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 textarea {
   border: none;

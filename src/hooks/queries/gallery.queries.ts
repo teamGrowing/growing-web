@@ -7,16 +7,13 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import axios, { AxiosError, AxiosResponse } from 'axios';
-import queryKeys from '../../constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from '../../services';
-import {
-  GALLERY_API,
-  GALLERY_COMMENT_API,
-} from '../../services/gallery.service';
-import { CreatePhotoResponseDto } from '../../types/gallery/CreatePhotoResponse.dto';
-import PhotoDto from '../../types/gallery/Photo.dto';
-import PhotoCommentDto from '../../types/gallery/PhotoComment.dto';
-import { PhotoLineDto } from '../../types/gallery/PhotoLine.dto';
+import queryKeys from 'constants/queryKeys';
+import { UseMutationOptionsType, UseQueryOptionsType } from 'services';
+import { GALLERY_API, GALLERY_COMMENT_API } from 'services/gallery.service';
+import { CreatePhotoResponseDto } from 'types/gallery/CreatePhotoResponse.dto';
+import PhotoDto from 'types/gallery/Photo.dto';
+import PhotoCommentDto from 'types/gallery/PhotoComment.dto';
+import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
 
 export function useGalleryList({
   coupleId,

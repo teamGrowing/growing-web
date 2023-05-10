@@ -1,10 +1,10 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
-import store from '../../../../stores/RootStore';
-import { EmojiPackageLineDto } from '../../../../types/user/EmojiPackageLine.dto';
-import { CreateChattingDto } from '../../../../types/chat/createChat.dto';
-import { useEmojiDetailData } from '../../../../hooks/queries/chat-emoji.queries';
+import store from 'stores/RootStore';
+import { EmojiPackageLineDto } from 'types/user/EmojiPackageLine.dto';
+import { CreateChattingDto } from 'types/chat/createChat.dto';
+import { useEmojiDetailData } from 'hooks/queries/chat-emoji.queries';
 
 const EmojiGrid = styled.div`
   display: grid;

@@ -15,7 +15,8 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "useDefineForClassFields": true
+    "useDefineForClassFields": true,
+    "baseUrl": "./src"
   },
   "include": ["src", "src/types/font.d.ts"]
 }

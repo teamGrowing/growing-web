@@ -1,14 +1,14 @@
+import { ChangeUserDto } from 'types/user/CangeUser.dto';
+import { ChangeUserPhotoDto } from 'types/user/ChangeUserPhoto.dto';
+import { CreatePassword } from 'types/user/CreatePassword.dto';
+import { EmojiLineDto } from 'types/user/EmojiLine.dto';
+import { EmojiPackageLineDto } from 'types/user/EmojiPackageLine.dto';
+import { ResultDto } from 'types/user/Result.dto';
+import { UserDto } from 'types/user/User.dto';
+import { VerifyCodeDto } from 'types/user/VerifyCode.dto';
+import { VerifyCodeResponseDto } from 'types/user/VerifyCodeResponse.dto';
+import { VerifyPassword } from 'types/user/VerifyPassword.dto';
 import fetcher from '.';
-import { ChangeUserDto } from '../types/user/CangeUser.dto';
-import { ChangeUserPhotoDto } from '../types/user/ChangeUserPhoto.dto';
-import { CreatePassword } from '../types/user/CreatePassword.dto';
-import { EmojiLineDto } from '../types/user/EmojiLine.dto';
-import { EmojiPackageLineDto } from '../types/user/EmojiPackageLine.dto';
-import { ResultDto } from '../types/user/Result.dto';
-import { UserDto } from '../types/user/User.dto';
-import { VerifyCodeDto } from '../types/user/VerifyCode.dto';
-import { VerifyCodeResponseDto } from '../types/user/VerifyCodeResponse.dto';
-import { VerifyPassword } from '../types/user/VerifyPassword.dto';
 
 export const USER_API = {
   getUser: (userId: string) => fetcher.create().get<UserDto>(`users/${userId}`),
@@ -22,10 +22,8 @@ export const USER_API = {
     fetcher.create().patch(`users/${userId}/update`, data),
   putProfilePhoto: (userId: string, data: ChangeUserPhotoDto) =>
     fetcher.create().put(`users/${userId}/profile-photos`, data),
-  postCodeVerify: (userId: string, data: VerifyCodeDto) =>
-    fetcher
-      .create()
-      .post<VerifyCodeResponseDto>(`users/${userId}/codes/verify`, data),
+  postCodeVerify: (data: VerifyCodeDto) =>
+    fetcher.create().post<VerifyCodeResponseDto>(`users/codes/verify`, data),
   postPwdCreate: (userId: string, data: CreatePassword) =>
     fetcher.create().post(`users/${userId}/passwords/create`, data),
   postPwdVerify: (userId: string, data: VerifyPassword) =>

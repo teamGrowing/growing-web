@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
-import store from '../../../stores/RootStore';
-import Icon from '../../common/Icon/Icon';
+import store from 'stores/RootStore';
+import Icon from 'components/common/Icon/Icon';
+import { usePetData } from 'hooks/queries/pet.queries';
 import PetRaisingMenu from './PetRaisingMenu';
 import PetGauge from './PetGauge';
 import Pet3DImg from './Pet3D';
-import { usePetData } from '../../../hooks/queries/pet.queries';
 
 const EMOJI_SIZE = 200;
 
@@ -116,11 +116,16 @@ function HomePet() {
   const { data: pet } = usePetData({
     coupleId: userStore.user?.coupleId!,
     petId: userStore.petId!,
+    options: {
+      refetchInterval: (data) => (!data ? 3000 : false),
+      enabled: !!userStore.petId,
+      suspense: false,
+    },
   });
 
   if (!pet) {
     // TODO
-    return <div />;
+    return <div style={{ width: '200px', height: '200px' }} />;
   }
 
   return (

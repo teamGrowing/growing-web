@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
-import Icon from '../../components/common/Icon/Icon';
-import TopBar from '../../components/common/TopBar/TopBar';
-import queryKeys from '../../constants/queryKeys';
-import { Notice } from '../../types/chat/Notice';
+import Icon from 'components/common/Icon/Icon';
+import TopBar from 'components/common/TopBar/TopBar';
+import queryKeys from 'constants/queryKeys';
+import { Notice } from 'types/chat/Notice';
 
 const ChatNoticePageContainer = styled.div`
   background-color: ${({ theme }) => theme.color.gray50};

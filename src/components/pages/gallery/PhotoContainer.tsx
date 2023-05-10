@@ -1,7 +1,7 @@
 import styled from 'styled-components';
+import Icon from 'components/common/Icon/Icon';
+import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
 import Photo from './Photo';
-import Icon from '../../common/Icon/Icon';
-import { PhotoLineDto } from '../../../types/gallery/PhotoLine.dto';
 
 const Container = styled.div`
   width: 100%;

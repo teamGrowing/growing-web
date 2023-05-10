@@ -1,9 +1,9 @@
+import { ChangePetDto } from 'types/pet/ChangePet.dto';
+import { PetDto } from 'types/pet/Pet.dto';
+import { PetReactionDto } from 'types/pet/PetReaction.dto';
+import { PostPetDto } from 'types/pet/PostPet.dto';
+import { PostPetLineDto } from 'types/pet/PostPetLine.dto';
 import fetcher from '.';
-import { ChangePetDto } from '../types/pet/ChangePet.dto';
-import { PetDto } from '../types/pet/Pet.dto';
-import { PetReactionDto } from '../types/pet/PetReaction.dto';
-import { PostPetDto } from '../types/pet/PostPet.dto';
-import { PostPetLineDto } from '../types/pet/PostPetLine.dto';
 
 export const PET_API = {
   getPet: (coupleId: string, petId: string) =>

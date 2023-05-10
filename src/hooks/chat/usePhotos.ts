@@ -1,6 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import queryKeys from '../../constants/queryKeys';
+import queryKeys from 'constants/queryKeys';
 import useToast from '../common/useToast';
 import {
   useChatPhotoCreateMutate,

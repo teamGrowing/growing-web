@@ -1,6 +1,6 @@
 import styled from 'styled-components';
+import Icon from 'components/common/Icon/Icon';
 import NavItem from './NavItem';
-import Icon from '../common/Icon/Icon';
 
 const Nav = styled.nav`
   width: 100%;

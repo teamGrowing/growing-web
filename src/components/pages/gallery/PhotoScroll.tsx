@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PhotoLineDto } from '../../../types/gallery/PhotoLine.dto';
+import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
 import PhotoContainer from './PhotoContainer';
 
 const Scroll = styled.div`

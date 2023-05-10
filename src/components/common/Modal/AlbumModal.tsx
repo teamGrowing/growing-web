@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-import { fadeIn } from '../../../styles/common/keyframs';
-import albumSchema, { AlbumFormValues } from '../../../types/InputSchema';
+import { fadeIn } from 'styles/common/keyframs';
+import albumSchema, { AlbumFormValues } from 'types/InputSchema';
 import ModalPortal from './ModalPortal';
 
 export interface AlbumModalProps {

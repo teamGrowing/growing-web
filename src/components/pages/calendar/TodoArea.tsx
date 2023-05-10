@@ -2,15 +2,15 @@ import { Dayjs } from 'dayjs';
 import { observer } from 'mobx-react';
 import { useState } from 'react';
 import styled from 'styled-components';
-import { MENT_CALENDAR } from '../../../constants/ments';
-import useToast from '../../../hooks/common/useToast';
+import { MENT_CALENDAR } from 'constants/ments';
+import useToast from 'hooks/common/useToast';
 import {
   useCalendarDailyPlans,
   useDeletePlanMutation,
-} from '../../../hooks/queries/calendar.queries';
-import store from '../../../stores/RootStore';
-import { DailyPlanDto } from '../../../types/plan/DailyPlan.dto';
-import Icon from '../../common/Icon/Icon';
+} from 'hooks/queries/calendar.queries';
+import store from 'stores/RootStore';
+import { DailyPlanDto } from 'types/plan/DailyPlan.dto';
+import Icon from 'components/common/Icon/Icon';
 import CalendarBottomSheet from './CalendarBottomSheet';
 
 const Container = styled.div`

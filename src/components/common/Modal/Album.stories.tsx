@@ -2,8 +2,8 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import useState from 'storybook-addon-state';
+import { AlbumFormValues } from 'types/InputSchema';
 import AlbumModal from './AlbumModal';
-import { AlbumFormValues } from '../../../types/InputSchema';
 
 export default {
   title: 'growing design system/AlbumModal',

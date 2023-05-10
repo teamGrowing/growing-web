@@ -1,12 +1,21 @@
 import { action, makeAutoObservable } from 'mobx';
-import { COUPLE_API } from '../services/couple.service';
-import { USER_API } from '../services/user.service';
-import { UserDto } from '../types/user/User.dto';
+import Cookies from 'js-cookie';
+import { COUPLE_API } from 'services/couple.service';
+import { USER_API } from 'services/user.service';
+import { UserDto } from 'types/user/User.dto';
+import AUTH_API from 'services/auth.service';
+import fetcher from 'services';
 
 class UserStore {
   user: UserDto | null = null;
 
   petId: string | null = null;
+
+  partnerId: string | null = null; // 커플 연결시 필요한 필드
+
+  refreshTimer: NodeJS.Timer | undefined;
+
+  refreshInterval = 55 * 60_000;
 
   constructor() {
     makeAutoObservable(this);
@@ -26,6 +35,31 @@ class UserStore {
         this.petId = response.data.petId;
       })
     );
+  }
+
+  updatePartnerId(id: string) {
+    this.partnerId = id;
+  }
+
+  setRefreshTimer() {
+    this.refreshTimer = setInterval(async () => {
+      const token = Cookies.get('refresh');
+      if (token) {
+        const { data } = await AUTH_API.refresh(token);
+        Cookies.set('refresh', data.refreshToken);
+        fetcher.setAccessToken(data.accessToken);
+      } else {
+        clearInterval(this.refreshTimer);
+        this.logout();
+      }
+    }, this.refreshInterval);
+  }
+
+  logout() {
+    this.user = null;
+    this.petId = null;
+    this.partnerId = null;
+    clearInterval(this.refreshTimer);
   }
 }
 

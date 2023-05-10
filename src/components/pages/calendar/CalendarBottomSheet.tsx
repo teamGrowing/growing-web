@@ -2,16 +2,16 @@ import dayjs, { Dayjs } from 'dayjs';
 import { observer } from 'mobx-react';
 import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { MENT_CALENDAR } from '../../../constants/ments';
-import useToast from '../../../hooks/common/useToast';
+import { MENT_CALENDAR } from 'constants/ments';
+import useToast from 'hooks/common/useToast';
 import {
   useAddPlanMutation,
   useModifyPlanMutation,
-} from '../../../hooks/queries/calendar.queries';
-import store from '../../../stores/RootStore';
-import { DailyPlanDto } from '../../../types/plan/DailyPlan.dto';
-import BottomSheetMenu from '../../common/Modal/ModalBottomSheet/BottomSheetMenu';
-import ModalBottomSheet from '../../common/Modal/ModalBottomSheet/ModalBottomSheet';
+} from 'hooks/queries/calendar.queries';
+import store from 'stores/RootStore';
+import { DailyPlanDto } from 'types/plan/DailyPlan.dto';
+import BottomSheetMenu from 'components/common/Modal/ModalBottomSheet/BottomSheetMenu';
+import ModalBottomSheet from 'components/common/Modal/ModalBottomSheet/ModalBottomSheet';
 
 const Input = styled.input`
   color: ${({ theme }) => theme.color.white};

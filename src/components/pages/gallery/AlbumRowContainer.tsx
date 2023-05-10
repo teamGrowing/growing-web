@@ -1,6 +1,6 @@
 import styled from 'styled-components';
+import AlbumDto from 'types/gallery/Album.dto';
 import Album from './Album';
-import AlbumDto from '../../../types/gallery/Album.dto';
 
 const Container = styled.div`
   width: 100%;

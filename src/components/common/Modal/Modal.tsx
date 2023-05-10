@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { fadeIn } from 'styles/common/keyframs';
 import ModalPortal from './ModalPortal';
-import { fadeIn } from '../../../styles/common/keyframs';
 
 export interface ModalProps {
   onModal: boolean;

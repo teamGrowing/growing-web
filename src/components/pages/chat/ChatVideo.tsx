@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import Icon from '../../common/Icon/Icon';
-import { VideoDto } from '../../../types/chat/ChatPhoto.dto';
-import { secondsToText } from '../../../util/Text';
-import useVideo from '../../../hooks/common/useVideo';
+import Icon from 'components/common/Icon/Icon';
+import { VideoDto } from 'types/chat/ChatPhoto.dto';
+import { secondsToText } from 'util/Text';
+import useVideo from 'hooks/common/useVideo';
 
 const Container = styled.div`
   position: relative;
@@ -80,7 +80,13 @@ export default function ChatVideo({
         setShowController(!showController);
       }}
     >
-      <StyledVideo id="video" ref={ref} onTimeUpdate={onSink}>
+      <StyledVideo
+        id="video"
+        ref={ref}
+        playsInline
+        poster={thumbnailUrl}
+        onTimeUpdate={onSink}
+      >
         <source src={videoUrl} />
         <track kind="captions" />
       </StyledVideo>

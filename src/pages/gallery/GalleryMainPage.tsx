@@ -2,18 +2,15 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useRef } from 'react';
-import AlbumRowContainer from '../../components/pages/gallery/AlbumRowContainer';
-import FloatingButton from '../../components/pages/gallery/FloatingButton';
-import PhotoContainer from '../../components/pages/gallery/PhotoContainer';
-import GalleryTitle from '../../components/pages/gallery/GalleryTitle';
-import Icon from '../../components/common/Icon/Icon';
-import {
-  useCreatePhotosMutation,
-  useGalleryList,
-} from '../../hooks/queries/gallery.queries';
-import { useAlbumsList } from '../../hooks/queries/album.queries';
-import store from '../../stores/RootStore';
-import useToast from '../../hooks/common/useToast';
+import AlbumRowContainer from 'components/pages/gallery/AlbumRowContainer';
+import FloatingButton from 'components/pages/gallery/FloatingButton';
+import PhotoContainer from 'components/pages/gallery/PhotoContainer';
+import GalleryTitle from 'components/pages/gallery/GalleryTitle';
+import Icon from 'components/common/Icon/Icon';
+import { useCreatePhotosMutation, useGalleryList } from 'hooks/queries/gallery.queries';
+import { useAlbumsList } from 'hooks/queries/album.queries';
+import store from 'stores/RootStore';
+import useToast from 'hooks/common/useToast';
 
 const Container = styled.div`
   position: relative;

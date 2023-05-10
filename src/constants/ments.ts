@@ -44,4 +44,19 @@ export const MENT_CALENDAR = Object.freeze({
   PLAN_DELETE_SUCCESS: '일정이 삭제되었습니다.',
 });
 
+export const MENT_LOGIN = Object.freeze({
+  WELCOME: '반가워요!\n그로잉펫을 만나고 싶다면\n커플연결을 해주세요☺️',
+  SHARE: '연인에게 공유하기',
+  INVITED: '상대방 코드 입력하기',
+  INVITED_INPUT: '상대방의 코드를 입력해주세요!',
+  BIRTH: '생일을 입력해주세요!',
+  NICKNAME: '닉네임을 입력해주세요!',
+  ANNIVERSARY: '처음만난 날은 언제인가요?',
+  PET_BIRTH: '축하합니다!\n함께 성장해 나갈\n그로잉펫이 태어났어요!',
+  PET_MEET: '그로잉펫 만나러 가기 🙌',
+  WAITING: '상대방을 기다리는 중이에요',
+  CLICK: '👆 작성 후에, 알을 클릭해주세요!',
+  COPY: '복사되었습니다.',
+});
+
 export default MENT_HOME;

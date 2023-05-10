@@ -1,21 +1,21 @@
+import { ChatPhotoDto } from 'types/chat/ChatPhoto.dto';
+import { ChatPhotoLineDto } from 'types/chat/ChatPhotoLine.dto';
+import ChatRequestDto from 'types/chat/ChatRequest.dto';
+import { ParentChildChattingDto } from 'types/chat/Chatting.dto';
+import { ChattingArchivedDto } from 'types/chat/ChattingArchived.dto';
+import { CreatePhotoRequestDto } from 'types/chat/CreatePhotoRequest.dto';
+import { CreatePhotoResponseDto } from 'types/chat/CreatePhotoResponse.dto';
+import { CreateVoiceMsgDto } from 'types/chat/CreateVoiceMsg.dto';
+import { GetDownloadUrlResponseDto } from 'types/chat/GetDownloadUrlResponse.dto';
+import { GetUploadUrlRequestDto } from 'types/chat/GetUploadUrlRequest.dto';
+import { GetUploadUrlResponseDto } from 'types/chat/GetUploadUrlResponse.dto';
+import { Notice } from 'types/chat/Notice';
+import { NoticeIsFolden } from 'types/chat/NoticeIsFolden';
+import { AnswerDto } from 'types/chat/questions/Answer.dto';
+import { IsToDoQuestion } from 'types/chat/questions/IsToDoQuestion';
+import { QuestionsAndAnswers } from 'types/chat/questions/QuestionAndAnswers';
+import { VoiceMSGDto } from 'types/chat/VoiceMSG.dto';
 import fetcher from '.';
-import { ChatPhotoDto } from '../types/chat/ChatPhoto.dto';
-import { ChatPhotoLineDto } from '../types/chat/ChatPhotoLine.dto';
-import ChatRequestDto from '../types/chat/ChatRequest.dto';
-import { ParentChildChattingDto } from '../types/chat/Chatting.dto';
-import { ChattingArchivedDto } from '../types/chat/ChattingArchived.dto';
-import { CreatePhotoRequestDto } from '../types/chat/CreatePhotoRequest.dto';
-import { CreatePhotoResponseDto } from '../types/chat/CreatePhotoResponse.dto';
-import { CreateVoiceMsgDto } from '../types/chat/CreateVoiceMsg.dto';
-import { GetDownloadUrlResponseDto } from '../types/chat/GetDownloadUrlResponse.dto';
-import { GetUploadUrlRequestDto } from '../types/chat/GetUploadUrlRequest.dto';
-import { GetUploadUrlResponseDto } from '../types/chat/GetUploadUrlResponse.dto';
-import { Notice } from '../types/chat/Notice';
-import { NoticeIsFolden } from '../types/chat/NoticeIsFolden';
-import { AnswerDto } from '../types/chat/questions/Answer.dto';
-import { IsToDoQuestion } from '../types/chat/questions/IsToDoQuestion';
-import { QuestionsAndAnswers } from '../types/chat/questions/QuestionAndAnswers';
-import { VoiceMSGDto } from '../types/chat/VoiceMSG.dto';
 
 export const CHAT_API = {
   getChats: (coupleId: string, params: ChatRequestDto) =>

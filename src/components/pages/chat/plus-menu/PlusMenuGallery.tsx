@@ -1,14 +1,14 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import { observer } from 'mobx-react';
-import store from '../../../../stores/RootStore';
-import Icon from '../../../common/Icon/Icon';
-import TopBar from '../../../common/TopBar/TopBar';
+import store from 'stores/RootStore';
+import Icon from 'components/common/Icon/Icon';
+import TopBar from 'components/common/TopBar/TopBar';
+import usePhotos from 'hooks/chat/usePhotos';
+import { useGalleryList } from 'hooks/queries/gallery.queries';
+import { NAVBAR_HEIGHT } from 'constants/constants';
+import { CreateChattingDto } from 'types/chat/createChat.dto';
 import VideoPlayBtn from '../VideoPlayBtn';
-import usePhotos from '../../../../hooks/chat/usePhotos';
-import { useGalleryList } from '../../../../hooks/queries/gallery.queries';
-import { NAVBAR_HEIGHT } from '../../../../constants/constants';
-import { CreateChattingDto } from '../../../../types/chat/createChat.dto';
 
 // 전체보기
 const ViewAllContainer = styled.div`
