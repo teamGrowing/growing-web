@@ -21,7 +21,6 @@ import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import AlbumModal from 'components/common/Modal/AlbumModal';
 import useToast from 'hooks/common/useToast';
-import BottomNavigation from 'components/layout/BottomNavigation';
 import DataContext from './context';
 
 const Container = styled.div`
@@ -237,7 +236,6 @@ function AlbumDetailPage() {
           />
         )}
       </Container>
-      <BottomNavigation />
     </DataContext.Provider>
   );
 }
