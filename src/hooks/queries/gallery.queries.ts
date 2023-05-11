@@ -134,7 +134,7 @@ export function useCreatePhotosMutation({
 
   const makePhoto = async (file: File) => {
     const res = await GALLERY_API.getUploadUrl(coupleId, {
-      name: uuidv4(),
+      name: `${uuidv4()}.${file.name.split('.').pop()}`,
     });
 
     await axios.put(res.data.url, file, {
