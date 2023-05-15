@@ -120,7 +120,11 @@ function ChattingPage() {
   }, []);
 
   useEffect(() => {
-    scrollToBottom();
+    const timer = setTimeout(() => {
+      scrollToBottom();
+    }, 100);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
