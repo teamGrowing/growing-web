@@ -1,18 +1,27 @@
 import styled from 'styled-components';
+import {
+  FetchNextPageOptions,
+  UseInfiniteQueryResult,
+} from '@tanstack/react-query';
+import { useEffect, useRef } from 'react';
 import Icon from 'components/common/Icon/Icon';
 import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
-import Photo from './Photo';
+import Photo from 'components/pages/gallery/Photo';
 
 const Container = styled.div`
-  width: 100%;
+  position: relative;
   text-align: center;
 `;
 
-const PhotosRow = styled.div`
+const Photos = styled.div`
   display: flex;
-  align-items: center;
-  padding: 1px 14px;
-  width: 100%;
+  margin: 1px 14px;
+  gap: 1px 0;
+  flex-wrap: wrap;
+
+  & > div {
+    width: 32%;
+  }
 `;
 
 const Logo = styled.div`
@@ -44,41 +53,39 @@ const Message = styled.div`
   z-index: 0;
 `;
 
-type PhotoRowContainerProps = {
-  photoObjects: PhotoLineDto[];
-};
-
-function PhotoRowContainer({ photoObjects }: PhotoRowContainerProps) {
-  const photos = photoObjects.map((photo) => (
-    <Photo photoInfo={photo} key={photo.i} />
-  ));
-
-  return <PhotosRow>{photos}</PhotosRow>;
-}
-
 type PhotoContainerProps = {
   type: 'UPLOADED' | 'UPLOAD';
   photoObjects: PhotoLineDto[];
+  // for infinite scroll
+  fetchNextPage?: (
+    options?: FetchNextPageOptions
+  ) => Promise<UseInfiniteQueryResult>;
 };
 
-function PhotoContainer({ photoObjects, type }: PhotoContainerProps) {
-  const makeChunk = (data: PhotoLineDto[]) => {
-    const arr = [];
-    for (let i = 0; i < data.length; i += 3) {
-      arr.push(data.slice(i, i + 3));
-    }
-    return arr;
-  };
+function PhotoContainer({
+  photoObjects,
+  type,
+  fetchNextPage,
+}: PhotoContainerProps) {
+  const lastPhotoRow = useRef<null | HTMLDivElement>(null);
 
-  const photoGroupArray = makeChunk(photoObjects);
+  useEffect(() => {
+    if (!fetchNextPage || !lastPhotoRow.current) return;
+    const photoObserver = new IntersectionObserver((entries) => {
+      if (!entries[0].isIntersecting) return;
+      fetchNextPage();
+    });
+    photoObserver.observe(lastPhotoRow.current);
 
-  const components = photoGroupArray.map((group: PhotoLineDto[]) => (
-    <PhotoRowContainer photoObjects={group} key={group[0].i} />
-  ));
+    // eslint-disable-next-line consistent-return
+    return () => {
+      photoObserver.disconnect();
+    };
+  }, [fetchNextPage, lastPhotoRow]);
 
   return (
     <>
-      {type === 'UPLOADED' && photoGroupArray.length === 0 && (
+      {type === 'UPLOADED' && photoObjects.length === 0 && (
         <Container>
           <Logo>
             <Icon icon="IconLogo" size={60} />
@@ -86,7 +93,14 @@ function PhotoContainer({ photoObjects, type }: PhotoContainerProps) {
           <Message>사진을 업로드 해주세요!</Message>
         </Container>
       )}
-      {photoGroupArray.length > 0 && <Container>{components}</Container>}
+      {photoObjects.length > 0 && (
+        <Photos>
+          {photoObjects.map((photo) => (
+            <Photo photoInfo={photo} key={photo.i} />
+          ))}
+          <div ref={lastPhotoRow} style={{ width: '100%' }} />
+        </Photos>
+      )}
     </>
   );
 }

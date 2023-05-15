@@ -3,13 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import styled from 'styled-components';
 import PhotoScroll from 'components/pages/gallery/PhotoScroll';
-import { useGalleryList } from 'hooks/queries/gallery.queries';
-import store from 'stores/RootStore';
-import { usePostAlbumsMutation } from 'hooks/queries/album.queries';
-import Modal from 'components/common/Modal/AlbumModal';
-import { AlbumFormValues } from 'types/InputSchema';
-import useToast from 'hooks/common/useToast';
 import DataContext from './context';
+import { useGalleryList } from '../../hooks/queries/gallery.queries';
+import store from '../../stores/RootStore';
+import { usePostAlbumsMutation } from '../../hooks/queries/album.queries';
+import Modal from '../../components/common/Modal/AlbumModal';
+import { AlbumFormValues } from '../../types/InputSchema';
+import useToast from '../../hooks/common/useToast';
+import { MENT_GALLERY } from '../../constants/ments';
 
 const Container = styled.div`
   position: relative;
@@ -49,7 +50,7 @@ function NewAlbumPage() {
       {
         onSuccess: () => {
           setOnModal(false);
-          addToast('앨범 생성이 완료되었습니다.');
+          addToast(MENT_GALLERY.ALBUM_CREATE_SUCCESS);
           navigate('/gallery/album');
         },
       }
@@ -65,7 +66,7 @@ function NewAlbumPage() {
           rightLabel="추가"
           onRightClick={() => {
             if (selectedPhotos.current.length === 0) {
-              addToast('앨범에 만들기 위한 사진을 선택해주세요.');
+              addToast(MENT_GALLERY.ALBUM_CREATE_FAIL_NO_SELECTED);
               return;
             }
             setOnModal(true);

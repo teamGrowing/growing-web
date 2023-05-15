@@ -9,8 +9,10 @@ import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
 import fetcher from '.';
 
 export const GALLERY_API = {
-  getPhotos: (coupleId: string) =>
-    fetcher.create().get<PhotoLineDto[]>(`couples/${coupleId}/gallerys/photos`),
+  getPhotos: (coupleId: string, params?: { base: number; limit: number }) =>
+    fetcher
+      .create()
+      .get<PhotoLineDto[]>(`couples/${coupleId}/gallerys/photos`, { params }),
   getPhotoDetail: (coupleId: string, photoId: string) =>
     fetcher
       .create()

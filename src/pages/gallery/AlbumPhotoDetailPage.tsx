@@ -16,6 +16,7 @@ import { useDeletePhotosMutation } from 'hooks/queries/album.queries';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
+import { MENT_GALLERY } from '../../constants/ments';
 
 const Container = styled.div`
   position: relative;
@@ -58,7 +59,7 @@ function AlbumPhotoDetailPage() {
     if (photo?.id) {
       deletePhotoMutate([photo?.id], {
         onSuccess: () => {
-          addToast('사진이 제거되었습니다.');
+          addToast(MENT_GALLERY.PHOTO_DELETE_FROM_ALBUM_SUCCESS);
           navigate(`/gallery/album/${albumId}`, {
             state: {
               title,
@@ -94,7 +95,7 @@ function AlbumPhotoDetailPage() {
         <Modal
           setOnModal={setOnModal}
           onModal={onModal}
-          description="해당 사진이 앨범에서 제거됩니다."
+          description={MENT_GALLERY.PHOTO_DELETE_FROM_ALBUM_CONFIRM}
           mainActionLabel="확인"
           onMainAction={deletePhotos}
           subActionLabel="취소"

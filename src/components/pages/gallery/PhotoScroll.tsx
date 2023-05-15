@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
-import PhotoContainer from './PhotoContainer';
+import PhotoContainer from 'components/pages/gallery/PhotoContainer';
 
 const Scroll = styled.div`
   display: flex;

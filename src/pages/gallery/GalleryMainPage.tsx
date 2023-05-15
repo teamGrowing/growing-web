@@ -2,12 +2,16 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useRef } from 'react';
+import {
+  useCreatePhotosMutation,
+  useInfiniteGalleryList,
+} from 'hooks/queries/gallery.queries';
+import { MENT_GALLERY } from 'constants/ments';
 import AlbumRowContainer from 'components/pages/gallery/AlbumRowContainer';
 import FloatingButton from 'components/pages/gallery/FloatingButton';
 import PhotoContainer from 'components/pages/gallery/PhotoContainer';
 import GalleryTitle from 'components/pages/gallery/GalleryTitle';
 import Icon from 'components/common/Icon/Icon';
-import { useCreatePhotosMutation, useGalleryList } from 'hooks/queries/gallery.queries';
 import { useAlbumsList } from 'hooks/queries/album.queries';
 import store from 'stores/RootStore';
 import useToast from 'hooks/common/useToast';
@@ -31,13 +35,13 @@ function GalleryMainPage() {
   const touchPositionY = useRef<number | null>(null);
 
   const coupleId = store.userStore.user?.coupleId ?? '';
-  const { data: photos } = useGalleryList({ coupleId });
+  const { data: photos } = useInfiniteGalleryList({ coupleId });
   const { data: albums } = useAlbumsList({ coupleId });
   const { mutate: upLoadPhotos } = useCreatePhotosMutation({ coupleId });
 
   const upLoadHandler = (files: FileList) => {
     upLoadPhotos(files, {
-      onSuccess: () => addToast('사진이 업로드 되었습니다.'),
+      onSuccess: () => addToast(MENT_GALLERY.PHOTO_UPLOAD_SUCCESS),
     });
   };
 
@@ -70,7 +74,9 @@ function GalleryMainPage() {
       />
       <GalleryTitle
         title="PHOTO"
-        rightNode={(photos ?? []).length > 0 && <Icon icon="IconCheck" />}
+        rightNode={
+          (photos?.pages[0] ?? []).length > 0 && <Icon icon="IconCheck" />
+        }
         onRightClick={() =>
           navigate('photo', { state: { selectingAvailable: true } })
         }
@@ -86,7 +92,10 @@ function GalleryMainPage() {
             navigate('photo');
         }}
       >
-        <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
+        <PhotoContainer
+          photoObjects={photos?.pages.flatMap((res) => res) ?? []}
+          type="UPLOADED"
+        />
       </FixedContainer>
       <FloatingButton onUpLoad={upLoadHandler} />
     </Container>

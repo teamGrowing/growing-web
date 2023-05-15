@@ -67,9 +67,9 @@ function GrowingRoutes() {
           <Route path="/gallery" element={<GalleryMainPage />} />
           <Route path="/gallery/photo" element={<PhotoPage />} />
           <Route path="/gallery/album" element={<AlbumPage />} />
+          <Route path="/gallery/album/:aId" element={<AlbumDetailPage />} />
         </Route>
         <Route path="/gallery/photo/:pId" element={<PhotoDetailPage />} />
-        <Route path="/gallery/album/:aId" element={<AlbumDetailPage />} />
         <Route
           path="/gallery/album/:aId/photo/:pId"
           element={<AlbumPhotoDetailPage />}

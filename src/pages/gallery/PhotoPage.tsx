@@ -9,11 +9,12 @@ import GalleryTitle from 'components/pages/gallery/GalleryTitle';
 import {
   useCreatePhotosMutation,
   useDeletePhotosMutation,
-  useGalleryList,
+  useInfiniteGalleryList,
 } from 'hooks/queries/gallery.queries';
-import store from 'stores/RootStore';
-import Modal from 'components/common/Modal/Modal';
-import useToast from 'hooks/common/useToast';
+import store from '../../stores/RootStore';
+import Modal from '../../components/common/Modal/Modal';
+import useToast from '../../hooks/common/useToast';
+import { MENT_GALLERY } from '../../constants/ments';
 import DataContext from './context';
 
 const Container = styled.div`
@@ -55,7 +56,7 @@ function PhotoPage() {
   const [onModal, setOnModal] = useState(false);
 
   const coupleId = store.userStore.user?.coupleId ?? '';
-  const { data: photos } = useGalleryList({ coupleId });
+  const { data: photos, fetchNextPage } = useInfiniteGalleryList({ coupleId });
   const { mutateAsync: upLoadPhotosMutate } = useCreatePhotosMutation({
     coupleId,
   });
@@ -87,7 +88,7 @@ function PhotoPage() {
 
   const upLoadPhotos = (files: FileList) => {
     upLoadPhotosMutate(files, {
-      onSuccess: () => addToast('업로드가 완료되었습니다.'),
+      onSuccess: () => addToast(MENT_GALLERY.PHOTO_UPLOAD_SUCCESS),
     });
   };
 
@@ -95,7 +96,7 @@ function PhotoPage() {
     deletePhotosMutate(selectedPhotos.current, {
       onSuccess: () => {
         setSelectingAvailable(false);
-        addToast('삭제가 완료되었습니다.');
+        addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS);
       },
     });
   };
@@ -118,21 +119,25 @@ function PhotoPage() {
           rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
           onRightSubClick={() => {
             if (selectedPhotos.current.length <= 0) {
-              addToast('삭제할 사진을 선택해주세요.');
+              addToast(MENT_GALLERY.PHOTO_DELETE_FAIL_NO_SELECTED);
               return;
             }
             setOnModal(true);
           }}
         />
         <PaddingContainer className="hidden-scrollbar">
-          <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
+          <PhotoContainer
+            photoObjects={photos?.pages.flatMap((res) => res) ?? []}
+            type="UPLOADED"
+            fetchNextPage={fetchNextPage}
+          />
         </PaddingContainer>
         <FloatingButton onUpLoad={upLoadPhotos} />
         {onModal && (
           <Modal
             onModal={onModal}
             setOnModal={setOnModal}
-            description="삭제하시겠습니까?"
+            description={MENT_GALLERY.PHOTO_DELETE_CONFIRM}
             mainActionLabel="확인"
             onMainAction={deletePhotos}
             subActionLabel="취소"

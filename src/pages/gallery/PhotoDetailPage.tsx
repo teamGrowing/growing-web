@@ -13,6 +13,7 @@ import {
   useGalleryDetail,
   usePostCommentMutation,
 } from 'hooks/queries/gallery.queries';
+import { MENT_GALLERY } from 'constants/ments';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
@@ -52,7 +53,7 @@ function PhotoDetailPage() {
     if (photo?.id)
       deletePhotoMutate([photo?.id], {
         onSuccess: () => {
-          addToast('사진이 삭제되었습니다.');
+          addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS);
           navigate(`/gallery/photo`);
         },
       });
@@ -86,7 +87,7 @@ function PhotoDetailPage() {
         <Modal
           setOnModal={setOnModal}
           onModal={onModal}
-          description="해당 파일을 영구적으로 삭제합니다."
+          description={MENT_GALLERY.PHOTO_DELETE_DESCRIPTION}
           mainActionLabel="확인"
           onMainAction={deletePhoto}
           subActionLabel="취소"

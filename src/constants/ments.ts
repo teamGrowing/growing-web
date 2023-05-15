@@ -38,6 +38,25 @@ export const MENT_CHAT = Object.freeze({
   COPY: '채팅이 복사되었어요!',
 });
 
+export const MENT_GALLERY = Object.freeze({
+  PHOTO_DELETE_SUCCESS: '삭제되었습니다.',
+  PHOTO_DELETE_FAIL_NO_SELECTED: '삭제할 사진을 선택해주세요.',
+  PHOTO_DELETE_CONFIRM: '삭제하시겠습니까?',
+  PHOTO_DELETE_DESCRIPTION: '해당 파일을 영구적으로 삭제합니다.',
+  PHOTO_DELETE_FROM_ALBUM_CONFIRM: '사진이 앨범에서 제거됩니다.',
+  PHOTO_DELETE_FROM_ALBUM_SUCCESS: '사진이 제거되었습니다.',
+  PHOTO_UPLOAD_SUCCESS: '사진이 업로드 되었습니다.',
+  ALBUM_PHOTO_DELETE_SUCCESS: '사진이 앨범에서 제거되었습니다.',
+  ALBUM_CHOOSE_DELETE_OPTION:
+    '해당 파일을 앨범에서 제거하시겠습니까, 영구 삭제하시겠습니까?',
+  ALBUM_MODIFY: '앨범 이름이 변경되었습니다.',
+  ALBUM_DELETE_CONFIRM: '앨범을 삭제하시겠습니까?',
+  ALBUM_DELETE_SUCCESS: '앨범 삭제가 완료되었습니다.',
+  ALBUM_DELETE_FAIL_NO_SELECTED: '삭제할 앨범을 선택해주세요',
+  ALBUM_CREATE_SUCCESS: '앨범 생성이 완료되었습니다.',
+  ALBUM_CREATE_FAIL_NO_SELECTED: '앨범을 만들기 위한 사진을 선택해주세요',
+});
+
 export const MENT_CALENDAR = Object.freeze({
   PLAN_ADD_SUCCESS: '일정이 추가되었습니다.',
   PLAN_MODIFY_SUCCESS: '일정이 수정되었습니다.',

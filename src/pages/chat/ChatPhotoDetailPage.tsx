@@ -122,7 +122,7 @@ function ChatPhotoDetailPage() {
         </StyledSwiper>
       )}
 
-      {chat?.video && <ChatVideo {...chat.video} />}
+      {chat?.video && <ChatVideo {...chat.video} height="calc(100% - 80px)" />}
 
       <BottomBar>
         <Icon icon="IconDownloadLocal" themeColor="gray50" />
