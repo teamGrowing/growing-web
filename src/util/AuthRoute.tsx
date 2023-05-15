@@ -15,22 +15,28 @@ function AuthRoute() {
     const token = Cookies.get('refresh');
 
     if (token) {
-      const { data } = await AUTH_API.refresh(token);
-      setIsLoggedIn(true);
+      try {
+        const { data } = await AUTH_API.refresh(token);
+        setIsLoggedIn(true);
 
-      Cookies.set('refresh', data.refreshToken);
-      fetcher.setAccessToken(data.accessToken);
+        Cookies.set('refresh', data.refreshToken);
+        fetcher.setAccessToken(data.accessToken);
 
-      await userStore.getUserData(data.userId);
-      userStore.setRefreshTimer();
+        await userStore.getUserData(data.userId);
+        userStore.setRefreshTimer();
 
-      await USER_API.getUserIsCouple(data.userId).then((res) => {
-        if (res.data.result) {
-          navigate('/', { replace: true });
-        } else {
-          navigate('/login/select', { replace: true });
-        }
-      });
+        await USER_API.getUserIsCouple(data.userId).then((res) => {
+          if (res.data.result) {
+            navigate('/', { replace: true });
+          } else {
+            navigate('/login/select', { replace: true });
+          }
+        });
+      } catch {
+        Cookies.remove('refresh');
+        setIsLoggedIn(false);
+        navigate('/login/kakao', { replace: true });
+      }
     } else {
       setIsLoggedIn(false);
       navigate('/login/kakao', { replace: true });
