@@ -206,9 +206,15 @@ export function useDeletePhotosMutation({
 
   return useMutation({
     mutationFn: (photoIds: string[]) => deletePhotos(photoIds),
-    onSuccess: () => {
-      queryClinet.invalidateQueries(queryKeys.galleryKeys.all);
-      queryClinet.invalidateQueries(queryKeys.albumKeys.all);
+    onSuccess: async () => {
+      await queryClinet.invalidateQueries({
+        queryKey: queryKeys.galleryKeys.all,
+        refetchType: 'all',
+      });
+      await queryClinet.invalidateQueries({
+        queryKey: queryKeys.albumKeys.all,
+        refetchType: 'all',
+      });
     },
     ...options,
   });
