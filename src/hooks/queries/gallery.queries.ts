@@ -54,7 +54,7 @@ export function useInfiniteGalleryList({
   >;
 }) {
   return useInfiniteQuery({
-    queryKey: [...queryKeys.galleryKeys.list(), ...(storeCode ?? [])],
+    queryKey: [...queryKeys.galleryKeys.list, ...(storeCode ?? [])],
     queryFn: ({ pageParam = 0 }) => {
       return GALLERY_API.getPhotos(coupleId, {
         base: pageParam,
