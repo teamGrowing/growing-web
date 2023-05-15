@@ -107,7 +107,7 @@ const ChatWrapper = styled.div<{ isMine: boolean }>`
       : 'linear-gradient(130.11deg, rgba(113, 23, 234, 0.1) 7.3%,  rgba(234, 96, 96, 0.1) 100%)'};
   border-radius: 8px;
 
-  > p {
+  p {
     white-space: normal;
     text-overflow: ellipsis;
     overflow: hidden;
