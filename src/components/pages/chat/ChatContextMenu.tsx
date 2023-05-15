@@ -108,7 +108,11 @@ function ChatContextMenu({
   });
 
   return (
-    <Container isMine={isMine} isTop={isTop}>
+    <Container
+      isMine={isMine}
+      isTop={isTop}
+      onClick={(e) => e.stopPropagation()}
+    >
       {/* <Item>
         <Icon icon="IconReply" size={16} />
         <p>답장</p>
