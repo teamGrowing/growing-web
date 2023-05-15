@@ -85,10 +85,10 @@ const StyledTextarea = styled.textarea`
 
 type InputChatProps = {
   createChat: (dto: CreateChattingDto) => void;
-  scrollByMenu: (isOpen: boolean) => void;
+  scrollByPlusMenu: (isOpen: boolean) => void;
 };
 
-function InputChat({ createChat, scrollByMenu }: InputChatProps) {
+function InputChat({ createChat, scrollByPlusMenu }: InputChatProps) {
   const { userStore, chatStore } = store;
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -140,7 +140,7 @@ function InputChat({ createChat, scrollByMenu }: InputChatProps) {
             icon="IconPlus"
             onClick={() => {
               chatStore.setChatMode({ mode: 'Menu' });
-              scrollByMenu(true);
+              scrollByPlusMenu(true);
             }}
           />
         ) : (
@@ -148,7 +148,7 @@ function InputChat({ createChat, scrollByMenu }: InputChatProps) {
             icon="IconExit"
             onClick={() => {
               chatStore.setChatMode({ mode: 'Default' });
-              scrollByMenu(false);
+              scrollByPlusMenu(false);
             }}
           />
         )}
@@ -157,7 +157,7 @@ function InputChat({ createChat, scrollByMenu }: InputChatProps) {
           icon="IconSmile"
           onClick={() => {
             chatStore.setChatMode({ mode: 'Emoji' });
-            scrollByMenu(true);
+            scrollByPlusMenu(true);
           }}
         />
 

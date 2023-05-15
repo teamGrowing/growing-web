@@ -4,6 +4,7 @@ import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import store from 'stores/RootStore';
+import { plusMenuProps } from 'stores/ChatStore';
 import { useChatData } from 'hooks/queries/chat.queries';
 import useReactQuerySubscription from 'hooks/chat/useReactQuerySubscription';
 import Icon from 'components/common/Icon/Icon';
@@ -12,6 +13,7 @@ import ChatBallon from 'components/pages/chat/ChatBallon';
 import InputChat from 'components/pages/chat/InputChat';
 import SubMenu from 'components/pages/chat/SubMenu';
 import ChatNotice from 'components/pages/chat/ChatNotice';
+import { PLUS_MENU_HEIGHT } from 'constants/constants';
 
 const ChattingPageContainer = styled.div`
   display: flex;
@@ -65,16 +67,43 @@ function ChattingPage() {
     scrollToBottom,
   });
 
-  const scrollByMenu = (isOpen: boolean) => {
+  const scrollByPlusMenu = (isOpen: boolean) => {
     if (!chatsRef.current) return;
 
-    const num = isOpen ? 260 : -260;
-    chatsRef.current.scrollTop += num;
+    if (!plusMenuProps.includes(chatStore.chatMode.mode)) {
+      return;
+    }
+    const SCROLL_PADDING = 5;
+    const num = isOpen ? PLUS_MENU_HEIGHT : -PLUS_MENU_HEIGHT;
+
+    const maxScrollTop =
+      chatsRef.current.scrollHeight - chatsRef.current.clientHeight;
+
+    const isAtBottom =
+      chatsRef.current.scrollTop + SCROLL_PADDING >= maxScrollTop;
+
+    const updateScrollPosition = () => {
+      if (!chatsRef.current) return;
+
+      if (isOpen || !isAtBottom) {
+        chatsRef.current.scrollTop += num;
+      } else {
+        chatsRef.current.scrollTop = maxScrollTop;
+      }
+    };
+
+    if (isAtBottom) {
+      requestAnimationFrame(() => {
+        updateScrollPosition();
+      });
+    } else {
+      updateScrollPosition();
+    }
   };
 
   const handleDefaultMode = () => {
+    scrollByPlusMenu(false);
     chatStore.clear();
-    scrollByMenu(false);
   };
 
   function getNewDay(idx: number) {
@@ -127,11 +156,9 @@ function ChattingPage() {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    requestAnimationFrame(() => {
       scrollToBottom();
-    }, 100);
-
-    return () => clearTimeout(timer);
+    });
   }, []);
 
   return (
@@ -168,7 +195,10 @@ function ChattingPage() {
           ))}
         <div ref={chatEndRef} />
 
-        <InputChat createChat={createChat} scrollByMenu={scrollByMenu} />
+        <InputChat
+          createChat={createChat}
+          scrollByPlusMenu={scrollByPlusMenu}
+        />
       </Chats>
     </ChattingPageContainer>
   );

@@ -16,6 +16,15 @@ const CHAT_MODE = {
 } as const;
 export type ChatType = typeof CHAT_MODE[keyof typeof CHAT_MODE];
 
+export const plusMenuProps: ChatType[] = [
+  'Menu',
+  'Gallery',
+  'Camera',
+  'Voice',
+  'Map',
+  'Emoji',
+];
+
 type Mode = {
   mode: ChatType;
   chat?: ParentChildChattingDto;

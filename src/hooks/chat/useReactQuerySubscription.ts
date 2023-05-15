@@ -41,13 +41,11 @@ export default function useReactQuerySubscription({
     socket.on(SOCKET_KEY.GET_CHAT, (res: ChattingDto) => {
       queryClient.invalidateQueries(queryKeys.chatKeys.all);
 
-      const timer = setTimeout(() => {
+      requestAnimationFrame(() => {
         if (res.Writer.id === userId) {
           scrollToBottom();
         }
-      }, 300);
-
-      return () => clearTimeout(timer);
+      });
     });
 
     return () => {
