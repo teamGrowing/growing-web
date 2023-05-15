@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import React, { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
@@ -46,7 +47,11 @@ function ChattingPage() {
   const [onSubMenu, setOnSubMenu] = useState<boolean>(false);
   const [prevScrollHeight, setPrevScrollHeight] = useState<number>(0);
 
-  const { data: chats, fetchNextPage } = useChatData({
+  const {
+    data: chats,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useChatData({
     coupleId: userStore.user?.coupleId ?? '',
   });
 
@@ -71,10 +76,6 @@ function ChattingPage() {
     chatEndRef.current?.scrollIntoView();
   }
 
-  function loadMore() {
-    fetchNextPage();
-  }
-
   function getNewDay(idx: number) {
     if (idx === 0) {
       return true;
@@ -96,27 +97,32 @@ function ChattingPage() {
 
   useEffect(() => {
     // 무한스크롤시 스크롤 위치 고정
-    const scrollHeight = chatsRef.current?.scrollHeight ?? 0;
-    chatsRef.current?.scrollTo(0, scrollHeight - prevScrollHeight);
-  }, [chats]);
+    if (!isFetchingNextPage) {
+      const scrollHeight = chatsRef.current?.scrollHeight ?? 0;
+      chatsRef.current?.scrollTo(0, scrollHeight - prevScrollHeight);
+    }
+  }, [isFetchingNextPage]);
 
   useEffect(() => {
     if (!chatStartRef.current) {
       return;
     }
     const chatObserver = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
+      ([entries]) => {
+        if (entries.isIntersecting) {
           const scrollHeight = chatsRef.current?.scrollHeight ?? 0;
           setPrevScrollHeight(scrollHeight);
-          loadMore();
+          fetchNextPage();
         }
       },
       {
         threshold: 0.1,
       }
     );
+    // 채팅창 상단으로 이동시, 추가적인 데이터 요청
     chatObserver.observe(chatStartRef.current);
+
+    return () => chatObserver.disconnect();
   }, []);
 
   useEffect(() => {
