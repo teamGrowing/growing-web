@@ -55,9 +55,14 @@ function ChattingPage() {
     coupleId: userStore.user?.coupleId ?? '',
   });
 
+  function scrollToBottom() {
+    chatEndRef.current?.scrollIntoView();
+  }
+
   const { createChat } = useReactQuerySubscription({
     coupleId: userStore.user?.coupleId ?? '',
     userId: userStore.user?.id ?? '',
+    scrollToBottom,
   });
 
   const scrollByMenu = (isOpen: boolean) => {
@@ -71,10 +76,6 @@ function ChattingPage() {
     chatStore.clear();
     scrollByMenu(false);
   };
-
-  function scrollToBottom() {
-    chatEndRef.current?.scrollIntoView();
-  }
 
   function getNewDay(idx: number) {
     if (idx === 0) {

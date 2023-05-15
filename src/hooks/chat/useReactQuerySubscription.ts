@@ -10,9 +10,11 @@ import { CreateChattingDto } from 'types/chat/createChat.dto';
 export default function useReactQuerySubscription({
   coupleId,
   userId,
+  scrollToBottom,
 }: {
   coupleId: string;
   userId: string;
+  scrollToBottom: () => void;
 }) {
   const queryClient = useQueryClient();
   const socket = io(process.env.REACT_APP_SOCKET_HOST!, {
@@ -38,10 +40,14 @@ export default function useReactQuerySubscription({
 
     socket.on(SOCKET_KEY.GET_CHAT, (res: ChattingDto) => {
       queryClient.invalidateQueries(queryKeys.chatKeys.all);
-      if (res.isMine) {
-        // TODO: scroll 제일 밑으로
-      }
-      return res;
+
+      const timer = setTimeout(() => {
+        if (res.Writer.id === userId) {
+          scrollToBottom();
+        }
+      }, 300);
+
+      return () => clearTimeout(timer);
     });
 
     return () => {
