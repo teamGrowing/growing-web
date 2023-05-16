@@ -41,13 +41,19 @@ export default function useReactQuerySubscription({
     socket.on(SOCKET_KEY.GET_CHAT, (res: ChattingDto) => {
       queryClient.invalidateQueries(queryKeys.chatKeys.all);
 
-      const timer = setTimeout(() => {
-        if (res.Writer.id === userId) {
+      if (res.Writer.id === userId) {
+        let t: number = 100;
+        if (res.imageUrls.length || res.videoUrls.length) {
+          t = 500;
+        } else if (res.emojiUrl) {
+          t = 300;
+        }
+        const timer = setTimeout(() => {
           scrollToBottom().then(() => {
             clearTimeout(timer);
           });
-        }
-      }, 100);
+        }, t);
+      }
     });
 
     return () => {

@@ -177,13 +177,13 @@ function ChattingPage() {
   };
 
   useEffect(() => {
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       if (chatStore.scrollHeight != null) {
         chatsRef.current?.scrollTo(0, chatStore.scrollHeight);
       } else {
         scrollToBottom();
       }
-    });
+    }, 100);
   }, []);
 
   return (
