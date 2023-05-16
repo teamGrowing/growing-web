@@ -4,7 +4,10 @@ import { AxiosResponse } from 'axios';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { usePetFeedMutation, usePetPlayMutation } from 'hooks/queries/pet.queries';
+import {
+  usePetFeedMutation,
+  usePetPlayMutation,
+} from 'hooks/queries/pet.queries';
 import preventScroll from 'util/utils';
 import changeEmojiToSpan from 'util/Text';
 import store from 'stores/RootStore';
@@ -259,6 +262,7 @@ export default function PetRaising() {
           url={reactionUrl ?? pet.imageUrl}
           size={300}
           onClick={() => {
+            if (gauge >= 100) return;
             const increaseMount = petOption === 'feed' ? 100 / 4 : 100 / 5;
             setGauge(gauge + increaseMount);
             foodLottieRef.current?.goToAndPlay(1);
