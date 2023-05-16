@@ -55,6 +55,7 @@ export const MENT_GALLERY = Object.freeze({
   ALBUM_DELETE_FAIL_NO_SELECTED: '삭제할 앨범을 선택해주세요',
   ALBUM_CREATE_SUCCESS: '앨범 생성이 완료되었습니다.',
   ALBUM_CREATE_FAIL_NO_SELECTED: '앨범을 만들기 위한 사진을 선택해주세요',
+  COMMENT_DELETE_SUCCESS: '댓글이 삭제되었습니다.',
 });
 
 export const MENT_CALENDAR = Object.freeze({

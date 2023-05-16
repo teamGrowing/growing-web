@@ -5,6 +5,8 @@ import { useDeleteCommentMutation } from 'hooks/queries/gallery.queries';
 import store from 'stores/RootStore';
 import PhotoCommentDto from 'types/gallery/PhotoComment.dto';
 import Modal from 'components/common/Modal/Modal';
+import useToast from 'hooks/common/useToast';
+import { MENT_GALLERY } from 'constants/ments';
 
 const CommentContainer = styled.div`
   display: flex;
@@ -71,6 +73,7 @@ type CommentProps = {
 
 function Comment({ commentInfo }: CommentProps) {
   const { pId } = useParams();
+  const { addToast } = useToast();
   const [onModal, setOnModal] = useState(false);
   const { mutate: deleteComment } = useDeleteCommentMutation({
     coupleId: store.userStore.user?.coupleId!,
@@ -90,7 +93,13 @@ function Comment({ commentInfo }: CommentProps) {
           setOnModal={setOnModal}
           description="댓글을 삭제하시겠습니까?"
           mainActionLabel="확인"
-          onMainAction={() => deleteComment(commentInfo.id)}
+          onMainAction={() =>
+            deleteComment(commentInfo.id, {
+              onSuccess: () => {
+                addToast(MENT_GALLERY.COMMENT_DELETE_SUCCESS);
+              },
+            })
+          }
           subActionLabel="취소"
           onSubAction={() => {}}
         />
