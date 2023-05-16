@@ -136,6 +136,8 @@ const ViewAllButton = styled.div`
   color: ${({ theme }) => theme.color.gray600};
 `;
 
+const StyledP = styled.p``;
+
 interface ChatBallonProps extends ParentChildChattingDto {
   isNewDay: boolean;
   isScrolling: boolean;
@@ -168,39 +170,34 @@ function ChatBallon({
     chatStore.clear();
   }, []);
 
-  const longPressMenu = useLongPress<HTMLDivElement | HTMLImageElement>(
-    {
-      onLongPress: () => {
-        setIsTop(
-          (ref.current?.getBoundingClientRect().top ?? 0) <
-            window.innerHeight / 2
-        );
-        showMenu();
-      },
-      onClick: (e) => {
-        if (chatStore.chatMode.mode === 'Context' || isScrolling) {
-          hideMenu();
-        } else if (isLongChat) {
-          chatStore.setChatMode({
-            mode: 'LongChat',
-            chat: { parentChatting, childChatting },
-          });
-          navigation('/chat/all');
-        } else if (isImageChat) {
-          navigation(`/chat/photo-box/${parentChatting.id}`, {
-            state: {
-              idx: e.currentTarget.dataset.index ?? 0,
-            },
-          });
-        } else if (isVideo) {
-          navigation(`/chat/photo-box/${parentChatting.id}`);
-        }
-      },
-    },
-    {
-      delay: 400,
+  const longPressMenu = useLongPress(() => {
+    setIsTop(
+      (ref.current?.getBoundingClientRect().top ?? 0) < window.innerHeight / 2
+    );
+    showMenu();
+  }, 400);
+
+  const handleClick = (e: React.MouseEvent<HTMLElement | HTMLImageElement>) => {
+    e.stopPropagation();
+
+    if (chatStore.chatMode.mode === 'Context' || isScrolling) {
+      hideMenu();
+    } else if (isLongChat) {
+      chatStore.setChatMode({
+        mode: 'LongChat',
+        chat: { parentChatting, childChatting },
+      });
+      navigation('/chat/all');
+    } else if (isImageChat) {
+      navigation(`/chat/photo-box/${parentChatting.id}`, {
+        state: {
+          idx: e.currentTarget.dataset.index ?? 0,
+        },
+      });
+    } else if (isVideo) {
+      navigation(`/chat/photo-box/${parentChatting.id}`);
     }
-  );
+  };
 
   useEffect(() => {
     if (parentChatting.content) {
@@ -235,6 +232,7 @@ function ChatBallon({
           (parentChatting.imageUrls.length === 1 ? (
             <OneChatImage
               {...longPressMenu}
+              onClick={(e) => handleClick(e)}
               src={parentChatting.imageUrls[0]}
             />
           ) : (
@@ -243,6 +241,7 @@ function ChatBallon({
                 <ChatImage
                   key={idx}
                   {...longPressMenu}
+                  onClick={(e) => handleClick(e)}
                   src={imageUrl}
                   data-index={idx}
                 />
@@ -252,7 +251,7 @@ function ChatBallon({
 
         {/* video */}
         {!!parentChatting.videoUrls[0] && (
-          <VideoWrapper {...longPressMenu}>
+          <VideoWrapper {...longPressMenu} onClick={(e) => handleClick(e)}>
             <OneChatImage src={parentChatting.videoUrls[0].thumbnailUrl} />
             <VideoPlayBtn style={{ zIndex: 1 }} />
           </VideoWrapper>
@@ -262,6 +261,7 @@ function ChatBallon({
         {!!parentChatting.emojiUrl && (
           <OneChatImage
             {...longPressMenu}
+            onClick={(e) => handleClick(e)}
             src={parentChatting.emojiUrl}
             style={{ width: '140px', height: '140px' }}
           />
@@ -271,9 +271,11 @@ function ChatBallon({
         {parentChatting.content && (
           <ChatWrapper isMine={parentChatting.isMine!}>
             {!isLongChat ? (
-              <p {...longPressMenu}>{parentChatting.content}</p>
+              <StyledP {...longPressMenu} onClick={(e) => handleClick(e)}>
+                {parentChatting.content}
+              </StyledP>
             ) : (
-              <OverflowChat {...longPressMenu}>
+              <OverflowChat {...longPressMenu} onClick={(e) => handleClick(e)}>
                 <p>{parentChatting.content?.slice(0, 350)}...</p>
                 <ViewAllButton>
                   전체보기
