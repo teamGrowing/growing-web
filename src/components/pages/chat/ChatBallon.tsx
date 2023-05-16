@@ -138,11 +138,13 @@ const ViewAllButton = styled.div`
 
 interface ChatBallonProps extends ParentChildChattingDto {
   isNewDay: boolean;
+  isScrolling: boolean;
 }
 
 function ChatBallon({
   parentChatting,
   childChatting,
+  isScrolling,
   isNewDay,
 }: ChatBallonProps) {
   const navigation = useNavigate();
@@ -176,10 +178,9 @@ function ChatBallon({
         showMenu();
       },
       onClick: (e) => {
-        if (chatStore.chatMode.mode === 'Context') {
+        if (chatStore.chatMode.mode === 'Context' || isScrolling) {
           hideMenu();
         } else if (isLongChat) {
-          // TODO: scroll시 이동 막기
           chatStore.setChatMode({
             mode: 'LongChat',
             chat: { parentChatting, childChatting },

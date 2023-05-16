@@ -49,6 +49,7 @@ function ChattingPage() {
   const [onSubMenu, setOnSubMenu] = useState<boolean>(false);
   const [prevScrollHeight, setPrevScrollHeight] = useState<number>(0);
   const scrollTimeoutRef = useRef<NodeJS.Timer | null>(null);
+  const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
   const {
     data: chats,
@@ -159,11 +160,13 @@ function ChattingPage() {
   const handleChange = () => {
     if (scrollTimeoutRef.current) {
       clearTimeout(scrollTimeoutRef.current);
+      setIsScrolling(true);
     }
 
     scrollTimeoutRef.current = setTimeout(() => {
       chatStore.setScrollHeight(chatsRef?.current?.scrollTop ?? null);
-    }, 500);
+      setIsScrolling(false);
+    }, 300);
   };
 
   useEffect(() => {
@@ -205,6 +208,7 @@ function ChattingPage() {
             <ChatBallon
               key={chat.parentChatting.id}
               isNewDay={getNewDay(idx)}
+              isScrolling={isScrolling}
               {...chat}
             />
           ))}
