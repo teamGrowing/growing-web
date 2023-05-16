@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import store from 'stores/RootStore';
-import { ChatType } from 'stores/ChatStore';
+import { ChatType, plusMenuProps } from 'stores/ChatStore';
 import { CreateChattingDto } from 'types/chat/createChat.dto';
 import Icon from 'components/common/Icon/Icon';
 import PlusMenu from './plus-menu/PlusMenu';
@@ -96,6 +96,19 @@ function InputChat({ createChat, scrollByPlusMenu }: InputChatProps) {
 
   const plusBtnModes: ChatType[] = ['Default', 'Reply', 'Context'];
 
+  const handleScroll = (t: ChatType) => {
+    if (
+      plusMenuProps.includes(chatStore.chatMode.mode) ||
+      chatStore.chatMode.mode === 'Chatting'
+    ) {
+      // 이미 plus menu나 키보드가 올라와있을 경우
+      chatStore.setChatMode({ mode: t });
+    } else if (chatStore.chatMode.mode !== t) {
+      chatStore.setChatMode({ mode: t });
+      scrollByPlusMenu(true);
+    }
+  };
+
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setValue(e.target.value);
 
@@ -136,39 +149,20 @@ function InputChat({ createChat, scrollByPlusMenu }: InputChatProps) {
     <Container onClick={(e) => e.stopPropagation()}>
       <InputContainer>
         {plusBtnModes.includes(chatStore.chatMode.mode) ? (
-          <Icon
-            icon="IconPlus"
-            onClick={() => {
-              chatStore.setChatMode({ mode: 'Menu' });
-              scrollByPlusMenu(true);
-            }}
-          />
+          <Icon icon="IconPlus" onClick={() => handleScroll('Menu')} />
         ) : (
-          <Icon
-            icon="IconExit"
-            onClick={() => {
-              chatStore.setChatMode({ mode: 'Default' });
-              scrollByPlusMenu(false);
-            }}
-          />
+          <Icon icon="IconExit" onClick={() => handleScroll('Default')} />
         )}
 
-        <Icon
-          icon="IconSmile"
-          onClick={() => {
-            chatStore.setChatMode({ mode: 'Emoji' });
-            scrollByPlusMenu(true);
-          }}
-        />
+        <Icon icon="IconSmile" onClick={() => handleScroll('Emoji')} />
 
         <TextareaWrapper>
           <StyledTextarea
             ref={textareaRef}
             rows={1}
             value={value}
-            onClick={() => chatStore.setChatMode({ mode: 'Default' })}
+            onClick={() => handleScroll('Chatting')}
             onChange={onChange}
-            // TODO: shift + enter는 가능하도록
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();

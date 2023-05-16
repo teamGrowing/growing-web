@@ -61,6 +61,9 @@ function ChattingPage() {
 
   function scrollToBottom() {
     chatEndRef.current?.scrollIntoView();
+    return new Promise((resolve) => {
+      resolve(1);
+    });
   }
 
   const { createChat } = useReactQuerySubscription({
@@ -72,9 +75,13 @@ function ChattingPage() {
   const scrollByPlusMenu = (isOpen: boolean) => {
     if (!chatsRef.current) return;
 
-    if (!plusMenuProps.includes(chatStore.chatMode.mode)) {
+    if (
+      !plusMenuProps.includes(chatStore.chatMode.mode) &&
+      chatStore.chatMode.mode !== 'Chatting'
+    ) {
       return;
     }
+
     const SCROLL_PADDING = 5;
     const num = isOpen ? PLUS_MENU_HEIGHT : -PLUS_MENU_HEIGHT;
 
@@ -95,9 +102,11 @@ function ChattingPage() {
     };
 
     if (isAtBottom) {
-      requestAnimationFrame(() => {
-        updateScrollPosition();
-      });
+      const timer = setTimeout(() => {
+        scrollToBottom().then(() => {
+          clearTimeout(timer);
+        });
+      }, 100);
     } else {
       updateScrollPosition();
     }

@@ -13,6 +13,7 @@ const CHAT_MODE = {
   Voice: 'Voice',
   Map: 'Map',
   Emoji: 'Emoji',
+  Chatting: 'Chatting',
 } as const;
 export type ChatType = typeof CHAT_MODE[keyof typeof CHAT_MODE];
 
