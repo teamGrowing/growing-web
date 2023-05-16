@@ -97,12 +97,16 @@ function InputChat({ createChat, scrollByPlusMenu }: InputChatProps) {
   const plusBtnModes: ChatType[] = ['Default', 'Reply', 'Context'];
 
   const handleScroll = (t: ChatType) => {
-    if (
-      plusMenuProps.includes(chatStore.chatMode.mode) ||
-      chatStore.chatMode.mode === 'Chatting'
-    ) {
-      // 이미 plus menu나 키보드가 올라와있을 경우
+    if (t === 'Default') {
+      scrollByPlusMenu(false);
       chatStore.setChatMode({ mode: t });
+    } else if (plusMenuProps.includes(chatStore.chatMode.mode)) {
+      chatStore.setChatMode({ mode: t });
+    } else if (chatStore.chatMode.mode === 'Chatting') {
+      textareaRef.current?.blur();
+      setTimeout(() => {
+        chatStore.setChatMode({ mode: t });
+      }, 200);
     } else if (chatStore.chatMode.mode !== t) {
       chatStore.setChatMode({ mode: t });
       scrollByPlusMenu(true);
