@@ -22,7 +22,9 @@ function LongChattingPage() {
 
   const handleBack = () => {
     navigation(-1);
-    chatStore.clear();
+    chatStore.setChatMode({
+      mode: 'Default',
+    });
   };
 
   const handleArchive = () => {

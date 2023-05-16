@@ -48,6 +48,7 @@ function ChattingPage() {
 
   const [onSubMenu, setOnSubMenu] = useState<boolean>(false);
   const [prevScrollHeight, setPrevScrollHeight] = useState<number>(0);
+  const scrollTimeoutRef = useRef<NodeJS.Timer | null>(null);
 
   const {
     data: chats,
@@ -155,9 +156,23 @@ function ChattingPage() {
     return () => chatObserver.disconnect();
   }, []);
 
+  const handleChange = () => {
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+
+    scrollTimeoutRef.current = setTimeout(() => {
+      chatStore.setScrollHeight(chatsRef?.current?.scrollTop ?? null);
+    }, 500);
+  };
+
   useEffect(() => {
     requestAnimationFrame(() => {
-      scrollToBottom();
+      if (chatStore.scrollHeight != null) {
+        chatsRef.current?.scrollTo(0, chatStore.scrollHeight);
+      } else {
+        scrollToBottom();
+      }
     });
   }, []);
 
@@ -171,7 +186,7 @@ function ChattingPage() {
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => {
           navigation('/');
-          chatStore.clear();
+          chatStore.exitChatRoom();
         }}
         rightMainNode={
           <Icon icon={onSubMenu ? 'IconOpenEnvelope' : 'IconEnvelope'} />
@@ -180,7 +195,7 @@ function ChattingPage() {
       />
       <ChatNotice />
 
-      <Chats ref={chatsRef} onClick={handleDefaultMode}>
+      <Chats ref={chatsRef} onClick={handleDefaultMode} onScroll={handleChange}>
         <SubMenu open={onSubMenu} />
         <div ref={chatStartRef} style={{ height: '8px' }} />
 
