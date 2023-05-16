@@ -61,9 +61,7 @@ function ChattingPage() {
 
   function scrollToBottom() {
     chatEndRef.current?.scrollIntoView();
-    return new Promise((resolve) => {
-      resolve(1);
-    });
+    return Promise.resolve(1);
   }
 
   const { createChat } = useReactQuerySubscription({

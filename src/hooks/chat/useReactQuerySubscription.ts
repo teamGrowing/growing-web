@@ -14,7 +14,7 @@ export default function useReactQuerySubscription({
 }: {
   coupleId: string;
   userId: string;
-  scrollToBottom: () => void;
+  scrollToBottom: () => Promise<number>;
 }) {
   const queryClient = useQueryClient();
   const socket = io(process.env.REACT_APP_SOCKET_HOST!, {
@@ -41,11 +41,13 @@ export default function useReactQuerySubscription({
     socket.on(SOCKET_KEY.GET_CHAT, (res: ChattingDto) => {
       queryClient.invalidateQueries(queryKeys.chatKeys.all);
 
-      requestAnimationFrame(() => {
+      const timer = setTimeout(() => {
         if (res.Writer.id === userId) {
-          scrollToBottom();
+          scrollToBottom().then(() => {
+            clearTimeout(timer);
+          });
         }
-      });
+      }, 100);
     });
 
     return () => {

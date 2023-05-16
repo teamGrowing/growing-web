@@ -124,6 +124,7 @@ function InputChat({ createChat, scrollByPlusMenu }: InputChatProps) {
     };
     createChat(dto);
     setValue('');
+    textareaRef.current?.focus();
   };
 
   useEffect(() => {
