@@ -36,12 +36,17 @@ const Border = styled.div`
   flex: none;
 `;
 
+const VersionMsg = styled.div`
+  font-size: 13px;
+`;
+
 function SettingPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
     preventScroll();
   }, []);
+
   return (
     <Container className="page-container">
       <PurpleBackground />
@@ -51,7 +56,7 @@ function SettingPage() {
         onLeftClick={() => navigate('/more')}
       />
       <WhiteContainer top="89px">
-        <Box>버전 정보</Box>
+        {/* <Box>버전 정보</Box>
         <Border />
         <Box>대화내용 내보내기</Box>
         <Border />
@@ -60,6 +65,10 @@ function SettingPage() {
         <Box>암호설정</Box>
         <Border />
         <Box>알림설정</Box>
+        <Border /> */}
+        <Box>
+          버전 정보 v1.0.0 <VersionMsg>최신 버전</VersionMsg>
+        </Box>
         <Border />
       </WhiteContainer>
     </Container>

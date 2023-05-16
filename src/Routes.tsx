@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import NoticePage from 'pages/more/NoticePage';
+import NoticeDetailPage from 'pages/more/NoticeDetailPage';
 import GalleryMainPage from './pages/gallery/GalleryMainPage';
 import PhotoPage from './pages/gallery/PhotoPage';
 import Layout from './components/layout/Layout';
@@ -87,6 +89,8 @@ function GrowingRoutes() {
         </Route>
         <Route path="/more/profile" element={<ProfilePage />} />
         <Route path="/more/info" element={<InfoPage />} />
+        <Route path="/more/info/notice" element={<NoticePage />} />
+        <Route path="/more/info/notice/detail" element={<NoticeDetailPage />} />
         <Route path="/more/setting" element={<SettingPage />} />
         <Route path="/more/pet" element={<PetPage />} />
       </Route>
