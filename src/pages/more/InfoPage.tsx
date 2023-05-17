@@ -33,9 +33,13 @@ function InfoPage() {
       />
       <WhiteContainer top="89px">
         <Menus>
-          <MenuBox title="공지사항" icon="IconPet" onClick={() => {}} />
-          <MenuBox title="이용방법" icon="IconPet" onClick={() => {}} />
-          <MenuBox title="카톡문의" icon="IconPet" onClick={() => {}} />
+          <MenuBox
+            title="공지사항"
+            icon="IconPet"
+            onClick={() => navigate('notice')}
+          />
+          {/* <MenuBox title="이용방법" icon="IconPet" onClick={() => {}} />
+          <MenuBox title="카톡문의" icon="IconPet" onClick={() => {}} /> */}
         </Menus>
       </WhiteContainer>
     </Container>
