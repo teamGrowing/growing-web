@@ -1,15 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import { ChatType } from 'stores/ChatStore';
+import { plusMenuProps } from 'stores/ChatStore';
 import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
 import { CreateChattingDto } from 'types/chat/createChat.dto';
+import { PLUS_MENU_HEIGHT } from 'constants/constants';
 import PlusMenuEmoji from './PlusMenuEmoji';
 
 const Container = styled.div`
   width: 100%;
-  height: 260px;
+  height: ${PLUS_MENU_HEIGHT}px;
 `;
 
 const MenuContainer = styled.div`
@@ -54,15 +55,6 @@ type InputChatProps = {
 function PlusMenu({ createChat }: InputChatProps) {
   const { chatStore } = store;
   const { mode } = chatStore.chatMode;
-
-  const plusMenuProps: ChatType[] = [
-    'Menu',
-    'Gallery',
-    'Camera',
-    'Voice',
-    'Map',
-    'Emoji',
-  ];
 
   if (!plusMenuProps.includes(mode)) {
     return null;

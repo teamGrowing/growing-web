@@ -1,8 +1,10 @@
+/* eslint-disable consistent-return */
 import React, { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import store from 'stores/RootStore';
+import { plusMenuProps } from 'stores/ChatStore';
 import { useChatData } from 'hooks/queries/chat.queries';
 import useReactQuerySubscription from 'hooks/chat/useReactQuerySubscription';
 import Icon from 'components/common/Icon/Icon';
@@ -11,6 +13,7 @@ import ChatBallon from 'components/pages/chat/ChatBallon';
 import InputChat from 'components/pages/chat/InputChat';
 import SubMenu from 'components/pages/chat/SubMenu';
 import ChatNotice from 'components/pages/chat/ChatNotice';
+import { PLUS_MENU_HEIGHT } from 'constants/constants';
 
 const ChattingPageContainer = styled.div`
   display: flex;
@@ -45,35 +48,72 @@ function ChattingPage() {
 
   const [onSubMenu, setOnSubMenu] = useState<boolean>(false);
   const [prevScrollHeight, setPrevScrollHeight] = useState<number>(0);
+  const scrollTimeoutRef = useRef<NodeJS.Timer | null>(null);
+  const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
-  const { data: chats, fetchNextPage } = useChatData({
+  const {
+    data: chats,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useChatData({
     coupleId: userStore.user?.coupleId ?? '',
   });
+
+  function scrollToBottom() {
+    chatEndRef.current?.scrollIntoView();
+    return Promise.resolve(1);
+  }
 
   const { createChat } = useReactQuerySubscription({
     coupleId: userStore.user?.coupleId ?? '',
     userId: userStore.user?.id ?? '',
+    scrollToBottom,
   });
 
-  const scrollByMenu = (isOpen: boolean) => {
+  const scrollByPlusMenu = (isOpen: boolean) => {
     if (!chatsRef.current) return;
 
-    const num = isOpen ? 260 : -260;
-    chatsRef.current.scrollTop += num;
+    if (
+      !plusMenuProps.includes(chatStore.chatMode.mode) &&
+      chatStore.chatMode.mode !== 'Chatting'
+    ) {
+      return;
+    }
+
+    const SCROLL_PADDING = 5;
+    const num = isOpen ? PLUS_MENU_HEIGHT : -PLUS_MENU_HEIGHT;
+
+    const maxScrollTop =
+      chatsRef.current.scrollHeight - chatsRef.current.clientHeight;
+
+    const isAtBottom =
+      chatsRef.current.scrollTop + SCROLL_PADDING >= maxScrollTop;
+
+    const updateScrollPosition = () => {
+      if (!chatsRef.current) return;
+
+      if (isOpen || !isAtBottom) {
+        chatsRef.current.scrollTop += num;
+      } else {
+        chatsRef.current.scrollTop = maxScrollTop;
+      }
+    };
+
+    if (isAtBottom) {
+      const timer = setTimeout(() => {
+        scrollToBottom().then(() => {
+          clearTimeout(timer);
+        });
+      }, 100);
+    } else {
+      updateScrollPosition();
+    }
   };
 
   const handleDefaultMode = () => {
+    scrollByPlusMenu(false);
     chatStore.clear();
-    scrollByMenu(false);
   };
-
-  function scrollToBottom() {
-    chatEndRef.current?.scrollIntoView();
-  }
-
-  function loadMore() {
-    fetchNextPage();
-  }
 
   function getNewDay(idx: number) {
     if (idx === 0) {
@@ -96,31 +136,54 @@ function ChattingPage() {
 
   useEffect(() => {
     // 무한스크롤시 스크롤 위치 고정
-    const scrollHeight = chatsRef.current?.scrollHeight ?? 0;
-    chatsRef.current?.scrollTo(0, scrollHeight - prevScrollHeight);
-  }, [chats]);
+    if (!isFetchingNextPage) {
+      const scrollHeight = chatsRef.current?.scrollHeight ?? 0;
+      chatsRef.current?.scrollTo(0, scrollHeight - prevScrollHeight);
+    }
+  }, [isFetchingNextPage]);
 
   useEffect(() => {
     if (!chatStartRef.current) {
       return;
     }
     const chatObserver = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
+      ([entries]) => {
+        if (entries.isIntersecting) {
           const scrollHeight = chatsRef.current?.scrollHeight ?? 0;
           setPrevScrollHeight(scrollHeight);
-          loadMore();
+          fetchNextPage();
         }
       },
       {
         threshold: 0.1,
       }
     );
+    // 채팅창 상단으로 이동시, 추가적인 데이터 요청
     chatObserver.observe(chatStartRef.current);
+
+    return () => chatObserver.disconnect();
   }, []);
 
+  const handleChange = () => {
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+      setIsScrolling(true);
+    }
+
+    scrollTimeoutRef.current = setTimeout(() => {
+      chatStore.setScrollHeight(chatsRef?.current?.scrollTop ?? null);
+      setIsScrolling(false);
+    }, 300);
+  };
+
   useEffect(() => {
-    scrollToBottom();
+    setTimeout(() => {
+      if (chatStore.scrollHeight != null) {
+        chatsRef.current?.scrollTo(0, chatStore.scrollHeight);
+      } else {
+        scrollToBottom();
+      }
+    }, 100);
   }, []);
 
   return (
@@ -133,7 +196,7 @@ function ChattingPage() {
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => {
           navigation('/');
-          chatStore.clear();
+          chatStore.exitChatRoom();
         }}
         rightMainNode={
           <Icon icon={onSubMenu ? 'IconOpenEnvelope' : 'IconEnvelope'} />
@@ -142,7 +205,7 @@ function ChattingPage() {
       />
       <ChatNotice />
 
-      <Chats ref={chatsRef} onClick={handleDefaultMode}>
+      <Chats ref={chatsRef} onClick={handleDefaultMode} onScroll={handleChange}>
         <SubMenu open={onSubMenu} />
         <div ref={chatStartRef} style={{ height: '8px' }} />
 
@@ -152,12 +215,16 @@ function ChattingPage() {
             <ChatBallon
               key={chat.parentChatting.id}
               isNewDay={getNewDay(idx)}
+              isScrolling={isScrolling}
               {...chat}
             />
           ))}
         <div ref={chatEndRef} />
 
-        <InputChat createChat={createChat} scrollByMenu={scrollByMenu} />
+        <InputChat
+          createChat={createChat}
+          scrollByPlusMenu={scrollByPlusMenu}
+        />
       </Chats>
     </ChattingPageContainer>
   );

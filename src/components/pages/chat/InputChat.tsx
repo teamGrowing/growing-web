@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import store from 'stores/RootStore';
-import { ChatType } from 'stores/ChatStore';
+import { ChatType, plusMenuProps } from 'stores/ChatStore';
 import { CreateChattingDto } from 'types/chat/createChat.dto';
 import Icon from 'components/common/Icon/Icon';
 import PlusMenu from './plus-menu/PlusMenu';
@@ -85,16 +85,33 @@ const StyledTextarea = styled.textarea`
 
 type InputChatProps = {
   createChat: (dto: CreateChattingDto) => void;
-  scrollByMenu: (isOpen: boolean) => void;
+  scrollByPlusMenu: (isOpen: boolean) => void;
 };
 
-function InputChat({ createChat, scrollByMenu }: InputChatProps) {
+function InputChat({ createChat, scrollByPlusMenu }: InputChatProps) {
   const { userStore, chatStore } = store;
 
   const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const [value, setValue] = useState<string>('');
 
   const plusBtnModes: ChatType[] = ['Default', 'Reply', 'Context'];
+
+  const handleScroll = (t: ChatType) => {
+    if (t === 'Default') {
+      scrollByPlusMenu(false);
+      chatStore.setChatMode({ mode: t });
+    } else if (plusMenuProps.includes(chatStore.chatMode.mode)) {
+      chatStore.setChatMode({ mode: t });
+    } else if (chatStore.chatMode.mode === 'Chatting') {
+      textareaRef.current?.blur();
+      setTimeout(() => {
+        chatStore.setChatMode({ mode: t });
+      }, 200);
+    } else if (chatStore.chatMode.mode !== t) {
+      chatStore.setChatMode({ mode: t });
+      scrollByPlusMenu(true);
+    }
+  };
 
   const onChange = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
     setValue(e.target.value);
@@ -111,6 +128,7 @@ function InputChat({ createChat, scrollByMenu }: InputChatProps) {
     };
     createChat(dto);
     setValue('');
+    textareaRef.current?.focus();
   };
 
   useEffect(() => {
@@ -136,39 +154,20 @@ function InputChat({ createChat, scrollByMenu }: InputChatProps) {
     <Container onClick={(e) => e.stopPropagation()}>
       <InputContainer>
         {plusBtnModes.includes(chatStore.chatMode.mode) ? (
-          <Icon
-            icon="IconPlus"
-            onClick={() => {
-              chatStore.setChatMode({ mode: 'Menu' });
-              scrollByMenu(true);
-            }}
-          />
+          <Icon icon="IconPlus" onClick={() => handleScroll('Menu')} />
         ) : (
-          <Icon
-            icon="IconExit"
-            onClick={() => {
-              chatStore.setChatMode({ mode: 'Default' });
-              scrollByMenu(false);
-            }}
-          />
+          <Icon icon="IconExit" onClick={() => handleScroll('Default')} />
         )}
 
-        <Icon
-          icon="IconSmile"
-          onClick={() => {
-            chatStore.setChatMode({ mode: 'Emoji' });
-            scrollByMenu(true);
-          }}
-        />
+        <Icon icon="IconSmile" onClick={() => handleScroll('Emoji')} />
 
         <TextareaWrapper>
           <StyledTextarea
             ref={textareaRef}
             rows={1}
             value={value}
-            onClick={() => chatStore.setChatMode({ mode: 'Default' })}
+            onClick={() => handleScroll('Chatting')}
             onChange={onChange}
-            // TODO: shift + enter는 가능하도록
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault();

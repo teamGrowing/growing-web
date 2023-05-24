@@ -13,8 +13,18 @@ const CHAT_MODE = {
   Voice: 'Voice',
   Map: 'Map',
   Emoji: 'Emoji',
+  Chatting: 'Chatting',
 } as const;
 export type ChatType = typeof CHAT_MODE[keyof typeof CHAT_MODE];
+
+export const plusMenuProps: ChatType[] = [
+  'Menu',
+  'Gallery',
+  'Camera',
+  'Voice',
+  'Map',
+  'Emoji',
+];
 
 type Mode = {
   mode: ChatType;
@@ -26,6 +36,8 @@ class ChatStore {
     mode: 'Default',
   };
 
+  scrollHeight: number | null = null;
+
   constructor() {
     makeAutoObservable(this);
   }
@@ -34,11 +46,23 @@ class ChatStore {
     this.chatMode = data;
   }
 
+  setScrollHeight(n: number | null) {
+    this.scrollHeight = n;
+  }
+
   clear() {
     this.chatMode = {
       mode: 'Default',
       chat: undefined,
     };
+  }
+
+  exitChatRoom() {
+    this.chatMode = {
+      mode: 'Default',
+      chat: undefined,
+    };
+    this.scrollHeight = null;
   }
 }
 

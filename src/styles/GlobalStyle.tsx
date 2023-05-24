@@ -68,6 +68,12 @@ textarea {
   outline: none;
   resize: none;
 }
+img {
+  -webkit-tap-highlight-color: transparent; /* iOS */
+  tap-highlight-color: transparent; /* Android */
+  -webkit-user-drag: none; /* iOS */
+  user-drag: none; /* Chrome, Firefox */
+}
 .text-gradient300 {
   background: linear-gradient(130.11deg, #FCE38A 7.3%, #F38181 100%);
   background-clip: text;
