@@ -32,7 +32,7 @@ export function useGalleryList({
   options?: UseQueryOptionsType<PhotoLineDto[]>;
 }) {
   return useQuery(
-    [...queryKeys.galleryKeys.all, ...(storeCode ?? [])],
+    [...queryKeys.galleryKeys.list, ...(storeCode ?? [])],
     () => GALLERY_API.getPhotos(coupleId),
     {
       select: ({ data }) => data,
@@ -182,7 +182,7 @@ export function useCreatePhotosMutation({
   return useMutation({
     mutationFn: (data: FileList) => makePhotos(data),
     onSuccess: () => {
-      queryClient.invalidateQueries(queryKeys.galleryKeys.all);
+      queryClient.invalidateQueries(queryKeys.galleryKeys.list, {});
     },
     ...options,
   });
@@ -208,7 +208,7 @@ export function useDeletePhotosMutation({
     mutationFn: (photoIds: string[]) => deletePhotos(photoIds),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: queryKeys.galleryKeys.all,
+        queryKey: queryKeys.galleryKeys.list,
         refetchType: 'all',
       });
       await queryClient.invalidateQueries({
