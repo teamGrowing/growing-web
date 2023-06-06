@@ -7,7 +7,6 @@ import PhotoContainer from 'components/pages/gallery/PhotoContainer';
 import Icon from 'components/common/Icon/Icon';
 import GalleryTitle from 'components/pages/gallery/GalleryTitle';
 import {
-  useCreatePhotosMutation,
   useDeletePhotosMutation,
   useInfiniteGalleryList,
 } from 'hooks/queries/gallery.queries';
@@ -57,9 +56,6 @@ function PhotoPage() {
 
   const coupleId = store.userStore.user?.coupleId ?? '';
   const { data: photos, fetchNextPage } = useInfiniteGalleryList({ coupleId });
-  const { mutateAsync: upLoadPhotosMutate } = useCreatePhotosMutation({
-    coupleId,
-  });
   const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
     coupleId,
   });
@@ -85,12 +81,6 @@ function PhotoPage() {
     setSelectingAvailable(false);
   };
   const clickCheck = () => setSelectingAvailable(true);
-
-  const upLoadPhotos = (files: FileList) => {
-    upLoadPhotosMutate(files, {
-      onSuccess: () => addToast(MENT_GALLERY.PHOTO_UPLOAD_SUCCESS),
-    });
-  };
 
   const deletePhotos = () => {
     deletePhotosMutate(selectedPhotos.current, {
@@ -132,7 +122,7 @@ function PhotoPage() {
             fetchNextPage={fetchNextPage}
           />
         </PaddingContainer>
-        <FloatingButton onUpLoad={upLoadPhotos} />
+        <FloatingButton />
         {onModal && (
           <Modal
             onModal={onModal}

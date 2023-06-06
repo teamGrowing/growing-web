@@ -10,12 +10,8 @@ import {
   useAlbumPhotosList,
   useDeletePhotosMutation as useDeletePhotosFromAlbumMutation,
   usePatchAlbumMutation,
-  usePostPhotosMutation,
 } from 'hooks/queries/album.queries';
-import {
-  useDeletePhotosMutation,
-  useCreatePhotosMutation,
-} from 'hooks/queries/gallery.queries';
+import { useDeletePhotosMutation } from 'hooks/queries/gallery.queries';
 import { MENT_GALLERY } from 'constants/ments';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
@@ -73,12 +69,6 @@ function AlbumDetailPage() {
     albumId,
   });
 
-  const { mutateAsync: upLoadPhotos } = useCreatePhotosMutation({ coupleId });
-  const { mutate: addPhotosToAlbumMutate } = usePostPhotosMutation({
-    coupleId,
-    albumId,
-  });
-
   const ctxValue = useMemo(() => {
     return {
       selectingAvailable,
@@ -116,19 +106,6 @@ function AlbumDetailPage() {
     });
     clearList();
     isDeleteOnlyFromAlbum.current = null;
-  };
-
-  const upLoadHandler = async (files: FileList) => {
-    await upLoadPhotos(files, {
-      onSuccess: async (data) => {
-        const ids = [];
-        for (let i = 0; i < data.length; i += 1) {
-          // eslint-disable-next-line no-await-in-loop
-          ids.push((await data[i]).photoId);
-        }
-        addPhotosToAlbumMutate({ imageIds: ids });
-      },
-    });
   };
 
   return (
@@ -169,7 +146,7 @@ function AlbumDetailPage() {
       />
       <Container className="page-container with-topbar with-navbar hidden-scrollbar">
         <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
-        <FloatingButton onUpLoad={upLoadHandler} />
+        <FloatingButton albumId={aId} />
         {onModal && (
           <Modal
             onModal={onModal}
