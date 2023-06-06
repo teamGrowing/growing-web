@@ -192,10 +192,8 @@ export function useCreatePhotosMutation({
 
   return useMutation({
     mutationFn: (data: FileList) => makePhotos(data),
-    onSuccess: () => {
-      console.log('onSuccess');
-      queryClient.invalidateQueries(queryKeys.galleryKeys.list, {});
-    },
+    onSuccess: () =>
+      queryClient.invalidateQueries(queryKeys.galleryKeys.list, {}),
     ...options,
   });
 }
