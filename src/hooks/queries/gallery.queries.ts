@@ -176,12 +176,24 @@ export function useCreatePhotosMutation({
       promises.push(makePhoto(files[i]));
     }
     await Promise.all(promises);
+
+    /** 동영상 썸네일을 위한 지연.. */
+    const delayReturn = () => {
+      return new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 500);
+      });
+    };
+    await delayReturn();
+
     return promises;
   };
 
   return useMutation({
     mutationFn: (data: FileList) => makePhotos(data),
     onSuccess: () => {
+      console.log('onSuccess');
       queryClient.invalidateQueries(queryKeys.galleryKeys.list, {});
     },
     ...options,
