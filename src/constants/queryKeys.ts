@@ -10,6 +10,7 @@ const Domain = {
   gallery: 'GALLERY',
   album: 'ALBUM',
   calendar: 'CALENDAR',
+  notice: 'NOTICE',
 };
 
 const userKeys = {
@@ -64,6 +65,11 @@ const albumKeys = {
   byId: (id: string) => [...albumKeys.all, id] as unknown as QueryKey[],
 };
 
+const noticeKeys = {
+  all: [Domain.notice as unknown as QueryKey] as QueryKey[],
+  byId: (id: string) => [...noticeKeys.all, id] as unknown as QueryKey[],
+};
+
 const queryKeys = {
   userKeys,
   coupleKeys,
@@ -73,6 +79,7 @@ const queryKeys = {
   galleryKeys,
   albumKeys,
   calendarKeys,
+  noticeKeys,
 };
 
 export default queryKeys;

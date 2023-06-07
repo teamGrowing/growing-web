@@ -90,7 +90,7 @@ function GrowingRoutes() {
         <Route path="/more/profile" element={<ProfilePage />} />
         <Route path="/more/info" element={<InfoPage />} />
         <Route path="/more/info/notice" element={<NoticePage />} />
-        <Route path="/more/info/notice/detail" element={<NoticeDetailPage />} />
+        <Route path="/more/info/notice/:id" element={<NoticeDetailPage />} />
         <Route path="/more/setting" element={<SettingPage />} />
         <Route path="/more/pet" element={<PetPage />} />
       </Route>

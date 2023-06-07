@@ -1,7 +1,8 @@
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import WhiteContainer from 'components/pages/more/WhiteContainer';
-import { useNavigate } from 'react-router-dom';
+import { useNoticeDetail } from 'hooks/queries/notice.queries';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import PurpleBackground from 'styles/common/PurpleBackground';
 
@@ -15,16 +16,19 @@ const Content = styled.div`
 
 function NoticeDetailPage() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const { data: notice } = useNoticeDetail({ noticeId: id ?? '' });
+
   return (
     <Container className="page-container">
       <TopBar
-        title="v1.0.0 출시"
+        title={notice?.title}
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigate(-1)}
       />
       <PurpleBackground />
       <WhiteContainer top="89px">
-        <Content>그로잉 v1.0.0이 출시되었습니다.</Content>
+        <Content>{notice?.context}</Content>
       </WhiteContainer>
     </Container>
   );
