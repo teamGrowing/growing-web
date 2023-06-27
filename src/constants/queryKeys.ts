@@ -54,7 +54,7 @@ const calendarKeys = {
 
 const galleryKeys = {
   all: [Domain.gallery as unknown as QueryKey] as QueryKey[],
-  list: () => [...galleryKeys.all, 'list'] as unknown as QueryKey[],
+  list: [Domain.gallery, 'list'] as unknown as QueryKey[],
   byId: (id: string) => [...galleryKeys.all, id] as unknown as QueryKey[],
   commentById: (id: string) =>
     [...galleryKeys.all, 'comment', id] as unknown as QueryKey[],

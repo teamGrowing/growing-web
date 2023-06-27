@@ -2,11 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useRef } from 'react';
-import {
-  useCreatePhotosMutation,
-  useInfiniteGalleryList,
-} from 'hooks/queries/gallery.queries';
-import { MENT_GALLERY } from 'constants/ments';
+import { useInfiniteGalleryList } from 'hooks/queries/gallery.queries';
 import AlbumRowContainer from 'components/pages/gallery/AlbumRowContainer';
 import FloatingButton from 'components/pages/gallery/FloatingButton';
 import PhotoContainer from 'components/pages/gallery/PhotoContainer';
@@ -14,7 +10,6 @@ import GalleryTitle from 'components/pages/gallery/GalleryTitle';
 import Icon from 'components/common/Icon/Icon';
 import { useAlbumsList } from 'hooks/queries/album.queries';
 import store from 'stores/RootStore';
-import useToast from 'hooks/common/useToast';
 
 const Container = styled.div`
   position: relative;
@@ -30,20 +25,12 @@ const FixedContainer = styled.div`
 
 function GalleryMainPage() {
   const navigate = useNavigate();
-  const { addToast } = useToast();
   const touchPositionX = useRef<number | null>(null);
   const touchPositionY = useRef<number | null>(null);
 
   const coupleId = store.userStore.user?.coupleId ?? '';
   const { data: photos } = useInfiniteGalleryList({ coupleId });
   const { data: albums } = useAlbumsList({ coupleId });
-  const { mutate: upLoadPhotos } = useCreatePhotosMutation({ coupleId });
-
-  const upLoadHandler = (files: FileList) => {
-    upLoadPhotos(files, {
-      onSuccess: () => addToast(MENT_GALLERY.PHOTO_UPLOAD_SUCCESS),
-    });
-  };
 
   return (
     <Container
@@ -97,7 +84,7 @@ function GalleryMainPage() {
           type="UPLOADED"
         />
       </FixedContainer>
-      <FloatingButton onUpLoad={upLoadHandler} />
+      <FloatingButton />
     </Container>
   );
 }

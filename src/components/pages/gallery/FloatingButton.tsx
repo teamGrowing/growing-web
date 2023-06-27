@@ -1,6 +1,11 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import Icon from 'components/common/Icon/Icon';
+import { MENT_GALLERY } from 'constants/ments';
+import useToast from 'hooks/common/useToast';
+import { useCreatePhotosMutation } from 'hooks/queries/gallery.queries';
+import store from 'stores/RootStore';
+import { usePostPhotosMutation } from 'hooks/queries/album.queries';
 
 const ButtonStyle = styled.div`
   position: fixed;
@@ -16,12 +21,21 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
-type FloatingButtonProps = {
-  onUpLoad: (files: FileList) => void;
+type FloatingButtonType = {
+  albumId?: string;
 };
 
-function FloatingButton({ onUpLoad }: FloatingButtonProps) {
-  const inputFileRef = useRef<HTMLInputElement>(null);
+function FloatingButton({ albumId }: FloatingButtonType) {
+  const inputFileRef = useRef<HTMLInputElement | null>(null);
+  const { addToast } = useToast();
+  const coupleId = store.userStore.user?.coupleId ?? '';
+  const { mutate: upLoadPhotos } = useCreatePhotosMutation({
+    coupleId,
+  });
+  const { mutate: addPhotosToAlbumMutate } = usePostPhotosMutation({
+    coupleId,
+    albumId: albumId ?? '',
+  });
 
   const onClickHandler = () => {
     inputFileRef.current?.click();
@@ -29,7 +43,22 @@ function FloatingButton({ onUpLoad }: FloatingButtonProps) {
 
   const upLoadFile = () => {
     if (!inputFileRef.current?.files) return;
-    onUpLoad(inputFileRef.current?.files);
+
+    upLoadPhotos(inputFileRef.current?.files, {
+      onSuccess: async (data) => {
+        addToast(MENT_GALLERY.PHOTO_UPLOAD_SUCCESS);
+        if (albumId) {
+          const ids = [];
+          for (let i = 0; i < data.length; i += 1) {
+            // eslint-disable-next-line no-await-in-loop
+            ids.push((await data[i]).photoId);
+          }
+          addPhotosToAlbumMutate({ imageIds: ids });
+        }
+        if (!inputFileRef?.current?.value) return;
+        inputFileRef.current.value = '';
+      },
+    });
   };
 
   return (

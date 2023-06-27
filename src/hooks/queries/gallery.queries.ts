@@ -32,7 +32,7 @@ export function useGalleryList({
   options?: UseQueryOptionsType<PhotoLineDto[]>;
 }) {
   return useQuery(
-    [...queryKeys.galleryKeys.all, ...(storeCode ?? [])],
+    [...queryKeys.galleryKeys.list, ...(storeCode ?? [])],
     () => GALLERY_API.getPhotos(coupleId),
     {
       select: ({ data }) => data,
@@ -54,7 +54,7 @@ export function useInfiniteGalleryList({
   >;
 }) {
   return useInfiniteQuery({
-    queryKey: [...queryKeys.galleryKeys.list(), ...(storeCode ?? [])],
+    queryKey: [...queryKeys.galleryKeys.list, ...(storeCode ?? [])],
     queryFn: ({ pageParam = 0 }) => {
       return GALLERY_API.getPhotos(coupleId, {
         base: pageParam,
@@ -130,7 +130,7 @@ export function useCreatePhotosMutation({
   FileList,
   unknown
 > {
-  const queryClinet = useQueryClient();
+  const queryClient = useQueryClient();
 
   const makePhoto = async (file: File) => {
     const res = await GALLERY_API.getUploadUrl(coupleId, {
@@ -176,14 +176,24 @@ export function useCreatePhotosMutation({
       promises.push(makePhoto(files[i]));
     }
     await Promise.all(promises);
+
+    /** 동영상 썸네일을 위한 지연.. */
+    const delayReturn = () => {
+      return new Promise<void>((resolve) => {
+        setTimeout(() => {
+          resolve();
+        }, 500);
+      });
+    };
+    await delayReturn();
+
     return promises;
   };
 
   return useMutation({
     mutationFn: (data: FileList) => makePhotos(data),
-    onSuccess: () => {
-      queryClinet.invalidateQueries(queryKeys.galleryKeys.all);
-    },
+    onSuccess: () =>
+      queryClient.invalidateQueries(queryKeys.galleryKeys.list, {}),
     ...options,
   });
 }
@@ -195,7 +205,7 @@ export function useDeletePhotosMutation({
   coupleId: string;
   options?: UseMutationOptions<void, AxiosError, string[], unknown>;
 }): UseMutationResult<void, AxiosError, string[], unknown> {
-  const queryClinet = useQueryClient();
+  const queryClient = useQueryClient();
   const deletePhotos = async (ids: string[]) => {
     const promises: Promise<AxiosResponse>[] = [];
     ids.forEach((id) => {
@@ -206,9 +216,15 @@ export function useDeletePhotosMutation({
 
   return useMutation({
     mutationFn: (photoIds: string[]) => deletePhotos(photoIds),
-    onSuccess: () => {
-      queryClinet.invalidateQueries(queryKeys.galleryKeys.all);
-      queryClinet.invalidateQueries(queryKeys.albumKeys.all);
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: queryKeys.galleryKeys.list,
+        refetchType: 'all',
+      });
+      await queryClient.invalidateQueries({
+        queryKey: queryKeys.albumKeys.all,
+        refetchType: 'all',
+      });
     },
     ...options,
   });
@@ -223,13 +239,13 @@ export function usePostCommentMutation({
   photoId: string;
   options?: UseMutationOptionsType<string>;
 }): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
-  const queryClinet = useQueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (content: string) =>
       GALLERY_COMMENT_API.postComment(coupleId, photoId, { content }),
     onSuccess: () => {
-      queryClinet.invalidateQueries(queryKeys.galleryKeys.commentById(photoId));
+      queryClient.invalidateQueries(queryKeys.galleryKeys.commentById(photoId));
     },
     ...options,
   });
@@ -244,13 +260,13 @@ export function useDeleteCommentMutation({
   photoId: string;
   options?: UseMutationOptionsType<string>;
 }): UseMutationResult<AxiosResponse, AxiosError, string, unknown> {
-  const queryClinet = useQueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (commentId: string) =>
       GALLERY_COMMENT_API.deleteComment(coupleId, photoId, commentId),
     onSuccess: () => {
-      queryClinet.invalidateQueries(queryKeys.galleryKeys.commentById(photoId));
+      queryClient.invalidateQueries(queryKeys.galleryKeys.commentById(photoId));
     },
     ...options,
   });
