@@ -59,6 +59,7 @@ class UserStore {
     this.user = null;
     this.petId = null;
     this.partnerId = null;
+    document.cookie = `refresh=;expires=-1;;path=/;`;
     clearInterval(this.refreshTimer);
   }
 }
