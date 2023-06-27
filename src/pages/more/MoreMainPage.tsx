@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { observer } from 'mobx-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Icon from 'components/common/Icon/Icon';
 import MenuBox from 'components/pages/more/MenuBox';
 import Profile from 'components/pages/more/Profile';
@@ -10,6 +10,8 @@ import WhiteContainer from 'components/pages/more/WhiteContainer';
 import store from 'stores/RootStore';
 import preventScroll from 'util/utils';
 import defaultProfile from 'assets/image/DefaultProfile.png';
+import Modal from 'components/common/Modal/Modal';
+import { MENT_LOGOUT } from 'constants/ments';
 
 const Container = styled.div`
   position: relative;
@@ -83,6 +85,7 @@ const ProfileContainer = styled.div`
 
 function MoreMainPage() {
   const navigate = useNavigate();
+  const [onModal, setOnModal] = useState(false);
 
   useEffect(() => {
     preventScroll();
@@ -124,9 +127,26 @@ function MoreMainPage() {
               icon="IconInfo"
               onClick={() => navigate('info')}
             />
+            <MenuBox
+              title="로그아웃"
+              icon="IconSmile"
+              onClick={() => setOnModal(true)}
+            />
           </Menus>
         </WhiteContainer>
       </ScrollArea>
+      <Modal
+        onModal={onModal}
+        setOnModal={setOnModal}
+        onMainAction={() => {
+          store.userStore.logout();
+          navigate('/login/kakao');
+        }}
+        title={MENT_LOGOUT.CONFIRM}
+        mainActionLabel="네"
+        subActionLabel="아니오"
+        onSubAction={() => {}}
+      />
     </Container>
   );
 }

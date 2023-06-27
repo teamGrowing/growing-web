@@ -79,4 +79,8 @@ export const MENT_LOGIN = Object.freeze({
   COPY: '복사되었습니다.',
 });
 
+export const MENT_LOGOUT = Object.freeze({
+  CONFIRM: '로그아웃 하시겠습니까?',
+});
+
 export default MENT_HOME;
