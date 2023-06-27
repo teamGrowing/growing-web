@@ -295,7 +295,7 @@ function ProfilePage() {
                     onClick={() => {
                       setOnButtomSheet(false);
                       setProfilePhoto({
-                        isChange: false,
+                        isChange: true,
                         files: null,
                         url: null,
                         id: null,
