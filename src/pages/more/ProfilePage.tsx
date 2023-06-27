@@ -20,9 +20,13 @@ import {
 } from 'hooks/queries/user.queries';
 import { usePatchCoupleMutation } from 'hooks/queries/couple.queries';
 import PhotoScroll from 'components/pages/gallery/PhotoScroll';
-import { useCreatePhotosMutation, useGalleryList } from 'hooks/queries/gallery.queries';
+import {
+  useCreatePhotosMutation,
+  useGalleryList,
+} from 'hooks/queries/gallery.queries';
 import preventScroll from 'util/utils';
 import defaultProfile from 'assets/image/DefaultProfile.png';
+import { MENT_MORE } from 'constants/ments';
 import DataContext from '../gallery/context';
 
 const Container = styled.div`
@@ -223,7 +227,7 @@ function ProfilePage() {
                 title="애칭"
                 type="text"
                 value={nickname}
-                {...register('nickname', { required: '애칭을 입력해주세요!' })}
+                {...register('nickname')}
                 error={errors.nickname}
               />
               <InputContainer
@@ -243,18 +247,16 @@ function ProfilePage() {
               <Modal
                 onModal={onCompleteModal}
                 setOnModal={setOnCompleteModal}
-                title="프로필 수정 성공🎉"
-                description="프로필이 수정되었습니다."
+                title={MENT_MORE.PROFILE_MODIFY_SUCCESS_TITLE}
+                description={MENT_MORE.PROFILE_MODIFY_SUCCESS_DESC}
                 mainActionLabel="확인"
                 onMainAction={() => navigate('/more')}
               />
               <Modal
                 onModal={onCancelModal}
                 setOnModal={setOnCanelModal}
-                title="프로필 수정 취소"
-                description={
-                  '변경하신 내용이 취소됩니다.\n정말 나가시겠습니까?'
-                }
+                title={MENT_MORE.PROFILE_MODIFY_CANCEL_TITLE}
+                description={MENT_MORE.PROFILE_MODIFY_CANCEL_DESC}
                 mainActionLabel="확인"
                 onMainAction={() => navigate('/more')}
                 subActionLabel="취소"
