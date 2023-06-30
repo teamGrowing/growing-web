@@ -10,10 +10,8 @@ function AuthRoute() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { userStore } = store;
-
   async function checkUserToken() {
     const token = Cookies.get('refresh');
-
     if (token) {
       try {
         const { data } = await AUTH_API.refresh(token);
@@ -21,10 +19,8 @@ function AuthRoute() {
 
         Cookies.set('refresh', data.refreshToken);
         fetcher.setAccessToken(data.accessToken);
-
         await userStore.getUserData(data.userId);
         userStore.setRefreshTimer();
-
         await USER_API.getUserIsCouple(data.userId).then((res) => {
           if (res.data.result) {
             navigate('/', { replace: true });
@@ -47,7 +43,7 @@ function AuthRoute() {
     checkUserToken();
   }, [isLoggedIn]);
 
-  if (isLoggedIn) {
+  if (isLoggedIn && userStore.user) {
     return <Outlet />;
   }
 

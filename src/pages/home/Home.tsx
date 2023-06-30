@@ -89,7 +89,6 @@ function Home() {
   const { data: couple } = useCoupleData({
     coupleId: userStore.user?.coupleId ?? '',
     options: {
-      enabled: !!userStore.user?.coupleId,
       suspense: false,
     },
   });
