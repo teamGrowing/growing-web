@@ -10,6 +10,8 @@ import PetDetailCard from 'components/pages/more/PetDetailCard';
 import PurpleBackground from 'styles/common/PurpleBackground';
 import { useGraduatedPets } from 'hooks/queries/pet.queries';
 import store from 'stores/RootStore';
+import { MENT_MORE } from 'constants/ments';
+import changeEmojiToSpan from 'util/Text';
 
 const Container = styled.div`
   position: relative;
@@ -45,7 +47,7 @@ const EmptyWrapper = styled.div`
 `;
 
 const Message = styled.div`
-  width: 224px;
+  width: 230px;
   height: 62px;
 
   display: flex;
@@ -82,10 +84,12 @@ function PetPage() {
         <EmptyWrapper>
           <Icon icon="IconLogo" size={60} />
           <Message>
-            <FontSpan className="text-gradient400">
-              아직 졸업한 동물이 없네요
-            </FontSpan>
-            😢
+            <FontSpan
+              className="text-gradient400"
+              dangerouslySetInnerHTML={changeEmojiToSpan(
+                MENT_MORE.PET_NOT_EXIST
+              )}
+            />
           </Message>
         </EmptyWrapper>
       )}

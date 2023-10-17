@@ -79,4 +79,16 @@ export const MENT_LOGIN = Object.freeze({
   COPY: '복사되었습니다.',
 });
 
+export const MENT_LOGOUT = Object.freeze({
+  CONFIRM: '로그아웃 하시겠습니까?',
+});
+
+export const MENT_MORE = Object.freeze({
+  PET_NOT_EXIST: '아직 졸업한 동물이 없네요 😢',
+  PROFILE_MODIFY_SUCCESS_TITLE: '프로필 수정 성공🎉',
+  PROFILE_MODIFY_SUCCESS_DESC: '프로필이 수정되었습니다.',
+  PROFILE_MODIFY_CANCEL_TITLE: '프로필 수정 취소',
+  PROFILE_MODIFY_CANCEL_DESC:
+    '변경하신 내용이 취소됩니다.\n정말 나가시겠습니까?',
+});
 export default MENT_HOME;

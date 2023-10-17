@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Icon from 'components/common/Icon/Icon';
+import Icon, { IconType } from 'components/common/Icon/Icon';
 
 const Box = styled.div`
   display: flex;
@@ -42,7 +42,7 @@ const Title = styled.div`
 
 type MenuBoxProps = {
   title: string;
-  icon: 'IconPet' | 'IconSetting' | 'IconInfo';
+  icon: IconType;
   onClick: React.MouseEventHandler<HTMLElement>;
 };
 
