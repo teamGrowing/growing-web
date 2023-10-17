@@ -64,11 +64,9 @@ const CalenderStyleWrapper = styled.div<{ selectedDate?: string }>`
   .fc-day-sun {
     color: #ea6060;
   }
-  .fc-day-today {
-    a {
-      border-radius: 50%;
-      background-color: ${({ theme }) => theme.color.purple200};
-    }
+  .fc-day-today .fc-daygrid-day-number {
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.color.purple200};
   }
   .fc-daygrid-day-top {
     font-size: 12px;
@@ -95,6 +93,7 @@ const CalenderStyleWrapper = styled.div<{ selectedDate?: string }>`
       rgba(243, 129, 129, 0.4) 100%
     );
   }
+
   .fc-daygrid-event-dot {
     display: none;
   }
