@@ -44,6 +44,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
+    "prepare": "husky",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -52,7 +53,8 @@
     "build-storybook": "build-storybook -s public",
     "lint": "eslint './src/**/*.{ts,tsx,js,jsx}'",
     "lint:fix": "eslint --fix './src/**/*.{ts,tsx,js,jsx}'",
-    "prettier": "prettier --write --config ./.prettierrc.json './src/**/*.{ts,tsx}'"
+    "prettier": "prettier --write --config ./.prettierrc.json './src/**/*.{ts,tsx}'",
+    "commit": "npx cz-customizable"
   },
   "eslintConfig": {
     "extends": [
@@ -88,6 +90,8 @@
     "@babel/core": "^7.18.9",
     "@babel/preset-env": "^7.18.9",
     "@babel/preset-react": "^7.18.6",
+    "@commitlint/cli": "18.6.0",
+    "@commitlint/types": "18.6.0",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-interactions": "^6.5.13",
@@ -111,6 +115,7 @@
     "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.4Function component is not a function declaratione3.0",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "commitlint-config-git-commit-emoji": "1.0.0",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -121,6 +126,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-webpack-plugin": "^3.2.0",
+    "husky": "9.0.10",
     "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
     "tsconfig-paths-webpack-plugin": "4.0.1",
