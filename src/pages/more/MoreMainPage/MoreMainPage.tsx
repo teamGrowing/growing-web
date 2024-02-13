@@ -9,7 +9,7 @@ import WhiteContainer from 'pages/more/components/WhiteContainer/WhiteContainer'
 import store from 'stores/RootStore';
 import preventScroll from 'utils/utils';
 import defaultProfile from 'assets/image/DefaultProfile.png';
-import Modal from 'components/common/Modal/Modal/Modal';
+import Modal from 'components/common/Modal/Modal';
 import { MENT_LOGOUT } from 'constants/ments';
 import * as S from './MoreMainPage.styled';
 

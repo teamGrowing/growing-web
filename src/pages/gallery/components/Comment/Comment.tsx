@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDeleteCommentMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
 import { PhotoCommentDto } from 'models/gallery';
-import Modal from 'components/common/Modal/Modal/Modal';
+import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
 import { MENT_GALLERY } from 'constants/ments';
 import * as S from './Comment.styled';

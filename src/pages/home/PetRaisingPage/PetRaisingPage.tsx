@@ -10,7 +10,7 @@ import store from 'stores/RootStore';
 import { PetDto } from 'models/pet';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import Modal from 'components/common/Modal/Modal/Modal';
+import Modal from 'components/common/Modal/Modal';
 import MENT_HOME from 'constants/ments';
 import queryKeys from 'libs/react-query/queryKeys';
 import foodAnimation from 'assets/lottie/foodAnimation.json';

@@ -15,7 +15,7 @@ import { PetDto } from 'models/pet';
 import { PetFormValues, petSchema } from 'libs/react-hook-form';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import Modal from 'components/common/Modal/Modal/Modal';
+import Modal from 'components/common/Modal/Modal';
 import PetNameInput from 'pages/home/components/PetNameInput/PetNameInput';
 import Pet3D from 'pages/home/components/Pet3D';
 import Waves from 'assets/image/HomeWaves.png';

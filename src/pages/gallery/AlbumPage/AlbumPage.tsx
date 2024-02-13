@@ -6,7 +6,7 @@ import AlbumContainer from 'pages/gallery/components/AlbumContainer/AlbumContain
 import GalleryTitle from 'pages/gallery/components/GalleryTitle/GalleryTitle';
 import { useAlbumsList, useDeleteAlbumsMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
-import Modal from 'components/common/Modal/Modal/Modal';
+import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
 import { MENT_GALLERY } from 'constants/ments';
 import DataContext from '../context';

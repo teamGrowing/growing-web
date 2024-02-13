@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import ReactDOM from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import Icon from 'components/common/Icon/Icon';
@@ -11,6 +10,7 @@ import { useGraduatedPets } from 'hooks/queries';
 import store from 'stores/RootStore';
 import { MENT_MORE } from 'constants/ments';
 import changeEmojiToSpan from 'utils/Text';
+import Portal from 'components/common/Portal';
 import * as S from './PetPage.styled';
 
 function PetPage() {
@@ -55,17 +55,15 @@ function PetPage() {
           ))}
         </S.Wrapper>
       )}
-      {detailPetId &&
-        ReactDOM.createPortal(
-          <>
-            <S.Layer />
-            <PetDetailCard
-              petId={detailPetId}
-              onExit={() => setDetailPetId(null)}
-            />
-          </>,
-          document.getElementById('modal-root') as Element
-        )}
+      {detailPetId && (
+        <Portal type="modal-root">
+          <S.Layer />
+          <PetDetailCard
+            petId={detailPetId}
+            onExit={() => setDetailPetId(null)}
+          />
+        </Portal>
+      )}
     </S.Container>
   );
 }

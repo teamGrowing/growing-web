@@ -8,7 +8,7 @@ import { useAnswerMutation } from 'hooks/queries';
 import { QuestionsAndAnswers } from 'models/chat-question';
 import { MENT_CHAT } from 'constants/ments';
 import queryKeys from 'libs/react-query/queryKeys';
-import ModalPortal from 'components/common/Modal/ModalPortal';
+import Portal from 'components/common/Portal';
 import * as S from './AnswerModal.styled';
 
 export interface ModalProps extends Pick<QuestionsAndAnswers, 'question'> {
@@ -51,7 +51,7 @@ function AnswerModal({ onModal, setOnModal, question }: ModalProps) {
   }
 
   return (
-    <ModalPortal>
+    <Portal type="modal-root">
       <S.Overlay />
       <S.Wrapper>
         <S.Main>
@@ -83,7 +83,7 @@ function AnswerModal({ onModal, setOnModal, question }: ModalProps) {
           </S.Buttons>
         </S.Main>
       </S.Wrapper>
-    </ModalPortal>
+    </Portal>
   );
 }
 

@@ -6,8 +6,8 @@ import useToast from 'hooks/common/useToast';
 import { useAddPlanMutation, useModifyPlanMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
 import { DailyPlanDto } from 'models/plan';
-import BottomSheetMenu from 'components/common/Modal/ModalBottomSheet/BottomSheetMenu/BottomSheetMenu';
-import ModalBottomSheet from 'components/common/Modal/ModalBottomSheet/ModalBottomSheet/ModalBottomSheet';
+import BottomSheetMenu from 'components/common/BottomSheetMenu/BottomSheetMenu';
+import ModalBottomSheet from 'components/common/ModalBottomSheet/ModalBottomSheet';
 import * as S from './CalendarBottomSheet.styled';
 
 type CalendarBottomSheetProps = {

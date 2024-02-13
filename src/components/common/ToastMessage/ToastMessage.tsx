@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import changeEmojiToSpan from 'utils/Text';
 import ToastContext from './ToastContext';
 import * as S from './ToastMessage.styled';
+import Portal from '../Portal';
 
 type ToastMessageProps = {
   message: string;
@@ -22,17 +22,14 @@ function ToastMessage({ message, id }: ToastMessageProps) {
   if (!root) return null;
 
   return (
-    <>
-      {ReactDOM.createPortal(
-        <S.MessageBox>
-          <S.Text
-            className="text-gradient300"
-            dangerouslySetInnerHTML={changeEmojiToSpan(message)}
-          />
-        </S.MessageBox>,
-        root
-      )}
-    </>
+    <Portal type="toast-message-root">
+      <S.MessageBox>
+        <S.Text
+          className="text-gradient300"
+          dangerouslySetInnerHTML={changeEmojiToSpan(message)}
+        />
+      </S.MessageBox>
+    </Portal>
   );
 }
 

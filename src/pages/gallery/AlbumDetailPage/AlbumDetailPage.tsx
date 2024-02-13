@@ -13,8 +13,8 @@ import {
 } from 'hooks/queries';
 import { MENT_GALLERY } from 'constants/ments';
 import store from 'stores/RootStore';
-import Modal from 'components/common/Modal/Modal/Modal';
-import AlbumModal from 'components/common/Modal/Album/AlbumModal';
+import Modal from 'components/common/Modal/Modal';
+import AlbumModal from 'components/common/AlbumModal/AlbumModal';
 import useToast from 'hooks/common/useToast';
 import DataContext from '../context';
 import * as S from './AlbumDetailPage.styled';

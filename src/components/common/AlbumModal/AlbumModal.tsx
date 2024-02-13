@@ -1,8 +1,8 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { albumSchema, AlbumFormValues } from 'libs/react-hook-form';
-import ModalPortal from '../ModalPortal';
 import * as S from './AlbumModal.styled';
+import Portal from '../Portal';
 
 export interface AlbumModalProps {
   onModal: boolean;
@@ -34,7 +34,7 @@ export default function Modal({
   }
 
   return (
-    <ModalPortal>
+    <Portal type="modal-root">
       <S.Overlay />
       <form
         onSubmit={handleSubmit((data) => {
@@ -87,6 +87,6 @@ export default function Modal({
           </S.Buttons>
         </S.Wrapper>
       </form>
-    </ModalPortal>
+    </Portal>
   );
 }

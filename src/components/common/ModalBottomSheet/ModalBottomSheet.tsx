@@ -1,6 +1,6 @@
 import React from 'react';
-import ModalPortal from '../../ModalPortal';
 import * as S from './ModalBottomSheet.styled';
+import Portal from '../Portal';
 
 interface ModalBottomSheetProps {
   open: boolean;
@@ -23,7 +23,7 @@ export default function ModalBottomSheet({
   }
 
   return (
-    <ModalPortal>
+    <Portal type="modal-root">
       <S.Overlay
         onClick={() => {
           if (onClose) onClose();
@@ -34,6 +34,6 @@ export default function ModalBottomSheet({
         <S.Border />
         <S.Menus>{children}</S.Menus>
       </S.Wrapper>
-    </ModalPortal>
+    </Portal>
   );
 }

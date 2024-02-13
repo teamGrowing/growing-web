@@ -1,4 +1,4 @@
-import ModalPortal from '../ModalPortal';
+import Portal from '../Portal';
 import * as S from './Modal.styled';
 
 export interface ModalProps {
@@ -27,7 +27,7 @@ export default function Modal({
   }
 
   return (
-    <ModalPortal>
+    <Portal type="modal-root">
       <S.Overlay />
       <S.Wrapper>
         <S.Main>
@@ -60,6 +60,6 @@ export default function Modal({
           )}
         </S.Buttons>
       </S.Wrapper>
-    </ModalPortal>
+    </Portal>
   );
 }

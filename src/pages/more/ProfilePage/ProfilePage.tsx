@@ -9,9 +9,9 @@ import Profile from 'pages/more/components/Profile/Profile';
 import SideButton from 'pages/more/components/SideButton/SideButton';
 import InputContainer from 'pages/more/components/InputContainer/InputContainer';
 import { ProfileFormValues, profileSchema } from 'libs/react-hook-form';
-import Modal from 'components/common/Modal/Modal/Modal';
-import ModalBottomSheet from 'components/common/Modal/ModalBottomSheet/ModalBottomSheet/ModalBottomSheet';
-import BottomSheetMenu from 'components/common/Modal/ModalBottomSheet/BottomSheetMenu/BottomSheetMenu';
+import Modal from 'components/common/Modal/Modal';
+import ModalBottomSheet from 'components/common/ModalBottomSheet/ModalBottomSheet';
+import BottomSheetMenu from 'components/common/BottomSheetMenu/BottomSheetMenu';
 import store from 'stores/RootStore';
 import {
   usePatchUserInfoMutation,
