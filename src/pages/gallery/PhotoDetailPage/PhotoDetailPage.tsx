@@ -14,7 +14,7 @@ import {
 } from 'hooks/queries';
 import { MENT_GALLERY } from 'constants/ments';
 import store from 'stores/RootStore';
-import Modal from 'components/common/Modal/Modal';
+import Modal from 'components/common/Modal/Modal/Modal';
 import useToast from 'hooks/common/useToast';
 import preventScroll from 'util/utils';
 import * as S from './PhotoDetailPage.styled';

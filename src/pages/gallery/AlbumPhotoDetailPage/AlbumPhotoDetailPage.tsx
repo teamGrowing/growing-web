@@ -13,7 +13,7 @@ import {
   useDeletePhotosFromAlbumMutation,
 } from 'hooks/queries';
 import store from 'stores/RootStore';
-import Modal from 'components/common/Modal/Modal';
+import Modal from 'components/common/Modal/Modal/Modal';
 import useToast from 'hooks/common/useToast';
 import { MENT_GALLERY } from '../../../constants/ments';
 import * as S from './AlbumPhotoDetailPage.styled';

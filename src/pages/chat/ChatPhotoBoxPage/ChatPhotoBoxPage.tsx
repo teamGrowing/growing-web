@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import Modal from 'components/common/Modal/Modal';
+import Modal from 'components/common/Modal/Modal/Modal';
 import VideoPlayBtn from 'components/pages/chat/VideoPlayBtn';
 import usePhotos from 'hooks/chat/usePhotos';
 import { useChatPhotoBoxData } from 'hooks/queries';

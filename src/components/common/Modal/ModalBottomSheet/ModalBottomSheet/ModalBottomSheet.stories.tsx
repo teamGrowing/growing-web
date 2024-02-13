@@ -1,10 +1,9 @@
 /* eslint-disable no-alert */
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import useState from 'storybook-addon-state';
 import ModalBottomSheet from './ModalBottomSheet';
-import BottomSheetMenu from './BottomSheetMenu';
-import Icon from '../../Icon/Icon';
+import BottomSheetMenu from '../BottomSheetMenu/BottomSheetMenu';
+import Icon from '../../../Icon/Icon';
 
 export default {
   title: 'growing design system/ModalBottomSheet',

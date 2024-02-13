@@ -7,8 +7,8 @@ import useToast from 'hooks/common/useToast';
 import { useAddPlanMutation, useModifyPlanMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
 import { DailyPlanDto } from 'types/plan/DailyPlan.dto';
-import BottomSheetMenu from 'components/common/Modal/ModalBottomSheet/BottomSheetMenu';
-import ModalBottomSheet from 'components/common/Modal/ModalBottomSheet/ModalBottomSheet';
+import BottomSheetMenu from 'components/common/Modal/ModalBottomSheet/BottomSheetMenu/BottomSheetMenu';
+import ModalBottomSheet from 'components/common/Modal/ModalBottomSheet/ModalBottomSheet/ModalBottomSheet';
 
 const Input = styled.input`
   color: ${({ theme }) => theme.color.white};

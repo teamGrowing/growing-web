@@ -1,16 +1,7 @@
-import React from 'react';
 import styled from 'styled-components';
 import { fadeIn, fadeInUp } from 'styles/common/keyframs';
-import ModalPortal from '../ModalPortal';
 
-interface ModalBottomSheetProps {
-  open: boolean;
-  setOpen: (state: boolean) => void;
-  children: React.ReactNode;
-  onClose?: () => void;
-}
-
-const Overlay = styled.div`
+export const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +11,7 @@ const Overlay = styled.div`
   animation: ${fadeIn} 0.3s ease-in;
   z-index: 11;
 `;
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   position: fixed;
   left: 0;
   right: 0;
@@ -41,42 +32,13 @@ const Wrapper = styled.div`
   animation: ${fadeInUp} 0.5s;
   z-index: 12;
 `;
-const Border = styled.div`
+export const Border = styled.div`
   margin-bottom: 12px;
   width: 50px;
   height: 5px;
   background-color: ${({ theme }) => theme.color.white}60;
   border-radius: 10px;
 `;
-const Menus = styled.div`
+export const Menus = styled.div`
   width: 100%;
 `;
-
-/**
- * 🌈 BottomSheetMenu와 같이 사용하시면 됩니다.
- */
-export default function ModalBottomSheet({
-  open,
-  setOpen,
-  children,
-  onClose,
-}: ModalBottomSheetProps) {
-  if (!open) {
-    return null;
-  }
-
-  return (
-    <ModalPortal>
-      <Overlay
-        onClick={() => {
-          if (onClose) onClose();
-          setOpen(false);
-        }}
-      />
-      <Wrapper>
-        <Border />
-        <Menus>{children}</Menus>
-      </Wrapper>
-    </ModalPortal>
-  );
-}

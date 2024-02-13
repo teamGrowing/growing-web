@@ -5,7 +5,7 @@ import store from 'stores/RootStore';
 import { MENT_CHAT } from 'constants/ments';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import Modal from 'components/common/Modal/Modal';
+import Modal from 'components/common/Modal/Modal/Modal';
 import ArchivedCard from 'components/pages/chat/ArchivedCard';
 import useToast from 'hooks/common/useToast';
 import useDeleteArchived from 'hooks/chat/useDeleteArchived';

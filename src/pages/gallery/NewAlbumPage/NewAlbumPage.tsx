@@ -8,7 +8,7 @@ import {
   usePostAlbumsMutation,
 } from '../../../hooks/queries';
 import store from '../../../stores/RootStore';
-import Modal from '../../../components/common/Modal/AlbumModal';
+import Modal from '../../../components/common/Modal/Album/AlbumModal';
 import { AlbumFormValues } from '../../../types/InputSchema';
 import useToast from '../../../hooks/common/useToast';
 import { MENT_GALLERY } from '../../../constants/ments';

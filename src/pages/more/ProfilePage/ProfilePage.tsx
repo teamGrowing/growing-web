@@ -9,9 +9,9 @@ import Profile from 'components/pages/more/Profile';
 import SideButton from 'components/pages/more/SideButton';
 import InputContainer from 'components/pages/more/InputContainer';
 import { ProfileFormValues, profileSchema } from 'types/InputSchema';
-import Modal from 'components/common/Modal/Modal';
-import ModalBottomSheet from 'components/common/Modal/ModalBottomSheet/ModalBottomSheet';
-import BottomSheetMenu from 'components/common/Modal/ModalBottomSheet/BottomSheetMenu';
+import Modal from 'components/common/Modal/Modal/Modal';
+import ModalBottomSheet from 'components/common/Modal/ModalBottomSheet/ModalBottomSheet/ModalBottomSheet';
+import BottomSheetMenu from 'components/common/Modal/ModalBottomSheet/BottomSheetMenu/BottomSheetMenu';
 import store from 'stores/RootStore';
 import {
   usePatchUserInfoMutation,
