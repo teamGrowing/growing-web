@@ -5,10 +5,7 @@ import { observer } from 'mobx-react';
 import Icon from 'components/common/Icon/Icon';
 import AlbumContainer from 'components/pages/gallery/AlbumContainer';
 import GalleryTitle from 'components/pages/gallery/GalleryTitle';
-import {
-  useAlbumsList,
-  useDeleteAlbumsMutation,
-} from 'hooks/queries/album.queries';
+import { useAlbumsList, useDeleteAlbumsMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';

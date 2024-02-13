@@ -17,13 +17,11 @@ import store from 'stores/RootStore';
 import {
   usePatchUserInfoMutation,
   usePutProfilePhotoMutation,
-} from 'hooks/queries/user.queries';
-import { usePatchCoupleMutation } from 'hooks/queries/couple.queries';
-import PhotoScroll from 'components/pages/gallery/PhotoScroll';
-import {
+  usePatchCoupleMutation,
   useCreatePhotosMutation,
   useGalleryList,
-} from 'hooks/queries/gallery.queries';
+} from 'hooks/queries';
+import PhotoScroll from 'components/pages/gallery/PhotoScroll';
 import preventScroll from 'util/utils';
 import defaultProfile from 'assets/image/DefaultProfile.png';
 import { MENT_MORE } from 'constants/ments';

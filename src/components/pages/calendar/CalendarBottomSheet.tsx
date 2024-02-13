@@ -4,10 +4,7 @@ import { useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MENT_CALENDAR } from 'constants/ments';
 import useToast from 'hooks/common/useToast';
-import {
-  useAddPlanMutation,
-  useModifyPlanMutation,
-} from 'hooks/queries/calendar.queries';
+import { useAddPlanMutation, useModifyPlanMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
 import { DailyPlanDto } from 'types/plan/DailyPlan.dto';
 import BottomSheetMenu from 'components/common/Modal/ModalBottomSheet/BottomSheetMenu';

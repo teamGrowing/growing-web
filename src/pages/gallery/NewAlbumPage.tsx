@@ -4,9 +4,11 @@ import { observer } from 'mobx-react';
 import styled from 'styled-components';
 import PhotoScroll from 'components/pages/gallery/PhotoScroll';
 import DataContext from './context';
-import { useInfiniteGalleryList } from '../../hooks/queries/gallery.queries';
+import {
+  useInfiniteGalleryList,
+  usePostAlbumsMutation,
+} from '../../hooks/queries';
 import store from '../../stores/RootStore';
-import { usePostAlbumsMutation } from '../../hooks/queries/album.queries';
 import Modal from '../../components/common/Modal/AlbumModal';
 import { AlbumFormValues } from '../../types/InputSchema';
 import useToast from '../../hooks/common/useToast';

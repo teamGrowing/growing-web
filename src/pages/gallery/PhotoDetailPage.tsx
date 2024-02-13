@@ -12,7 +12,7 @@ import {
   useDeletePhotosMutation,
   useGalleryDetail,
   usePostCommentMutation,
-} from 'hooks/queries/gallery.queries';
+} from 'hooks/queries';
 import { MENT_GALLERY } from 'constants/ments';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';

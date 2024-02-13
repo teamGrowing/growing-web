@@ -5,8 +5,8 @@ import useToast from '../common/useToast';
 import {
   useChatPhotoCreateMutate,
   useChatPhotoUploadMutate,
-} from '../queries/chat-photo.queries';
-import { useOurChatDelete } from '../queries/chat.queries';
+  useOurChatDelete,
+} from '../queries';
 
 type Idtype = {
   id: string;

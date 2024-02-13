@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { KakaoCodeDto } from 'types/auth/KakaoCode.dto';
 import { LogInResultDto } from 'types/auth/LogInResult.dto';
 import { RefreshResponseDto } from 'types/auth/RefreshResponse.dto';
-import fetcher from '.';
+import fetcher from './fetcher';
 
 const AUTH_API = {
   login: (data: KakaoCodeDto) =>

@@ -15,7 +15,7 @@ import { AnswerDto } from 'types/chat/questions/Answer.dto';
 import { IsToDoQuestion } from 'types/chat/questions/IsToDoQuestion';
 import { QuestionsAndAnswers } from 'types/chat/questions/QuestionAndAnswers';
 import { VoiceMSGDto } from 'types/chat/VoiceMSG.dto';
-import fetcher from '.';
+import fetcher from './fetcher';
 
 export const CHAT_API = {
   getChats: (coupleId: string, params: ChatRequestDto) =>

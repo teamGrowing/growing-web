@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import store from 'stores/RootStore';
 import { plusMenuProps } from 'stores/ChatStore';
-import { useChatData } from 'hooks/queries/chat.queries';
+import { useChatData } from 'hooks/queries';
 import useReactQuerySubscription from 'hooks/chat/useReactQuerySubscription';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';

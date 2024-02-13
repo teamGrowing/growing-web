@@ -4,10 +4,7 @@ import { AxiosResponse } from 'axios';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import {
-  usePetFeedMutation,
-  usePetPlayMutation,
-} from 'hooks/queries/pet.queries';
+import { usePetFeedMutation, usePetPlayMutation } from 'hooks/queries';
 import preventScroll from 'util/utils';
 import changeEmojiToSpan from 'util/Text';
 import store from 'stores/RootStore';

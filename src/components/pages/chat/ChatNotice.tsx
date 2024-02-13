@@ -9,7 +9,7 @@ import {
   useChatNoticeData,
   useFoldNoticeMutate,
   useInvisibleNoticeMutate,
-} from 'hooks/queries/chat-notice.queries';
+} from 'hooks/queries';
 import queryKeys from 'constants/queryKeys';
 
 const FoldenContainer = styled.div`

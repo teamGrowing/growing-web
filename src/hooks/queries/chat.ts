@@ -12,8 +12,8 @@ import {
   UseQueryOptionsType,
   UseMutationOptionsType,
   UseInfiniteQueryOptionsType,
-} from 'services';
-import { CHAT_API, CHAT_QNA_API } from 'services/chat.service';
+} from 'types/CustomReactQuery';
+import { CHAT_API, CHAT_QNA_API } from 'apis/chat';
 import { ParentChildChattingDto } from 'types/chat/Chatting.dto';
 import { AnswerDto } from 'types/chat/questions/Answer.dto';
 import { IsToDoQuestion } from 'types/chat/questions/IsToDoQuestion';

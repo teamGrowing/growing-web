@@ -6,8 +6,8 @@ import Cookies from 'js-cookie';
 import store from 'stores/RootStore';
 import { ImgLogo } from 'assets/image';
 import Icon from 'components/common/Icon/Icon';
-import { useKakaoLogin, useUserIsCouple } from 'hooks/queries/user.queries';
-import fetcher from 'services';
+import { useKakaoLogin, useUserIsCouple } from 'hooks/queries';
+import fetcher from 'apis/fetcher';
 
 const PageContainer = styled.div`
   padding-left: 40px;

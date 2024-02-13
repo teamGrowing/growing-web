@@ -1,7 +1,7 @@
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import WhiteContainer from 'components/pages/more/WhiteContainer';
-import { useNoticeDetail } from 'hooks/queries/notice.queries';
+import { useNoticeDetail } from 'hooks/queries';
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import PurpleBackground from 'styles/common/PurpleBackground';

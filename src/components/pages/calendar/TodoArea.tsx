@@ -4,10 +4,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { MENT_CALENDAR } from 'constants/ments';
 import useToast from 'hooks/common/useToast';
-import {
-  useCalendarDailyPlans,
-  useDeletePlanMutation,
-} from 'hooks/queries/calendar.queries';
+import { useCalendarDailyPlans, useDeletePlanMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
 import { DailyPlanDto } from 'types/plan/DailyPlan.dto';
 import Icon from 'components/common/Icon/Icon';

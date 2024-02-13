@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useQueryClient } from '@tanstack/react-query';
 import store from 'stores/RootStore';
-import { useGradutePet } from 'hooks/queries/pet.queries';
+import { useGradutePet } from 'hooks/queries';
 import PET_GAUGE_MAX from 'constants/constants';
 import { PetDto } from 'types/pet/Pet.dto';
 import { ReactComponent as IconBowl } from 'assets/icons/home/IconBowl.svg';

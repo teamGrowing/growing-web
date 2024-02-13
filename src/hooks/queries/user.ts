@@ -8,9 +8,9 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from 'constants/queryKeys';
-import { UseQueryOptionsType } from 'services';
-import { USER_API } from 'services/user.service';
-import AUTH_API from 'services/auth.service';
+import { UseQueryOptionsType } from 'types/CustomReactQuery';
+import { USER_API } from 'apis/user';
+import AUTH_API from 'apis/auth';
 import store from 'stores/RootStore';
 import { ChangeUserDto } from 'types/user/CangeUser.dto';
 import { ResultDto } from 'types/user/Result.dto';

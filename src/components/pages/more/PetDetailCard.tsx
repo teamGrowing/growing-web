@@ -4,7 +4,7 @@ import backgroundImg from 'assets/image/DetailCardBackground.png';
 import infoBackgroundImg from 'assets/image/DetailInfoBackground.png';
 import Icon from 'components/common/Icon/Icon';
 import store from 'stores/RootStore';
-import { useGraduatedPetDetail } from 'hooks/queries/pet.queries';
+import { useGraduatedPetDetail } from 'hooks/queries';
 import { clickPulse } from 'styles/common/keyframs';
 
 const Background = styled.div`

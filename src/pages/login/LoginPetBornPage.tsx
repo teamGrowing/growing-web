@@ -7,7 +7,7 @@ import { MENT_LOGIN } from 'constants/ments';
 import Wave from 'components/pages/login/Wave';
 import Egg from 'components/pages/login/Egg';
 import LoginButton from 'components/pages/login/LoginButton';
-import { useUserIsCouple } from 'hooks/queries/user.queries';
+import { useUserIsCouple } from 'hooks/queries';
 
 const PageContainer = styled.div`
   display: flex;

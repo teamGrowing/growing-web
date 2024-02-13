@@ -7,8 +7,11 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from 'constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from 'services';
-import PLAN_API from 'services/plan.service';
+import {
+  UseMutationOptionsType,
+  UseQueryOptionsType,
+} from 'types/CustomReactQuery';
+import PLAN_API from 'apis/plan';
 import { CreatePlanDto } from 'types/plan/CreatePlan.dto';
 import { DailyPlanDto } from 'types/plan/DailyPlan.dto';
 import { MonthlyPlanDto } from 'types/plan/MonthlyPlan.dto';

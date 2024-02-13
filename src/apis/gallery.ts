@@ -6,7 +6,7 @@ import { CreatePhotoCommentDto } from 'types/gallery/CreatePhotoComment.dto';
 import PhotoDto from 'types/gallery/Photo.dto';
 import PhotoCommentDto from 'types/gallery/PhotoComment.dto';
 import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
-import fetcher from '.';
+import fetcher from './fetcher';
 
 export const GALLERY_API = {
   getPhotos: (coupleId: string, params?: { base: number; limit: number }) =>

@@ -7,7 +7,7 @@ import store from 'stores/RootStore';
 import { MENT_LOGIN } from 'constants/ments';
 import Wave from 'components/pages/login/Wave';
 import { ImgPetsWaiting } from 'assets/image';
-import { useUserIsCouple } from 'hooks/queries/user.queries';
+import { useUserIsCouple } from 'hooks/queries';
 import useToast from 'hooks/common/useToast';
 
 const PageContainer = styled.div`

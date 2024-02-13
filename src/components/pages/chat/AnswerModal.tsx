@@ -6,7 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import store from 'stores/RootStore';
 import { fadeIn } from 'styles/common/keyframs';
 import useToast from 'hooks/common/useToast';
-import { useAnswerMutation } from 'hooks/queries/chat.queries';
+import { useAnswerMutation } from 'hooks/queries';
 import { QuestionsAndAnswers } from 'types/chat/questions/QuestionAndAnswers';
 import { MENT_CHAT } from 'constants/ments';
 import queryKeys from 'constants/queryKeys';

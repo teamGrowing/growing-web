@@ -1,7 +1,7 @@
 import { CreatePlanDto } from 'types/plan/CreatePlan.dto';
 import { DailyPlanDto } from 'types/plan/DailyPlan.dto';
 import { PatchPlanDto } from 'types/plan/PatchPlan.dto';
-import fetcher from '.';
+import fetcher from './fetcher';
 
 const PLAN_API = {
   getPlans: (coupleId: string, year: string, month: string, day?: string) => {

@@ -11,8 +11,8 @@ import {
   useCommentList,
   useGalleryDetail,
   usePostCommentMutation,
-} from 'hooks/queries/gallery.queries';
-import { useDeletePhotosMutation } from 'hooks/queries/album.queries';
+  useDeletePhotosFromAlbumMutation,
+} from 'hooks/queries';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
@@ -42,7 +42,7 @@ function AlbumPhotoDetailPage() {
 
   const { data: photo } = useGalleryDetail({ coupleId, photoId });
   const { data: comments } = useCommentList({ coupleId, photoId });
-  const { mutate: deletePhotoMutate } = useDeletePhotosMutation({
+  const { mutate: deletePhotoMutate } = useDeletePhotosFromAlbumMutation({
     coupleId,
     albumId,
   });

@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { observer } from 'mobx-react';
 import store from 'stores/RootStore';
 import { MENT_LOGIN } from 'constants/ments';
-import { useCodyVerify } from 'hooks/queries/user.queries';
+import { useCodyVerify } from 'hooks/queries';
 import Wave from 'components/pages/login/Wave';
 import Egg from 'components/pages/login/Egg';
 import LoginButton from 'components/pages/login/LoginButton';

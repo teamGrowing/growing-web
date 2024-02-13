@@ -3,9 +3,8 @@ import styled from 'styled-components';
 import Icon from 'components/common/Icon/Icon';
 import { MENT_GALLERY } from 'constants/ments';
 import useToast from 'hooks/common/useToast';
-import { useCreatePhotosMutation } from 'hooks/queries/gallery.queries';
+import { useCreatePhotosMutation, usePostPhotosMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
-import { usePostPhotosMutation } from 'hooks/queries/album.queries';
 
 const ButtonStyle = styled.div`
   position: fixed;

@@ -2,7 +2,7 @@ import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import WhiteContainer from 'components/pages/more/WhiteContainer';
 import dayjs from 'dayjs';
-import { useNoticeList } from 'hooks/queries/notice.queries';
+import { useNoticeList } from 'hooks/queries';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import PurpleBackground from 'styles/common/PurpleBackground';

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
-import fetcher from '../services';
-import AUTH_API from '../services/auth.service';
-import store from '../stores/RootStore';
-import { USER_API } from '../services/user.service';
+import fetcher from 'apis/fetcher';
+import AUTH_API from 'apis/auth';
+import { USER_API } from 'apis/user';
+import store from 'stores/RootStore';
 
 function AuthRoute() {
   const navigate = useNavigate();

@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import store from 'stores/RootStore';
-import { useHasQuestionData } from 'hooks/queries/chat.queries';
+import { useHasQuestionData } from 'hooks/queries';
 import { fadeInDown, fadeOutUp } from 'styles/common/keyframs';
 import Icon from 'components/common/Icon/Icon';
 

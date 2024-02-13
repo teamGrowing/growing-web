@@ -3,7 +3,7 @@ import AlbumDto from 'types/gallery/Album.dto';
 import { ChangeAlbumTitleDto } from 'types/gallery/ChangeAlbumTitle.dto';
 import { CreateAlbumDto } from 'types/gallery/CreateAlbum.dto';
 import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
-import fetcher from '.';
+import fetcher from './fetcher';
 
 const ALBUM_API = {
   getAlbums: (coupleId: string) =>

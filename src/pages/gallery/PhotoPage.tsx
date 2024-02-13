@@ -6,10 +6,7 @@ import FloatingButton from 'components/pages/gallery/FloatingButton';
 import PhotoContainer from 'components/pages/gallery/PhotoContainer';
 import Icon from 'components/common/Icon/Icon';
 import GalleryTitle from 'components/pages/gallery/GalleryTitle';
-import {
-  useDeletePhotosMutation,
-  useInfiniteGalleryList,
-} from 'hooks/queries/gallery.queries';
+import { useDeletePhotosMutation, useInfiniteGalleryList } from 'hooks/queries';
 import store from '../../stores/RootStore';
 import Modal from '../../components/common/Modal/Modal';
 import useToast from '../../hooks/common/useToast';

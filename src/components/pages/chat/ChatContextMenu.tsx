@@ -7,9 +7,11 @@ import store from '../../../stores/RootStore';
 import Icon from '../../common/Icon/Icon';
 import queryKeys from '../../../constants/queryKeys';
 import { MENT_CHAT } from '../../../constants/ments';
-import { useNotifyChatMutate } from '../../../hooks/queries/chat-notice.queries';
-import { useArchivedChatMutate } from '../../../hooks/queries/chat-archived.queries';
-import { useOurChatDelete } from '../../../hooks/queries/chat.queries';
+import {
+  useNotifyChatMutate,
+  useArchivedChatMutate,
+  useOurChatDelete,
+} from '../../../hooks/queries';
 import useToast from '../../../hooks/common/useToast';
 
 interface ChatContextMenuProps {

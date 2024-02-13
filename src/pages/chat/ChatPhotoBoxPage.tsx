@@ -8,7 +8,7 @@ import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal';
 import VideoPlayBtn from 'components/pages/chat/VideoPlayBtn';
 import usePhotos from 'hooks/chat/usePhotos';
-import { useChatPhotoBoxData } from 'hooks/queries/chat-photo.queries';
+import { useChatPhotoBoxData } from 'hooks/queries';
 import { MENT_CHAT } from 'constants/ments';
 
 const PageContainer = styled.div`

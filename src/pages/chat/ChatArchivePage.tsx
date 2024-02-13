@@ -10,7 +10,7 @@ import Modal from 'components/common/Modal/Modal';
 import ArchivedCard from 'components/pages/chat/ArchivedCard';
 import useToast from 'hooks/common/useToast';
 import useDeleteArchived from 'hooks/chat/useDeleteArchived';
-import { useArchivedChatData } from 'hooks/queries/chat-archived.queries';
+import { useArchivedChatData } from 'hooks/queries';
 
 const PageContainer = styled.div`
   background: linear-gradient(

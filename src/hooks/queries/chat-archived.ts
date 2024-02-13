@@ -6,8 +6,11 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from 'constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from 'services';
-import { CHAT_ARCHIVED_API } from 'services/chat.service';
+import {
+  UseMutationOptionsType,
+  UseQueryOptionsType,
+} from 'types/CustomReactQuery';
+import { CHAT_ARCHIVED_API } from 'apis/chat';
 import { ChattingArchivedDto } from 'types/chat/ChattingArchived.dto';
 
 export function useArchivedChatData({

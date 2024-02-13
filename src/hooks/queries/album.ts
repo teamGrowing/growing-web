@@ -8,9 +8,12 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from 'constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from 'services';
+import {
+  UseMutationOptionsType,
+  UseQueryOptionsType,
+} from 'types/CustomReactQuery';
 import AlbumDto from 'types/gallery/Album.dto';
-import ALBUM_API from 'services/album.service';
+import ALBUM_API from 'apis/album';
 import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
 import { CreateAlbumDto } from 'types/gallery/CreateAlbum.dto';
 import { AddPhotoDto } from 'types/gallery/AddPhoto.dto';
@@ -141,7 +144,7 @@ export function useDeleteAlbumsMutation({
   });
 }
 
-export function useDeletePhotosMutation({
+export function useDeletePhotosFromAlbumMutation({
   coupleId,
   albumId,
   options,

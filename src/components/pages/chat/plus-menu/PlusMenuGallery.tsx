@@ -5,7 +5,7 @@ import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import usePhotos from 'hooks/chat/usePhotos';
-import { useGalleryList } from 'hooks/queries/gallery.queries';
+import { useGalleryList } from 'hooks/queries';
 import { NAVBAR_HEIGHT } from 'constants/constants';
 import { CreateChattingDto } from 'types/chat/createChat.dto';
 import VideoPlayBtn from '../VideoPlayBtn';

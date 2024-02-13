@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import store from 'stores/RootStore';
 import { EmojiPackageLineDto } from 'types/user/EmojiPackageLine.dto';
 import { CreateChattingDto } from 'types/chat/createChat.dto';
-import { useEmojiDetailData } from 'hooks/queries/chat-emoji.queries';
+import { useEmojiDetailData } from 'hooks/queries';
 
 const EmojiGrid = styled.div`
   display: grid;

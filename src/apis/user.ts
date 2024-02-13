@@ -8,7 +8,7 @@ import { UserDto } from 'types/user/User.dto';
 import { VerifyCodeDto } from 'types/user/VerifyCode.dto';
 import { VerifyCodeResponseDto } from 'types/user/VerifyCodeResponse.dto';
 import { VerifyPassword } from 'types/user/VerifyPassword.dto';
-import fetcher from '.';
+import fetcher from './fetcher';
 
 export const USER_API = {
   getUser: (userId: string) => fetcher.create().get<UserDto>(`users/${userId}`),

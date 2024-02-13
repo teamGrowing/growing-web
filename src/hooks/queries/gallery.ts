@@ -13,10 +13,10 @@ import {
   UseInfiniteQueryOptionsType,
   UseMutationOptionsType,
   UseQueryOptionsType,
-} from 'services/index';
+} from 'types/CustomReactQuery';
 import { PHOTO_LIMIT } from 'constants/constants';
 import queryKeys from 'constants/queryKeys';
-import { GALLERY_API, GALLERY_COMMENT_API } from 'services/gallery.service';
+import { GALLERY_API, GALLERY_COMMENT_API } from 'apis/gallery';
 import { CreatePhotoResponseDto } from 'types/gallery/CreatePhotoResponse.dto';
 import PhotoDto from 'types/gallery/Photo.dto';
 import PhotoCommentDto from 'types/gallery/PhotoComment.dto';

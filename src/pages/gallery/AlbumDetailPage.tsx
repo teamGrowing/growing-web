@@ -8,10 +8,10 @@ import Icon from 'components/common/Icon/Icon';
 import FloatingButton from 'components/pages/gallery/FloatingButton';
 import {
   useAlbumPhotosList,
-  useDeletePhotosMutation as useDeletePhotosFromAlbumMutation,
+  useDeletePhotosFromAlbumMutation,
   usePatchAlbumMutation,
-} from 'hooks/queries/album.queries';
-import { useDeletePhotosMutation } from 'hooks/queries/gallery.queries';
+  useDeletePhotosMutation,
+} from 'hooks/queries';
 import { MENT_GALLERY } from 'constants/ments';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';

@@ -1,5 +1,5 @@
 import NoticeDto from 'types/more/Notice.dto';
-import fetcher from '.';
+import fetcher from './fetcher';
 
 export const NOTICE_API = {
   getNotices: () => fetcher.create().get<NoticeDto[]>('notices'),

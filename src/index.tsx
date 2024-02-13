@@ -9,7 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import App from './App';
 import GlobalStyle from './styles/GlobalStyle';
 import myTheme from './styles/theme/DefaultTheme';
-import AsyncBoundary from './services/AsyncBoundary';
+import AsyncBoundary from './components/common/AsyncBoundary/AsyncBoundary';
 import FullScreenLoading from './components/common/FullScreenLoader';
 import FullScreenError from './components/common/FullScreenError';
 

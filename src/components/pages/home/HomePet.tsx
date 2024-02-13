@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
-import { usePetData } from 'hooks/queries/pet.queries';
+import { usePetData } from 'hooks/queries';
 import PetRaisingMenu from './PetRaisingMenu';
 import PetGauge from './PetGauge';
 import Pet3DImg from './Pet3D';

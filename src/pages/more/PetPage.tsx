@@ -8,7 +8,7 @@ import TopBar from 'components/common/TopBar/TopBar';
 import PetCard from 'components/pages/more/PetCard';
 import PetDetailCard from 'components/pages/more/PetDetailCard';
 import PurpleBackground from 'styles/common/PurpleBackground';
-import { useGraduatedPets } from 'hooks/queries/pet.queries';
+import { useGraduatedPets } from 'hooks/queries';
 import store from 'stores/RootStore';
 import { MENT_MORE } from 'constants/ments';
 import changeEmojiToSpan from 'util/Text';

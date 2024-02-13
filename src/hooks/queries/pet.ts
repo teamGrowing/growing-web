@@ -7,8 +7,11 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from 'constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from 'services';
-import { PET_API } from 'services/pet.service';
+import {
+  UseMutationOptionsType,
+  UseQueryOptionsType,
+} from 'types/CustomReactQuery';
+import { PET_API } from 'apis/pet';
 import PostPetDto from 'types/more/PostPet.dto';
 import PostPetLineDto from 'types/more/PostPetLine.dto';
 import { ChangePetDto } from 'types/pet/ChangePet.dto';

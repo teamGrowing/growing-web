@@ -8,8 +8,11 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import queryKeys from 'constants/queryKeys';
-import { UseMutationOptionsType, UseQueryOptionsType } from 'services';
-import { COUPLE_API } from 'services/couple.service';
+import {
+  UseMutationOptionsType,
+  UseQueryOptionsType,
+} from 'types/CustomReactQuery';
+import { COUPLE_API } from 'apis/couple';
 import store from 'stores/RootStore';
 import { ChangeCoupleDto } from 'types/couple/ChangeCouple.dto';
 import { CoupleDto } from 'types/couple/Couple.dto';
