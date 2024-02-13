@@ -13,7 +13,7 @@ import InfoPage from './pages/more/InfoPage/InfoPage';
 import SettingPage from './pages/more/SettingPage/SettingPage';
 import PhotoDetailPage from './pages/gallery/PhotoDetailPage/PhotoDetailPage';
 import PetPage from './pages/more/PetPage/PetPage';
-import AuthRoute from './util/AuthRoute';
+import AuthRoute from './components/layout/AuthRoute';
 import AlbumPhotoDetailPage from './pages/gallery/AlbumPhotoDetailPage/AlbumPhotoDetailPage';
 import CalendarPage from './pages/calendar/CalendarPage/CalendarPage';
 import Home from './pages/home/HomePage/HomePage';
