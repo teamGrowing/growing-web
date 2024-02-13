@@ -1,6 +1,6 @@
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import WhiteContainer from 'components/pages/more/WhiteContainer';
+import WhiteContainer from 'components/pages/more/WhiteContainer/WhiteContainer';
 import { useNoticeDetail } from 'hooks/queries';
 import { useNavigate, useParams } from 'react-router-dom';
 import PurpleBackground from 'styles/common/PurpleBackground';
