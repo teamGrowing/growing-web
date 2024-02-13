@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useRef, useState, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -10,22 +9,8 @@ import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
 import { MENT_GALLERY } from 'constants/ments';
-import DataContext from './context';
-
-const Container = styled.div`
-  position: relative;
-`;
-
-const ScrollArea = styled.div`
-  height: calc(100% - 43px);
-  overflow-y: scroll;
-`;
-
-const Cancel = styled.div`
-  font-family: 'PretendardRegular';
-  font-size: 14px;
-  line-height: 17px;
-`;
+import DataContext from '../context';
+import * as S from './AlbumPage.styled';
 
 function AlbumPage() {
   const navigate = useNavigate();
@@ -74,7 +59,7 @@ function AlbumPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <Container className="page-container with-navbar">
+      <S.Container className="page-container with-navbar">
         <GalleryTitle
           title="ALBUM"
           backBtn
@@ -85,7 +70,7 @@ function AlbumPage() {
             !selectingAvailable ? (
               <Icon icon="IconCheck" />
             ) : (
-              <Cancel className="text-gradient400">취소</Cancel>
+              <S.Cancel className="text-gradient400">취소</S.Cancel>
             )
           }
           onRightClick={
@@ -100,9 +85,9 @@ function AlbumPage() {
             setOnModal(true);
           }}
         />
-        <ScrollArea className="hidden-scrollbar">
+        <S.ScrollArea className="hidden-scrollbar">
           <AlbumContainer albums={albums ?? []} />
-        </ScrollArea>
+        </S.ScrollArea>
         <Modal
           onModal={onModal}
           setOnModal={setOnModal}
@@ -114,7 +99,7 @@ function AlbumPage() {
             setOnModal(false);
           }}
         />
-      </Container>
+      </S.Container>
     </DataContext.Provider>
   );
 }

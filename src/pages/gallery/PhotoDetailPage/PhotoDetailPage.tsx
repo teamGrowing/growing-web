@@ -1,7 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
-import styled from 'styled-components';
 import TopBar from 'components/common/TopBar/TopBar';
 import PhotoDetail from 'components/pages/gallery/PhotoDetail';
 import BottomMenu from 'components/pages/gallery/BottomMenu';
@@ -18,14 +17,7 @@ import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
 import preventScroll from 'util/utils';
-
-const Container = styled.div`
-  position: relative;
-`;
-const DetailContainer = styled.div`
-  position: relative;
-  height: calc(100% - 72px);
-`;
+import * as S from './PhotoDetailPage.styled';
 
 function PhotoDetailPage() {
   const navigate = useNavigate();
@@ -64,16 +56,16 @@ function PhotoDetailPage() {
   }, []);
 
   return (
-    <Container className="page-container with-topbar">
+    <S.Container className="page-container with-topbar">
       <TopBar
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => {
           navigate(-1);
         }}
       />
-      <DetailContainer>
+      <S.DetailContainer>
         {photo && <PhotoDetail photoInfo={photo} />}
-      </DetailContainer>
+      </S.DetailContainer>
       {commentIsVisible && (
         <CommentMenu comments={comments ?? []} onComment={makeComment} />
       )}
@@ -94,7 +86,7 @@ function PhotoDetailPage() {
           onSubAction={() => setOnModal(false)}
         />
       )}
-    </Container>
+    </S.Container>
   );
 }
 

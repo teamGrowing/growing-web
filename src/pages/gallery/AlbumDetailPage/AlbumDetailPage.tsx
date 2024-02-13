@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useState, useMemo, useRef } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -17,27 +16,8 @@ import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import AlbumModal from 'components/common/Modal/AlbumModal';
 import useToast from 'hooks/common/useToast';
-import DataContext from './context';
-
-const Container = styled.div`
-  overflow-y: scroll;
-`;
-
-const Option = styled.div`
-  width: 25px;
-  height: 17px;
-
-  font-family: 'PretendardMedium';
-  font-size: 14px;
-  line-height: 17px;
-
-  display: flex;
-  align-items: center;
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`;
+import DataContext from '../context';
+import * as S from './AlbumDetailPage.styled';
 
 function AlbumDetailPage() {
   const navigate = useNavigate();
@@ -117,7 +97,7 @@ function AlbumDetailPage() {
         onLeftClick={() => navigate('/gallery/album')}
         rightMainNode={
           selectingAvailable ? (
-            <Option>취소</Option>
+            <S.Option>취소</S.Option>
           ) : (
             <Icon icon="IconPencil" />
           )
@@ -144,7 +124,7 @@ function AlbumDetailPage() {
             : clickCheck
         }
       />
-      <Container className="page-container with-topbar with-navbar hidden-scrollbar">
+      <S.Container className="page-container with-topbar with-navbar hidden-scrollbar">
         <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
         <FloatingButton albumId={aId} />
         {onModal && (
@@ -212,7 +192,7 @@ function AlbumDetailPage() {
             onSubAction={() => {}}
           />
         )}
-      </Container>
+      </S.Container>
     </DataContext.Provider>
   );
 }

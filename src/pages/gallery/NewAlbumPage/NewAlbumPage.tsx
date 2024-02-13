@@ -1,22 +1,18 @@
 import { useRef, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import styled from 'styled-components';
 import PhotoScroll from 'components/pages/gallery/PhotoScroll';
-import DataContext from './context';
+import DataContext from '../context';
 import {
   useInfiniteGalleryList,
   usePostAlbumsMutation,
-} from '../../hooks/queries';
-import store from '../../stores/RootStore';
-import Modal from '../../components/common/Modal/AlbumModal';
-import { AlbumFormValues } from '../../types/InputSchema';
-import useToast from '../../hooks/common/useToast';
-import { MENT_GALLERY } from '../../constants/ments';
-
-const Container = styled.div`
-  position: relative;
-`;
+} from '../../../hooks/queries';
+import store from '../../../stores/RootStore';
+import Modal from '../../../components/common/Modal/AlbumModal';
+import { AlbumFormValues } from '../../../types/InputSchema';
+import useToast from '../../../hooks/common/useToast';
+import { MENT_GALLERY } from '../../../constants/ments';
+import * as S from './NewAlbumPage.styled';
 
 function NewAlbumPage() {
   const navigate = useNavigate();
@@ -60,7 +56,7 @@ function NewAlbumPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <Container className="page-container">
+      <S.Container className="page-container">
         <PhotoScroll
           photos={photos?.pages.flatMap((res) => res) ?? []}
           leftLabel="취소"
@@ -83,7 +79,7 @@ function NewAlbumPage() {
           subActionLabel="취소"
           onSubAction={() => setOnModal(false)}
         />
-      </Container>
+      </S.Container>
     </DataContext.Provider>
   );
 }

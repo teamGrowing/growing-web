@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { useRef } from 'react';
@@ -9,18 +8,7 @@ import PhotoContainer from 'components/pages/gallery/PhotoContainer';
 import GalleryTitle from 'components/pages/gallery/GalleryTitle';
 import Icon from 'components/common/Icon/Icon';
 import store from 'stores/RootStore';
-
-const Container = styled.div`
-  position: relative;
-  overflow-y: scroll;
-`;
-
-const FixedContainer = styled.div`
-  position: absolute;
-  width: 100%;
-  max-width: 780px;
-  height: calc(100vh - 43px - 176px - 81px);
-`;
+import * as S from './GalleryMainPage.styled';
 
 function GalleryMainPage() {
   const navigate = useNavigate();
@@ -32,7 +20,7 @@ function GalleryMainPage() {
   const { data: albums } = useAlbumsList({ coupleId });
 
   return (
-    <Container
+    <S.Container
       className="page-container with-navbar hidden-scrollbar"
       onScroll={() => navigate('photo')}
     >
@@ -67,7 +55,7 @@ function GalleryMainPage() {
           navigate('photo', { state: { selectingAvailable: true } })
         }
       />
-      <FixedContainer
+      <S.FixedContainer
         onTouchStart={(e) => {
           touchPositionY.current = e.touches[0].clientY;
         }}
@@ -82,9 +70,9 @@ function GalleryMainPage() {
           photoObjects={photos?.pages.flatMap((res) => res) ?? []}
           type="UPLOADED"
         />
-      </FixedContainer>
+      </S.FixedContainer>
       <FloatingButton />
-    </Container>
+    </S.Container>
   );
 }
 

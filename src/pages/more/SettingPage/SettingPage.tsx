@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import TopBar from 'components/common/TopBar/TopBar';
@@ -6,39 +5,7 @@ import Icon from 'components/common/Icon/Icon';
 import WhiteContainer from 'components/pages/more/WhiteContainer';
 import PurpleBackground from 'styles/common/PurpleBackground';
 import preventScroll from 'util/utils';
-
-const Container = styled.div`
-  position: relative;
-`;
-
-const Box = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  padding: 10px 20px;
-  gap: 10px;
-
-  font-family: 'PretendardMedium';
-  font-size: 19px;
-  line-height: 23px;
-  color: ${({ theme }) => theme.color.black};
-
-  width: 100%;
-  height: 43px;
-
-  flex: none;
-`;
-
-const Border = styled.div`
-  width: 100%;
-  height: 1px;
-  background: ${({ theme }) => theme.color.gradient400};
-  flex: none;
-`;
-
-const VersionMsg = styled.div`
-  font-size: 13px;
-`;
+import * as S from './SettingPage.styled';
 
 function SettingPage() {
   const navigate = useNavigate();
@@ -48,7 +15,7 @@ function SettingPage() {
   }, []);
 
   return (
-    <Container className="page-container">
+    <S.Container className="page-container">
       <PurpleBackground />
       <TopBar
         title="설정"
@@ -66,12 +33,12 @@ function SettingPage() {
         <Border />
         <Box>알림설정</Box>
         <Border /> */}
-        <Box>
-          버전 정보 v1.0.0 <VersionMsg>최신 버전</VersionMsg>
-        </Box>
-        <Border />
+        <S.Box>
+          버전 정보 v1.0.0 <S.VersionMsg>최신 버전</S.VersionMsg>
+        </S.Box>
+        <S.Border />
       </WhiteContainer>
-    </Container>
+    </S.Container>
   );
 }
 export default SettingPage;

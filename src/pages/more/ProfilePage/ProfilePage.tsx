@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { useState, useRef, useMemo, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -25,48 +24,8 @@ import PhotoScroll from 'components/pages/gallery/PhotoScroll';
 import preventScroll from 'util/utils';
 import defaultProfile from 'assets/image/DefaultProfile.png';
 import { MENT_MORE } from 'constants/ments';
-import DataContext from '../gallery/context';
-
-const Container = styled.div`
-  position: relative;
-`;
-
-const StyledForm = styled.form`
-  flex-direction: column;
-  align-items: center;
-`;
-
-const StyledInput = styled.input`
-  font-family: 'PretendardRegular';
-  background-color: transparent;
-`;
-
-const ProfileContainer = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 60px 0;
-`;
-
-const Background = styled.div`
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0px;
-  top: 0px;
-  z-index: -1;
-  background-color: ${({ theme }) => theme.color.gray50};
-`;
-
-const Layer = styled.div`
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: white;
-`;
+import DataContext from '../../gallery/context';
+import * as S from './Profile.styled';
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -189,8 +148,8 @@ function ProfilePage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <Background />
-      <StyledForm
+      <S.Background />
+      <S.StyledForm
         onSubmit={handleSubmit((data) => modifyProfile(data))}
         ref={formRef}
       >
@@ -201,15 +160,15 @@ function ProfilePage() {
               onLeftClick={() => setOnCanelModal(true)}
               title="프로필 수정"
               rightMainNode={
-                <StyledInput
+                <S.StyledInput
                   type="submit"
                   value="완료"
                   className="text-gradient400"
                 />
               }
             />
-            <Container className="page-container with-topbar">
-              <ProfileContainer>
+            <S.Container className="page-container with-topbar">
+              <S.ProfileContainer>
                 <Profile
                   imgUrl={profilePhoto.url ?? defaultProfile}
                   border={false}
@@ -220,7 +179,7 @@ function ProfilePage() {
                   abTop="179px"
                   onClick={() => setOnButtomSheet(true)}
                 />
-              </ProfileContainer>
+              </S.ProfileContainer>
               <InputContainer
                 title="애칭"
                 type="text"
@@ -305,19 +264,19 @@ function ProfilePage() {
                   </BottomSheetMenu>
                 </ModalBottomSheet>
               )}
-            </Container>
+            </S.Container>
           </>
         )}
-      </StyledForm>
+      </S.StyledForm>
       {onPhotoScroll && (
-        <Container className="page-container">
-          <Layer />
+        <S.Container className="page-container">
+          <S.Layer />
           <PhotoScroll
             photos={photos ?? []}
             leftLabel="취소"
             onLeftClick={() => setOnPhotoScroll(false)}
           />
-        </Container>
+        </S.Container>
       )}
     </DataContext.Provider>
   );

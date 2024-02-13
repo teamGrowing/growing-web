@@ -7,23 +7,12 @@ import PhotoContainer from 'components/pages/gallery/PhotoContainer';
 import Icon from 'components/common/Icon/Icon';
 import GalleryTitle from 'components/pages/gallery/GalleryTitle';
 import { useDeletePhotosMutation, useInfiniteGalleryList } from 'hooks/queries';
-import store from '../../stores/RootStore';
-import Modal from '../../components/common/Modal/Modal';
-import useToast from '../../hooks/common/useToast';
-import { MENT_GALLERY } from '../../constants/ments';
-import DataContext from './context';
-
-const Container = styled.div`
-  position: relative;
-`;
-
-const Cancel = styled.div`
-  height: 100%;
-
-  font-family: 'PretendardRegular';
-  font-size: 14px;
-  line-height: 24px;
-`;
+import store from '../../../stores/RootStore';
+import Modal from '../../../components/common/Modal/Modal';
+import useToast from '../../../hooks/common/useToast';
+import { MENT_GALLERY } from '../../../constants/ments';
+import DataContext from '../context';
+import * as S from './PhotoPage.styled';
 
 const PaddingContainer = styled.div`
   position: absolute;
@@ -90,7 +79,7 @@ function PhotoPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <Container className="page-container with-navbar">
+      <S.Container className="page-container with-navbar">
         <GalleryTitle
           title="PHOTO"
           backBtn
@@ -99,7 +88,7 @@ function PhotoPage() {
             !selectingAvailable ? (
               <Icon icon="IconCheck" />
             ) : (
-              <Cancel className="text-gradient400">취소</Cancel>
+              <S.Cancel className="text-gradient400">취소</S.Cancel>
             )
           }
           onRightClick={selectingAvailable ? clearList : clickCheck}
@@ -133,7 +122,7 @@ function PhotoPage() {
             }}
           />
         )}
-      </Container>
+      </S.Container>
     </DataContext.Provider>
   );
 }

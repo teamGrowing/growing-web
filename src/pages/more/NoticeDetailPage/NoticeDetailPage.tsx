@@ -3,16 +3,8 @@ import TopBar from 'components/common/TopBar/TopBar';
 import WhiteContainer from 'components/pages/more/WhiteContainer';
 import { useNoticeDetail } from 'hooks/queries';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import PurpleBackground from 'styles/common/PurpleBackground';
-
-const Container = styled.div`
-  position: relative;
-`;
-
-const Content = styled.div`
-  font-family: 'PretendardNormal';
-`;
+import * as S from './NoticeDetailPage.styled';
 
 function NoticeDetailPage() {
   const navigate = useNavigate();
@@ -20,7 +12,7 @@ function NoticeDetailPage() {
   const { data: notice } = useNoticeDetail({ noticeId: id ?? '' });
 
   return (
-    <Container className="page-container">
+    <S.Container className="page-container">
       <TopBar
         title={notice?.title}
         leftNode={<Icon icon="IconArrowLeft" />}
@@ -28,9 +20,9 @@ function NoticeDetailPage() {
       />
       <PurpleBackground />
       <WhiteContainer top="89px">
-        <Content>{notice?.context}</Content>
+        <S.Content>{notice?.context}</S.Content>
       </WhiteContainer>
-    </Container>
+    </S.Container>
   );
 }
 export default NoticeDetailPage;
