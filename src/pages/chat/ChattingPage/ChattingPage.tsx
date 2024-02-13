@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import store from 'stores/RootStore';
 import { plusMenuProps } from 'stores/ChatStore';
 import { useChatData } from 'hooks/queries';
@@ -14,28 +13,7 @@ import InputChat from 'components/pages/chat/InputChat';
 import SubMenu from 'components/pages/chat/SubMenu';
 import ChatNotice from 'components/pages/chat/ChatNotice';
 import { PLUS_MENU_HEIGHT } from 'constants/constants';
-
-const ChattingPageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  background-color: ${({ theme }) => theme.color.gray50};
-`;
-
-const Chats = styled.section`
-  flex: 1;
-
-  display: flex;
-  flex-direction: column;
-
-  padding: 0 16px;
-
-  height: 100%;
-
-  overflow-x: hidden;
-  overflow-y: scroll;
-`;
+import * as S from './ChattingPage.styled';
 
 // TODO: 마지막 데이터 받은 후, 더이상 요청하지 말기
 function ChattingPage() {
@@ -187,7 +165,7 @@ function ChattingPage() {
   }, []);
 
   return (
-    <ChattingPageContainer
+    <S.ChattingPageContainer
       className="page-container with-topbar"
       style={{ paddingBottom: '0' }}
     >
@@ -205,7 +183,11 @@ function ChattingPage() {
       />
       <ChatNotice />
 
-      <Chats ref={chatsRef} onClick={handleDefaultMode} onScroll={handleChange}>
+      <S.Chats
+        ref={chatsRef}
+        onClick={handleDefaultMode}
+        onScroll={handleChange}
+      >
         <SubMenu open={onSubMenu} />
         <div ref={chatStartRef} style={{ height: '8px' }} />
 
@@ -225,8 +207,8 @@ function ChattingPage() {
           createChat={createChat}
           scrollByPlusMenu={scrollByPlusMenu}
         />
-      </Chats>
-    </ChattingPageContainer>
+      </S.Chats>
+    </S.ChattingPageContainer>
   );
 }
 

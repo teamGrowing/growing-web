@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import Lottie from 'lottie-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
@@ -13,43 +12,7 @@ import Modal from 'components/common/Modal/Modal';
 import Pet3D from 'components/pages/home/Pet3D';
 import Waves from 'assets/image/HomeWaves.png';
 import congratsAnimation from 'assets/lottie/congratsAnimation.json';
-
-const PetRenameContainer = styled.div`
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 80px;
-
-  padding-bottom: 100px;
-
-  background-color: ${({ theme }) => theme.color.purple50};
-`;
-
-const SubTitle = styled.div`
-  font-family: 'PretendardLight';
-  font-size: 15px;
-  text-align: center;
-  white-space: pre-wrap;
-`;
-
-const WaveWrapper = styled.div`
-  position: absolute;
-  bottom: 0;
-
-  display: flex;
-  align-items: flex-end;
-
-  width: 100%;
-  margin-top: -40px;
-`;
-
-const Wave = styled.img`
-  width: 100%;
-  height: 224px;
-`;
+import * as S from './PetGraduatePage.styled';
 
 function PetGraduatePage() {
   const queryClient = useQueryClient();
@@ -69,7 +32,7 @@ function PetGraduatePage() {
   }, []);
 
   return (
-    <PetRenameContainer className="page-container with-topbar">
+    <S.PetRenameContainer className="page-container with-topbar">
       <TopBar mode="PURPLE50" border={false} title="growing" />
 
       <Lottie
@@ -85,16 +48,16 @@ function PetGraduatePage() {
         loop
       />
 
-      <SubTitle
+      <S.SubTitle
         className="text-gradient400"
         dangerouslySetInnerHTML={changeEmojiToSpan(MENT_HOME.PET_GRADUATE)}
       />
 
       <Pet3D url={pet.imageUrl} size={240} />
 
-      <WaveWrapper>
-        <Wave src={Waves} />
-      </WaveWrapper>
+      <S.WaveWrapper>
+        <S.Wave src={Waves} />
+      </S.WaveWrapper>
 
       <Modal
         onModal={onModal}
@@ -105,7 +68,7 @@ function PetGraduatePage() {
           window.location.replace('/');
         }}
       />
-    </PetRenameContainer>
+    </S.PetRenameContainer>
   );
 }
 

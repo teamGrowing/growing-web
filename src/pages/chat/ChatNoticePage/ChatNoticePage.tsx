@@ -1,37 +1,11 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import queryKeys from 'constants/queryKeys';
 import { Notice } from 'types/chat/Notice';
-
-const ChatNoticePageContainer = styled.div`
-  background-color: ${({ theme }) => theme.color.gray50};
-`;
-
-const ChatWrapper = styled.div`
-  padding: 16px 32px;
-
-  font-size: 16px;
-  color: ${({ theme }) => theme.color.gray900};
-`;
-
-const Profile = styled.div`
-  display: flex;
-  justify-content: center;
-
-  margin: 0 32px;
-  padding: 16px 0px;
-
-  border-bottom: 1px solid ${({ theme }) => theme.color.gray200};
-
-  > p {
-    font-size: 14px;
-  }
-`;
+import * as S from './ChatNoticePage.styled';
 
 function ChatNoticePage() {
   const navigation = useNavigate();
@@ -46,17 +20,17 @@ function ChatNoticePage() {
   };
 
   return (
-    <ChatNoticePageContainer className="page-container with-topbar">
+    <S.ChatNoticePageContainer className="page-container with-topbar">
       <TopBar
         title="공지사항"
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={handleBack}
       />
-      <Profile>
+      <S.Profile>
         <p className="text-gradient400">{notice.announcer}</p>
-      </Profile>
-      <ChatWrapper>{notice.content}</ChatWrapper>
-    </ChatNoticePageContainer>
+      </S.Profile>
+      <S.ChatWrapper>{notice.content}</S.ChatWrapper>
+    </S.ChatNoticePageContainer>
   );
 }
 

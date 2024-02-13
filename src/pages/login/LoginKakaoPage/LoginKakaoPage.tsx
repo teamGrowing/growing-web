@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import Cookies from 'js-cookie';
 import store from 'stores/RootStore';
@@ -8,47 +7,7 @@ import { ImgLogo } from 'assets/image';
 import Icon from 'components/common/Icon/Icon';
 import { useKakaoLogin, useUserIsCouple } from 'hooks/queries';
 import fetcher from 'apis/fetcher';
-
-const PageContainer = styled.div`
-  padding-left: 40px;
-  padding-right: 40px;
-
-  background-color: ${({ theme }) => theme.color.white};
-
-  overflow-y: hidden;
-`;
-
-const StyledLogo = styled.img`
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  transform: translate3d(-50%, -40%, 0);
-
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-`;
-
-const StyledButton = styled.button`
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 32px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-
-  padding: 16px 0;
-
-  width: calc(100% - 32px);
-  background: #fee500;
-  border-radius: 10px;
-
-  font-family: 'PretendardMedium';
-  font-size: 16px;
-`;
+import * as S from './LoginKakaoPage.styled';
 
 function LoginKakaoPage() {
   const navigation = useNavigate();
@@ -98,13 +57,13 @@ function LoginKakaoPage() {
   }, [KAKAO_CODE]);
 
   return (
-    <PageContainer className="page-container">
-      <StyledLogo src={ImgLogo} alt="logo" />
-      <StyledButton onClick={handleLogin}>
+    <S.PageContainer className="page-container">
+      <S.StyledLogo src={ImgLogo} alt="logo" />
+      <S.StyledButton onClick={handleLogin}>
         <Icon icon="IconTalk" themeColor="black" />
         카카오 로그인
-      </StyledButton>
-    </PageContainer>
+      </S.StyledButton>
+    </S.PageContainer>
   );
 }
 

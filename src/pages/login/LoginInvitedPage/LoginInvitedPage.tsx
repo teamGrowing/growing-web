@@ -1,7 +1,6 @@
 /* eslint-disable no-extra-boolean-cast */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { observer } from 'mobx-react';
@@ -12,31 +11,7 @@ import Wave from 'components/pages/login/Wave';
 import Egg from 'components/pages/login/Egg';
 import LoginButton from 'components/pages/login/LoginButton';
 import { CodeFormValues, codeSchema } from 'types/InputSchema';
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-
-  padding-left: 40px;
-  padding-right: 40px;
-
-  background-color: ${({ theme }) => theme.color.purple50};
-`;
-
-const StyledInput = styled.input`
-  margin-top: 20px;
-  padding-bottom: 12px;
-
-  width: 100%;
-  background-color: transparent;
-  border-bottom: 1px solid ${({ theme }) => theme.color.purple600};
-
-  font-size: 19px;
-  text-align: center;
-`;
+import * as S from './LoginInvitedPage.styled';
 
 function LoginInvitedPage() {
   const {
@@ -66,10 +41,10 @@ function LoginInvitedPage() {
 
   return (
     <form onSubmit={onSubmit}>
-      <PageContainer className="page-container">
+      <S.PageContainer className="page-container">
         <LoginButton disabled ment={MENT_LOGIN.INVITED_INPUT} />
 
-        <StyledInput
+        <S.StyledInput
           className="text-gradient400"
           type="string"
           {...register('code')}
@@ -79,7 +54,7 @@ function LoginInvitedPage() {
         <Egg onClick={() => {}} />
         <div style={{ height: '100px' }} />
         <Wave />
-      </PageContainer>
+      </S.PageContainer>
     </form>
   );
 }

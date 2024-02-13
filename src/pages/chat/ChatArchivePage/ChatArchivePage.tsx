@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import store from 'stores/RootStore';
 import { MENT_CHAT } from 'constants/ments';
 import Icon from 'components/common/Icon/Icon';
@@ -11,54 +10,7 @@ import ArchivedCard from 'components/pages/chat/ArchivedCard';
 import useToast from 'hooks/common/useToast';
 import useDeleteArchived from 'hooks/chat/useDeleteArchived';
 import { useArchivedChatData } from 'hooks/queries';
-
-const PageContainer = styled.div`
-  background: linear-gradient(
-    130.11deg,
-    rgba(252, 227, 138, 0.2) 7.3%,
-    rgba(243, 129, 129, 0.2) 100%
-  );
-`;
-
-const Outer = styled.div`
-  display: block;
-
-  height: 100%;
-  overflow-y: scroll;
-`;
-
-const Cards = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 150px;
-  grid-gap: 16px;
-  justify-items: center;
-
-  > :nth-child(2n + 1) {
-    grid-row: span 2;
-  }
-
-  padding: 16px 16px 32px;
-
-  height: 100%;
-  overflow-y: scroll;
-`;
-
-const EmptyCase = styled.div`
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 17px;
-
-  font-family: 'PretendardMedium';
-  font-size: 19px;
-`;
+import * as S from './ChatArchivePage.styled';
 
 function ChatArchivePage() {
   const navigation = useNavigate();
@@ -93,7 +45,7 @@ function ChatArchivePage() {
   }, [isSelectMode]);
 
   return (
-    <PageContainer className="page-container with-topbar">
+    <S.PageContainer className="page-container with-topbar">
       {!isSelectMode ? (
         <TopBar
           title="대화 보관함"
@@ -112,13 +64,13 @@ function ChatArchivePage() {
         />
       )}
 
-      <Outer className="hidden-scrollbar">
-        <Cards className="hidden-scrollbar">
+      <S.Outer className="hidden-scrollbar">
+        <S.Cards className="hidden-scrollbar">
           {!chats ? (
-            <EmptyCase className="text-gradient400">
+            <S.EmptyCase className="text-gradient400">
               <Icon icon="IconLogo" size={60} />
               {MENT_CHAT.ARCHIVED_EMPTY}
-            </EmptyCase>
+            </S.EmptyCase>
           ) : (
             chats
               .sort((a, b) => {
@@ -139,8 +91,8 @@ function ChatArchivePage() {
                 />
               ))
           )}
-        </Cards>
-      </Outer>
+        </S.Cards>
+      </S.Outer>
 
       <Modal
         onModal={onModal}
@@ -156,7 +108,7 @@ function ChatArchivePage() {
         subActionLabel="취소"
         onSubAction={() => setOnModal(false)}
       />
-    </PageContainer>
+    </S.PageContainer>
   );
 }
 

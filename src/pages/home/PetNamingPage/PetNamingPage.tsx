@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQueryClient } from '@tanstack/react-query';
@@ -20,35 +19,7 @@ import Modal from 'components/common/Modal/Modal';
 import PetNameInput from 'components/pages/home/PetNameInput';
 import Pet3D from 'components/pages/home/Pet3D';
 import Waves from 'assets/image/HomeWaves.png';
-
-const PetRenameContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  background-color: ${({ theme }) => theme.color.purple50};
-`;
-
-const SubTitle = styled.div`
-  font-family: 'PretendardLight';
-  font-size: 13px;
-  line-height: 16px;
-  text-align: center;
-  white-space: pre-wrap;
-`;
-
-const WaveWrapper = styled.div`
-  display: flex;
-  align-items: flex-end;
-
-  width: 100%;
-  margin-top: -40px;
-`;
-const Wave = styled.img`
-  width: 100%;
-  height: 224px;
-`;
+import * as S from './PetNamingPage.styled';
 
 export default function PetNamingPage() {
   const navigation = useNavigate();
@@ -92,7 +63,7 @@ export default function PetNamingPage() {
           nameMyPet({ nickName: data.name })
         )}
       >
-        <PetRenameContainer className="page-container with-topbar">
+        <S.PetRenameContainer className="page-container with-topbar">
           <TopBar
             mode="PURPLE50"
             leftNode={<Icon icon="IconArrowLeft" />}
@@ -103,7 +74,7 @@ export default function PetNamingPage() {
 
           <PetNameInput />
 
-          <SubTitle
+          <S.SubTitle
             className="text-gradient400"
             dangerouslySetInnerHTML={changeEmojiToSpan(
               MENT_HOME.PET_NAMING_HELP
@@ -112,9 +83,9 @@ export default function PetNamingPage() {
 
           <Pet3D url={pet.imageUrl} size={240} />
 
-          <WaveWrapper>
-            <Wave src={Waves} />
-          </WaveWrapper>
+          <S.WaveWrapper>
+            <S.Wave src={Waves} />
+          </S.WaveWrapper>
 
           <Modal
             onModal={onModal}
@@ -123,7 +94,7 @@ export default function PetNamingPage() {
             mainActionLabel="이름 확인하기"
             onMainAction={() => navigation(-1)}
           />
-        </PetRenameContainer>
+        </S.PetRenameContainer>
       </form>
     </FormProvider>
   );

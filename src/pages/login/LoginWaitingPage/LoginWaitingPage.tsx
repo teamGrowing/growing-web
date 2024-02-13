@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 import { observer } from 'mobx-react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import store from 'stores/RootStore';
@@ -9,47 +8,7 @@ import Wave from 'components/pages/login/Wave';
 import { ImgPetsWaiting } from 'assets/image';
 import { useUserIsCouple } from 'hooks/queries';
 import useToast from 'hooks/common/useToast';
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-bottom: 160px;
-
-  background-color: ${({ theme }) => theme.color.purple50};
-
-  overflow: hidden;
-`;
-
-const StyledText = styled.p`
-  font-size: 19px;
-  font-weight: 600;
-`;
-
-const Info = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-`;
-
-const SharedBtn = styled.button`
-  background-color: ${({ theme }) => theme.color.white};
-  border-radius: 4px;
-  padding: 4px 10px;
-
-  color: ${({ theme }) => theme.color.purple600};
-`;
-
-const StyledImg = styled.img`
-  width: 240px;
-  margin-left: -10px;
-`;
+import * as S from './LoginWaitingPage.styled';
 
 function LoginWaitingPage() {
   const navigation = useNavigate();
@@ -72,10 +31,12 @@ function LoginWaitingPage() {
   }, [isCouple]);
 
   return (
-    <PageContainer className="page-container">
-      <StyledText className="text-gradient400">{MENT_LOGIN.WAITING}</StyledText>
-      <StyledImg src={ImgPetsWaiting} alt="pets" />
-      <Info>
+    <S.PageContainer className="page-container">
+      <S.StyledText className="text-gradient400">
+        {MENT_LOGIN.WAITING}
+      </S.StyledText>
+      <S.StyledImg src={ImgPetsWaiting} alt="pets" />
+      <S.Info>
         <p className="text-gradient400">
           나의 코드: {userStore.user?.code ?? ''}
         </p>
@@ -83,11 +44,11 @@ function LoginWaitingPage() {
           text={userStore.user?.code ?? ''}
           onCopy={() => addToast(MENT_LOGIN.COPY)}
         >
-          <SharedBtn>복사</SharedBtn>
+          <S.SharedBtn>복사</S.SharedBtn>
         </CopyToClipboard>
-      </Info>
+      </S.Info>
       <Wave />
-    </PageContainer>
+    </S.PageContainer>
   );
 }
 

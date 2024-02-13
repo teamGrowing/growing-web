@@ -60,7 +60,7 @@ export const useChatData = ({
     }
   );
 
-const useQuestionBoxData = ({
+export const useQuestionBoxData = ({
   coupleId,
   storeCode,
   options,
@@ -139,5 +139,3 @@ export function useMyChatDelete({
     ...options,
   });
 }
-
-export default useQuestionBoxData;
