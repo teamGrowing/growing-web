@@ -10,7 +10,7 @@ import 'swiper/css/navigation';
 import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import ChatVideo from 'components/pages/chat/ChatVideo';
+import ChatVideo from 'components/pages/chat/ChatVideo/ChatVideo';
 import { useChatPhotoDetailData, useChatPhotoToGallery } from 'hooks/queries';
 import useToast from 'hooks/common/useToast';
 import * as S from './ChatPhotoDetailPage.styled';

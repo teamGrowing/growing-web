@@ -3,9 +3,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { observer } from 'mobx-react';
 import store from 'stores/RootStore';
 import useSignUp from 'hooks/user/useSignUp';
-import Wave from 'components/pages/login/Wave';
-import Egg from 'components/pages/login/Egg';
-import LoginButton from 'components/pages/login/LoginButton';
+import Wave from 'components/pages/login/Wave/Wave';
+import Egg from 'components/pages/login/Egg/Egg';
+import LoginButton from 'components/pages/login/LoginButton/LoginButton';
 import { SignUpFormValues, signUpSchema } from 'types/InputSchema';
 import * as S from './LoginCreatePage.styled';
 

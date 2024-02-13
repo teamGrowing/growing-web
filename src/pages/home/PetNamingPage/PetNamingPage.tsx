@@ -16,7 +16,7 @@ import { PetFormValues, petSchema } from 'types/InputSchema';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal/Modal';
-import PetNameInput from 'components/pages/home/PetNameInput';
+import PetNameInput from 'components/pages/home/PetNameInput/PetNameInput';
 import Pet3D from 'components/pages/home/Pet3D';
 import Waves from 'assets/image/HomeWaves.png';
 import * as S from './PetNamingPage.styled';

@@ -5,7 +5,7 @@ import store from 'stores/RootStore';
 import { useQuestionBoxData } from 'hooks/queries';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import QuestionCard from 'components/pages/chat/QuestionCard';
+import QuestionCard from 'components/pages/chat/QuestionCard/QuestionCard';
 import { MENT_CHAT } from 'constants/ments';
 import * as S from './QuestionBoxPage.styled';
 

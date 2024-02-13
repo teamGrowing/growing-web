@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import store from 'stores/RootStore';
 import preventScroll from 'util/utils';
 import { useCoupleData } from 'hooks/queries';
-import HomePet from 'components/pages/home/HomePet';
+import HomePet from 'components/pages/home/HomePet/HomePet';
 import * as S from './HomePage.styled';
 
 function HomePage() {

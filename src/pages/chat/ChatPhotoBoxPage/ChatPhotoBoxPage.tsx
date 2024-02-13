@@ -5,7 +5,7 @@ import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal/Modal';
-import VideoPlayBtn from 'components/pages/chat/VideoPlayBtn';
+import VideoPlayBtn from 'components/pages/chat/VideoPlayBtn/VideoPlayBtn';
 import usePhotos from 'hooks/chat/usePhotos';
 import { useChatPhotoBoxData } from 'hooks/queries';
 import { MENT_CHAT } from 'constants/ments';

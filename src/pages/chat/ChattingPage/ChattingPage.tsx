@@ -8,10 +8,10 @@ import { useChatData } from 'hooks/queries';
 import useReactQuerySubscription from 'hooks/chat/useReactQuerySubscription';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import ChatBallon from 'components/pages/chat/ChatBallon';
-import InputChat from 'components/pages/chat/InputChat';
-import SubMenu from 'components/pages/chat/SubMenu';
-import ChatNotice from 'components/pages/chat/ChatNotice';
+import ChatBallon from 'components/pages/chat/ChatBallon/ChatBallon';
+import InputChat from 'components/pages/chat/InputChat/InputChat';
+import SubMenu from 'components/pages/chat/SubMenu/SubMenu';
+import ChatNotice from 'components/pages/chat/ChatNotice/ChatNotice';
 import { PLUS_MENU_HEIGHT } from 'constants/constants';
 import * as S from './ChattingPage.styled';
 

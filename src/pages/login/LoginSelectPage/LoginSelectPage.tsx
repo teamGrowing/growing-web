@@ -3,9 +3,9 @@ import { observer } from 'mobx-react';
 import { MENT_LOGIN } from 'constants/ments';
 import changeEmojiToSpan from 'util/Text';
 import store from 'stores/RootStore';
-import Wave from 'components/pages/login/Wave';
-import Egg from 'components/pages/login/Egg';
-import LoginButton from 'components/pages/login/LoginButton';
+import Wave from 'components/pages/login/Wave/Wave';
+import Egg from 'components/pages/login/Egg/Egg';
+import LoginButton from 'components/pages/login/LoginButton/LoginButton';
 import * as S from './LoginSelectPage.styled';
 
 function LoginSelectPage() {
