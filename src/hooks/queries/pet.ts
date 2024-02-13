@@ -12,11 +12,13 @@ import {
   UseQueryOptionsType,
 } from 'types/CustomReactQuery';
 import { PET_API } from 'apis/pet';
-import PostPetDto from 'types/more/PostPet.dto';
-import PostPetLineDto from 'types/more/PostPetLine.dto';
-import { ChangePetDto } from 'types/pet/ChangePet.dto';
-import { PetDto } from 'types/pet/Pet.dto';
-import { PetReactionDto } from 'types/pet/PetReaction.dto';
+import { PostPetDto } from 'models/more';
+import {
+  ChangePetDto,
+  PetDto,
+  PetReactionDto,
+  PostPetLineDto,
+} from 'models/pet';
 
 export function usePetData({
   coupleId,

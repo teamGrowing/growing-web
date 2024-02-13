@@ -2,10 +2,12 @@ import { CreatePhotoRequestDto } from 'types/chat/CreatePhotoRequest.dto';
 import { GetDownloadUrlResponseDto } from 'types/chat/GetDownloadUrlResponse.dto';
 import { GetUploadUrlRequestDto } from 'types/chat/GetUploadUrlRequest.dto';
 import { GetUploadUrlResponseDto } from 'types/chat/GetUploadUrlResponse.dto';
-import { CreatePhotoCommentDto } from 'types/gallery/CreatePhotoComment.dto';
-import PhotoDto from 'types/gallery/Photo.dto';
-import PhotoCommentDto from 'types/gallery/PhotoComment.dto';
-import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
+import {
+  CreatePhotoCommentDto,
+  PhotoDto,
+  PhotoCommentDto,
+  PhotoLineDto,
+} from 'models/gallery';
 import fetcher from './fetcher';
 
 export const GALLERY_API = {

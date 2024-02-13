@@ -1,4 +1,4 @@
-import NoticeDto from 'types/more/Notice.dto';
+import { NoticeDto } from 'models/more';
 import fetcher from './fetcher';
 
 export const NOTICE_API = {

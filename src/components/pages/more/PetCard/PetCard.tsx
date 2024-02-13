@@ -1,4 +1,4 @@
-import PetLineDto from 'types/more/PostPetLine.dto';
+import { PetLineDto } from 'models/more';
 import * as S from './PetCard.styled';
 
 type PetCardProps = {

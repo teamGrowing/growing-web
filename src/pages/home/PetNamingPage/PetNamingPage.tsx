@@ -11,7 +11,7 @@ import useToast from 'hooks/common/useToast';
 import { usePetNameMutation } from 'hooks/queries';
 import queryKeys from 'constants/queryKeys';
 import MENT_HOME from 'constants/ments';
-import { PetDto } from 'types/pet/Pet.dto';
+import { PetDto } from 'models/pet';
 import { PetFormValues, petSchema } from 'types/InputSchema';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';

@@ -1,8 +1,10 @@
-import { ChangePetDto } from 'types/pet/ChangePet.dto';
-import { PetDto } from 'types/pet/Pet.dto';
-import { PetReactionDto } from 'types/pet/PetReaction.dto';
-import { PostPetDto } from 'types/pet/PostPet.dto';
-import { PostPetLineDto } from 'types/pet/PostPetLine.dto';
+import {
+  ChangePetDto,
+  PetDto,
+  PetReactionDto,
+  PostPetDto,
+  PostPetLineDto,
+} from 'models/pet';
 import fetcher from './fetcher';
 
 export const PET_API = {

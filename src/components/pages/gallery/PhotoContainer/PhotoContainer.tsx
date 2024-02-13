@@ -4,7 +4,7 @@ import {
 } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import Icon from 'components/common/Icon/Icon';
-import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
+import { PhotoLineDto } from 'models/gallery';
 import Photo from 'components/pages/gallery/Photo/Photo';
 import * as S from './PhotoContainer.styled';
 

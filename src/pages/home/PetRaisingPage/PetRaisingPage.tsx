@@ -7,7 +7,7 @@ import { usePetFeedMutation, usePetPlayMutation } from 'hooks/queries';
 import preventScroll from 'util/utils';
 import changeEmojiToSpan from 'util/Text';
 import store from 'stores/RootStore';
-import { PetDto } from 'types/pet/Pet.dto';
+import { PetDto } from 'models/pet';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal/Modal';

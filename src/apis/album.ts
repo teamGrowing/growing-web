@@ -1,8 +1,11 @@
-import { AddPhotoDto } from 'types/gallery/AddPhoto.dto';
-import AlbumDto from 'types/gallery/Album.dto';
-import { ChangeAlbumTitleDto } from 'types/gallery/ChangeAlbumTitle.dto';
-import { CreateAlbumDto } from 'types/gallery/CreateAlbum.dto';
-import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
+import {
+  AddPhotoDto,
+  AlbumDto,
+  ChangeAlbumTitleDto,
+  CreateAlbumDto,
+  PhotoLineDto,
+} from 'models/gallery';
+
 import fetcher from './fetcher';
 
 const ALBUM_API = {

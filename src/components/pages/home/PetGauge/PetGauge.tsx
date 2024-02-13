@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import store from 'stores/RootStore';
 import { useGradutePet } from 'hooks/queries';
 import PET_GAUGE_MAX from 'constants/constants';
-import { PetDto } from 'types/pet/Pet.dto';
+import { PetDto } from 'models/pet';
 import { ReactComponent as IconBowl } from 'assets/icons/home/IconBowl.svg';
 import { ReactComponent as IconSmile } from 'assets/icons/home/IconSmile.svg';
 import { ReactComponent as IconLetter } from 'assets/icons/home/IconLetter.svg';

@@ -6,7 +6,7 @@ import changeEmojiToSpan from 'util/Text';
 import preventScroll from 'util/utils';
 import queryKeys from 'constants/queryKeys';
 import MENT_HOME from 'constants/ments';
-import { PetDto } from 'types/pet/Pet.dto';
+import { PetDto } from 'models/pet';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal/Modal';
 import Pet3D from 'components/pages/home/Pet3D';

@@ -1,5 +1,5 @@
-import Video from 'components/pages/chat/ChatVideo';
-import PhotoDto from 'types/gallery/Photo.dto';
+import Video from 'components/pages/chat/ChatVideo/ChatVideo';
+import { PhotoDto } from 'models/gallery';
 import * as S from './PhotoDetail.styled';
 
 type PhotoDetailProps = {

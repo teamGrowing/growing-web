@@ -1,4 +1,4 @@
-import AlbumDto from 'types/gallery/Album.dto';
+import { AlbumDto } from 'models/gallery';
 import AlbumRowContainer from '../AlbumRowContainer/AlbumRowContainer';
 import * as S from './AlbumContainer.styled';
 

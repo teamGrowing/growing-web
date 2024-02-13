@@ -1,6 +1,6 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AlbumDto from 'types/gallery/Album.dto';
+import { AlbumDto } from 'models/gallery';
 import Icon from 'components/common/Icon/Icon';
 import DataContext from '../../../../pages/gallery/context';
 import * as S from './Album.styled';

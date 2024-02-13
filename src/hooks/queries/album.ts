@@ -12,12 +12,14 @@ import {
   UseMutationOptionsType,
   UseQueryOptionsType,
 } from 'types/CustomReactQuery';
-import AlbumDto from 'types/gallery/Album.dto';
+import {
+  AlbumDto,
+  PhotoLineDto,
+  CreateAlbumDto,
+  AddPhotoDto,
+  ChangeAlbumTitleDto,
+} from 'models/gallery';
 import ALBUM_API from 'apis/album';
-import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
-import { CreateAlbumDto } from 'types/gallery/CreateAlbum.dto';
-import { AddPhotoDto } from 'types/gallery/AddPhoto.dto';
-import { ChangeAlbumTitleDto } from 'types/gallery/ChangeAlbumTitle.dto';
 
 export function useAlbumsList({
   coupleId,

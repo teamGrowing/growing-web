@@ -1,4 +1,4 @@
-import { PhotoLineDto } from 'types/gallery/PhotoLine.dto';
+import { PhotoLineDto } from 'models/gallery';
 import PhotoContainer from 'components/pages/gallery/PhotoContainer/PhotoContainer';
 import * as S from './PhotoScroll.styled';
 

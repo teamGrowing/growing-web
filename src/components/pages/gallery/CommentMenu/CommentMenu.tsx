@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import PhotoCommentDto from 'types/gallery/PhotoComment.dto';
+import { PhotoCommentDto } from 'models/gallery';
 import Icon from 'components/common/Icon/Icon';
 import Comment from '../Comment/Comment';
 import * as S from './CommentMenu.styled';
