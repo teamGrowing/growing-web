@@ -34,7 +34,6 @@
       "version": "detect"
     }
   },
-  "ignorePatterns": [".eslintrc.js", "webpack.config.js"],
   "rules": {
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": 0,
