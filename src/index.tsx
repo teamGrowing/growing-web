@@ -10,8 +10,8 @@ import App from './App';
 import GlobalStyle from './styles/GlobalStyle';
 import myTheme from './styles/theme/DefaultTheme';
 import AsyncBoundary from './components/common/AsyncBoundary/AsyncBoundary';
-import FullScreenLoading from './components/common/FullScreenLoader';
-import FullScreenError from './components/common/FullScreenError';
+import FullScreenLoading from './components/common/FullScreenLoader/FullScreenLoader';
+import FullScreenError from './components/common/FullScreenError/FullScreenError';
 
 const queryClient = new QueryClient({
   defaultOptions: {
