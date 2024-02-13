@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
 import store from 'stores/RootStore';
 import { useEmojiData } from 'hooks/queries';
 import { ImgEmojiBear, ImgEmojiCat, ImgEmojiRabbit } from 'assets/image';
