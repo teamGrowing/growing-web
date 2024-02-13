@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fadeInOut } from 'styles/common/keyframs';
+import { fadeInOut } from 'styles/common/animation';
 
 export const MessageBox = styled.div`
   display: flex;

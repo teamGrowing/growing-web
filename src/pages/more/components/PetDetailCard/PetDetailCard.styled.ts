@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { clickPulse } from 'styles/common/keyframs';
+import { clickPulse } from 'styles/common/animation';
 import backgroundImg from 'assets/image/DetailCardBackground.png';
 import infoBackgroundImg from 'assets/image/DetailInfoBackground.png';
 

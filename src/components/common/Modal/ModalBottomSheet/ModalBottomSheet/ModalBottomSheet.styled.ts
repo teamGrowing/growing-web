@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fadeIn, fadeInUp } from 'styles/common/keyframs';
+import { fadeIn, fadeInUp } from 'styles/common/animation';
 
 export const Overlay = styled.div`
   position: fixed;

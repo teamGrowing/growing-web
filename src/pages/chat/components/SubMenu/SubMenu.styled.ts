@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { fadeInDown, fadeOutUp } from 'styles/common/keyframs';
+import { fadeInDown, fadeOutUp } from 'styles/common/animation';
 
 export const SubMenuContainer = styled.div<{ openEnvelope: boolean }>`
   z-index: 2;

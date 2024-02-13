@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { clickPulse, pulse } from 'styles/common/keyframs';
+import { clickPulse, pulse } from 'styles/common/animation';
 
 export const Outer = styled.div<{ isSelected: boolean }>`
   position: relative;
