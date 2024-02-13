@@ -4,7 +4,7 @@ import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
 import WhiteContainer from 'pages/more/components/WhiteContainer/WhiteContainer';
 import PurpleBackground from 'styles/common/PurpleBackground';
-import preventScroll from 'util/utils';
+import preventScroll from 'utils/utils';
 import * as S from './SettingPage.styled';
 
 function SettingPage() {

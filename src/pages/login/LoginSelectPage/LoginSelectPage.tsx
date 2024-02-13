@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { MENT_LOGIN } from 'constants/ments';
-import changeEmojiToSpan from 'util/Text';
+import changeEmojiToSpan from 'utils/Text';
 import store from 'stores/RootStore';
 import Wave from 'pages/login/components/Wave/Wave';
 import Egg from 'pages/login/components/Egg/Egg';

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import dayjs from 'dayjs';
 import store from 'stores/RootStore';
-import preventScroll from 'util/utils';
+import preventScroll from 'utils/utils';
 import { useCoupleData } from 'hooks/queries';
 import HomePet from 'pages/home/components/HomePet/HomePet';
 import * as S from './HomePage.styled';

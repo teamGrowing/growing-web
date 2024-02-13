@@ -21,7 +21,7 @@ import {
   useGalleryList,
 } from 'hooks/queries';
 import PhotoScroll from 'pages/gallery/components/PhotoScroll/PhotoScroll';
-import preventScroll from 'util/utils';
+import preventScroll from 'utils/utils';
 import defaultProfile from 'assets/image/DefaultProfile.png';
 import { MENT_MORE } from 'constants/ments';
 import DataContext from '../../gallery/context';

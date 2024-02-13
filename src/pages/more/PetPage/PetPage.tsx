@@ -10,7 +10,7 @@ import PurpleBackground from 'styles/common/PurpleBackground';
 import { useGraduatedPets } from 'hooks/queries';
 import store from 'stores/RootStore';
 import { MENT_MORE } from 'constants/ments';
-import changeEmojiToSpan from 'util/Text';
+import changeEmojiToSpan from 'utils/Text';
 import * as S from './PetPage.styled';
 
 function PetPage() {

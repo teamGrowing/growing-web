@@ -7,7 +7,7 @@ import Profile from 'pages/more/components/Profile/Profile';
 import SideButton from 'pages/more/components/SideButton/SideButton';
 import WhiteContainer from 'pages/more/components/WhiteContainer/WhiteContainer';
 import store from 'stores/RootStore';
-import preventScroll from 'util/utils';
+import preventScroll from 'utils/utils';
 import defaultProfile from 'assets/image/DefaultProfile.png';
 import Modal from 'components/common/Modal/Modal/Modal';
 import { MENT_LOGOUT } from 'constants/ments';

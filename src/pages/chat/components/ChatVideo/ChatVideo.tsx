@@ -2,7 +2,7 @@
 import { useRef, useState } from 'react';
 import Icon from 'components/common/Icon/Icon';
 import { VideoDto } from 'models/chat';
-import { secondsToText } from 'util/Text';
+import { secondsToText } from 'utils/Text';
 import useVideo from 'hooks/common/useVideo';
 import * as S from './ChatVideo.styled';
 

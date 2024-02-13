@@ -1,6 +1,6 @@
 import { ImgEgg } from 'assets/image';
 import { MENT_LOGIN } from 'constants/ments';
-import changeEmojiToSpan from 'util/Text';
+import changeEmojiToSpan from 'utils/Text';
 import * as S from './Egg.styled';
 
 type EggType = {

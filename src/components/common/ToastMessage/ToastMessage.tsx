@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import changeEmojiToSpan from 'util/Text';
+import changeEmojiToSpan from 'utils/Text';
 import ToastContext from './ToastContext';
 import * as S from './ToastMessage.styled';
 
