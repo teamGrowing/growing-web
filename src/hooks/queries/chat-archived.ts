@@ -11,7 +11,7 @@ import {
   UseQueryOptionsType,
 } from 'types/CustomReactQuery';
 import { CHAT_ARCHIVED_API } from 'apis/chat';
-import { ChattingArchivedDto } from 'types/chat/ChattingArchived.dto';
+import { ChattingArchivedDto } from 'models/chat';
 
 export function useArchivedChatData({
   coupleId,

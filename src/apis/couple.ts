@@ -1,6 +1,8 @@
-import { ChangeCoupleDto } from 'types/couple/ChangeCouple.dto';
-import { CoupleDto } from 'types/couple/Couple.dto';
-import { CreateCoupleAndPetDto } from 'types/couple/CreateCoupleAndPet.dto';
+import {
+  ChangeCoupleDto,
+  CoupleDto,
+  CreateCoupleAndPetDto,
+} from 'models/couple';
 import fetcher from './fetcher';
 
 export const COUPLE_API = {

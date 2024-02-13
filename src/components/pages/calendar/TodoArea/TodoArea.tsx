@@ -5,7 +5,7 @@ import { MENT_CALENDAR } from 'constants/ments';
 import useToast from 'hooks/common/useToast';
 import { useCalendarDailyPlans, useDeletePlanMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
-import { DailyPlanDto } from 'types/plan/DailyPlan.dto';
+import { DailyPlanDto } from 'models/plan';
 import Icon from 'components/common/Icon/Icon';
 import CalendarBottomSheet from '../CalendarBottomSheet/CalendarBottomSheet';
 import * as S from './TodoArea.styled';

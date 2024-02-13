@@ -14,9 +14,11 @@ import {
 } from 'types/CustomReactQuery';
 import { COUPLE_API } from 'apis/couple';
 import store from 'stores/RootStore';
-import { ChangeCoupleDto } from 'types/couple/ChangeCouple.dto';
-import { CoupleDto } from 'types/couple/Couple.dto';
-import { CreateCoupleAndPetDto } from 'types/couple/CreateCoupleAndPet.dto';
+import {
+  ChangeCoupleDto,
+  CoupleDto,
+  CreateCoupleAndPetDto,
+} from 'models/couple';
 
 export function useCoupleData({
   coupleId,

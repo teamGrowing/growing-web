@@ -11,12 +11,14 @@ import {
   UseQueryOptionsType,
 } from 'types/CustomReactQuery';
 import { CHAT_PHOTO_API } from 'apis/chat';
-import { ChatPhotoDto } from 'types/chat/ChatPhoto.dto';
-import { ChatPhotoLineDto } from 'types/chat/ChatPhotoLine.dto';
-import { CreatePhotoRequestDto } from 'types/chat/CreatePhotoRequest.dto';
-import { CreatePhotoResponseDto } from 'types/chat/CreatePhotoResponse.dto';
-import { GetUploadUrlRequestDto } from 'types/chat/GetUploadUrlRequest.dto';
-import { GetUploadUrlResponseDto } from 'types/chat/GetUploadUrlResponse.dto';
+import {
+  ChatPhotoDto,
+  ChatPhotoLineDto,
+  CreatePhotoRequestDto,
+  CreatePhotoResponseDto,
+  GetUploadUrlRequestDto,
+  GetUploadUrlResponseDto,
+} from 'models/chat';
 
 export function useChatPhotoBoxData({
   coupleId,

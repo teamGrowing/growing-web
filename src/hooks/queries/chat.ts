@@ -14,10 +14,12 @@ import {
   UseInfiniteQueryOptionsType,
 } from 'types/CustomReactQuery';
 import { CHAT_API, CHAT_QNA_API } from 'apis/chat';
-import { ParentChildChattingDto } from 'types/chat/Chatting.dto';
-import { AnswerDto } from 'types/chat/questions/Answer.dto';
-import { IsToDoQuestion } from 'types/chat/questions/IsToDoQuestion';
-import { QuestionsAndAnswers } from 'types/chat/questions/QuestionAndAnswers';
+import { ParentChildChattingDto } from 'models/chat';
+import {
+  AnswerDto,
+  IsToDoQuestion,
+  QuestionsAndAnswers,
+} from 'models/chat-question';
 
 export const useChatData = ({
   coupleId,

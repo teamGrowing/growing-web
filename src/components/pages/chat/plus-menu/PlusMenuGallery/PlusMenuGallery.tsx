@@ -4,7 +4,7 @@ import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import usePhotos from 'hooks/chat/usePhotos';
 import { useGalleryList } from 'hooks/queries';
-import { CreateChattingDto } from 'types/chat/createChat.dto';
+import { CreateChattingDto } from 'models/chat';
 import VideoPlayBtn from '../../VideoPlayBtn/VideoPlayBtn';
 import * as S from './PlusMenuGallery.styled';
 

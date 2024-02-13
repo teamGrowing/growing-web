@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import { plusMenuProps } from 'stores/ChatStore';
 import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
-import { CreateChattingDto } from 'types/chat/createChat.dto';
+import { CreateChattingDto } from 'models/chat';
 import PlusMenuEmoji from '../PlusMenuEmoji/PlusMenuEmoji';
 import * as S from './PlusMenu.styled';
 

@@ -1,7 +1,7 @@
 import { observer } from 'mobx-react';
 import store from 'stores/RootStore';
-import { EmojiPackageLineDto } from 'types/user/EmojiPackageLine.dto';
-import { CreateChattingDto } from 'types/chat/createChat.dto';
+import { EmojiPackageLineDto } from 'models/user';
+import { CreateChattingDto } from 'models/chat';
 import { useEmojiDetailData } from 'hooks/queries';
 import * as S from './Emojis.styled';
 

@@ -11,8 +11,7 @@ import {
   UseQueryOptionsType,
 } from 'types/CustomReactQuery';
 import { CHAT_NOTICE_API } from 'apis/chat';
-import { Notice } from 'types/chat/Notice';
-import { NoticeIsFolden } from 'types/chat/NoticeIsFolden';
+import { Notice, NoticeIsFolden } from 'models/chat';
 
 export function useChatNoticeData({
   coupleId,

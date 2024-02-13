@@ -1,13 +1,15 @@
-import { CreatePhotoRequestDto } from 'types/chat/CreatePhotoRequest.dto';
-import { GetDownloadUrlResponseDto } from 'types/chat/GetDownloadUrlResponse.dto';
-import { GetUploadUrlRequestDto } from 'types/chat/GetUploadUrlRequest.dto';
-import { GetUploadUrlResponseDto } from 'types/chat/GetUploadUrlResponse.dto';
 import {
   CreatePhotoCommentDto,
   PhotoDto,
   PhotoCommentDto,
   PhotoLineDto,
 } from 'models/gallery';
+import {
+  CreatePhotoRequestDto,
+  GetDownloadUrlResponseDto,
+  GetUploadUrlRequestDto,
+  GetUploadUrlResponseDto,
+} from 'models/chat';
 import fetcher from './fetcher';
 
 export const GALLERY_API = {

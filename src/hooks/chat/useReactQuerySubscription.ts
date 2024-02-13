@@ -3,9 +3,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { io } from 'socket.io-client';
 import queryKeys from 'constants/queryKeys';
 import SOCKET_KEY from 'constants/socketKeys';
-import { RoomInfo } from 'types/chat/RoomInfo';
-import { ChattingDto } from 'types/chat/Chatting.dto';
-import { CreateChattingDto } from 'types/chat/createChat.dto';
+import { RoomInfo, ChattingDto, CreateChattingDto } from 'models/chat';
 
 export default function useReactQuerySubscription({
   coupleId,

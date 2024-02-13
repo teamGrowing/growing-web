@@ -4,7 +4,7 @@ import { AxiosResponse } from 'axios';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import queryKeys from 'constants/queryKeys';
-import { Notice } from 'types/chat/Notice';
+import { Notice } from 'models/chat';
 import * as S from './ChatNoticePage.styled';
 
 function ChatNoticePage() {

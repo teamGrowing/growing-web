@@ -2,7 +2,7 @@ import React, { SetStateAction } from 'react';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
 import Icon from 'components/common/Icon/Icon';
-import { ChattingArchivedDto } from 'types/chat/ChattingArchived.dto';
+import { ChattingArchivedDto } from 'models/chat';
 import ArchivedCardLines from '../ArchivedCardLines/ArchivedCardLines';
 import * as S from './ArchivedCard.styled';
 

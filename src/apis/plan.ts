@@ -1,6 +1,4 @@
-import { CreatePlanDto } from 'types/plan/CreatePlan.dto';
-import { DailyPlanDto } from 'types/plan/DailyPlan.dto';
-import { PatchPlanDto } from 'types/plan/PatchPlan.dto';
+import { CreatePlanDto, DailyPlanDto, PatchPlanDto } from 'models/plan';
 import fetcher from './fetcher';
 
 const PLAN_API = {

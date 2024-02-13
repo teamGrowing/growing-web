@@ -5,9 +5,9 @@ import { AxiosResponse } from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
 import queryKeys from 'constants/queryKeys';
 import { MENT_CHAT } from 'constants/ments';
-import { CoupleDto } from 'types/couple/Couple.dto';
-import { QuestionsAndAnswers } from 'types/chat/questions/QuestionAndAnswers';
+import { CoupleDto } from 'models/couple';
 import Icon from 'components/common/Icon/Icon';
+import { QuestionsAndAnswers } from 'models/chat-question';
 import AnswerModal from '../AnswerModal/AnswerModal';
 import * as S from './QuestionCard.styled';
 

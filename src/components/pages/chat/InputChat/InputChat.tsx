@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 import store from 'stores/RootStore';
 import { ChatType, plusMenuProps } from 'stores/ChatStore';
-import { CreateChattingDto } from 'types/chat/createChat.dto';
+import { CreateChattingDto } from 'models/chat';
 import Icon from 'components/common/Icon/Icon';
 import PlusMenu from '../plus-menu/PlusMenu/PlusMenu';
 import PlusMenuGallery from '../plus-menu/PlusMenuGallery/PlusMenuGallery';

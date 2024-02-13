@@ -2,8 +2,7 @@ import { QueryKey, useQuery } from '@tanstack/react-query';
 import queryKeys from 'constants/queryKeys';
 import { UseQueryOptionsType } from 'types/CustomReactQuery';
 import { USER_API } from 'apis/user';
-import { EmojiLineDto } from 'types/user/EmojiLine.dto';
-import { EmojiPackageLineDto } from 'types/user/EmojiPackageLine.dto';
+import { EmojiLineDto, EmojiPackageLineDto } from 'models/user';
 
 export function useEmojiData({
   userId,

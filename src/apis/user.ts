@@ -1,13 +1,15 @@
-import { ChangeUserDto } from 'types/user/CangeUser.dto';
-import { ChangeUserPhotoDto } from 'types/user/ChangeUserPhoto.dto';
-import { CreatePassword } from 'types/user/CreatePassword.dto';
-import { EmojiLineDto } from 'types/user/EmojiLine.dto';
-import { EmojiPackageLineDto } from 'types/user/EmojiPackageLine.dto';
-import { ResultDto } from 'types/user/Result.dto';
-import { UserDto } from 'types/user/User.dto';
-import { VerifyCodeDto } from 'types/user/VerifyCode.dto';
-import { VerifyCodeResponseDto } from 'types/user/VerifyCodeResponse.dto';
-import { VerifyPassword } from 'types/user/VerifyPassword.dto';
+import {
+  ChangeUserDto,
+  ChangeUserPhotoDto,
+  CreatePassword,
+  EmojiLineDto,
+  EmojiPackageLineDto,
+  ResultDto,
+  UserDto,
+  VerifyCodeDto,
+  VerifyCodeResponseDto,
+  VerifyPassword,
+} from 'models/user';
 import fetcher from './fetcher';
 
 export const USER_API = {

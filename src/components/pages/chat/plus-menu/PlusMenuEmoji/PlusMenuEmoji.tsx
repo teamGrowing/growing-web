@@ -4,8 +4,8 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import store from 'stores/RootStore';
 import { useEmojiData } from 'hooks/queries';
-import { CreateChattingDto } from 'types/chat/createChat.dto';
 import { ImgEmojiBear, ImgEmojiCat, ImgEmojiRabbit } from 'assets/image';
+import { CreateChattingDto } from 'models/chat';
 import Emojis from '../Emojis/Emojis';
 import * as S from './PlusMenuEmoji.styled';
 

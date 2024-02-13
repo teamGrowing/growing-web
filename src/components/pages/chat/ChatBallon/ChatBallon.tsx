@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
 import store from 'stores/RootStore';
 import useLongPress from 'hooks/common/useLongPress';
-import { ParentChildChattingDto } from 'types/chat/Chatting.dto';
+import { ParentChildChattingDto } from 'models/chat';
 import Icon from 'components/common/Icon/Icon';
 import ChatContextMenu from '../ChatContextMenu/ChatContextMenu';
 import VideoPlayBtn from '../VideoPlayBtn/VideoPlayBtn';

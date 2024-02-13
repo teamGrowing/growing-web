@@ -12,12 +12,13 @@ import { UseQueryOptionsType } from 'types/CustomReactQuery';
 import { USER_API } from 'apis/user';
 import AUTH_API from 'apis/auth';
 import store from 'stores/RootStore';
-import { ChangeUserDto } from 'types/user/CangeUser.dto';
-import { ResultDto } from 'types/user/Result.dto';
-import { VerifyCodeDto } from 'types/user/VerifyCode.dto';
-import { VerifyCodeResponseDto } from 'types/user/VerifyCodeResponse.dto';
-import { KakaoCodeDto } from 'types/auth/KakaoCode.dto';
-import { LogInResultDto } from 'types/auth/LogInResult.dto';
+import {
+  ChangeUserDto,
+  ResultDto,
+  VerifyCodeDto,
+  VerifyCodeResponseDto,
+} from 'models/user';
+import { KakaoCodeDto, LogInResultDto } from 'models/auth';
 
 export function usePutProfilePhotoMutation({
   userId,

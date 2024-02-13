@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useRef, useState } from 'react';
 import Icon from 'components/common/Icon/Icon';
-import { VideoDto } from 'types/chat/ChatPhoto.dto';
+import { VideoDto } from 'models/chat';
 import { secondsToText } from 'util/Text';
 import useVideo from 'hooks/common/useVideo';
 import * as S from './ChatVideo.styled';

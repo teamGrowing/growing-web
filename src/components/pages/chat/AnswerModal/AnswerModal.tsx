@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import store from 'stores/RootStore';
 import useToast from 'hooks/common/useToast';
 import { useAnswerMutation } from 'hooks/queries';
-import { QuestionsAndAnswers } from 'types/chat/questions/QuestionAndAnswers';
+import { QuestionsAndAnswers } from 'models/chat-question';
 import { MENT_CHAT } from 'constants/ments';
 import queryKeys from 'constants/queryKeys';
 import ModalPortal from 'components/common/Modal/ModalPortal';

@@ -12,10 +12,12 @@ import {
   UseQueryOptionsType,
 } from 'types/CustomReactQuery';
 import PLAN_API from 'apis/plan';
-import { CreatePlanDto } from 'types/plan/CreatePlan.dto';
-import { DailyPlanDto } from 'types/plan/DailyPlan.dto';
-import { MonthlyPlanDto } from 'types/plan/MonthlyPlan.dto';
-import { PatchPlanDto } from 'types/plan/PatchPlan.dto';
+import {
+  CreatePlanDto,
+  DailyPlanDto,
+  MonthlyPlanDto,
+  PatchPlanDto,
+} from 'models/plan';
 
 export function useCalendarMonthlyPlans({
   coupleId,
