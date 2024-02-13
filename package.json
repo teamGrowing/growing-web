@@ -134,6 +134,7 @@
     "eslint-webpack-plugin": "^3.2.0",
     "husky": "9.0.10",
     "lint-staged": "15.2.2",
+    "msw": "^2.2.0",
     "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
     "tsconfig-paths-webpack-plugin": "4.0.1",
