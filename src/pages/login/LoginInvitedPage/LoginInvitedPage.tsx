@@ -7,9 +7,9 @@ import { observer } from 'mobx-react';
 import store from 'stores/RootStore';
 import { MENT_LOGIN } from 'constants/ments';
 import { useCodyVerify } from 'hooks/queries';
-import Wave from 'components/pages/login/Wave/Wave';
-import Egg from 'components/pages/login/Egg/Egg';
-import LoginButton from 'components/pages/login/LoginButton/LoginButton';
+import Wave from 'pages/login/components/Wave/Wave';
+import Egg from 'pages/login/components/Egg/Egg';
+import LoginButton from 'pages/login/components/LoginButton/LoginButton';
 import { CodeFormValues, codeSchema } from 'types/InputSchema';
 import * as S from './LoginInvitedPage.styled';
 

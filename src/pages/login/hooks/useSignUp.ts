@@ -3,7 +3,10 @@ import { HTMLInputTypeAttribute, useState } from 'react';
 import { FormState } from 'react-hook-form';
 import { MENT_LOGIN } from 'constants/ments';
 import { SignUpFormValues, SignUpType } from 'types/InputSchema';
-import { usePatchUserInfoMutation, useCreateCouple } from '../queries';
+import {
+  usePatchUserInfoMutation,
+  useCreateCouple,
+} from '../../../hooks/queries';
 
 type TypeByLevel = {
   ment: string;

@@ -5,9 +5,9 @@ import { observer } from 'mobx-react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
-import Profile from 'components/pages/more/Profile/Profile';
-import SideButton from 'components/pages/more/SideButton/SideButton';
-import InputContainer from 'components/pages/more/InputContainer/InputContainer';
+import Profile from 'pages/more/components/Profile/Profile';
+import SideButton from 'pages/more/components/SideButton/SideButton';
+import InputContainer from 'pages/more/components/InputContainer/InputContainer';
 import { ProfileFormValues, profileSchema } from 'types/InputSchema';
 import Modal from 'components/common/Modal/Modal/Modal';
 import ModalBottomSheet from 'components/common/Modal/ModalBottomSheet/ModalBottomSheet/ModalBottomSheet';
@@ -20,7 +20,7 @@ import {
   useCreatePhotosMutation,
   useGalleryList,
 } from 'hooks/queries';
-import PhotoScroll from 'components/pages/gallery/PhotoScroll/PhotoScroll';
+import PhotoScroll from 'pages/gallery/components/PhotoScroll/PhotoScroll';
 import preventScroll from 'util/utils';
 import defaultProfile from 'assets/image/DefaultProfile.png';
 import { MENT_MORE } from 'constants/ments';

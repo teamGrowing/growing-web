@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import store from 'stores/RootStore';
 import { MENT_LOGIN } from 'constants/ments';
-import Wave from 'components/pages/login/Wave/Wave';
+import Wave from 'pages/login/components/Wave/Wave';
 import { ImgPetsWaiting } from 'assets/image';
 import { useUserIsCouple } from 'hooks/queries';
 import useToast from 'hooks/common/useToast';

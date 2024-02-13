@@ -9,7 +9,7 @@ import MENT_HOME from 'constants/ments';
 import { PetDto } from 'models/pet';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal/Modal';
-import Pet3D from 'components/pages/home/Pet3D';
+import Pet3D from 'pages/home/components/Pet3D';
 import Waves from 'assets/image/HomeWaves.png';
 import congratsAnimation from 'assets/lottie/congratsAnimation.json';
 import * as S from './PetGraduatePage.styled';

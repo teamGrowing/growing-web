@@ -2,9 +2,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import TopBar from 'components/common/TopBar/TopBar';
-import PhotoDetail from 'components/pages/gallery/PhotoDetail/PhotoDetail';
-import BottomMenu from 'components/pages/gallery/BottomMenu/BottomMenu';
-import CommentMenu from 'components/pages/gallery/CommentMenu/CommentMenu';
+import PhotoDetail from 'pages/gallery/components/PhotoDetail/PhotoDetail';
+import BottomMenu from 'pages/gallery/components/BottomMenu/BottomMenu';
+import CommentMenu from 'pages/gallery/components/CommentMenu/CommentMenu';
 import Icon from 'components/common/Icon/Icon';
 import {
   useCommentList,

@@ -1,7 +1,7 @@
 import { useRef, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import PhotoScroll from 'components/pages/gallery/PhotoScroll/PhotoScroll';
+import PhotoScroll from 'pages/gallery/components/PhotoScroll/PhotoScroll';
 import DataContext from '../context';
 import {
   useInfiniteGalleryList,

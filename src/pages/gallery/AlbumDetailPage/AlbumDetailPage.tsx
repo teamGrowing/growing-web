@@ -1,10 +1,10 @@
 import { useState, useMemo, useRef } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import PhotoContainer from 'components/pages/gallery/PhotoContainer/PhotoContainer';
+import PhotoContainer from 'pages/gallery/components/PhotoContainer/PhotoContainer';
 import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
-import FloatingButton from 'components/pages/gallery/FloatingButton/FloatingButton';
+import FloatingButton from 'pages/gallery/components/FloatingButton/FloatingButton';
 import {
   useAlbumPhotosList,
   useDeletePhotosFromAlbumMutation,

@@ -5,7 +5,7 @@ import {
 import { useEffect, useRef } from 'react';
 import Icon from 'components/common/Icon/Icon';
 import { PhotoLineDto } from 'models/gallery';
-import Photo from 'components/pages/gallery/Photo/Photo';
+import Photo from 'pages/gallery/components/Photo/Photo';
 import * as S from './PhotoContainer.styled';
 
 type PhotoContainerProps = {

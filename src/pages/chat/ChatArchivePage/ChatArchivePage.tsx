@@ -6,9 +6,9 @@ import { MENT_CHAT } from 'constants/ments';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal/Modal';
-import ArchivedCard from 'components/pages/chat/ArchivedCard/ArchivedCard';
+import ArchivedCard from 'pages/chat/components/ArchivedCard/ArchivedCard';
 import useToast from 'hooks/common/useToast';
-import useDeleteArchived from 'hooks/chat/useDeleteArchived';
+import useDeleteArchived from 'pages/chat/hooks/useDeleteArchived';
 import { useArchivedChatData } from 'hooks/queries';
 import * as S from './ChatArchivePage.styled';
 

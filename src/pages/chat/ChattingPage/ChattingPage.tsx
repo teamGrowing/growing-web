@@ -5,13 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import store from 'stores/RootStore';
 import { plusMenuProps } from 'stores/ChatStore';
 import { useChatData } from 'hooks/queries';
-import useReactQuerySubscription from 'hooks/chat/useReactQuerySubscription';
+import useReactQuerySubscription from 'pages/chat/hooks/useReactQuerySubscription';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import ChatBallon from 'components/pages/chat/ChatBallon/ChatBallon';
-import InputChat from 'components/pages/chat/InputChat/InputChat';
-import SubMenu from 'components/pages/chat/SubMenu/SubMenu';
-import ChatNotice from 'components/pages/chat/ChatNotice/ChatNotice';
+import ChatBallon from 'pages/chat/components/ChatBallon/ChatBallon';
+import InputChat from 'pages/chat/components/InputChat/InputChat';
+import SubMenu from 'pages/chat/components/SubMenu/SubMenu';
+import ChatNotice from 'pages/chat/components/ChatNotice/ChatNotice';
 import { PLUS_MENU_HEIGHT } from 'constants/constants';
 import * as S from './ChattingPage.styled';
 

@@ -2,7 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AlbumDto } from 'models/gallery';
 import Icon from 'components/common/Icon/Icon';
-import DataContext from '../../../../pages/gallery/context';
+import DataContext from '../../context';
 import * as S from './Album.styled';
 
 interface AlbumProps {

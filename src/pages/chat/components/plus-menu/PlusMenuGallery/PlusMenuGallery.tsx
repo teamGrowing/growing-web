@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import usePhotos from 'hooks/chat/usePhotos';
+import usePhotos from 'pages/chat/hooks/usePhotos';
 import { useGalleryList } from 'hooks/queries';
 import { CreateChattingDto } from 'models/chat';
 import VideoPlayBtn from '../../VideoPlayBtn/VideoPlayBtn';

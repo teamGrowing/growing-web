@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Pet3DImg from 'components/pages/home/Pet3D';
+import Pet3DImg from 'pages/home/components/Pet3D';
 
 export const PetFeedContainer = styled.div`
   display: flex;

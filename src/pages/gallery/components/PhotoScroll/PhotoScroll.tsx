@@ -1,5 +1,5 @@
 import { PhotoLineDto } from 'models/gallery';
-import PhotoContainer from 'components/pages/gallery/PhotoContainer/PhotoContainer';
+import PhotoContainer from 'pages/gallery/components/PhotoContainer/PhotoContainer';
 import * as S from './PhotoScroll.styled';
 
 type PhotoScrollProps = {

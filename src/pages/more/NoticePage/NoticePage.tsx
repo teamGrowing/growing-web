@@ -1,6 +1,6 @@
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import WhiteContainer from 'components/pages/more/WhiteContainer/WhiteContainer';
+import WhiteContainer from 'pages/more/components/WhiteContainer/WhiteContainer';
 import dayjs from 'dayjs';
 import { useNoticeList } from 'hooks/queries';
 import { useNavigate } from 'react-router-dom';

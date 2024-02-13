@@ -1,4 +1,4 @@
-import Video from 'components/pages/chat/ChatVideo/ChatVideo';
+import Video from 'pages/chat/components/ChatVideo/ChatVideo';
 import { PhotoDto } from 'models/gallery';
 import * as S from './PhotoDetail.styled';
 

@@ -2,9 +2,9 @@ import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import store from 'stores/RootStore';
 import { MENT_LOGIN } from 'constants/ments';
-import Wave from 'components/pages/login/Wave/Wave';
-import Egg from 'components/pages/login/Egg/Egg';
-import LoginButton from 'components/pages/login/LoginButton/LoginButton';
+import Wave from 'pages/login/components/Wave/Wave';
+import Egg from 'pages/login/components/Egg/Egg';
+import LoginButton from 'pages/login/components/LoginButton/LoginButton';
 import { useUserIsCouple } from 'hooks/queries';
 import * as S from './LoginPetBornPage.styled';
 
