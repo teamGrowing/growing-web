@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import MENT_HOME from 'constants/ments';
 import { ONLY_BLACKSPACE_REGEX } from 'constants/regexs';
-import { PetFormValues } from 'types/InputSchema';
+import { PetFormValues } from 'libs/react-hook-form';
 import * as S from './PetNameInput.styled';
 
 export default function PetNameInput() {

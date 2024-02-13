@@ -3,7 +3,7 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import useState from 'storybook-addon-state';
 import Modal from './Modal';
-// import { AlbumFormValues } from 'types/InputSchema';
+// import { AlbumFormValues } from 'libs/react-hook-form';
 
 export default {
   title: 'growing design system/Modal',

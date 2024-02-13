@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { HTMLInputTypeAttribute, useState } from 'react';
 import { FormState } from 'react-hook-form';
 import { MENT_LOGIN } from 'constants/ments';
-import { SignUpFormValues, SignUpType } from 'types/InputSchema';
+import { SignUpFormValues, SignUpType } from 'libs/react-hook-form';
 import {
   usePatchUserInfoMutation,
   useCreateCouple,

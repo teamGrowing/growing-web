@@ -10,7 +10,7 @@ import { useCodyVerify } from 'hooks/queries';
 import Wave from 'pages/login/components/Wave/Wave';
 import Egg from 'pages/login/components/Egg/Egg';
 import LoginButton from 'pages/login/components/LoginButton/LoginButton';
-import { CodeFormValues, codeSchema } from 'types/InputSchema';
+import { CodeFormValues, codeSchema } from 'libs/react-hook-form';
 import * as S from './LoginInvitedPage.styled';
 
 function LoginInvitedPage() {

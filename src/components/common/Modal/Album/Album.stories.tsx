@@ -1,8 +1,7 @@
 /* eslint-disable no-alert */
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import useState from 'storybook-addon-state';
-import { AlbumFormValues } from 'types/InputSchema';
+import { AlbumFormValues } from 'libs/react-hook-form';
 import AlbumModal from './AlbumModal';
 
 export default {

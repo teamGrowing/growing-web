@@ -2,6 +2,7 @@ import { useRef, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import PhotoScroll from 'pages/gallery/components/PhotoScroll/PhotoScroll';
+import { AlbumFormValues } from 'libs/react-hook-form';
 import DataContext from '../context';
 import {
   useInfiniteGalleryList,
@@ -9,7 +10,6 @@ import {
 } from '../../../hooks/queries';
 import store from '../../../stores/RootStore';
 import Modal from '../../../components/common/Modal/Album/AlbumModal';
-import { AlbumFormValues } from '../../../types/InputSchema';
 import useToast from '../../../hooks/common/useToast';
 import { MENT_GALLERY } from '../../../constants/ments';
 import * as S from './NewAlbumPage.styled';

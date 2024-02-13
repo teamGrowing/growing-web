@@ -12,7 +12,7 @@ import { usePetNameMutation } from 'hooks/queries';
 import queryKeys from 'constants/queryKeys';
 import MENT_HOME from 'constants/ments';
 import { PetDto } from 'models/pet';
-import { PetFormValues, petSchema } from 'types/InputSchema';
+import { PetFormValues, petSchema } from 'libs/react-hook-form';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal/Modal';

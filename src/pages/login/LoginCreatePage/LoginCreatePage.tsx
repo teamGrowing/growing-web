@@ -6,7 +6,7 @@ import useSignUp from 'pages/login/hooks/useSignUp';
 import Wave from 'pages/login/components/Wave/Wave';
 import Egg from 'pages/login/components/Egg/Egg';
 import LoginButton from 'pages/login/components/LoginButton/LoginButton';
-import { SignUpFormValues, signUpSchema } from 'types/InputSchema';
+import { SignUpFormValues, signUpSchema } from 'libs/react-hook-form';
 import * as S from './LoginCreatePage.styled';
 
 function LoginCreatePage() {

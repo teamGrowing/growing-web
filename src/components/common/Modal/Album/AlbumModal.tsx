@@ -1,7 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
-
-import albumSchema, { AlbumFormValues } from 'types/InputSchema';
+import { albumSchema, AlbumFormValues } from 'libs/react-hook-form';
 import ModalPortal from '../ModalPortal';
 import * as S from './AlbumModal.styled';
 
