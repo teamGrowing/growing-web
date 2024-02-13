@@ -9,7 +9,7 @@ import {
   useFoldNoticeMutate,
   useInvisibleNoticeMutate,
 } from 'hooks/queries';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import * as S from './ChatNotice.styled';
 
 function ChatNotice() {

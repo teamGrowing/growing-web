@@ -1,5 +1,5 @@
 import { QueryKey, useQuery } from '@tanstack/react-query';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import { UseQueryOptionsType } from 'types/CustomReactQuery';
 import { USER_API } from 'apis/user';
 import { EmojiLineDto, EmojiPackageLineDto } from 'models/user';

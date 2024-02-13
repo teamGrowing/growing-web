@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { useQueryClient } from '@tanstack/react-query';
 import store from 'stores/RootStore';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import { MENT_CHAT } from 'constants/ments';
 import {
   useNotifyChatMutate,

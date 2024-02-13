@@ -9,7 +9,7 @@ import { PetDto } from 'models/pet';
 import { ReactComponent as IconBowl } from 'assets/icons/home/IconBowl.svg';
 import { ReactComponent as IconSmile } from 'assets/icons/home/IconSmile.svg';
 import { ReactComponent as IconLetter } from 'assets/icons/home/IconLetter.svg';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import * as S from './PetGauge.styled';
 
 type PetGaugeProps = Pick<

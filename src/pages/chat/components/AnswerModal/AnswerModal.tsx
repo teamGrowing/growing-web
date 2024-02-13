@@ -7,7 +7,7 @@ import useToast from 'hooks/common/useToast';
 import { useAnswerMutation } from 'hooks/queries';
 import { QuestionsAndAnswers } from 'models/chat-question';
 import { MENT_CHAT } from 'constants/ments';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import ModalPortal from 'components/common/Modal/ModalPortal';
 import * as S from './AnswerModal.styled';
 

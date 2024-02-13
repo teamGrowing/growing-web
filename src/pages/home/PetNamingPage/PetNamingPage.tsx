@@ -9,7 +9,7 @@ import changeEmojiToSpan from 'utils/Text';
 import preventScroll from 'utils/utils';
 import useToast from 'hooks/common/useToast';
 import { usePetNameMutation } from 'hooks/queries';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import MENT_HOME from 'constants/ments';
 import { PetDto } from 'models/pet';
 import { PetFormValues, petSchema } from 'libs/react-hook-form';

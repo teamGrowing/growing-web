@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import { useArchivedChatDelete } from '../../../hooks/queries';
 
 export default function useDeleteArchived({ coupleId }: { coupleId: string }) {

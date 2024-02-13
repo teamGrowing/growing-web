@@ -15,7 +15,7 @@ import {
   UseQueryOptionsType,
 } from 'types/CustomReactQuery';
 import { PHOTO_LIMIT } from 'constants/constants';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import { GALLERY_API, GALLERY_COMMENT_API } from 'apis/gallery';
 import {
   CreatePhotoResponseDto,

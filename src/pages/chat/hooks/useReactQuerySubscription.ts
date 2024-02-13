@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { io } from 'socket.io-client';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import SOCKET_KEY from 'constants/socketKeys';
 import { RoomInfo, ChattingDto, CreateChattingDto } from 'models/chat';
 

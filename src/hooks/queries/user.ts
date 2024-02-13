@@ -7,7 +7,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import { UseQueryOptionsType } from 'types/CustomReactQuery';
 import { USER_API } from 'apis/user';
 import AUTH_API from 'apis/auth';

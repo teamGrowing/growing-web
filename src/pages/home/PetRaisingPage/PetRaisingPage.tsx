@@ -12,7 +12,7 @@ import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal/Modal';
 import MENT_HOME from 'constants/ments';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import foodAnimation from 'assets/lottie/foodAnimation.json';
 import heartsAnimation from 'assets/lottie/heartsAnimation.json';
 import Waves from 'assets/image/FeedWaves.png';

@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import { CHAT_LIMIT } from 'constants/constants';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import {
   UseQueryOptionsType,
   UseMutationOptionsType,

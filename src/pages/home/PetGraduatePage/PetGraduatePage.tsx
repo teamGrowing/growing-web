@@ -4,7 +4,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { AxiosResponse } from 'axios';
 import changeEmojiToSpan from 'utils/Text';
 import preventScroll from 'utils/utils';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import MENT_HOME from 'constants/ments';
 import { PetDto } from 'models/pet';
 import TopBar from 'components/common/TopBar/TopBar';

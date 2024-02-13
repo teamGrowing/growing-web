@@ -3,7 +3,7 @@ import { useState } from 'react';
 import dayjs from 'dayjs';
 import { AxiosResponse } from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import { MENT_CHAT } from 'constants/ments';
 import { CoupleDto } from 'models/couple';
 import Icon from 'components/common/Icon/Icon';

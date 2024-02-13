@@ -1,6 +1,6 @@
 import { useQuery, QueryKey } from '@tanstack/react-query';
 import { UseQueryOptionsType } from 'types/CustomReactQuery';
-import queryKeys from 'constants/queryKeys';
+import queryKeys from 'libs/react-query/queryKeys';
 import { NoticeDto } from 'models/more';
 import { NOTICE_API } from 'apis/notice';
 
