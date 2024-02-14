@@ -7,7 +7,6 @@ type Params = {
 type RequestBody = {};
 type ResponseBody = UserDto;
 
-// eslint-disable-next-line import/prefer-default-export
 export const getUserHandler = http.get<Params, RequestBody, ResponseBody>(
   '/user/:userId',
   ({ params }) => {
