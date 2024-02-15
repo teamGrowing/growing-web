@@ -9,7 +9,7 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import queryClient from 'libs/react-query/react-query';
 import 'libs/dayjs';
 import 'libs/swiper';
-import { enableMocking } from 'libs/msw';
+import { enableMocking } from 'mocks/msw';
 import App from './App';
 import GlobalStyle from './styles/GlobalStyle';
 import myTheme from './styles/theme/DefaultTheme';
