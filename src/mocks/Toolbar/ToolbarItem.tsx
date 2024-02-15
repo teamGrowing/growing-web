@@ -37,7 +37,8 @@ function ToolbarItem({ method, path, delayTime, status, onChange }: Props) {
   return (
     <S.Container>
       <S.Row>
-        <S.Method>{method}</S.Method>s<S.Path>{path}</S.Path>
+        <S.Method>{method}</S.Method>
+        <S.Path>{path}</S.Path>
       </S.Row>
       <S.Options>
         <S.Option

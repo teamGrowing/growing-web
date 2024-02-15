@@ -17,7 +17,7 @@ export const Input = styled.input`
 `;
 
 export const Button = styled.button`
-  padding: 10px;
+  padding: 5px 10px;
   background: ${({ theme }) => `${theme.color.purple400}80`};
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
