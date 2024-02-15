@@ -1,13 +1,38 @@
 import ModalBottomSheet from 'components/common/ModalBottomSheet/ModalBottomSheet';
 import Icon from 'components/common/Icon/Icon';
-import { useState } from 'react';
-import { handlerInfoManager } from 'mocks/HandlerInfoManager';
+import { useRef, useState } from 'react';
+import { SetHandlerParams, handlerInfoManager } from 'mocks/HandlerInfoManager';
+import { useQueryClient } from '@tanstack/react-query';
 import ToolbarItem from './ToolbarItem';
 import * as S from './MSWToolbar.styled';
 
 function MSWToolbar() {
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
-  const items = Object.entries(handlerInfoManager.getHandlerInfos());
+  const [items, setItems] = useState(
+    Object.entries(handlerInfoManager.getHandlerInfos())
+  );
+  const stagedValue = useRef<{
+    [key: string]: SetHandlerParams;
+  }>({});
+
+  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setItems(
+      Object.entries(handlerInfoManager.getHandlerInfos()).filter(([path]) =>
+        path.startsWith(value)
+      )
+    );
+  };
+
+  const clickApplyBtnHandler = () => {
+    Object.keys(stagedValue.current).forEach((path) => {
+      const { method, code, time } = stagedValue.current[path];
+      handlerInfoManager.setHandlerInfo({ path, method, code, time });
+    });
+    queryClient.invalidateQueries();
+    stagedValue.current = {};
+  };
 
   return (
     <>
@@ -18,7 +43,7 @@ function MSWToolbar() {
         <ModalBottomSheet open={open} setOpen={setOpen}>
           <S.SearchBar>
             <Icon icon="IconSearch" />
-            <S.Input />
+            <S.Input onChange={inputChangeHandler} />
           </S.SearchBar>
           {items.length === 0 && (
             <S.MessageBox>검색 결과가 없어요!</S.MessageBox>
@@ -29,16 +54,18 @@ function MSWToolbar() {
                 Object.entries(methods).map(
                   ([method, { delayTime, status }]) => (
                     <ToolbarItem
-                      key={`${path}-${method}`} // 고유한 key 제공
+                      key={`${path}-${method}`}
                       method={method}
                       path={path}
                       delayTime={delayTime}
                       status={status}
-                      onChangeDelayTime={(dT) => {
-                        console.log(dT);
-                      }}
-                      onChangeStatus={(s) => {
-                        console.log(s);
+                      onChange={(time, code) => {
+                        stagedValue.current[path] = {
+                          path,
+                          method,
+                          code,
+                          time,
+                        };
                       }}
                     />
                   )
@@ -48,7 +75,7 @@ function MSWToolbar() {
           )}
           {items.length > 0 && (
             <S.ButtonArea>
-              <S.Button onClick={() => {}}>적용하기</S.Button>
+              <S.Button onClick={clickApplyBtnHandler}>적용하기</S.Button>
             </S.ButtonArea>
           )}
         </ModalBottomSheet>

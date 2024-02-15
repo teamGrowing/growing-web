@@ -7,7 +7,7 @@ const DEFAULT_DELAY = 1000;
 
 interface HandlerInfo {
   status: StatusType;
-  delayTime: number;
+  delayTime: number | 'infinite' | 'real';
 }
 
 interface HandlerInfoList {
@@ -16,20 +16,17 @@ interface HandlerInfoList {
   };
 }
 
+export interface SetHandlerParams {
+  path: string;
+  method: string;
+  code: StatusType;
+  time: number | 'infinite' | 'real';
+}
+
 class HandlerInfoManager {
   private handlerInfos: HandlerInfoList = {};
 
-  public setHandlerInfo({
-    path,
-    method,
-    code,
-    time,
-  }: {
-    path: string;
-    method: string;
-    code: StatusType;
-    time: number;
-  }): void {
+  public setHandlerInfo({ path, method, code, time }: SetHandlerParams): void {
     if (!this.handlerInfos[path]) {
       this.handlerInfos[path] = {};
     }
