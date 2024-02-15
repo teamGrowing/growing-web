@@ -1,43 +1,13 @@
 import ModalBottomSheet from 'components/common/ModalBottomSheet/ModalBottomSheet';
 import Icon from 'components/common/Icon/Icon';
 import { useState } from 'react';
+import { handlerInfoManager } from 'mocks/HandlerInfoManager';
 import ToolbarItem from './ToolbarItem';
 import * as S from './MSWToolbar.styled';
 
 function MSWToolbar() {
   const [open, setOpen] = useState(false);
-  const items = [
-    {
-      method: 'GET',
-      path: '/user',
-      status: 400,
-      delayTime: 1000,
-    },
-    {
-      method: 'DELETE',
-      path: '/user//user/user/user/user/user/user/user/user',
-      status: 400,
-      delayTime: 'infinite',
-    },
-    {
-      method: 'GET',
-      path: '/user',
-      status: 400,
-      delayTime: 'real',
-    },
-    {
-      method: 'GET',
-      path: '/user',
-      status: 200,
-      delayTime: 5000,
-    },
-    {
-      method: 'GET',
-      path: '/user',
-      status: 400,
-      delayTime: 1000,
-    },
-  ];
+  const items = Object.entries(handlerInfoManager.getHandlerInfos());
 
   return (
     <>
@@ -55,20 +25,25 @@ function MSWToolbar() {
           )}
           {items.length > 0 && (
             <S.ItemsContainer>
-              {items.map((item) => (
-                <ToolbarItem
-                  method={item.method}
-                  path={item.path}
-                  delayTime={item.delayTime}
-                  status={item.status}
-                  onChangeDelayTime={(delayTime) => {
-                    console.log(delayTime);
-                  }}
-                  onChangeStatus={(status) => {
-                    console.log(status);
-                  }}
-                />
-              ))}
+              {items.flatMap(([path, methods]) =>
+                Object.entries(methods).map(
+                  ([method, { delayTime, status }]) => (
+                    <ToolbarItem
+                      key={`${path}-${method}`} // 고유한 key 제공
+                      method={method}
+                      path={path}
+                      delayTime={delayTime}
+                      status={status}
+                      onChangeDelayTime={(dT) => {
+                        console.log(dT);
+                      }}
+                      onChangeStatus={(s) => {
+                        console.log(s);
+                      }}
+                    />
+                  )
+                )
+              )}
             </S.ItemsContainer>
           )}
           {items.length > 0 && (
