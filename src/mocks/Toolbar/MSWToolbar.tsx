@@ -1,14 +1,11 @@
 import ModalBottomSheet from 'components/common/ModalBottomSheet/ModalBottomSheet';
 import Icon from 'components/common/Icon/Icon';
+import { useState } from 'react';
 import ToolbarItem from './ToolbarItem';
-import * as S from './Toolbar.styled';
+import * as S from './MSWToolbar.styled';
 
-export interface Props {
-  open: boolean;
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function Toolbar({ open, setOpen }: Props) {
+function MSWToolbar() {
+  const [open, setOpen] = useState(false);
   const items = [
     {
       method: 'GET',
@@ -85,4 +82,4 @@ function Toolbar({ open, setOpen }: Props) {
   );
 }
 
-export default Toolbar;
+export default MSWToolbar;
