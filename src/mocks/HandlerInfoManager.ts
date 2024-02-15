@@ -1,6 +1,6 @@
 import { handlers } from 'mocks/handlers';
 
-type StatusType = 200 | 400;
+export type StatusType = 200 | 400;
 
 const DEFAULT_STATUS: StatusType = 200;
 const DEFAULT_DELAY = 1000;

@@ -1,18 +1,18 @@
 import { useRef } from 'react';
+import { StatusType } from 'mocks/HandlerInfoManager';
 import * as S from './ToolbarItem.styled';
 
-type Props = {
+interface Props {
   method: string;
   path: string;
   delayTime: number | 'infinite' | 'real';
-  status: 200 | 400;
+  status: StatusType;
   onChange: (
     delayTime: number | 'infinite' | 'real',
-    status: 200 | 400
+    status: StatusType
   ) => void;
-};
+}
 
-/* TODO 하드 코딩된 부분 개선 */
 function ToolbarItem({ method, path, delayTime, status, onChange }: Props) {
   const delayRef = useRef<HTMLSelectElement>(null);
   const statusRef = useRef<HTMLSelectElement>(null);
@@ -32,9 +32,7 @@ function ToolbarItem({ method, path, delayTime, status, onChange }: Props) {
       return;
     }
 
-    if (statusValue !== 200 && statusValue !== 400) return;
-
-    onChange(refinedDelayValue, statusValue);
+    onChange(refinedDelayValue, statusValue as StatusType);
   };
   return (
     <S.Container>
