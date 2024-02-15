@@ -58,6 +58,7 @@ export const ItemsContainer = styled.div`
 `;
 
 export const ToolbarButton = styled.button`
+  z-index: 99999;
   text-align: center;
   width: 33px;
   padding: 5px;

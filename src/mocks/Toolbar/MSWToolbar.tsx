@@ -1,10 +1,10 @@
-import ModalBottomSheet from 'components/common/ModalBottomSheet/ModalBottomSheet';
 import Icon from 'components/common/Icon/Icon';
 import { useRef, useState } from 'react';
 import { SetHandlerParams, handlerInfoManager } from 'mocks/HandlerInfoManager';
 import { useQueryClient } from '@tanstack/react-query';
 import ToolbarItem from './ToolbarItem';
 import * as S from './MSWToolbar.styled';
+import ToolbarBottomSheet from './ToolbarBottomSheet';
 
 function MSWToolbar() {
   const queryClient = useQueryClient();
@@ -32,6 +32,7 @@ function MSWToolbar() {
     });
     queryClient.invalidateQueries();
     stagedValue.current = {};
+    setOpen(false);
   };
 
   return (
@@ -40,7 +41,7 @@ function MSWToolbar() {
         <S.ToolbarButton onClick={() => setOpen(true)}>MSW</S.ToolbarButton>
       )}
       {open && (
-        <ModalBottomSheet open={open} setOpen={setOpen}>
+        <ToolbarBottomSheet open={open} setOpen={setOpen}>
           <S.SearchBar>
             <Icon icon="IconSearch" />
             <S.Input onChange={inputChangeHandler} />
@@ -78,7 +79,7 @@ function MSWToolbar() {
               <S.Button onClick={clickApplyBtnHandler}>적용하기</S.Button>
             </S.ButtonArea>
           )}
-        </ModalBottomSheet>
+        </ToolbarBottomSheet>
       )}
     </>
   );
