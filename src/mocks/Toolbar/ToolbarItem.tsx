@@ -18,7 +18,6 @@ function ToolbarItem({
   onChangeDelayTime,
   onChangeStatus,
 }: Props) {
-  console.log(delayTime);
   return (
     <S.Container>
       <S.Row>

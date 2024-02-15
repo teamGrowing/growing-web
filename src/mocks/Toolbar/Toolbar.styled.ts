@@ -56,3 +56,16 @@ export const ItemsContainer = styled.div`
   height: 363px;
   overflow-y: scroll;
 `;
+
+export const ToolbarButton = styled.button`
+  text-align: center;
+  width: 33px;
+  padding: 5px;
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  background-color: ${({ theme }) => theme.color.pink300};
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 10px;
+`;
