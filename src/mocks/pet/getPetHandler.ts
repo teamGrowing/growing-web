@@ -1,6 +1,6 @@
 import { NullableResponse, createApiHandler } from 'mocks/createApiHandler';
 import { PetDto } from 'models/pet';
-import bear from './data/bear_default.glb';
+import cat from './data/cat_default.glb';
 
 type Params = {
   coupleId: string;
@@ -14,8 +14,8 @@ export const getPetHandler = createApiHandler<
 >('couples/:coupleId/pets/:petId', 'get', ({ petId }) => ({
   200: {
     petId,
-    name: '곰곰이',
-    imageUrl: bear,
+    name: '냥이',
+    imageUrl: cat,
     talkingBox: null,
     hungryGauge: 30,
     attentionGauge: 80,
