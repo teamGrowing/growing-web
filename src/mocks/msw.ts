@@ -6,7 +6,8 @@ export async function enableMocking() {
   }
 
   const { worker } = await import('./browser');
-
-  worker.start({ onUnhandledRequest: 'bypass' });
   handlerInfoManager.initHandlerInfo();
+
+  // eslint-disable-next-line consistent-return
+  return worker.start({ onUnhandledRequest: 'bypass' });
 }
