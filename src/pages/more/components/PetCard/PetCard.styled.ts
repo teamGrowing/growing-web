@@ -10,6 +10,7 @@ export const Card = styled.div`
   border-radius: 20px;
   background-image: url(${cardBackgroundImg});
   background-size: contain;
+  overflow: hidden;
 `;
 
 export const Name = styled.div`
@@ -32,11 +33,11 @@ export const Name = styled.div`
 
 export const Image = styled.div<{ petImg: string }>`
   position: absolute;
-  width: 100px;
+  width: 154px;
   height: 125px;
-  left: 27px;
-  top: 80px;
+  left: 0;
+  top: 86px;
   background: url(${(props) => props.petImg}) no-repeat;
-  background-size: cover;
-  background-position: 0 0;
+  background-size: contain;
+  background-position: center;
 `;

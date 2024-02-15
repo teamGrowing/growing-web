@@ -50,9 +50,6 @@ function PetPage() {
           {graduatedPets.map((pet) => (
             <PetCard key={pet.id} petInfo={pet} onClick={clickCardHandler} />
           ))}
-          {graduatedPets.map((pet) => (
-            <PetCard key={pet.id} petInfo={pet} onClick={clickCardHandler} />
-          ))}
         </S.Wrapper>
       )}
       {detailPetId && (
