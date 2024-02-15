@@ -15,7 +15,7 @@ export const getCoupleHandler = createApiHandler<
     myName: '연주',
     partnerName: '민지',
     dayCount: 777,
-    petId: null,
+    petId: '1',
   },
   400: null,
 }));
