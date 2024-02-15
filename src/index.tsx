@@ -30,7 +30,7 @@ enableMocking().then(() => {
           <ReactQueryDevtools initialIsOpen={false} />
           <GlobalStyle />
           <ThemeProvider theme={myTheme}>
-            <MSWToolbar />
+            {process.env.NODE_ENV === 'development' && <MSWToolbar />}
             <AsyncBoundary
               pendingFallback={<FullScreenLoading />}
               rejectedFallback={({ error, resetErrorBoundary }) => (
