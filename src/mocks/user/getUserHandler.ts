@@ -1,31 +1,23 @@
+import { NullableResponse, createApiHandler } from 'mocks/createApiHandler';
 import { UserDto } from 'models/user';
-import { http, HttpResponse } from 'msw';
 
 type Params = {
   userId: string;
 };
-type RequestBody = {};
-type ResponseBody = UserDto;
 
-export const getUserHandler = http.get<Params, RequestBody, ResponseBody>(
-  '/user/:userId',
-  ({ params }) => {
-    const { userId } = params;
-
-    return HttpResponse.json(
-      {
-        id: `id${userId}`,
-        nickName: `nickname${userId}`,
-        birthDay: new Date(),
-        anniversaryDay: new Date(),
-        imageUrl: null,
-        coupleId: '123',
-        code: '1234',
-      },
-      {
-        status: 200,
-        statusText: 'success',
-      }
-    );
-  }
-);
+export const getUserHandler = createApiHandler<
+  Params,
+  {},
+  NullableResponse<UserDto>
+>('/users/:userId', 'get', ({ userId }) => ({
+  200: {
+    id: `id${userId}`,
+    nickName: `nickname${userId}`,
+    birthDay: new Date(),
+    anniversaryDay: new Date(),
+    imageUrl: null,
+    coupleId: '123',
+    code: '1234',
+  },
+  400: null,
+}));
