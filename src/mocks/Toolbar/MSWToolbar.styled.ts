@@ -37,7 +37,7 @@ export const Button = styled.button`
 export const ButtonArea = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: end;
   padding: 24px 8px;
 `;
 
