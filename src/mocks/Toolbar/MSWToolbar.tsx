@@ -20,7 +20,7 @@ function MSWToolbar() {
     const { value } = e.target;
     setItems(
       Object.entries(handlerInfoManager.getHandlerInfos()).filter(([path]) =>
-        path.startsWith(value)
+        path.includes(value)
       )
     );
   };
