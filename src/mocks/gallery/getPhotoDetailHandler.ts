@@ -12,7 +12,7 @@ const data: PhotoDto = {
   urls: image1,
   videoUrl: null,
   createdAt: new Date().toUTCString(),
-  name: 'Name',
+  name: 'photo name',
   time: null,
 };
 export const getPhotoDetailHandler = createApiHandler<

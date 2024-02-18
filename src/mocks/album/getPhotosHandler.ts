@@ -5,6 +5,7 @@ import image2 from './data/album_image2.jpg';
 
 type Params = {
   coupleId: string;
+  albumId: string;
 };
 
 const data: PhotoLineDto[] = [
