@@ -151,10 +151,14 @@ export function useCreatePhotosMutation({
       videoElement.src = videoUrl;
 
       return new Promise<number>((resolve) => {
-        videoElement.addEventListener('loadedmetadata', () => {
-          const { duration } = videoElement;
-          resolve(duration);
-        });
+        videoElement.addEventListener(
+          'loadedmetadata',
+          () => {
+            const { duration } = videoElement;
+            resolve(duration);
+          },
+          { passive: true }
+        );
       });
     };
 
