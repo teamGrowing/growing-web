@@ -23,6 +23,7 @@ import {
   PhotoCommentDto,
   PhotoLineDto,
 } from 'models/gallery';
+import { delayForVideoThumbnail, getVideoDuration } from 'utils/video';
 
 export function useGalleryList({
   coupleId,
@@ -141,28 +142,9 @@ export function useCreatePhotosMutation({
 
     await GALLERY_API.upLoadPhoto(res.data.url, file);
 
-    /* 비디오 파일의 시간 구하는 함수 */
-    const getDuration = (video: File) => {
-      const videoBlob = new Blob([video], { type: video.type });
-      const videoUrl = URL.createObjectURL(videoBlob);
-      const videoElement = document.createElement('video');
-      videoElement.src = videoUrl;
-
-      return new Promise<number>((resolve) => {
-        videoElement.addEventListener(
-          'loadedmetadata',
-          () => {
-            const { duration } = videoElement;
-            resolve(duration);
-          },
-          { passive: true }
-        );
-      });
-    };
-
     let fileTime: number | null = null;
     if (file.type.includes('video')) {
-      const promise = await getDuration(file);
+      const promise = await getVideoDuration(file);
       fileTime = promise;
     }
 
@@ -181,15 +163,7 @@ export function useCreatePhotosMutation({
     }
     await Promise.all(promises);
 
-    /** 동영상 썸네일을 위한 지연.. */
-    const delayReturn = () => {
-      return new Promise<void>((resolve) => {
-        setTimeout(() => {
-          resolve();
-        }, 500);
-      });
-    };
-    await delayReturn();
+    await delayForVideoThumbnail();
 
     return promises;
   };
