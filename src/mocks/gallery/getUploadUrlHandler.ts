@@ -6,7 +6,7 @@ type Params = {
 };
 
 const data: GetUploadUrlResponseDto = {
-  url: 'url',
+  url: 'photo-uploaded-url',
   s3Path: 's3Path',
 };
 

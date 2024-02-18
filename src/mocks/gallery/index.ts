@@ -7,6 +7,7 @@ import { deletePhotoHandler } from './deletePhotoHandler';
 import { getCommentsHandler } from './getCommentsHandler';
 import { postCommentHandler } from './postCommentHandler';
 import { deleteCommentHandler } from './deleteCommentHandler';
+import { upLoadPhotoHandler } from './uploadPhotoHandler';
 
 export const GalleryHandlers = [
   getPhotosHandler,
@@ -18,4 +19,5 @@ export const GalleryHandlers = [
   getCommentsHandler,
   postCommentHandler,
   deleteCommentHandler,
+  upLoadPhotoHandler,
 ];

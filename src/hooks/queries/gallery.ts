@@ -7,7 +7,7 @@ import {
   useQueryClient,
   useInfiniteQuery,
 } from '@tanstack/react-query';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import {
   UseInfiniteQueryOptionsType,
@@ -139,9 +139,7 @@ export function useCreatePhotosMutation({
       name: `${uuidv4()}.${file.name.split('.').pop()}`,
     });
 
-    await axios.put(res.data.url, file, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    await GALLERY_API.upLoadPhoto(res.data.url, file);
 
     /* 비디오 파일의 시간 구하는 함수 */
     const getDuration = (video: File) => {

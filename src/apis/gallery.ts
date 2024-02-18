@@ -38,6 +38,11 @@ export const GALLERY_API = {
       ),
   deletePhoto: (coupleId: string, photoId: string) =>
     fetcher.create().delete(`couples/${coupleId}/gallerys/photos/${photoId}`),
+
+  upLoadPhoto: (url: string, file: File) =>
+    fetcher.create().put(url, file, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    }),
 };
 
 export const GALLERY_COMMENT_API = {
