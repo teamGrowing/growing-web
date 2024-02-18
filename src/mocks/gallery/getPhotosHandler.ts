@@ -86,7 +86,7 @@ export const getPhotosHandler = createApiHandler<
   Params,
   {},
   NullableResponse<PhotoLineDto[]>
->(`/couples/:coupleId/gallerys/albums/:albumId/photos`, 'get', () => ({
+>('/couples/:coupleId/gallerys/photos', 'get', () => ({
   200: data,
   400: null,
 }));
