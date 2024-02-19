@@ -1,4 +1,11 @@
-import { DefaultBodyType, PathParams, delay, http, HttpResponse } from 'msw';
+import {
+  DefaultBodyType,
+  PathParams,
+  delay,
+  http,
+  HttpResponse,
+  StrictRequest,
+} from 'msw';
 import { handlerInfoManager } from 'mocks/HandlerInfoManager';
 
 export type NullableResponse<T> = T | null;
@@ -9,12 +16,12 @@ type ResponseData<TResponse> = {
 
 type RequestHandler<TParams, TRequest, TResponse> = (
   params: TParams,
-  searchParams: TRequest
+  request: TRequest
 ) => ResponseData<TResponse>;
 
 type AfterRequest<TParams, TRequest> = (
   params: TParams,
-  searchParams: TRequest
+  request: TRequest
 ) => void;
 
 export const createApiHandler = <
@@ -24,26 +31,31 @@ export const createApiHandler = <
 >(
   path: string,
   method: keyof typeof http,
-  handleRequest: RequestHandler<TParams, TRequest, TResponse>,
-  postProcess?: AfterRequest<TParams, TRequest>
+  handleRequest: RequestHandler<TParams, StrictRequest<TRequest>, TResponse>,
+  postProcess?: AfterRequest<TParams, StrictRequest<TRequest>>
 ) => {
-  return http[method]<TParams, TRequest, TResponse>(path, async (req) => {
-    const params = req.params as TParams;
-    const url = new URL(req.request.url);
-    const searchParams = url.searchParams as unknown as TRequest;
-    const responseData = handleRequest(params, searchParams);
+  return http[method]<TParams, TRequest, TResponse>(
+    path,
+    async ({ params, request }) => {
+      const responseData = handleRequest(params, request);
 
-    const handler = handlerInfoManager.getHandlerInfo(path, method);
-    const delayTime = handler?.delayTime || 0;
-    const responseStatus = handler?.status || 200;
+      const handler = handlerInfoManager.getHandlerInfo(path, method);
+      const delayTime = handler?.delayTime || 0;
+      const responseStatus = handler?.status || 200;
 
-    await delay(delayTime);
+      await delay(delayTime);
 
-    if (responseStatus !== 400) {
-      postProcess?.(params, searchParams);
+      if (responseStatus !== 400) {
+        postProcess?.(params, request);
+      }
+
+      return HttpResponse.json(responseData[responseStatus], {
+        status: responseStatus,
+      });
     }
-    return HttpResponse.json(responseData[responseStatus], {
-      status: responseStatus,
-    });
-  });
+  );
+};
+export const getSearchParams = (originUrl: string) => {
+  const url = new URL(originUrl);
+  return url.searchParams;
 };
