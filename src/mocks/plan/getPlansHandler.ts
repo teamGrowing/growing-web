@@ -25,7 +25,7 @@ const data: (DailyPlanDto | MonthlyPlanDto)[] = [
     title: '민지생일',
     startAt: new Date(2024, 1, 17).toUTCString(),
     endAt: new Date(2024, 1, 17).toUTCString(),
-    description: '부산 여행',
+    description: '생일이에요',
     location: null,
     alarm: '',
   },
@@ -54,11 +54,10 @@ export const getPlansHandler = createApiHandler<
     const startAt = dayjs(plan.startAt);
     const endAt = dayjs(plan.endAt);
 
-    // 연도와 월만 주어진 경우 해당 월에 속하는 계획 반환
     if (year && month && !day) {
       return startAt.year() === year && startAt.month() + 1 === month;
     }
-    // 연도, 월, 일 모두 주어진 경우 해당 날짜에 속하는 계획 반환
+
     if (year && month && day) {
       const currentDate = dayjs(`${year}-${month}-${day}`);
       return (
