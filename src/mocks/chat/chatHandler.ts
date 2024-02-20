@@ -1,5 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
-import { NullableResponse, createApiHandler } from 'mocks/createApiHandler';
+import {
+  NullableResponse,
+  createApiHandler,
+  getSearchParams,
+} from 'mocks/createApiHandler';
 import {
   ChatPhotoDto,
   ChatPhotoLineDto,
@@ -32,6 +36,17 @@ type ChatDeleteParams = {
   chattingId: string;
 };
 
+const getPartialChat = ({
+  base,
+  limit,
+}: ChatRequestDto): ParentChildChattingDto[] => {
+  const startIndex = chatData.length - base - limit;
+  if (chatData.length <= base) {
+    return [];
+  }
+  return chatData.slice(startIndex < 0 ? 0 : startIndex, startIndex + limit);
+};
+
 export const getChatsHandler = createApiHandler<
   ChatGetParams,
   ChatRequestDto,
@@ -39,10 +54,19 @@ export const getChatsHandler = createApiHandler<
 >({
   path: '/couples/:coupleId/chattings',
   method: 'get',
-  requestHandler: () => ({
-    200: chatData,
-    400: null,
-  }),
+  requestHandler: (_, request) => {
+    const searchParams = getSearchParams(request.url);
+    const base = Number(searchParams.get('base')) || 0;
+    const limit = Number(searchParams.get('limit')) || 8;
+    const offset = Number(searchParams.get('offset')) || 0;
+
+    const partialChat = getPartialChat({ base, limit, offset });
+
+    return {
+      200: partialChat,
+      400: null,
+    };
+  },
 });
 
 export const deleteOurChatHandler = createApiHandler<

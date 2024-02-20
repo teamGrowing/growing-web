@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { ParentChildChattingDto } from 'models/chat';
 import { ImgDefaultProfile } from 'assets/image';
 import heart from './heart.png';
@@ -5,6 +6,25 @@ import video from '../../gallery/data/video.mp4';
 import videoThumbnail from '../../gallery/data/videoThumbnail.png';
 import cat06 from '../../user/data/cat_06.png';
 import cat23 from '../../user/data/cat_23.png';
+
+const baseData: ParentChildChattingDto = {
+  parentChatting: {
+    id: uuidv4(),
+    content: '안녕하세용',
+    emojiUrl: null,
+    imageUrls: [],
+    videoUrls: [],
+    voiceMsgUrls: [],
+    createdAt: new Date('2024-01-01'),
+    isMine: true,
+    Writer: {
+      id: '1',
+      name: '연쥬',
+      imageUrl: ImgDefaultProfile,
+    },
+  },
+  childChatting: null,
+};
 
 export const originData: ParentChildChattingDto[] = [
   {
@@ -15,7 +35,7 @@ export const originData: ParentChildChattingDto[] = [
       imageUrls: [],
       videoUrls: [],
       voiceMsgUrls: [],
-      createdAt: new Date('2024-01-01'),
+      createdAt: new Date('2023-12-16'),
       isMine: true,
       Writer: {
         id: '1',
@@ -25,6 +45,127 @@ export const originData: ParentChildChattingDto[] = [
     },
     childChatting: null,
   },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+    },
+  },
+
   {
     parentChatting: {
       id: '2',

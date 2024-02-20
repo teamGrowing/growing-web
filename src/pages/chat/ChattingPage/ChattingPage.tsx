@@ -32,7 +32,6 @@ function ChattingPage() {
 
   const {
     data: chats,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     fetchNextPage,
     isFetchingNextPage,
   } = useChatData({
@@ -122,28 +121,27 @@ function ChattingPage() {
     }
   }, [isFetchingNextPage]);
 
-  // 잠시 꺼둠
-  // useEffect(() => {
-  //   if (!chatStartRef.current) {
-  //     return;
-  //   }
-  //   const chatObserver = new IntersectionObserver(
-  //     ([entries]) => {
-  //       if (entries.isIntersecting) {
-  //         const scrollHeight = chatsRef.current?.scrollHeight ?? 0;
-  //         setPrevScrollHeight(scrollHeight);
-  //         fetchNextPage();
-  //       }
-  //     },
-  //     {
-  //       threshold: 0.1,
-  //     }
-  //   );
-  //   // 채팅창 상단으로 이동시, 추가적인 데이터 요청
-  //   chatObserver.observe(chatStartRef.current);
+  useEffect(() => {
+    if (!chatStartRef.current) {
+      return;
+    }
+    const chatObserver = new IntersectionObserver(
+      ([entries]) => {
+        if (entries.isIntersecting) {
+          const scrollHeight = chatsRef.current?.scrollHeight ?? 0;
+          setPrevScrollHeight(scrollHeight);
+          fetchNextPage();
+        }
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+    // 채팅창 상단으로 이동시, 추가적인 데이터 요청
+    chatObserver.observe(chatStartRef.current);
 
-  //   return () => chatObserver.disconnect();
-  // }, []);
+    return () => chatObserver.disconnect();
+  }, []);
 
   const handleChange = () => {
     if (scrollTimeoutRef.current) {
@@ -205,12 +203,9 @@ function ChattingPage() {
             />
           ))}
         <div ref={chatEndRef} />
-
-        <InputChat
-          createChat={createChat}
-          scrollByPlusMenu={scrollByPlusMenu}
-        />
       </S.Chats>
+
+      <InputChat createChat={createChat} scrollByPlusMenu={scrollByPlusMenu} />
     </S.ChattingPageContainer>
   );
 }
