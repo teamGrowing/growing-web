@@ -4,14 +4,14 @@ import MIN_TEXTAREA_HEIGHT from './inputChatConstants';
 export const Container = styled.div`
   z-index: 2;
 
-  position: sticky;
+  position: absolute;
+  left: 0;
+  right: 0;
   bottom: 0;
 
-  margin-left: -16px;
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 
-  width: calc(100% + 32px);
   max-width: 780px;
 
   background-color: ${({ theme }) => theme.color.white};
