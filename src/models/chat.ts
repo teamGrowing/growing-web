@@ -3,7 +3,7 @@ export interface ChatPhotoDto {
   createdAt: string;
   name: string;
   photos: PhotoDto[];
-  video: VideoDto;
+  video: VideoDto | null;
 }
 
 interface PhotoDto {
