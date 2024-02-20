@@ -50,7 +50,7 @@ function MSWToolbar() {
             <S.MessageBox>검색 결과가 없어요!</S.MessageBox>
           )}
           {items.length > 0 && (
-            <S.ItemsContainer>
+            <S.ItemsContainer className="hidden-scrollbar">
               {items.flatMap(([path, methods]) =>
                 Object.entries(methods).map(
                   ([method, { delayTime, status }]) => (
