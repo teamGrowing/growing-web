@@ -57,7 +57,7 @@ export function useInfiniteGalleryList({
   >;
 }) {
   return useInfiniteQuery({
-    queryKey: [...queryKeys.galleryKeys.list, ...(storeCode ?? [])],
+    queryKey: [...queryKeys.galleryKeys.infinite, ...(storeCode ?? [])],
     queryFn: ({ pageParam = 0 }) => {
       return GALLERY_API.getPhotos(coupleId, {
         base: pageParam,
@@ -65,7 +65,9 @@ export function useInfiniteGalleryList({
       });
     },
     getNextPageParam: (lastPages, allPages) =>
-      lastPages.data.length === 0 ? undefined : allPages.length * PHOTO_LIMIT,
+      lastPages.data.length < PHOTO_LIMIT
+        ? undefined
+        : allPages.length * PHOTO_LIMIT,
     select: (data) => ({
       pages: data.pages.map((res) => res.data),
       pageParams: data.pageParams,
