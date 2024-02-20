@@ -1,6 +1,6 @@
 import { ParentChildChattingDto } from 'models/chat';
 import { ImgDefaultProfile } from 'assets/image';
-import heart from './data/Heart.png';
+import heart from './data/heart.png';
 
 export const originData: ParentChildChattingDto[] = [
   {
