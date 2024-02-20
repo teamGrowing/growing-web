@@ -24,27 +24,27 @@ const root = ReactDOM.createRoot(
 
 enableMocking().then(() => {
   root.render(
-    <React.StrictMode>
-      <BrowserRouter>
-        <QueryClientProvider client={queryClient}>
-          <ReactQueryDevtools initialIsOpen={false} />
-          <GlobalStyle />
-          <ThemeProvider theme={myTheme}>
-            {process.env.NODE_ENV === 'development' && <MSWToolbar />}
-            <AsyncBoundary
-              pendingFallback={<FullScreenLoading />}
-              rejectedFallback={({ error, resetErrorBoundary }) => (
-                <FullScreenError
-                  error={error}
-                  resetErrorBoundary={resetErrorBoundary}
-                />
-              )}
-            >
-              <App />
-            </AsyncBoundary>
-          </ThemeProvider>
-        </QueryClientProvider>
-      </BrowserRouter>
-    </React.StrictMode>
+    // <React.StrictMode>
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <GlobalStyle />
+        <ThemeProvider theme={myTheme}>
+          {process.env.NODE_ENV === 'development' && <MSWToolbar />}
+          <AsyncBoundary
+            pendingFallback={<FullScreenLoading />}
+            rejectedFallback={({ error, resetErrorBoundary }) => (
+              <FullScreenError
+                error={error}
+                resetErrorBoundary={resetErrorBoundary}
+              />
+            )}
+          >
+            <App />
+          </AsyncBoundary>
+        </ThemeProvider>
+      </QueryClientProvider>
+    </BrowserRouter>
+    // </React.StrictMode>
   );
 });
