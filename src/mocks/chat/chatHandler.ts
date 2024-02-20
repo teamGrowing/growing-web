@@ -258,7 +258,7 @@ const findImageChat = (): ChatPhotoLineDto[] =>
 
       return {
         i: chat.parentChatting.id,
-        u: chat.parentChatting.videoUrls.map((video) => video.videoUrl),
+        u: chat.parentChatting.videoUrls.map((video) => video.thumbnailUrl),
         c: '',
         t: chat.parentChatting.videoUrls.map((video) => video.time)[0],
       };
