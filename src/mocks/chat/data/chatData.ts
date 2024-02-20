@@ -1,10 +1,10 @@
 import { ParentChildChattingDto } from 'models/chat';
 import { ImgDefaultProfile } from 'assets/image';
-import heart from './data/heart.png';
-import video from '../gallery/data/video.mp4';
-import videoThumbnail from '../gallery/data/videoThumbnail.png';
-import cat06 from '../user/data/cat_06.png';
-import cat23 from '../user/data/cat_23.png';
+import heart from './heart.png';
+import video from '../../gallery/data/video.mp4';
+import videoThumbnail from '../../gallery/data/videoThumbnail.png';
+import cat06 from '../../user/data/cat_06.png';
+import cat23 from '../../user/data/cat_23.png';
 
 export const originData: ParentChildChattingDto[] = [
   {

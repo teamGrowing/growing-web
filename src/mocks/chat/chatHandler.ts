@@ -14,7 +14,7 @@ import {
   ParentChildChattingDto,
 } from 'models/chat';
 import { CreatePhotoResponseDto } from 'models/gallery';
-import { originData } from './chatData';
+import { originData } from './data/chatData';
 
 let chatData: ParentChildChattingDto[] = originData;
 
