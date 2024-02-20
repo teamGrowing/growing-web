@@ -4,6 +4,7 @@ import { CoupleHandlers } from './couple';
 import { GalleryHandlers } from './gallery';
 import { NoticeHandlers } from './notice';
 import { PetHandlers } from './pet';
+import { PlanHandlers } from './plan';
 import { UserHandlers } from './user';
 
 export const handlers = [
@@ -14,4 +15,5 @@ export const handlers = [
   ...CoupleHandlers,
   ...GalleryHandlers,
   ...NoticeHandlers,
+  ...PlanHandlers,
 ];
