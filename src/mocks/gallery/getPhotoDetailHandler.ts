@@ -1,25 +1,17 @@
 import { NullableResponse, createApiHandler } from 'mocks/createApiHandler';
 import { PhotoDto } from 'models/gallery';
-import image1 from './data/album_image1.jpg';
+import { photoData } from './data/data';
 
 type Params = {
   coupleId: string;
   photoId: string;
 };
 
-const data: PhotoDto = {
-  id: '1',
-  urls: image1,
-  videoUrl: null,
-  createdAt: new Date().toUTCString(),
-  name: 'photo name',
-  time: null,
-};
 export const getPhotoDetailHandler = createApiHandler<
   Params,
   {},
   NullableResponse<PhotoDto>
->(`/couples/:coupleId/gallerys/photos/:photoId`, 'get', () => ({
-  200: data,
+>(`/couples/:coupleId/gallerys/photos/:photoId`, 'get', (params) => ({
+  200: photoData.find((d) => d.id === params.photoId) ?? photoData[0],
   400: null,
 }));
