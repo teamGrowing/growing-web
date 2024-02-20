@@ -1,13 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
 import Lottie, { LottieRefCurrentProps } from 'lottie-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { usePetFeedMutation, usePetPlayMutation } from 'hooks/queries';
+import {
+  usePetData,
+  usePetFeedMutation,
+  usePetPlayMutation,
+} from 'hooks/queries';
 import preventScroll from 'utils/utils';
 import changeEmojiToSpan from 'utils/Text';
 import store from 'stores/RootStore';
-import { PetDto } from 'models/pet';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal';
@@ -37,16 +39,21 @@ export default function PetRaisingPage() {
   const [modalText, setModalText] = useState<string>('');
   const [reactionUrl, setReactionUrl] = useState<string | null>(null);
 
-  const { data: pet } = queryClient.getQueryData(
-    queryKeys.petKeys.all
-  ) as AxiosResponse<PetDto>;
+  const { data: pet } = usePetData({
+    coupleId: userStore.user?.coupleId!,
+    petId: userStore.petId!,
+    options: {
+      enabled: !!userStore.petId,
+      suspense: false,
+    },
+  });
 
   const { mutateAsync: feedPet } = usePetFeedMutation({
     coupleId: userStore.user?.coupleId,
     petId: userStore.petId,
     options: {
       onSuccess(res) {
-        if (res.data.hungryGauge > pet.hungryGauge) {
+        if (res.data.hungryGauge > (pet?.hungryGauge || 0)) {
           heartsLottieRef.current?.goToAndPlay(1);
           setReactionUrl(res.data.petImageUrl);
           setTimeout(() => {
@@ -57,6 +64,7 @@ export default function PetRaisingPage() {
           setModalText(MENT_HOME.PET_FEED_FAIL_TIME);
           setOnModal(true);
         }
+        queryClient.invalidateQueries(queryKeys.petKeys.all);
         // setModalText(MENT_HOME.PET_FEED_FAIL_NUMBER); TODO
       },
     },
@@ -67,7 +75,7 @@ export default function PetRaisingPage() {
     petId: userStore.petId,
     options: {
       onSuccess(res) {
-        if (res.data.attentionGauge > pet.attentionGauge) {
+        if (res.data.attentionGauge > (pet?.attentionGauge || 0)) {
           heartsLottieRef.current?.goToAndPlay(1);
           setReactionUrl(res.data.petImageUrl);
           setTimeout(() => {
@@ -78,6 +86,7 @@ export default function PetRaisingPage() {
           setModalText(MENT_HOME.PET_PLAY_FAIL);
           setOnModal(true);
         }
+        queryClient.invalidateQueries(queryKeys.petKeys.all);
       },
     },
   });
@@ -93,7 +102,7 @@ export default function PetRaisingPage() {
   }, [gauge]);
 
   useEffect(() => {
-    setReactionUrl(pet.imageUrl);
+    setReactionUrl(pet?.imageUrl || '');
   }, [pet]);
 
   useEffect(() => {
@@ -141,7 +150,7 @@ export default function PetRaisingPage() {
         )}
 
         <S.Pet
-          url={reactionUrl ?? pet.imageUrl}
+          url={reactionUrl ?? (pet?.imageUrl || '')}
           size={300}
           onClick={() => {
             if (gauge >= PET_GAUGE_MAX) return;
