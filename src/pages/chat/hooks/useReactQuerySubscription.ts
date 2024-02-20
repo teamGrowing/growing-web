@@ -18,6 +18,7 @@ export default function useReactQuerySubscription({
   const socket = io(process.env.REACT_APP_SOCKET_HOST!, {
     transports: ['websocket'],
     withCredentials: true,
+    retries: 0,
   });
 
   const createChatToServer = (dto: CreateChattingDto) => {
