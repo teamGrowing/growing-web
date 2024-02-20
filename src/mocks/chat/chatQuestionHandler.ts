@@ -57,12 +57,16 @@ export const getQuestionsHandler = createApiHandler<
   GetParams,
   {},
   NullableResponse<QuestionsAndAnswers[] | IsToDoQuestion>
->('/couples/:coupleId/questions', 'get', (_, req) => {
-  const isToDo = getSearchParams(req.url).get('to-do') === 'true';
-  return {
-    200: getDataByType(isToDo),
-    400: null,
-  };
+>({
+  path: '/couples/:coupleId/questions',
+  method: 'get',
+  requestHandler: (_, req) => {
+    const isToDo = getSearchParams(req.url).get('to-do') === 'true';
+    return {
+      200: getDataByType(isToDo),
+      400: null,
+    };
+  },
 });
 
 type PostParams = {
@@ -74,14 +78,14 @@ export const postQuestionsHandler = createApiHandler<
   PostParams,
   AnswerDto,
   NullableResponse<QuestionsAndAnswers>
->(
-  '/couples/:coupleId/questions/:questionId/answer',
-  'post',
-  () => ({
+>({
+  path: '/couples/:coupleId/questions/:questionId/answer',
+  method: 'post',
+  requestHandler: () => ({
     200: null,
     400: null,
   }),
-  async ({ questionId }, req) => {
+  onSuccess: async ({ questionId }, req) => {
     const { content } = await req.json();
     qnaData = qnaData.map((qna) =>
       qna.question.id === questionId
@@ -91,5 +95,5 @@ export const postQuestionsHandler = createApiHandler<
           }
         : qna
     );
-  }
-);
+  },
+});

@@ -9,7 +9,11 @@ export const patchAlbumsHandler = createApiHandler<
   Params,
   ChangeAlbumTitleDto,
   null
->('/couples/:coupleId/gallerys/albums/:albumId/change-title', 'patch', () => ({
-  200: null,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/gallerys/albums/:albumId/change-title',
+  method: 'patch',
+  requestHandler: () => ({
+    200: null,
+    400: null,
+  }),
+});

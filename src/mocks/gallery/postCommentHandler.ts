@@ -9,11 +9,11 @@ export const postCommentHandler = createApiHandler<
   Params,
   CreatePhotoCommentDto,
   null
->(
-  '/couples/:coupleId/gallerys/photos/:photoId/comments/create',
-  'post',
-  () => ({
+>({
+  path: '/couples/:coupleId/gallerys/photos/:photoId/comments/create',
+  method: 'post',
+  requestHandler: () => ({
     200: null,
     400: null,
-  })
-);
+  }),
+});

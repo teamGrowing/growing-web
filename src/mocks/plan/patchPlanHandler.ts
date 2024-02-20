@@ -10,7 +10,11 @@ export const patchPlanHandler = createApiHandler<
   Params,
   PatchPlanDto,
   DailyPlanDto
->('/couples/:coupleId/plans/:planId', 'patch', () => ({
-  200: null,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/plans/:planId',
+  method: 'patch',
+  requestHandler: () => ({
+    200: null,
+    400: null,
+  }),
+});

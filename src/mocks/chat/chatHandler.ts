@@ -36,26 +36,30 @@ export const getChatsHandler = createApiHandler<
   ChatGetParams,
   ChatRequestDto,
   NullableResponse<ParentChildChattingDto[]>
->('/couples/:coupleId/chattings', 'get', () => ({
-  200: chatData,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/chattings',
+  method: 'get',
+  requestHandler: () => ({
+    200: chatData,
+    400: null,
+  }),
+});
 
 export const deleteOurChatHandler = createApiHandler<
   ChatDeleteParams,
   {},
   null
->(
-  '/couples/:coupleId/chattings/:chattingId/delete-ours',
-  'delete',
-  () => ({
+>({
+  path: '/couples/:coupleId/chattings/:chattingId/delete-ours',
+  method: 'delete',
+  requestHandler: () => ({
     200: null,
     400: null,
   }),
-  ({ chattingId }) => {
+  onSuccess: ({ chattingId }) => {
     chatData = chatData.filter((chat) => chat.parentChatting.id !== chattingId);
-  }
-);
+  },
+});
 
 // notice 관련
 
@@ -74,32 +78,36 @@ export const getNoticesHandler = createApiHandler<
   NoticeGetParams,
   {},
   NullableResponse<Notice>
->('/couples/:coupleId/chattings/notices', 'get', () => ({
-  200: noticeData,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/chattings/notices',
+  method: 'get',
+  requestHandler: () => ({
+    200: noticeData,
+    400: null,
+  }),
+});
 
 type NoticePostParams = {
   coupleId: string;
   chattingId: string;
 };
 
-export const postNoticeHandler = createApiHandler<NoticePostParams, {}, null>(
-  '/couples/:coupleId/chattings/:chattingId/notify',
-  'post',
-  () => ({
+export const postNoticeHandler = createApiHandler<NoticePostParams, {}, null>({
+  path: '/couples/:coupleId/chattings/:chattingId/notify',
+  method: 'post',
+  requestHandler: () => ({
     200: null,
     400: null,
   }),
-  ({ chattingId }) => {
+  onSuccess: ({ chattingId }) => {
     noticeData = {
       id: findChatData(chattingId).id,
       content: findChatData(chattingId).content ?? '',
       announcer: findChatData(chattingId).Writer.name,
       isFolden: false,
     };
-  }
-);
+  },
+});
 
 type NoticeFoldParams = {
   coupleId: string;
@@ -110,14 +118,14 @@ export const postNoticeFoldHandler = createApiHandler<
   NoticeFoldParams,
   NoticeIsFolden,
   null
->(
-  '/couples/:coupleId/chattings/notices/:noticeId/fold',
-  'post',
-  () => ({
+>({
+  path: '/couples/:coupleId/chattings/notices/:noticeId/fold',
+  method: 'post',
+  requestHandler: () => ({
     200: null,
     400: null,
   }),
-  ({ noticeId }) => {
+  onSuccess: ({ noticeId }) => {
     const origin = noticeData;
 
     noticeData = {
@@ -126,24 +134,24 @@ export const postNoticeFoldHandler = createApiHandler<
       announcer: findChatData(noticeId).Writer.name,
       isFolden: !origin?.isFolden,
     };
-  }
-);
+  },
+});
 
 export const postNoticeInvisibleHandler = createApiHandler<
   NoticeFoldParams,
   {},
   null
->(
-  '/couples/:coupleId/chattings/notices/:noticeId/invisible',
-  'post',
-  () => ({
+>({
+  path: '/couples/:coupleId/chattings/notices/:noticeId/invisible',
+  method: 'post',
+  requestHandler: () => ({
     200: null,
     400: null,
   }),
-  () => {
+  onSuccess: () => {
     noticeData = null;
-  }
-);
+  },
+});
 
 // archived 관련
 
@@ -172,10 +180,14 @@ export const getArchivedChatHandler = createApiHandler<
   ArchivedGetParams,
   {},
   NullableResponse<ChattingArchivedDto[]>
->('/couples/:coupleId/archived-chattings', 'get', () => ({
-  200: archivedData,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/archived-chattings',
+  method: 'get',
+  requestHandler: () => ({
+    200: archivedData,
+    400: null,
+  }),
+});
 
 type ArchivedPostParams = {
   coupleId: string;
@@ -186,14 +198,14 @@ export const postArchivedChatHandler = createApiHandler<
   ArchivedPostParams,
   {},
   null
->(
-  '/couples/:coupleId/chattings/:chattingId/archive',
-  'post',
-  () => ({
+>({
+  path: '/couples/:coupleId/chattings/:chattingId/archive',
+  method: 'post',
+  requestHandler: () => ({
     200: null,
     400: null,
   }),
-  ({ chattingId }) => {
+  onSuccess: ({ chattingId }) => {
     archivedData = [
       ...archivedData,
       {
@@ -204,26 +216,26 @@ export const postArchivedChatHandler = createApiHandler<
         archivedAt: new Date('2024.02.14'),
       },
     ];
-  }
-);
+  },
+});
 
 export const deleteArchivedChatHandler = createApiHandler<
   ArchivedPostParams,
   {},
   null
->(
-  '/couples/:coupleId/archived-chattings/:chattingId',
-  'delete',
-  () => ({
+>({
+  path: '/couples/:coupleId/archived-chattings/:chattingId',
+  method: 'delete',
+  requestHandler: () => ({
     200: null,
     400: null,
   }),
-  ({ chattingId }) => {
+  onSuccess: ({ chattingId }) => {
     archivedData = archivedData.filter(
       (archived) => archived.chattingId !== chattingId
     );
-  }
-);
+  },
+});
 
 // photo 관련
 
@@ -262,10 +274,14 @@ export const getPhotosHandler = createApiHandler<
   PhotoGetParams,
   {},
   NullableResponse<ChatPhotoLineDto[]>
->('/couples/:coupleId/chattings/photos', 'get', () => ({
-  200: photos,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/chattings/photos',
+  method: 'get',
+  requestHandler: () => ({
+    200: photos,
+    400: null,
+  }),
+});
 
 type PhotoDetailGetParams = {
   coupleId: string;
@@ -276,10 +292,10 @@ export const getPhotoDetailHandler = createApiHandler<
   PhotoDetailGetParams,
   {},
   NullableResponse<ChatPhotoDto>
->(
-  '/couples/:coupleId/chattings/:chattingId/photos',
-  'get',
-  ({ chattingId }) => {
+>({
+  path: '/couples/:coupleId/chattings/:chattingId/photos',
+  method: 'get',
+  requestHandler: ({ chattingId }) => {
     const { id, createdAt, Writer, imageUrls, videoUrls } =
       findChatData(chattingId);
 
@@ -295,8 +311,8 @@ export const getPhotoDetailHandler = createApiHandler<
       200: data,
       400: null,
     };
-  }
-);
+  },
+});
 
 type GalleryPostParams = {
   coupleId: string;
@@ -307,10 +323,14 @@ export const postPutGalleryHandler = createApiHandler<
   GalleryPostParams,
   {},
   null
->('/couples/:coupleId/chattings/photos/:photoId/put-gallery', 'post', () => ({
-  200: null,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/chattings/photos/:photoId/put-gallery',
+  method: 'post',
+  requestHandler: () => ({
+    200: null,
+    400: null,
+  }),
+});
 
 type UploadUrlGetParams = {
   coupleId: string;
@@ -320,13 +340,17 @@ export const getUploadUrlHandler = createApiHandler<
   UploadUrlGetParams,
   GetUploadUrlRequestDto,
   NullableResponse<GetUploadUrlResponseDto>
->('/couples/:coupleId/chattings/photos/get-upload-url', 'post', () => ({
-  200: {
-    url: 'url',
-    s3Path: 'url',
-  },
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/chattings/photos/get-upload-url',
+  method: 'post',
+  requestHandler: () => ({
+    200: {
+      url: 'url',
+      s3Path: 'url',
+    },
+    400: null,
+  }),
+});
 
 type CreatePhotoParams = {
   coupleId: string;
@@ -336,9 +360,13 @@ export const createPhotoHandler = createApiHandler<
   CreatePhotoParams,
   CreatePhotoRequestDto,
   NullableResponse<CreatePhotoResponseDto>
->('/couples/:coupleId/chattings/photos/create', 'post', () => ({
-  200: {
-    photoId: '11',
-  },
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/chattings/photos/create',
+  method: 'post',
+  requestHandler: () => ({
+    200: {
+      photoId: '11',
+    },
+    400: null,
+  }),
+});

@@ -49,7 +49,11 @@ export const getAlbumHandler = createApiHandler<
   Params,
   {},
   NullableResponse<AlbumDto[]>
->('/couples/:coupleId/gallerys/albums', 'get', () => ({
-  200: data,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/gallerys/albums',
+  method: 'get',
+  requestHandler: () => ({
+    200: data,
+    400: null,
+  }),
+});

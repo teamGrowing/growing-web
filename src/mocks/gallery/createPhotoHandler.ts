@@ -14,7 +14,11 @@ export const createPhotoHandler = createApiHandler<
   Params,
   CreatePhotoRequestDto,
   NullableResponse<CreatePhotoResponseDto>
->('/couples/:coupleId/gallerys/photos/create', 'post', () => ({
-  200: data,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/gallerys/photos/create',
+  method: 'post',
+  requestHandler: () => ({
+    200: data,
+    400: null,
+  }),
+});

@@ -9,7 +9,11 @@ export const patchCoupleHandler = createApiHandler<
   Params,
   ChangeCoupleDto,
   null
->('/couples/:coupleId', 'patch', () => ({
-  200: null,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId',
+  method: 'patch',
+  requestHandler: () => ({
+    200: null,
+    400: null,
+  }),
+});

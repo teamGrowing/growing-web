@@ -9,7 +9,11 @@ export const putProfilePhotoHandler = createApiHandler<
   Params,
   ChangeUserPhotoDto,
   null
->('/users/:userId/profile-photos', 'put', () => ({
-  200: null,
-  400: null,
-}));
+>({
+  path: '/users/:userId/profile-photos',
+  method: 'put',
+  requestHandler: () => ({
+    200: null,
+    400: null,
+  }),
+});

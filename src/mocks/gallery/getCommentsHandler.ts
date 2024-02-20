@@ -34,7 +34,11 @@ export const getCommentsHandler = createApiHandler<
   Params,
   {},
   NullableResponse<PhotoCommentDto[]>
->('/couples/:coupleId/gallerys/photos/:photoId/comments', 'get', () => ({
-  200: data,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/gallerys/photos/:photoId/comments',
+  method: 'get',
+  requestHandler: () => ({
+    200: data,
+    400: null,
+  }),
+});

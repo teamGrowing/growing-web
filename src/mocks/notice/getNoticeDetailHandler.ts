@@ -18,7 +18,11 @@ export const getNoticeDetailHandler = createApiHandler<
   Params,
   {},
   NullableResponse<NoticeDto>
->('/notices/:noticeId', 'get', () => ({
-  200: data,
-  400: null,
-}));
+>({
+  path: '/notices/:noticeId',
+  method: 'get',
+  requestHandler: () => ({
+    200: data,
+    400: null,
+  }),
+});

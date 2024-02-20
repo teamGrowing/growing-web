@@ -5,11 +5,11 @@ type Params = {
   userId: string;
 };
 
-export const patchUserHandler = createApiHandler<Params, ChangeUserDto, null>(
-  '/users/:userId/update',
-  'patch',
-  () => ({
+export const patchUserHandler = createApiHandler<Params, ChangeUserDto, null>({
+  path: '/users/:userId/update',
+  method: 'patch',
+  requestHandler: () => ({
     200: null,
     400: null,
-  })
-);
+  }),
+});

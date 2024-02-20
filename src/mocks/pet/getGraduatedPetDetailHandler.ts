@@ -20,7 +20,11 @@ export const getGraduatedPetDetailHandler = createApiHandler<
   Params,
   {},
   NullableResponse<PostPetDto>
->('/couples/:coupleId/post-pets/:petId', 'get', () => ({
-  200: data,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/post-pets/:petId',
+  method: 'get',
+  requestHandler: () => ({
+    200: data,
+    400: null,
+  }),
+});

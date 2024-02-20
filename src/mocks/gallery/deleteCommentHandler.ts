@@ -6,11 +6,11 @@ type Params = {
   commentId: string;
 };
 
-export const deleteCommentHandler = createApiHandler<Params, {}, null>(
-  '/couples/:coupleId/gallerys/photos/:photoId/comments/:commentId',
-  'delete',
-  () => ({
+export const deleteCommentHandler = createApiHandler<Params, {}, null>({
+  path: '/couples/:coupleId/gallerys/photos/:photoId/comments/:commentId',
+  method: 'delete',
+  requestHandler: () => ({
     200: null,
     400: null,
-  })
-);
+  }),
+});

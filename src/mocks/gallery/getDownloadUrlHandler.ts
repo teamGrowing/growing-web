@@ -14,11 +14,11 @@ export const getDownloadUrlHandler = createApiHandler<
   Params,
   {},
   NullableResponse<GetDownloadUrlResponseDto>
->(
-  '/couples/:coupleId/gallerys/photos/:photoId/get-download-url',
-  'get',
-  () => ({
+>({
+  path: '/couples/:coupleId/gallerys/photos/:photoId/get-download-url',
+  method: 'get',
+  requestHandler: () => ({
     200: data,
     400: null,
-  })
-);
+  }),
+});

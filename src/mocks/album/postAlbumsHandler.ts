@@ -6,10 +6,12 @@ type Params = {
 };
 
 export const postAlbumsHandler = createApiHandler<Params, CreateAlbumDto, null>(
-  '/couples/:coupleId/gallerys/albums/create',
-  'post',
-  () => ({
-    200: null,
-    400: null,
-  })
+  {
+    path: '/couples/:coupleId/gallerys/albums/create',
+    method: 'post',
+    requestHandler: () => ({
+      200: null,
+      400: null,
+    }),
+  }
 );

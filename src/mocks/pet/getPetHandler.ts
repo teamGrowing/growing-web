@@ -7,19 +7,25 @@ type Params = {
   petId: string;
 };
 
+const data: PetDto = {
+  petId: '1',
+  name: '냥이',
+  imageUrl: cat,
+  talkingBox: null,
+  hungryGauge: 30,
+  attentionGauge: 80,
+  loveGauge: 40,
+};
+
 export const getPetHandler = createApiHandler<
   Params,
   {},
   NullableResponse<PetDto>
->('couples/:coupleId/pets/:petId', 'get', ({ petId }) => ({
-  200: {
-    petId,
-    name: '냥이',
-    imageUrl: cat,
-    talkingBox: null,
-    hungryGauge: 30,
-    attentionGauge: 80,
-    loveGauge: 40,
-  },
-  400: null,
-}));
+>({
+  path: 'couples/:coupleId/pets/:petId',
+  method: 'get',
+  requestHandler: () => ({
+    200: data,
+    400: null,
+  }),
+});

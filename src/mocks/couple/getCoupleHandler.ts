@@ -5,17 +5,23 @@ type Params = {
   coupleId: string;
 };
 
+const data: CoupleDto = {
+  coupleId: '1',
+  myName: '연주',
+  partnerName: '민지',
+  dayCount: 777,
+  petId: '1',
+};
+
 export const getCoupleHandler = createApiHandler<
   Params,
   {},
   NullableResponse<CoupleDto>
->('/couples/:coupleId', 'get', ({ coupleId }) => ({
-  200: {
-    coupleId,
-    myName: '연주',
-    partnerName: '민지',
-    dayCount: 777,
-    petId: '1',
-  },
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId',
+  method: 'get',
+  requestHandler: () => ({
+    200: data,
+    400: null,
+  }),
+});

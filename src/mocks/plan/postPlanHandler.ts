@@ -5,11 +5,11 @@ type Params = {
   coupleId: string;
 };
 
-export const postPlanHandler = createApiHandler<Params, {}, DailyPlanDto[]>(
-  '/couples/:coupleId/plans/create',
-  'post',
-  () => ({
+export const postPlanHandler = createApiHandler<Params, {}, DailyPlanDto[]>({
+  path: '/couples/:coupleId/plans/create',
+  method: 'post',
+  requestHandler: () => ({
     200: null,
     400: null,
-  })
-);
+  }),
+});

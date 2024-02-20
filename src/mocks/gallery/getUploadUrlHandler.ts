@@ -14,7 +14,11 @@ export const getUploadUrlHandler = createApiHandler<
   Params,
   GetUploadUrlRequestDto,
   NullableResponse<GetUploadUrlResponseDto>
->('/couples/:coupleId/gallerys/photos/get-upload-url', 'post', () => ({
-  200: data,
-  400: null,
-}));
+>({
+  path: '/couples/:coupleId/gallerys/photos/get-upload-url',
+  method: 'post',
+  requestHandler: () => ({
+    200: data,
+    400: null,
+  }),
+});

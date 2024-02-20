@@ -14,33 +14,37 @@ export const getPhotosHandler = createApiHandler<
   Params,
   {},
   NullableResponse<PhotoLineDto[]>
->('/couples/:coupleId/gallerys/photos', 'get', (_, request) => {
-  const searchParams = getSearchParams(request.url);
-  const limit = searchParams.get('limit');
-  const base = searchParams.get('base');
+>({
+  path: '/couples/:coupleId/gallerys/photos',
+  method: 'get',
+  requestHandler: (_, request) => {
+    const searchParams = getSearchParams(request.url);
+    const limit = searchParams.get('limit');
+    const base = searchParams.get('base');
 
-  let returnData: PhotoLineDto[] = [];
+    let returnData: PhotoLineDto[] = [];
 
-  if (limit && base) {
-    returnData = photoData
-      .slice(Number(base), Number(base) + Number(limit))
-      .map((d) => ({
+    if (limit && base) {
+      returnData = photoData
+        .slice(Number(base), Number(base) + Number(limit))
+        .map((d) => ({
+          i: d.id,
+          u: d.urls,
+          c: d.createdAt,
+          t: d.time,
+        }));
+    } else {
+      returnData = photoData.map((d) => ({
         i: d.id,
         u: d.urls,
         c: d.createdAt,
         t: d.time,
       }));
-  } else {
-    returnData = photoData.map((d) => ({
-      i: d.id,
-      u: d.urls,
-      c: d.createdAt,
-      t: d.time,
-    }));
-  }
+    }
 
-  return {
-    200: returnData,
-    400: null,
-  };
+    return {
+      200: returnData,
+      400: null,
+    };
+  },
 });

@@ -5,19 +5,25 @@ type Params = {
   userId: string;
 };
 
+const data: UserDto = {
+  id: '1',
+  nickName: `곰곰곰`,
+  birthDay: new Date(),
+  anniversaryDay: new Date(),
+  imageUrl: null,
+  coupleId: '123',
+  code: '1234',
+};
+
 export const getUserHandler = createApiHandler<
   Params,
   {},
   NullableResponse<UserDto>
->('/users/:userId', 'get', ({ userId }) => ({
-  200: {
-    id: `id${userId}`,
-    nickName: `nickname${userId}`,
-    birthDay: new Date(),
-    anniversaryDay: new Date(),
-    imageUrl: null,
-    coupleId: '123',
-    code: '1234',
-  },
-  400: null,
-}));
+>({
+  path: '/users/:userId',
+  method: 'get',
+  requestHandler: () => ({
+    200: data,
+    400: null,
+  }),
+});

@@ -5,11 +5,11 @@ type Params = {
   albumId: string;
 };
 
-export const deleteAlbumHandler = createApiHandler<Params, {}, null>(
-  '/couples/:coupleId/gallerys/albums/:albumId',
-  'delete',
-  () => ({
+export const deleteAlbumHandler = createApiHandler<Params, {}, null>({
+  path: '/couples/:coupleId/gallerys/albums/:albumId',
+  method: 'delete',
+  requestHandler: () => ({
     200: null,
     400: null,
-  })
-);
+  }),
+});
