@@ -264,8 +264,6 @@ const findImageChat = (): ChatPhotoLineDto[] =>
       };
     });
 
-const photos: ChatPhotoLineDto[] = findImageChat();
-
 type PhotoGetParams = {
   coupleId: string;
 };
@@ -278,7 +276,7 @@ export const getPhotosHandler = createApiHandler<
   path: '/couples/:coupleId/chattings/photos',
   method: 'get',
   requestHandler: () => ({
-    200: photos,
+    200: findImageChat(),
     400: null,
   }),
 });
