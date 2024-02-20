@@ -4,11 +4,6 @@ import MIN_TEXTAREA_HEIGHT from './inputChatConstants';
 export const Container = styled.div`
   z-index: 2;
 
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 
