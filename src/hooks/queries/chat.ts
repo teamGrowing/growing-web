@@ -57,7 +57,7 @@ export const useChatData = ({
       }),
     {
       getNextPageParam: (res, allPages) => {
-        if (res.data.length === 0) {
+        if (res.data.length === 0 || res.data.length < CHAT_LIMIT) {
           return undefined;
         }
         return allPages.length * CHAT_LIMIT;
