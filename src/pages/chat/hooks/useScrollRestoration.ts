@@ -1,5 +1,5 @@
 import { throttle } from 'lodash';
-import { useEffect, useLayoutEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /**
@@ -27,7 +27,9 @@ const useScrollRestoration = (
 
     if (chatsRef.current && savedPosition) {
       //  사용자가 뒤로 가기를 사용했을 때 스크롤 위치 복원
-      chatsRef.current.scrollTo(0, parseInt(savedPosition, 10));
+      setTimeout(() => {
+        chatsRef.current?.scrollTo(0, parseInt(savedPosition, 10));
+      }, 10);
     } else if (chatEndRef?.current) {
       // 페이지에 처음 접근했을 때
       setTimeout(() => {
@@ -36,7 +38,7 @@ const useScrollRestoration = (
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     restoreScrollPosition();
     window.addEventListener('popstate', restoreScrollPosition);
 
@@ -45,10 +47,6 @@ const useScrollRestoration = (
       saveScrollPosition.cancel(); // throttle 함수에 의해 예약된 호출을 취소
     };
   }, [location.pathname, chatsRef, chatEndRef]);
-
-  useLayoutEffect(() => {
-    restoreScrollPosition();
-  }, []);
 
   return { saveScrollPosition };
 };
