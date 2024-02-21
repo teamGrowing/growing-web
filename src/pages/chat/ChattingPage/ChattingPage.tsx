@@ -16,7 +16,6 @@ import useScrollRestoration from 'pages/chat/hooks/useScrollRestoration';
 import * as S from './ChattingPage.styled';
 import useChatObserver from '../hooks/useChatObserver';
 
-// TODO: 마지막 데이터 받은 후, 더이상 요청하지 말기
 function ChattingPage() {
   const navigation = useNavigate();
   const { userStore, chatStore } = store;

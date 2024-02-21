@@ -26,8 +26,7 @@ const throttledGetChats = throttle(
   (coupleId, { base, limit, offset }, onSuccess) => {
     CHAT_API.getChats(coupleId, { base, limit, offset }).then(onSuccess);
   },
-  2000,
-  { trailing: false } // 마지막 함수가 지정된 시간이 지난 후에 호출되지 않도록 설정
+  1000
 );
 
 export const useChatData = ({
@@ -57,7 +56,10 @@ export const useChatData = ({
         );
       }),
     {
-      getNextPageParam: (_, allPages) => {
+      getNextPageParam: (res, allPages) => {
+        if (res.data.length === 0) {
+          return undefined;
+        }
         return allPages.length * CHAT_LIMIT;
       },
       select: (data) => ({
