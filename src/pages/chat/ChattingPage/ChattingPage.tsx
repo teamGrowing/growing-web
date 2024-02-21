@@ -13,6 +13,7 @@ import InputChat from 'pages/chat/components/InputChat/InputChat';
 import SubMenu from 'pages/chat/components/SubMenu/SubMenu';
 import ChatNotice from 'pages/chat/components/ChatNotice/ChatNotice';
 import { PLUS_MENU_HEIGHT } from 'constants/constants';
+import useScrollRestoration from 'pages/chat/hooks/useScrollRestoration';
 import * as S from './ChattingPage.styled';
 
 // TODO: 마지막 데이터 받은 후, 더이상 요청하지 말기
@@ -27,8 +28,6 @@ function ChattingPage() {
   const [onSubMenu, setOnSubMenu] = useState<boolean>(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [prevScrollHeight, setPrevScrollHeight] = useState<number>(0);
-  const scrollTimeoutRef = useRef<NodeJS.Timer | null>(null);
-  const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
   const {
     data: chats,
@@ -143,27 +142,7 @@ function ChattingPage() {
     return () => chatObserver.disconnect();
   }, []);
 
-  const handleChange = () => {
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
-      setIsScrolling(true);
-    }
-
-    scrollTimeoutRef.current = setTimeout(() => {
-      chatStore.setScrollHeight(chatsRef?.current?.scrollTop ?? null);
-      setIsScrolling(false);
-    }, 300);
-  };
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (chatStore.scrollHeight != null) {
-        chatsRef.current?.scrollTo(0, chatStore.scrollHeight);
-      } else {
-        scrollToBottom();
-      }
-    }, 100);
-  }, []);
+  const { saveScrollPosition } = useScrollRestoration(chatsRef, chatEndRef);
 
   return (
     <S.ChattingPageContainer
@@ -187,7 +166,7 @@ function ChattingPage() {
       <S.Chats
         ref={chatsRef}
         onClick={handleDefaultMode}
-        onScroll={handleChange}
+        onScroll={saveScrollPosition}
       >
         <SubMenu open={onSubMenu} />
         <div ref={chatStartRef} style={{ height: '8px' }} />
@@ -198,7 +177,8 @@ function ChattingPage() {
             <ChatBallon
               key={chat.parentChatting.id}
               isNewDay={getNewDay(idx)}
-              isScrolling={isScrolling}
+              // TODO
+              isScrolling={false}
               {...chat}
             />
           ))}

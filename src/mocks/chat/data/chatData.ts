@@ -58,6 +58,223 @@ export const originData: ParentChildChattingDto[] = [
     parentChatting: {
       ...baseData.parentChatting,
       id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
+      isMine: false,
+    },
+  },
+
+  {
+    ...baseData,
+    parentChatting: {
+      ...baseData.parentChatting,
+      id: uuidv4(),
     },
   },
   {

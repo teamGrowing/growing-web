@@ -20,6 +20,15 @@ import {
   IsToDoQuestion,
   QuestionsAndAnswers,
 } from 'models/chat-question';
+import { throttle } from 'lodash';
+
+const throttledGetChats = throttle(
+  (coupleId, { base, limit, offset }, onSuccess) => {
+    CHAT_API.getChats(coupleId, { base, limit, offset }).then(onSuccess);
+  },
+  2000,
+  { trailing: false } // 마지막 함수가 지정된 시간이 지난 후에 호출되지 않도록 설정
+);
 
 export const useChatData = ({
   coupleId,
@@ -36,10 +45,16 @@ export const useChatData = ({
   useInfiniteQuery(
     [...queryKeys.chatKeys.all, ...(storeCode ?? [])],
     ({ pageParam = 0 }) =>
-      CHAT_API.getChats(coupleId, {
-        base: pageParam,
-        limit: CHAT_LIMIT,
-        offset: 0,
+      new Promise((resolve) => {
+        throttledGetChats(
+          coupleId,
+          {
+            base: pageParam,
+            limit: CHAT_LIMIT,
+            offset: 0,
+          },
+          resolve
+        );
       }),
     {
       getNextPageParam: (_, allPages) => {

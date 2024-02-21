@@ -36,18 +36,12 @@ class ChatStore {
     mode: 'Default',
   };
 
-  scrollHeight: number | null = null;
-
   constructor() {
     makeAutoObservable(this);
   }
 
   setChatMode(data: Mode) {
     this.chatMode = data;
-  }
-
-  setScrollHeight(n: number | null) {
-    this.scrollHeight = n;
   }
 
   clear() {
@@ -62,7 +56,6 @@ class ChatStore {
       mode: 'Default',
       chat: undefined,
     };
-    this.scrollHeight = null;
   }
 }
 
