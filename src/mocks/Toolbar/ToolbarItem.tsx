@@ -46,6 +46,8 @@ function ToolbarItem({ method, path, delayTime, status, onChange }: Props) {
           defaultValue={delayTime}
           onChange={changeSelectedValueHandler}
         >
+          <option value={100}>100ms</option>
+          <option value={500}>500ms</option>
           <option value={1000}>1000ms</option>
           <option value={3000}>3000ms</option>
           <option value={5000}>5000ms</option>
