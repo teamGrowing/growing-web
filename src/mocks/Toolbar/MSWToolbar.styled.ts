@@ -18,19 +18,18 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   padding: 5px 10px;
-  background: ${({ theme }) => `${theme.color.purple400}80`};
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+  background: ${({ theme }) => `${theme.color.purple300}`};
   border-radius: 10px;
   font-family: PretendardRegular;
-  font-size: 15px;
+  font-size: 14px;
   line-height: 18px;
   text-align: center;
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.color.gray900};
   &:hover {
-    background: ${({ theme }) => `${theme.color.purple500}80`};
+    background: ${({ theme }) => `${theme.color.purple400}`};
   }
   &:active {
-    background: ${({ theme }) => `${theme.color.purple600}80`};
+    background: ${({ theme }) => `${theme.color.purple500}`};
   }
 `;
 
