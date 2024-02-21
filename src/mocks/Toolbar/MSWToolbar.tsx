@@ -2,9 +2,9 @@ import Icon from 'components/common/Icon/Icon';
 import { useRef, useState } from 'react';
 import { SetHandlerParams, handlerInfoManager } from 'mocks/HandlerInfoManager';
 import { useQueryClient } from '@tanstack/react-query';
-import ToolbarItem from './ToolbarItem';
+import ToolbarItem from './components/ToolbarItem';
 import * as S from './MSWToolbar.styled';
-import ToolbarBottomSheet from './ToolbarBottomSheet';
+import ToolbarBottomSheet from './components/ToolbarBottomSheet';
 
 function MSWToolbar() {
   const queryClient = useQueryClient();

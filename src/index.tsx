@@ -10,7 +10,7 @@ import queryClient from 'libs/react-query/react-query';
 import 'libs/dayjs';
 import 'libs/swiper';
 import { enableMocking } from 'mocks/msw';
-import MSWToolbar from 'mocks/Toolbar/MSWToolbar';
+import MSWToolbar from 'mocks/toolbar/MSWToolbar';
 import App from './App';
 import GlobalStyle from './styles/GlobalStyle';
 import myTheme from './styles/theme/DefaultTheme';
