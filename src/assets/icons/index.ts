@@ -44,3 +44,4 @@ export { ReactComponent as IconTalk } from './IconTalk.svg';
 export { ReactComponent as IconTrash } from './IconTrash.svg';
 export { ReactComponent as IconUnmute } from './IconUnmute.svg';
 export { ReactComponent as IconVoice } from './IconVoice.svg';
+export { ReactComponent as IconSearch } from './IconSearch.svg';

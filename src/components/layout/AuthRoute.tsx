@@ -10,6 +10,7 @@ function AuthRoute() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { userStore } = store;
+
   async function checkUserToken() {
     const token = Cookies.get('refresh');
     if (token) {
@@ -40,7 +41,18 @@ function AuthRoute() {
   }
 
   useEffect(() => {
-    checkUserToken();
+    async function checkMockingMode() {
+      if (process.env.NODE_ENV !== 'development') {
+        checkUserToken();
+        return;
+      }
+
+      setIsLoggedIn(true);
+      await userStore.getUserData('1');
+      navigate('/', { replace: true });
+    }
+
+    checkMockingMode();
   }, [isLoggedIn]);
 
   if (isLoggedIn && userStore.user) {

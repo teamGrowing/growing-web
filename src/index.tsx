@@ -9,6 +9,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import queryClient from 'libs/react-query/react-query';
 import 'libs/dayjs';
 import 'libs/swiper';
+import { enableMocking } from 'mocks/msw';
+import MSWToolbar from 'mocks/toolbar/MSWToolbar';
 import App from './App';
 import GlobalStyle from './styles/GlobalStyle';
 import myTheme from './styles/theme/DefaultTheme';
@@ -20,13 +22,15 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-root.render(
-  <React.StrictMode>
+enableMocking().then(() => {
+  root.render(
+    // <React.StrictMode>
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyle />
         <ThemeProvider theme={myTheme}>
+          {process.env.NODE_ENV === 'development' && <MSWToolbar />}
           <AsyncBoundary
             pendingFallback={<FullScreenLoading />}
             rejectedFallback={({ error, resetErrorBoundary }) => (
@@ -41,5 +45,6 @@ root.render(
         </ThemeProvider>
       </QueryClientProvider>
     </BrowserRouter>
-  </React.StrictMode>
-);
+    // </React.StrictMode>
+  );
+});

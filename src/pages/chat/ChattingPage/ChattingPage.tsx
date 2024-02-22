@@ -1,5 +1,4 @@
-/* eslint-disable consistent-return */
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
 import store from 'stores/RootStore';
@@ -13,9 +12,10 @@ import InputChat from 'pages/chat/components/InputChat/InputChat';
 import SubMenu from 'pages/chat/components/SubMenu/SubMenu';
 import ChatNotice from 'pages/chat/components/ChatNotice/ChatNotice';
 import { PLUS_MENU_HEIGHT } from 'constants/constants';
+import useScrollRestoration from 'pages/chat/hooks/useScrollRestoration';
 import * as S from './ChattingPage.styled';
+import useChatObserver from '../hooks/useChatObserver';
 
-// TODO: 마지막 데이터 받은 후, 더이상 요청하지 말기
 function ChattingPage() {
   const navigation = useNavigate();
   const { userStore, chatStore } = store;
@@ -25,9 +25,6 @@ function ChattingPage() {
   const chatEndRef = useRef<HTMLDivElement | null>(null);
 
   const [onSubMenu, setOnSubMenu] = useState<boolean>(false);
-  const [prevScrollHeight, setPrevScrollHeight] = useState<number>(0);
-  const scrollTimeoutRef = useRef<NodeJS.Timer | null>(null);
-  const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
   const {
     data: chats,
@@ -112,57 +109,14 @@ function ChattingPage() {
     );
   }
 
-  useEffect(() => {
-    // 무한스크롤시 스크롤 위치 고정
-    if (!isFetchingNextPage) {
-      const scrollHeight = chatsRef.current?.scrollHeight ?? 0;
-      chatsRef.current?.scrollTo(0, scrollHeight - prevScrollHeight);
-    }
-  }, [isFetchingNextPage]);
+  const { saveScrollPosition } = useScrollRestoration(chatsRef, chatEndRef);
 
-  useEffect(() => {
-    if (!chatStartRef.current) {
-      return;
-    }
-    const chatObserver = new IntersectionObserver(
-      ([entries]) => {
-        if (entries.isIntersecting) {
-          const scrollHeight = chatsRef.current?.scrollHeight ?? 0;
-          setPrevScrollHeight(scrollHeight);
-          fetchNextPage();
-        }
-      },
-      {
-        threshold: 0.1,
-      }
-    );
-    // 채팅창 상단으로 이동시, 추가적인 데이터 요청
-    chatObserver.observe(chatStartRef.current);
-
-    return () => chatObserver.disconnect();
-  }, []);
-
-  const handleChange = () => {
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
-      setIsScrolling(true);
-    }
-
-    scrollTimeoutRef.current = setTimeout(() => {
-      chatStore.setScrollHeight(chatsRef?.current?.scrollTop ?? null);
-      setIsScrolling(false);
-    }, 300);
-  };
-
-  useEffect(() => {
-    setTimeout(() => {
-      if (chatStore.scrollHeight != null) {
-        chatsRef.current?.scrollTo(0, chatStore.scrollHeight);
-      } else {
-        scrollToBottom();
-      }
-    }, 100);
-  }, []);
+  useChatObserver({
+    chatStartRef,
+    chatsRef,
+    isFetchingNextPage,
+    fetchNextPage,
+  });
 
   return (
     <S.ChattingPageContainer
@@ -186,7 +140,7 @@ function ChattingPage() {
       <S.Chats
         ref={chatsRef}
         onClick={handleDefaultMode}
-        onScroll={handleChange}
+        onScroll={saveScrollPosition}
       >
         <SubMenu open={onSubMenu} />
         <div ref={chatStartRef} style={{ height: '8px' }} />
@@ -197,17 +151,15 @@ function ChattingPage() {
             <ChatBallon
               key={chat.parentChatting.id}
               isNewDay={getNewDay(idx)}
-              isScrolling={isScrolling}
+              // TODO
+              isScrolling={false}
               {...chat}
             />
           ))}
         <div ref={chatEndRef} />
-
-        <InputChat
-          createChat={createChat}
-          scrollByPlusMenu={scrollByPlusMenu}
-        />
       </S.Chats>
+
+      <InputChat createChat={createChat} scrollByPlusMenu={scrollByPlusMenu} />
     </S.ChattingPageContainer>
   );
 }

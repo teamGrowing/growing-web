@@ -1,4 +1,3 @@
-import styled from 'styled-components';
 import { useMemo, useState, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -13,22 +12,6 @@ import useToast from '../../../hooks/common/useToast';
 import { MENT_GALLERY } from '../../../constants/ments';
 import DataContext from '../context';
 import * as S from './PhotoPage.styled';
-
-const PaddingContainer = styled.div`
-  position: absolute;
-  top: calc(44px + constant(safe-area-inset-top) + 16px);
-  top: calc(44px + env(safe-area-inset-top) + 16px);
-
-  padding-bottom: calc(72px + constant(safe-area-inset-bottom));
-  padding-bottom: calc(72px + env(safe-area-inset-bottom));
-
-  width: 100%;
-  max-width: 780px;
-  height: calc(100vh - 52px - constant(safe-area-inset-top));
-  height: calc(100vh - 52px - env(safe-area-inset-top));
-
-  overflow-y: scroll;
-`;
 
 function PhotoPage() {
   const navigate = useNavigate();
@@ -101,13 +84,13 @@ function PhotoPage() {
             setOnModal(true);
           }}
         />
-        <PaddingContainer className="hidden-scrollbar">
+        <S.PaddingContainer className="hidden-scrollbar">
           <PhotoContainer
             photoObjects={photos?.pages.flatMap((res) => res) ?? []}
             type="UPLOADED"
             fetchNextPage={fetchNextPage}
           />
-        </PaddingContainer>
+        </S.PaddingContainer>
         <FloatingButton />
         {onModal && (
           <Modal

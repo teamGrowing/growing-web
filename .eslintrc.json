@@ -60,6 +60,14 @@
       }
     ],
     "react/jsx-props-no-spreading": [0, { "explicitSpread": "ignore" }],
-    "arrow-body-style": 0
-  }
+    "arrow-body-style": 0,
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["**/mocks/**/*"]
+      }
+    ],
+    "import/prefer-default-export": "off"
+  },
+  "ignorePatterns": ["**/public/mockServiceWorker.js"]
 }

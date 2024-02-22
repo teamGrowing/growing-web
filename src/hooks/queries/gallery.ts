@@ -7,7 +7,7 @@ import {
   useQueryClient,
   useInfiniteQuery,
 } from '@tanstack/react-query';
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 import {
   UseInfiniteQueryOptionsType,
@@ -23,6 +23,7 @@ import {
   PhotoCommentDto,
   PhotoLineDto,
 } from 'models/gallery';
+import { delayForVideoThumbnail, getVideoDuration } from 'utils/video';
 
 export function useGalleryList({
   coupleId,
@@ -56,7 +57,7 @@ export function useInfiniteGalleryList({
   >;
 }) {
   return useInfiniteQuery({
-    queryKey: [...queryKeys.galleryKeys.list, ...(storeCode ?? [])],
+    queryKey: [...queryKeys.galleryKeys.infinite, ...(storeCode ?? [])],
     queryFn: ({ pageParam = 0 }) => {
       return GALLERY_API.getPhotos(coupleId, {
         base: pageParam,
@@ -64,7 +65,9 @@ export function useInfiniteGalleryList({
       });
     },
     getNextPageParam: (lastPages, allPages) =>
-      lastPages.data.length === 0 ? undefined : allPages.length * PHOTO_LIMIT,
+      lastPages.data.length < PHOTO_LIMIT
+        ? undefined
+        : allPages.length * PHOTO_LIMIT,
     select: (data) => ({
       pages: data.pages.map((res) => res.data),
       pageParams: data.pageParams,
@@ -139,28 +142,11 @@ export function useCreatePhotosMutation({
       name: `${uuidv4()}.${file.name.split('.').pop()}`,
     });
 
-    await axios.put(res.data.url, file, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    /* 비디오 파일의 시간 구하는 함수 */
-    const getDuration = (video: File) => {
-      const videoBlob = new Blob([video], { type: video.type });
-      const videoUrl = URL.createObjectURL(videoBlob);
-      const videoElement = document.createElement('video');
-      videoElement.src = videoUrl;
-
-      return new Promise<number>((resolve) => {
-        videoElement.addEventListener('loadedmetadata', () => {
-          const { duration } = videoElement;
-          resolve(duration);
-        });
-      });
-    };
+    await GALLERY_API.upLoadPhoto(res.data.url, file);
 
     let fileTime: number | null = null;
     if (file.type.includes('video')) {
-      const promise = await getDuration(file);
+      const promise = await getVideoDuration(file);
       fileTime = promise;
     }
 
@@ -179,15 +165,7 @@ export function useCreatePhotosMutation({
     }
     await Promise.all(promises);
 
-    /** 동영상 썸네일을 위한 지연.. */
-    const delayReturn = () => {
-      return new Promise<void>((resolve) => {
-        setTimeout(() => {
-          resolve();
-        }, 500);
-      });
-    };
-    await delayReturn();
+    await delayForVideoThumbnail();
 
     return promises;
   };

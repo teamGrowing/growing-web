@@ -124,8 +124,10 @@ function AlbumDetailPage() {
             : clickCheck
         }
       />
-      <S.Container className="page-container with-topbar with-navbar hidden-scrollbar">
-        <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
+      <S.Container className="page-container with-topbar with-navbar">
+        <S.ScrollArea className="hidden-scrollbar">
+          <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
+        </S.ScrollArea>
         <FloatingButton albumId={aId} />
         {onModal && (
           <Modal

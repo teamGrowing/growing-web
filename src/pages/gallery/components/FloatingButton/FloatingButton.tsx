@@ -1,11 +1,10 @@
-import  { useRef } from 'react';
+import { useRef } from 'react';
 import Icon from 'components/common/Icon/Icon';
 import { MENT_GALLERY } from 'constants/ments';
 import useToast from 'hooks/common/useToast';
 import { useCreatePhotosMutation, usePostPhotosMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
-import * as S from "./FloatingButton.styled";
-
+import * as S from './FloatingButton.styled';
 
 type FloatingButtonType = {
   albumId?: string;
@@ -53,7 +52,7 @@ function FloatingButton({ albumId }: FloatingButtonType) {
         <Icon icon="IconPlus" size={32} />
       </S.Wrapper>
       {/* TODO 파일 확장자 체크 */}
-      <input
+      <S.Input
         type="file"
         accept="video/*,image/*"
         multiple

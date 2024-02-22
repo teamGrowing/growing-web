@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import dayjs from 'dayjs';
 import store from 'stores/RootStore';
@@ -18,6 +18,7 @@ function HomePage() {
 
   useEffect(() => {
     preventScroll();
+    sessionStorage.clear();
   }, []);
 
   return (

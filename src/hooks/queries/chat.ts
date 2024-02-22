@@ -20,6 +20,14 @@ import {
   IsToDoQuestion,
   QuestionsAndAnswers,
 } from 'models/chat-question';
+import { throttle } from 'lodash';
+
+const throttledGetChats = throttle(
+  (coupleId, { base, limit, offset }, onSuccess) => {
+    CHAT_API.getChats(coupleId, { base, limit, offset }).then(onSuccess);
+  },
+  1000
+);
 
 export const useChatData = ({
   coupleId,
@@ -36,13 +44,22 @@ export const useChatData = ({
   useInfiniteQuery(
     [...queryKeys.chatKeys.all, ...(storeCode ?? [])],
     ({ pageParam = 0 }) =>
-      CHAT_API.getChats(coupleId, {
-        base: pageParam,
-        limit: CHAT_LIMIT,
-        offset: 0,
+      new Promise((resolve) => {
+        throttledGetChats(
+          coupleId,
+          {
+            base: pageParam,
+            limit: CHAT_LIMIT,
+            offset: 0,
+          },
+          resolve
+        );
       }),
     {
-      getNextPageParam: (_, allPages) => {
+      getNextPageParam: (res, allPages) => {
+        if (res.data.length === 0 || res.data.length < CHAT_LIMIT) {
+          return undefined;
+        }
         return allPages.length * CHAT_LIMIT;
       },
       select: (data) => ({

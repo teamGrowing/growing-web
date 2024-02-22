@@ -1,7 +1,6 @@
 import * as S from './TopBar.styled';
 import { TopBarMode } from './types/TopBarMode';
 
-
 export interface TopBarProps {
   mode?: TopBarMode;
   leftNode?: React.ReactNode;
