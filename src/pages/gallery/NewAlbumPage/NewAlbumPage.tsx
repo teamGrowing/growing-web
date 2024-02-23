@@ -9,7 +9,7 @@ import {
   usePostAlbumsMutation,
 } from '../../../hooks/queries';
 import store from '../../../stores/RootStore';
-import Modal from '../../../components/common/AlbumModal/AlbumModal';
+import Modal from '../components/AlbumModal/AlbumModal';
 import useToast from '../../../hooks/common/useToast';
 import { MENT_GALLERY } from '../../../constants/ments';
 import * as S from './NewAlbumPage.styled';

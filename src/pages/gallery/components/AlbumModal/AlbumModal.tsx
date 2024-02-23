@@ -2,7 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
 import { albumSchema, AlbumFormValues } from 'libs/react-hook-form';
 import * as S from './AlbumModal.styled';
-import Portal from '../Portal';
+import Portal from '../../../../components/common/Portal';
 
 export interface AlbumModalProps {
   onModal: boolean;
