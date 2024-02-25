@@ -7,7 +7,7 @@ import {
   CreateChattingDto,
   ParentChildChattingDto,
 } from 'models/chat';
-import { socket } from 'mocks/chat/chatHandler';
+import { socket } from 'mocks/socket';
 
 interface Props {
   coupleId: string;
