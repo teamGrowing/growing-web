@@ -46,6 +46,10 @@ class MockedSocket {
     this.server.socketClient.on(event, callback);
   }
 
+  off(event: string) {
+    this.server.socketClient.off(event);
+  }
+
   emit(event: string, dto: any) {
     this.server.socketClient.emit(event, dto);
   }
