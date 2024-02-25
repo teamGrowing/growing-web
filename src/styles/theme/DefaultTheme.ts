@@ -11,7 +11,7 @@ const myTheme: DefaultTheme = {
     gradient200:
       'linear-gradient(130.11deg, #F54EA2 7.3%, #FF7676 100%, #FF7676 100%)',
     gradient300: 'linear-gradient(130.11deg, #FCE38A 7.3%, #F38181 100%)',
-    gradient400: 'linear-gradient(130.11deg, #f0b5ef 7.3%, #ea6060 100%)',
+    gradient400: 'linear-gradient(130.11deg, #F38181 7.3%, #e56969 100%)',
     gradient500: ' linear-gradient(130.11deg, #42E695 7.3%, #3BB2B8 100%)',
     gray50: '#fafafa',
     gray100: '#f5f5f5',

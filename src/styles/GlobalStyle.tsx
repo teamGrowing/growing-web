@@ -104,8 +104,8 @@ img {
   fill: url(#linear-gradient400);
 }
 #linear-gradient400 {
-  --stop-color0: #7117ea;
-  --stop-color1: #ea6060;
+  --stop-color0: #F38181;
+  --stop-color1: #e56969;
 }
 /* page container 관련 */
 .page-container {
