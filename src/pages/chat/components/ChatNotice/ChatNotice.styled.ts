@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const FoldenContainer = styled.div`
-  z-index: 1;
+  z-index: 2;
 
   position: absolute;
   top: calc(65px + constant(safe-area-inset-top));
@@ -21,7 +21,7 @@ export const FoldenContainer = styled.div`
 `;
 
 export const Container = styled.div`
-  z-index: 1;
+  z-index: 2;
 
   position: fixed;
   top: calc(48px + constant(safe-area-inset-top));
