@@ -43,9 +43,10 @@ export const Bar = styled.div`
 
   margin: 16px 60px 10px 60px;
   height: 23px;
-  background-color: ${({ theme }) => theme.color.gray50};
+
+  background-color: ${({ theme }) => theme.color.white}a8;
+  border: 1px solid ${({ theme }) => theme.color.gray200};
   border-radius: 20px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 `;
 
 export const ActiveBar = styled.div<{ level: number }>`
@@ -53,11 +54,7 @@ export const ActiveBar = styled.div<{ level: number }>`
 
   width: ${(props) => props.level}%;
   height: 23px;
-  background: linear-gradient(
-    130.11deg,
-    rgba(113, 23, 234, 0.7) 7.3%,
-    rgba(234, 96, 96, 0.7) 100%
-  );
+  background: ${({ theme }) => theme.color.gradient300};
   border-radius: ${(props) => (props.level === 100 ? '20px' : '20px 0 0 20px')};
 `;
 
