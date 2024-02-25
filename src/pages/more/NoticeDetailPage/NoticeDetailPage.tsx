@@ -3,7 +3,7 @@ import TopBar from 'components/common/TopBar/TopBar';
 import WhiteContainer from 'pages/more/components/WhiteContainer/WhiteContainer';
 import { useNoticeDetail } from 'hooks/queries';
 import { useNavigate, useParams } from 'react-router-dom';
-import PurpleBackground from 'styles/common/PurpleBackground';
+import MainBackground from 'styles/common/MainBackground';
 import * as S from './NoticeDetailPage.styled';
 
 function NoticeDetailPage() {
@@ -18,7 +18,7 @@ function NoticeDetailPage() {
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigate(-1)}
       />
-      <PurpleBackground />
+      <MainBackground />
       <WhiteContainer top="89px">
         <S.Content>{notice?.context}</S.Content>
       </WhiteContainer>

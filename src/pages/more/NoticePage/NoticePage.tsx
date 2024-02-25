@@ -4,7 +4,7 @@ import WhiteContainer from 'pages/more/components/WhiteContainer/WhiteContainer'
 import dayjs from 'dayjs';
 import { useNoticeList } from 'hooks/queries';
 import { useNavigate } from 'react-router-dom';
-import PurpleBackground from 'styles/common/PurpleBackground';
+import MainBackground from 'styles/common/MainBackground';
 import * as S from './NoticePage.styled';
 
 function NoticePage() {
@@ -13,7 +13,7 @@ function NoticePage() {
 
   return (
     <S.Container className="page-container">
-      <PurpleBackground />
+      <MainBackground />
       <TopBar
         title="공지사항"
         leftNode={<Icon icon="IconArrowLeft" />}

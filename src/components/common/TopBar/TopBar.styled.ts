@@ -45,6 +45,10 @@ export const Container = styled.header<{ mode: TopBarMode; border: boolean }>`
         return css`
           background-color: ${({ theme }) => theme.color.purple50};
         `;
+      case 'BACKGROUND':
+        return css`
+          background: transparent;
+        `;
       default:
         return css`
           background-color: ${({ theme }) => theme.color.white};

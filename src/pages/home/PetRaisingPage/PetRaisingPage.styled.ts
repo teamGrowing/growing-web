@@ -7,7 +7,7 @@ export const PetFeedContainer = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  background-color: ${({ theme }) => theme.color.purple50};
+  background: ${({ theme }) => theme.color.background};
 `;
 
 export const Main = styled.section`

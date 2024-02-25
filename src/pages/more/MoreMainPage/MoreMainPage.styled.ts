@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   position: relative;
-  background-color: ${({ theme }) => theme.color.purple50};
+  background: ${({ theme }) => theme.color.background};
 `;
 export const ScrollArea = styled.div`
   position: absolute;

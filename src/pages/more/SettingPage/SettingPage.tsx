@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
 import WhiteContainer from 'pages/more/components/WhiteContainer/WhiteContainer';
-import PurpleBackground from 'styles/common/PurpleBackground';
+import MainBackground from 'styles/common/MainBackground';
 import preventScroll from 'utils/utils';
 import * as S from './SettingPage.styled';
 
@@ -16,7 +16,7 @@ function SettingPage() {
 
   return (
     <S.Container className="page-container">
-      <PurpleBackground />
+      <MainBackground />
       <TopBar
         title="설정"
         leftNode={<Icon icon="IconArrowLeft" />}

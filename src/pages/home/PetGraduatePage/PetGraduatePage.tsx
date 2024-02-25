@@ -33,7 +33,7 @@ function PetGraduatePage() {
 
   return (
     <S.PetRenameContainer className="page-container with-topbar">
-      <TopBar mode="PURPLE50" border={false} title="growing" />
+      <TopBar mode="BACKGROUND" border={false} title="growing" />
 
       <Lottie
         animationData={congratsAnimation}

@@ -5,7 +5,7 @@ import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import PetCard from 'pages/more/components/PetCard/PetCard';
 import PetDetailCard from 'pages/more/components/PetDetailCard/PetDetailCard';
-import PurpleBackground from 'styles/common/PurpleBackground';
+import MainBackground from 'styles/common/MainBackground';
 import { useGraduatedPets } from 'hooks/queries';
 import store from 'stores/RootStore';
 import { MENT_MORE } from 'constants/ments';
@@ -26,7 +26,7 @@ function PetPage() {
 
   return (
     <S.Container className="page-container with-topbar">
-      <PurpleBackground />
+      <MainBackground />
       <TopBar
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigate('/more')}

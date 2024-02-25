@@ -114,7 +114,7 @@ export default function PetRaisingPage() {
   return (
     <S.PetFeedContainer className="page-container with-topbar">
       <TopBar
-        mode="PURPLE50"
+        mode="BACKGROUND"
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigation(-1)}
         border={false}
