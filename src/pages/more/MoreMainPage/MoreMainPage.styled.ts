@@ -27,13 +27,11 @@ export const IconWrapper = styled.div`
 `;
 
 export const Menus = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 
-  gap: 30px 20%;
+  width: 100%;
   padding: 0 10px;
 `;
 
@@ -42,9 +40,11 @@ export const Label = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 5px 14px;
+  padding: 20px 30px;
   gap: 10px;
   color: ${({ theme }) => theme.color.white};
+  font-size: 18px;
+  font-family: 'PretendardMedium';
 
   position: absolute;
   min-width: 61px;
@@ -53,14 +53,9 @@ export const Label = styled.div`
   transform: translate(-50%, 0%);
   top: -16.5px;
 
-  background: linear-gradient(
-    130.11deg,
-    rgba(113, 23, 234, 0.8) 7.3%,
-    rgba(234, 96, 96, 0.8) 100%
-  );
-
-  box-shadow: 0px 3px 4px ${({ theme }) => theme.color.black}3f;
-  border-radius: 20px;
+  background: ${({ theme }) => theme.color.gradient400};
+  border: 1px solid ${({ theme }) => theme.color.gray200};
+  border-radius: 16px;
 `;
 
 export const ProfileContainer = styled.div`

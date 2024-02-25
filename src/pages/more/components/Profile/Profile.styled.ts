@@ -7,7 +7,6 @@ export const Circle = styled.div<{ imgUrl: string; border: boolean }>`
   background-image: url(${(props) => props.imgUrl});
   background-size: cover;
   border: ${({ border }) => (border ? '2px' : '0px')} solid
-    ${({ theme }) => theme.color.white};
-  filter: drop-shadow(0px 4px 8px ${({ theme }) => theme.color.black}33);
+    ${({ theme }) => theme.color.gray100};
   border-radius: 100px;
 `;
