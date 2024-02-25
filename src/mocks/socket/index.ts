@@ -3,7 +3,6 @@ import Server from 'socket.io-mock';
 import SOCKET_KEY from 'constants/socketKeys';
 import { ChattingDto, CreateChattingDto } from 'models/chat';
 import { ImgDefaultProfile } from 'assets/image';
-import cat06 from '../user/data/cat_06.png';
 
 class MockedSocket {
   private server;
@@ -24,7 +23,7 @@ class MockedSocket {
         const data: ChattingDto = {
           id: uuidv4(),
           content: dto.content,
-          emojiUrl: dto.emojiId && cat06,
+          emojiUrl: dto.emojiId && dto.emojiId,
           imageUrls:
             dto.imageIds.length > 0
               ? [ImgDefaultProfile, ImgDefaultProfile, ImgDefaultProfile]

@@ -12,12 +12,12 @@ type Params = {
 
 const bearData: EmojiLineDto[] = [
   {
-    id: '01',
+    id: bear01,
     name: 'growing-bear',
     imageUrl: bear01,
   },
   {
-    id: '17',
+    id: bear17,
     name: 'growing-bear',
     imageUrl: bear17,
   },
@@ -25,12 +25,12 @@ const bearData: EmojiLineDto[] = [
 
 const catData: EmojiLineDto[] = [
   {
-    id: '06',
+    id: cat06,
     name: 'growing-cat',
     imageUrl: cat06,
   },
   {
-    id: '23',
+    id: cat23,
     name: 'growing-cat',
     imageUrl: cat23,
   },
