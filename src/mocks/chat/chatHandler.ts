@@ -8,13 +8,10 @@ import {
   ChatPhotoDto,
   ChatPhotoLineDto,
   ChatRequestDto,
-  ChattingArchivedDto,
   ChattingDto,
   CreatePhotoRequestDto,
   GetUploadUrlRequestDto,
   GetUploadUrlResponseDto,
-  Notice,
-  NoticeIsFolden,
   ParentChildChattingDto,
 } from 'models/chat';
 import { CreatePhotoResponseDto } from 'models/gallery';
@@ -22,7 +19,7 @@ import { originData } from './data/chatData';
 
 let chatData: ParentChildChattingDto[] = originData;
 
-const findChatData = (id: string): ChattingDto =>
+export const findChatData = (id: string): ChattingDto =>
   chatData.filter((chat) => chat.parentChatting.id === id)[0].parentChatting;
 
 export const addChatData = (data: ChattingDto) =>
@@ -85,182 +82,6 @@ export const deleteOurChatHandler = createApiHandler<
   }),
   onSuccess: ({ chattingId }) => {
     chatData = chatData.filter((chat) => chat.parentChatting.id !== chattingId);
-  },
-});
-
-// notice 관련
-
-let noticeData: Notice | null = {
-  id: findChatData('1').id,
-  content: findChatData('1').content ?? '',
-  announcer: findChatData('1').Writer.name,
-  isFolden: false,
-};
-
-type NoticeGetParams = {
-  coupleId: string;
-};
-
-export const getNoticesHandler = createApiHandler<
-  NoticeGetParams,
-  {},
-  NullableResponse<Notice>
->({
-  path: '/couples/:coupleId/chattings/notices',
-  method: 'get',
-  requestHandler: () => ({
-    200: noticeData,
-    400: null,
-  }),
-});
-
-type NoticePostParams = {
-  coupleId: string;
-  chattingId: string;
-};
-
-export const postNoticeHandler = createApiHandler<NoticePostParams, {}, null>({
-  path: '/couples/:coupleId/chattings/:chattingId/notify',
-  method: 'post',
-  requestHandler: () => ({
-    200: null,
-    400: null,
-  }),
-  onSuccess: ({ chattingId }) => {
-    noticeData = {
-      id: findChatData(chattingId).id,
-      content: findChatData(chattingId).content ?? '',
-      announcer: findChatData(chattingId).Writer.name,
-      isFolden: false,
-    };
-  },
-});
-
-type NoticeFoldParams = {
-  coupleId: string;
-  noticeId: string;
-};
-
-export const postNoticeFoldHandler = createApiHandler<
-  NoticeFoldParams,
-  NoticeIsFolden,
-  null
->({
-  path: '/couples/:coupleId/chattings/notices/:noticeId/fold',
-  method: 'post',
-  requestHandler: () => ({
-    200: null,
-    400: null,
-  }),
-  onSuccess: ({ noticeId }) => {
-    const origin = noticeData;
-
-    noticeData = {
-      id: findChatData(noticeId).id,
-      content: findChatData(noticeId).content ?? '',
-      announcer: findChatData(noticeId).Writer.name,
-      isFolden: !origin?.isFolden,
-    };
-  },
-});
-
-export const postNoticeInvisibleHandler = createApiHandler<
-  NoticeFoldParams,
-  {},
-  null
->({
-  path: '/couples/:coupleId/chattings/notices/:noticeId/invisible',
-  method: 'post',
-  requestHandler: () => ({
-    200: null,
-    400: null,
-  }),
-  onSuccess: () => {
-    noticeData = null;
-  },
-});
-
-// archived 관련
-
-let archivedData: ChattingArchivedDto[] = [
-  {
-    chattingId: findChatData('1').id,
-    content: findChatData('1').content ?? '',
-    writerName: findChatData('1').Writer.name,
-    writedAt: findChatData('1').createdAt,
-    archivedAt: new Date('2024.02.14'),
-  },
-  {
-    chattingId: findChatData('2').id,
-    content: findChatData('2').content ?? '',
-    writerName: findChatData('2').Writer.name,
-    writedAt: findChatData('2').createdAt,
-    archivedAt: new Date('2024.02.14'),
-  },
-];
-
-type ArchivedGetParams = {
-  coupleId: string;
-};
-
-export const getArchivedChatHandler = createApiHandler<
-  ArchivedGetParams,
-  {},
-  NullableResponse<ChattingArchivedDto[]>
->({
-  path: '/couples/:coupleId/archived-chattings',
-  method: 'get',
-  requestHandler: () => ({
-    200: archivedData,
-    400: null,
-  }),
-});
-
-type ArchivedPostParams = {
-  coupleId: string;
-  chattingId: string;
-};
-
-export const postArchivedChatHandler = createApiHandler<
-  ArchivedPostParams,
-  {},
-  null
->({
-  path: '/couples/:coupleId/chattings/:chattingId/archive',
-  method: 'post',
-  requestHandler: () => ({
-    200: null,
-    400: null,
-  }),
-  onSuccess: ({ chattingId }) => {
-    archivedData = [
-      ...archivedData,
-      {
-        chattingId: findChatData(chattingId).id,
-        content: findChatData(chattingId).content ?? '',
-        writerName: findChatData(chattingId).Writer.name,
-        writedAt: findChatData(chattingId).createdAt,
-        archivedAt: new Date('2024.02.14'),
-      },
-    ];
-  },
-});
-
-export const deleteArchivedChatHandler = createApiHandler<
-  ArchivedPostParams,
-  {},
-  null
->({
-  path: '/couples/:coupleId/archived-chattings/:chattingId',
-  method: 'delete',
-  requestHandler: () => ({
-    200: null,
-    400: null,
-  }),
-  onSuccess: ({ chattingId }) => {
-    archivedData = archivedData.filter(
-      (archived) => archived.chattingId !== chattingId
-    );
   },
 });
 
