@@ -5,7 +5,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import queryKeys from 'libs/react-query/queryKeys';
 import SOCKET_KEY from 'constants/socketKeys';
 import { RoomInfo, ChattingDto, CreateChattingDto } from 'models/chat';
-import { socket } from 'mocks/socket/server';
+import { socket } from 'mocks/socket/socket';
 
 export default function useReactQuerySubscription({
   coupleId,

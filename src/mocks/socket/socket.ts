@@ -1,23 +1,23 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// eslint-disable-next-line import/no-unresolved
 import SOCKET_KEY from 'constants/socketKeys';
 import Server from 'socket.io-mock';
 
-class MockedChat {
+class MockedSocket {
+  server;
+
   constructor() {
     this.server = new Server();
-    this.server.on('connection', (_) => {
+    this.server.on('connection', () => {
       console.log('User connected');
 
       this.server.on('disconnect', () => {
         console.log('User disconnected');
       });
 
-      this.server.on(SOCKET_KEY.CREATE_CHAT, (res) => {
+      this.server.on(SOCKET_KEY.CREATE_CHAT, (content: string) => {
         console.log('get chat');
         this.server.emit(SOCKET_KEY.GET_CHAT, {
           id: 'string',
-          content: res,
+          content,
           emojiUrl: null,
           imageUrls: [], // 사진, 비디오
           videoUrls: [],
@@ -42,13 +42,13 @@ class MockedChat {
     this.server.socketClient.emit('disconnection');
   }
 
-  on(event, callback) {
+  on(event: string, callback: (res: any) => void) {
     this.server.socketClient.on(event, callback);
   }
 
-  emit(event, dto) {
+  emit(event: string, dto: any) {
     this.server.socketClient.emit(event, dto);
   }
 }
 
-export const socket = new MockedChat();
+export const socket = new MockedSocket();
