@@ -7,13 +7,16 @@ import {
   CreateChattingDto,
   ParentChildChattingDto,
 } from 'models/chat';
-import { socket } from 'mocks/socket';
+import { socket as MockSocket } from 'mocks/socket';
+import { socket as RealSocket } from 'libs/socket.io-client';
 
 interface Props {
   coupleId: string;
   userId: string;
   scrollToBottom: () => Promise<number>;
 }
+
+const socket = process.env.NODE_ENV === 'development' ? MockSocket : RealSocket;
 
 export default function useReactQuerySubscription({
   coupleId,
