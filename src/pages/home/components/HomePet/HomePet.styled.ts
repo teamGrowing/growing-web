@@ -18,7 +18,7 @@ export const Ballon = styled.div`
   box-shadow: 0px 0px 28px #00000004;
   border-radius: 20px;
 
-  font-family: 'PretendardRegular';
+  font-family: 'PretendardMedium';
   color: ${({ theme }) => theme.color.gray700};
   font-size: 16px;
   text-align: center;

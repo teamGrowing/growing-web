@@ -34,15 +34,16 @@ export const InputBox = styled.div`
   width: 318px;
   height: 51px;
 `;
+
 export const Input = styled.input`
   width: 260px;
   height: 23px;
 
   font-family: 'PretendardMedium';
-  font-size: 19px;
+  font-size: 16px;
   line-height: 23px;
   text-align: center;
-  color: ${({ theme }) => theme.color.gray700};
+  color: ${({ theme }) => theme.color.gray600};
   background-color: ${({ theme }) => theme.color.white};
   border: none;
   flex: none;
@@ -66,7 +67,7 @@ export const Title = styled.div`
 
   font-family: 'PretendardMedium';
 
-  font-size: 19px;
+  font-size: 16px;
   line-height: 23px;
 
   background: ${({ theme }) => theme.color.gradient400};

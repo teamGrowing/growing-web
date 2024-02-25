@@ -131,9 +131,7 @@ export default function PetRaisingPage() {
           <S.ActiveBar level={gauge} />
         </S.Bar>
 
-        <S.SubTitle className="text-gradient400">
-          {MENT_HOME.PET_FEED_HELP}
-        </S.SubTitle>
+        <S.SubTitle>{MENT_HOME.PET_FEED_HELP}</S.SubTitle>
       </S.Main>
 
       <S.PetContainer>

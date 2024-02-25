@@ -31,7 +31,8 @@ export const Title = styled.div`
 export const SubTitle = styled.p`
   padding: 10px 0;
 
-  font-family: 'PretendardLight';
+  font-family: 'PretendardMedium';
+  color: ${({ theme }) => theme.color.gray500};
   font-size: 14px;
   line-height: 17px;
   text-align: center;
@@ -112,10 +113,14 @@ export const Letter = styled.div`
     rgba(243, 129, 129, 0.2) 100%
   );
 
-  font-size: 14px;
-  line-height: 17px;
-  text-align: center;
-  white-space: pre-wrap;
+  * {
+    font-family: 'PretendardMedium';
+    color: ${({ theme }) => theme.color.gray500};
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    white-space: pre-wrap;
+  }
 `;
 
 export const Wave = styled.img`

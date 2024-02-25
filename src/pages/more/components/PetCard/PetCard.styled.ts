@@ -22,7 +22,7 @@ export const Name = styled.div`
   padding: 4px 10px;
   gap: 10px;
 
-  font-family: 'PretendardRegular';
+  font-family: 'PretendardMedium';
   text-align: center;
 
   position: absolute;

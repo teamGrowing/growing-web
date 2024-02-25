@@ -44,7 +44,7 @@ export const Year = styled.div`
 `;
 
 export const Month = styled.div`
-  font-family: 'PretendardRegular';
+  font-family: 'PretendardMedium';
   font-size: 14px;
 `;
 
@@ -63,6 +63,7 @@ export const StyledName = styled.div`
   padding: 12px 26px;
   border-radius: 14px;
 
+  font-family: 'PretendardMedium';
   color: ${({ theme }) => theme.color.gray700};
   font-size: 16px;
   line-height: 19px;
