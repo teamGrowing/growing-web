@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-// import { io } from 'socket.io-client';
 import queryKeys from 'libs/react-query/queryKeys';
 import SOCKET_KEY from 'constants/socketKeys';
 import { RoomInfo, ChattingDto, CreateChattingDto } from 'models/chat';
@@ -17,11 +17,6 @@ export default function useReactQuerySubscription({
   scrollToBottom: () => Promise<number>;
 }) {
   const queryClient = useQueryClient();
-  // const socket = io(process.env.REACT_APP_SOCKET_HOST!, {
-  //   transports: ['websocket'],
-  //   withCredentials: true,
-  //   reconnection: false,
-  // });
 
   const createChatToServer = (dto: CreateChattingDto) => {
     console.log(dto);
@@ -29,8 +24,6 @@ export default function useReactQuerySubscription({
   };
 
   useEffect(() => {
-    socket.connect();
-
     socket.emit(SOCKET_KEY.ENTER, {
       coupleId,
       userId,
@@ -59,12 +52,10 @@ export default function useReactQuerySubscription({
       }
     });
 
-    socket.emit(SOCKET_KEY.CREATE_CHAT, '받아봐라');
-
     return () => {
       socket.disconnect();
     };
-  }, []);
+  }, [coupleId, userId]);
 
   return { createChat: (dto: CreateChattingDto) => createChatToServer(dto) };
 }
