@@ -12,8 +12,8 @@ export const Container = styled.div`
   width: max-content;
   padding: 18px 25px 18px 28px;
   background-color: ${({ theme }) => theme.color.white}a8;
-  box-shadow: 4px 4px 14px #0000003f;
   border-radius: 14px;
+  border: 1px solid ${({ theme }) => theme.color.gray200};
 
   display: flex;
   flex-direction: column;
@@ -42,10 +42,6 @@ export const ActiveBar = styled.div<{ level: number }>`
 
   width: ${(props) => props.level}%;
   height: 6px;
-  background: linear-gradient(
-    130.11deg,
-    rgba(113, 23, 234, 0.7) 7.3%,
-    rgba(234, 96, 96, 0.7) 100%
-  );
+  background: linear-gradient(130.11deg, #f0b5ef 7.3%, #bad8f9 100%);
   border-radius: ${(props) => (props.level === 100 ? '20px' : '20px 0 0 20px')};
 `;

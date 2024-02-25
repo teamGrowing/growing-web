@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 import EMOJI_SIZE from './HomePetConstants';
 
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 export const Ballon = styled.div`
   position: relative;
 
@@ -10,7 +15,7 @@ export const Ballon = styled.div`
   max-width: 240px;
   padding: 14px 20px;
   background-color: rgba(255, 255, 255, 0.7);
-  box-shadow: 1px 4px 28px #00000020;
+  box-shadow: 0px 0px 28px #00000004;
   border-radius: 20px;
 
   font-family: 'PretendardRegular';
@@ -59,6 +64,7 @@ export const PetContainer = styled.div`
 
 export const PetLabel = styled.div`
   position: relative;
+  align-self: center;
 `;
 
 export const PetName = styled.div`
@@ -71,12 +77,8 @@ export const PetName = styled.div`
   max-width: calc(${EMOJI_SIZE}px - 30px);
   min-height: 33px;
   padding: 5px 14px;
-  background: linear-gradient(
-    130.11deg,
-    rgba(113, 23, 234, 0.7) 7.3%,
-    rgba(234, 96, 96, 0.7) 100%
-  );
-  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+  background-color: ${({ theme }) => theme.color.pink400};
+  border: 1px solid ${({ theme }) => theme.color.gray200};
   border-radius: 10px;
 
   font-family: 'PretendardMedium';

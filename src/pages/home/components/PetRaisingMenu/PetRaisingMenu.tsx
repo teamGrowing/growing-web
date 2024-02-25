@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ReactComponent as IconBowl } from 'assets/icons/home/IconBowl.svg';
 import { ReactComponent as IconSmile } from 'assets/icons/home/IconSmile.svg';
 import { ReactComponent as IconLetter } from 'assets/icons/home/IconLetter.svg';
-import { ReactComponent as IconHeart } from 'assets/icons/home/IconHeart.svg';
+import { ImgHeart } from 'assets/image';
 import * as S from './PetRaisingMenu.styled';
 
 function PetRaisingMenu() {
@@ -12,7 +12,11 @@ function PetRaisingMenu() {
 
   return (
     <S.Container>
-      <IconHeart
+      <S.HeartButton
+        src={ImgHeart}
+        alt="heart_button"
+        width={50}
+        height={50}
         onClick={() => setIsOpen(!isOpen)}
         style={{ cursor: 'pointer' }}
       />
