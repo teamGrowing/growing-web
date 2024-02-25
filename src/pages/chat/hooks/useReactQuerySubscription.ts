@@ -19,7 +19,6 @@ export default function useReactQuerySubscription({
   const queryClient = useQueryClient();
 
   const createChatToServer = (dto: CreateChattingDto) => {
-    console.log(dto);
     socket.emit(SOCKET_KEY.CREATE_CHAT, dto);
   };
 
@@ -34,7 +33,6 @@ export default function useReactQuerySubscription({
     });
 
     socket.on(SOCKET_KEY.GET_CHAT, (res: ChattingDto) => {
-      console.log(res);
       queryClient.invalidateQueries(queryKeys.chatKeys.all);
 
       if (res.Writer.id === userId) {

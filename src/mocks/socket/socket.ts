@@ -1,56 +1,69 @@
-import SOCKET_KEY from 'constants/socketKeys';
+import { v4 as uuidv4 } from 'uuid';
 import Server from 'socket.io-mock';
+import SOCKET_KEY from 'constants/socketKeys';
+import { ChattingDto, CreateChattingDto } from 'models/chat';
+import { ImgDefaultProfile } from 'assets/image';
+import cat06 from '../user/data/cat_06.png';
 
 class MockedSocket {
-  server;
+  private server;
 
   constructor() {
     this.server = new Server();
+
     this.server.on('connection', () => {
       console.log('User connected');
 
-      this.server.on('disconnect', () => {
+      this.server.on('disconnection', () => {
         console.log('User disconnected');
       });
 
-      this.server.on(SOCKET_KEY.CREATE_CHAT, (content: string) => {
+      this.server.on(SOCKET_KEY.CREATE_CHAT, (dto: CreateChattingDto) => {
         console.log('get chat');
-        this.server.emit(SOCKET_KEY.GET_CHAT, {
-          id: 'string',
-          content,
-          emojiUrl: null,
-          imageUrls: [], // 사진, 비디오
+
+        const data: ChattingDto = {
+          id: uuidv4(),
+          content: dto.content,
+          emojiUrl: dto.emojiId && cat06,
+          imageUrls:
+            dto.imageIds.length > 0
+              ? [ImgDefaultProfile, ImgDefaultProfile, ImgDefaultProfile]
+              : [],
           videoUrls: [],
           voiceMsgUrls: [],
           createdAt: new Date(),
           isMine: true,
           Writer: {
-            id: 'string',
-            name: 'string',
-            imageUrl: 'string',
+            id: '1',
+            name: '연주',
+            imageUrl: ImgDefaultProfile,
           },
-        });
+        };
+
+        this.server.emit(SOCKET_KEY.GET_CHAT, data);
       });
     });
+
+    this.connect();
   }
 
-  connect() {
+  private connect() {
     this.server.socketClient.emit('connection');
   }
 
-  disconnect() {
+  public disconnect() {
     this.server.socketClient.emit('disconnection');
   }
 
-  on(event: string, callback: (res: any) => void) {
+  public on(event: string, callback: (res: any) => void) {
     this.server.socketClient.on(event, callback);
   }
 
-  off(event: string) {
+  public off(event: string) {
     this.server.socketClient.off(event);
   }
 
-  emit(event: string, dto: any) {
+  public emit(event: string, dto: any) {
     this.server.socketClient.emit(event, dto);
   }
 }
