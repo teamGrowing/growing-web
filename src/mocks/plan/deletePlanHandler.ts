@@ -1,4 +1,5 @@
 import { createApiHandler } from 'mocks/createApiHandler';
+import { plansData } from './data/plans';
 
 type Params = {
   coupleId: string;
@@ -12,4 +13,9 @@ export const deletePlanHandler = createApiHandler<Params, null, null>({
     200: null,
     400: null,
   }),
+  onSuccess: ({ planId }) => {
+    const plan = plansData.find((p) => p.id === planId);
+    if (!plan) return;
+    plan.isDeleted = true;
+  },
 });
