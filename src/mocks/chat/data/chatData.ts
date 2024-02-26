@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { ParentChildChattingDto } from 'models/chat';
-import { ImgDefaultProfile } from 'assets/image';
-import heart from './heart.png';
+import { ImgDefaultProfile, ImgHeart } from 'assets/image';
 import video from '../../gallery/data/video.mp4';
 import videoThumbnail from '../../gallery/data/videoThumbnail.png';
 import cat06 from '../../user/data/cat_06.png';
@@ -425,7 +424,7 @@ export const originData: ParentChildChattingDto[] = [
       id: '4',
       content: null,
       emojiUrl: null,
-      imageUrls: [heart, heart, heart],
+      imageUrls: [ImgHeart, ImgHeart, ImgHeart],
       videoUrls: [],
       voiceMsgUrls: [],
       createdAt: new Date('2024-01-01'),
