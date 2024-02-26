@@ -8,29 +8,23 @@ import { addChatData } from '../chat/chatHandler';
 class MockedSocket {
   private server;
 
+  private client;
+
   constructor() {
     this.server = new Server();
-    this.initializeListeners();
-    this.connect();
-  }
-
-  private initializeListeners() {
-    this.server.on('connection', () => {
-      console.log('User connected');
-      this.initializeDisconnection();
-      this.initializeCreateChat();
-    });
+    this.client = this.server.socketClient;
+    this.initializeDisconnection();
+    this.initializeCreateChat();
   }
 
   private initializeDisconnection() {
-    this.server.on('disconnection', () => {
+    this.server.on('disconnect', () => {
       console.log('User disconnected');
     });
   }
 
   private initializeCreateChat() {
     this.server.on(SOCKET_KEY.CREATE_CHAT, (dto: CreateChattingDto) => {
-      console.log('get chat');
       const data = this.createChatData(dto);
       addChatData(data);
       this.server.emit(SOCKET_KEY.GET_CHAT, data);
@@ -57,23 +51,23 @@ class MockedSocket {
   }
 
   connect() {
-    this.server.socketClient.emit('connection');
+    this.client.emit('connect');
   }
 
   disconnect() {
-    this.server.socketClient.emit('disconnection');
+    this.client.emit('disconnect');
   }
 
   on(event: string, callback: (res: any) => void) {
-    this.server.socketClient.on(event, callback);
+    this.client.on(event, callback);
   }
 
   off(event: string) {
-    this.server.socketClient.off(event);
+    this.client.off(event);
   }
 
   emit(event: string, dto: any) {
-    this.server.socketClient.emit(event, dto);
+    this.client.emit(event, dto);
   }
 }
 
