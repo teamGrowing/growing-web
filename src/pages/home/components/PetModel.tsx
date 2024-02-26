@@ -28,18 +28,18 @@ export const PetModel = ({ url }: { url: string }) => {
     if (!url) return;
     const petType = url.split('/')[3];
     switch (petType) {
-      case 'rabbit':
-        setScale(0.7);
-        setPosition([0, -4.25, 0]);
+      case 'bear':
+        setScale(0.45);
+        setPosition([0, -3.2, 0]);
         break;
       case 'cat':
         setScale(0.8);
         setPosition([0, -3.5, 0]);
         break;
-      case 'bear':
+      case 'rabbit':
       default:
-        setScale(0.45);
-        setPosition([0, -3.2, 0]);
+        setScale(0.7);
+        setPosition([0, -4.25, 0]);
         break;
     }
   }, [url]);

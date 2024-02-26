@@ -63,18 +63,14 @@ export const Title = styled.div`
   left: calc(50% - 60px / 2);
   top: calc(50% - 14px / 2 - 0.5px);
 
-  font-family: 'PretendardRegular';
+  font-family: 'PretendardMedium';
   font-size: 12px;
   line-height: 17px;
 
   text-align: center;
   margin: auto 0;
 
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-
+  color: ${({ theme }) => theme.color.gray600};
   flex: none;
   order: 1;
   flex-grow: 0;
@@ -104,7 +100,7 @@ export const Sticker = styled.div`
   left: 49.5px;
   top: -14.49px;
 
-  background: ${({ theme }) => theme.color.purple400};
+  background: ${({ theme }) => theme.color.pink200};
   transform: rotate(6.14deg);
 
   flex: none;
@@ -116,15 +112,12 @@ export const Sticker = styled.div`
 export const Subtitle = styled.div`
   width: 100%;
 
-  font-family: 'PretendardLight';
+  font-family: 'PretendardRegular';
   font-size: 12px;
   line-height: 14px;
   text-align: right;
 
-  background: ${({ theme }) => theme.color.gradient400};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: ${({ theme }) => theme.color.gray600};
 
   flex: none;
   order: 1;

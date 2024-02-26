@@ -98,10 +98,10 @@ export const Line = styled.div<{ width: string }>`
 
 export const Content = styled.div<{ width: string }>`
   width: ${(props) => props.width};
-  font-family: 'PretendardLight';
+  font-family: 'PretendardRegular';
   font-size: 12px;
   line-height: 14px;
   text-align: center;
   word-wrap: break-word;
-  color: ${({ theme }) => theme.color.black};
+  color: ${({ theme }) => theme.color.gray600};
 `;

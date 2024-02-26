@@ -11,7 +11,7 @@ export const PetRenameContainer = styled.div`
 
   padding-bottom: 100px;
 
-  background-color: ${({ theme }) => theme.color.purple50};
+  background: ${({ theme }) => theme.color.background};
 `;
 
 export const SubTitle = styled.div`

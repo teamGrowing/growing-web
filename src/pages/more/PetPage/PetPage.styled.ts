@@ -3,17 +3,20 @@ import styled from 'styled-components';
 export const Container = styled.div`
   position: relative;
 `;
+
 export const Wrapper = styled.div`
   width: 100%;
-  height: 100%;
+
   overflow-y: scroll;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  padding: 41px 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-items: center;
+  gap: 30px;
+
+  padding: 41px 20px;
 `;
+
 export const Layer = styled.div`
   position: fixed;
   top: 0;

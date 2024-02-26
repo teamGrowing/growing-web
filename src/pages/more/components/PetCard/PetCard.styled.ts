@@ -5,9 +5,10 @@ export const Card = styled.div`
   position: relative;
   width: 154px;
   height: 205px;
-  margin: 14px;
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.07);
+
+  border: 1px solid ${({ theme }) => theme.color.gray200};
   border-radius: 20px;
+
   background-image: url(${cardBackgroundImg});
   background-size: contain;
   overflow: hidden;
@@ -21,7 +22,7 @@ export const Name = styled.div`
   padding: 4px 10px;
   gap: 10px;
 
-  font-family: 'PretendardRegular';
+  font-family: 'PretendardMedium';
   text-align: center;
 
   position: absolute;

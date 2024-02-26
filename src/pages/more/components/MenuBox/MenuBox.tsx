@@ -10,7 +10,7 @@ type MenuBoxProps = {
 function MenuBox({ title, icon, onClick }: MenuBoxProps) {
   return (
     <S.Box onClick={onClick}>
-      <Icon icon={icon} size={34} />
+      <Icon icon={icon} size={30} />
       <S.Title>{title}</S.Title>
     </S.Box>
   );

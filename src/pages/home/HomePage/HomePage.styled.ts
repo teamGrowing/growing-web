@@ -7,7 +7,7 @@ export const HomeContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
-  background-color: ${({ theme }) => theme.color.purple50};
+  background: ${({ theme }) => theme.color.background};
 
   position: relative;
 `;
@@ -44,20 +44,16 @@ export const Year = styled.div`
 `;
 
 export const Month = styled.div`
-  font-family: 'PretendardRegular';
+  font-family: 'PretendardMedium';
   font-size: 14px;
 `;
 
 export const Dday = styled.div`
   width: max-content;
   padding: 10px 20px;
-  background-image: linear-gradient(
-    130.11deg,
-    rgba(113, 23, 234, 0.2) 7.3%,
-    rgba(234, 96, 96, 0.2) 100%
-  );
+  background-image: linear-gradient(130.11deg, #f094ee40 7.3%, #e5696970 100%);
   border-radius: 14px;
-  box-shadow: 3px 3px 10px #00000025;
+  border: 1px solid ${({ theme }) => theme.color.gray200};
 
   font-family: 'PretendardMedium';
   font-size: 23px;
@@ -65,9 +61,9 @@ export const Dday = styled.div`
 
 export const StyledName = styled.div`
   padding: 12px 26px;
-  filter: drop-shadow(4px 4px 10px #0000003f);
   border-radius: 14px;
 
+  font-family: 'PretendardMedium';
   color: ${({ theme }) => theme.color.gray700};
   font-size: 16px;
   line-height: 19px;

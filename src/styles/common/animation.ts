@@ -76,3 +76,8 @@ export const clickPulse = keyframes`
     transform: scale3d(1, 1, 1);
   }
 `;
+
+export const float = keyframes`
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+`;

@@ -18,7 +18,7 @@ function HomePet() {
     options: {
       refetchInterval: (data) => (!data ? 3000 : false),
       enabled: !!userStore.petId,
-      suspense: false,
+      suspense: true,
     },
   });
 
@@ -31,7 +31,7 @@ function HomePet() {
     <>
       <S.PetContainer>
         <S.Ballon>
-          {pet?.talkingBox ?? '오늘 하루도 화이팅💓'}
+          {pet?.talkingBox ?? '오늘 하루도 화이팅 🩷'}
           <S.BallonTail />
           <S.BallonTail2 />
         </S.Ballon>
@@ -39,32 +39,32 @@ function HomePet() {
         <S.Row>
           <S.PetInfo>
             <Pet3DImg size={EMOJI_SIZE} url={pet?.imageUrl} />
-
-            <S.PetLabel>
-              <S.PetName>
-                <S.Pin />
-                {`${pet?.name ? pet.name : ''}`}
-                <S.Pin />
-              </S.PetName>
-              {!pet.name && (
-                <Icon
-                  icon="IconPencil"
-                  size={20}
-                  style={{
-                    position: 'absolute',
-                    right: -30,
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                  }}
-                  onClick={() => navigation('/pet/naming')}
-                />
-              )}
-            </S.PetLabel>
           </S.PetInfo>
 
           <PetRaisingMenu />
         </S.Row>
       </S.PetContainer>
+
+      <S.PetLabel>
+        <S.PetName>
+          <S.Pin />
+          {`${pet?.name ? pet.name : ''}`}
+          <S.Pin />
+        </S.PetName>
+        {!pet.name && (
+          <Icon
+            icon="IconPencil"
+            size={20}
+            style={{
+              position: 'absolute',
+              right: -30,
+              top: '50%',
+              transform: 'translateY(-50%)',
+            }}
+            onClick={() => navigation('/pet/naming')}
+          />
+        )}
+      </S.PetLabel>
 
       <PetGauge
         hungryGauge={pet.hungryGauge}
