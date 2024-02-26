@@ -1,64 +1,88 @@
 import { useEffect } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import { io } from 'socket.io-client';
+import { InfiniteData, useQueryClient } from '@tanstack/react-query';
 import queryKeys from 'libs/react-query/queryKeys';
 import SOCKET_KEY from 'constants/socketKeys';
-import { RoomInfo, ChattingDto, CreateChattingDto } from 'models/chat';
+import {
+  ChattingDto,
+  CreateChattingDto,
+  ParentChildChattingDto,
+} from 'models/chat';
+import { socket as MockSocket } from 'mocks/socket';
+import { socket as RealSocket } from 'libs/socket.io-client';
+
+interface Props {
+  coupleId: string;
+  userId: string;
+  scrollToBottom: () => Promise<number>;
+}
+
+const socket = process.env.NODE_ENV === 'development' ? MockSocket : RealSocket;
 
 export default function useReactQuerySubscription({
   coupleId,
   userId,
   scrollToBottom,
-}: {
-  coupleId: string;
-  userId: string;
-  scrollToBottom: () => Promise<number>;
-}) {
+}: Props) {
   const queryClient = useQueryClient();
-  const socket = io(process.env.REACT_APP_SOCKET_HOST!, {
-    transports: ['websocket'],
-    withCredentials: true,
-    reconnection: false,
-  });
 
   const createChatToServer = (dto: CreateChattingDto) => {
     socket.emit(SOCKET_KEY.CREATE_CHAT, dto);
   };
 
   useEffect(() => {
-    socket.connect();
+    const handleEnter = () => {
+      socket.emit(SOCKET_KEY.ENTER, { coupleId, userId });
+    };
 
-    socket.emit(SOCKET_KEY.ENTER, {
-      coupleId,
-      userId,
-    });
+    const handleGetChat = (res: ChattingDto) => {
+      const receivedData: ParentChildChattingDto = {
+        parentChatting: res,
+        childChatting: null,
+      };
 
-    socket.on(SOCKET_KEY.GET_INFO, (res: RoomInfo) => {
-      return res;
-    });
+      queryClient.setQueryData<
+        InfiniteData<InfiniteData<ParentChildChattingDto>>
+      >(queryKeys.chatKeys.all, (oldData: any) => {
+        if (!oldData) {
+          return {
+            pages: [{ data: [receivedData] }],
+            pageParams: [null],
+          };
+        }
 
-    socket.on(SOCKET_KEY.GET_CHAT, (res: ChattingDto) => {
-      queryClient.invalidateQueries(queryKeys.chatKeys.all);
+        const updatedFirstPageData = {
+          ...oldData.pages[0],
+          data: [...oldData.pages[0].data, receivedData],
+        };
+
+        const updatedPages = [updatedFirstPageData, ...oldData.pages.slice(1)];
+
+        return {
+          ...oldData,
+          pages: updatedPages,
+        };
+      });
 
       if (res.Writer.id === userId) {
-        let t: number = 100;
+        let delay: number = 100;
         if (res.imageUrls.length || res.videoUrls.length) {
-          t = 500;
+          delay = 500;
         } else if (res.emojiUrl) {
-          t = 300;
+          delay = 300;
         }
-        const timer = setTimeout(() => {
-          scrollToBottom().then(() => {
-            clearTimeout(timer);
-          });
-        }, t);
+        setTimeout(scrollToBottom, delay);
       }
-    });
+    };
+
+    handleEnter();
+
+    socket.on(SOCKET_KEY.GET_CHAT, handleGetChat);
 
     return () => {
-      socket.disconnect();
+      socket.off(SOCKET_KEY.GET_INFO);
+      socket.off(SOCKET_KEY.GET_CHAT);
     };
-  }, []);
+  }, [coupleId, userId]);
 
   return { createChat: (dto: CreateChattingDto) => createChatToServer(dto) };
 }
