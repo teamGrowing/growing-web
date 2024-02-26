@@ -173,7 +173,7 @@ export function useCreatePhotosMutation({
   return useMutation({
     mutationFn: (data: FileList) => makePhotos(data),
     onSuccess: () =>
-      queryClient.invalidateQueries(queryKeys.galleryKeys.list, {}),
+      queryClient.invalidateQueries(queryKeys.galleryKeys.all, {}),
     ...options,
   });
 }
@@ -198,7 +198,7 @@ export function useDeletePhotosMutation({
     mutationFn: (photoIds: string[]) => deletePhotos(photoIds),
     onSuccess: async () => {
       await queryClient.invalidateQueries({
-        queryKey: queryKeys.galleryKeys.list,
+        queryKey: queryKeys.galleryKeys.all,
         refetchType: 'all',
       });
       await queryClient.invalidateQueries({
