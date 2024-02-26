@@ -27,19 +27,29 @@ export const getPhotosHandler = createApiHandler<
     if (limit && base) {
       returnData = photoData
         .slice(Number(base), Number(base) + Number(limit))
-        .map((d) => ({
-          i: d.id,
-          u: d.urls,
-          c: d.createdAt,
-          t: d.time,
-        }));
+        .reduce<PhotoLineDto[]>((acc, curr) => {
+          if (!curr.isDeleted) {
+            acc.push({
+              i: curr.id,
+              u: curr.urls,
+              c: curr.createdAt,
+              t: curr.time,
+            });
+          }
+          return acc;
+        }, []);
     } else {
-      returnData = photoData.map((d) => ({
-        i: d.id,
-        u: d.urls,
-        c: d.createdAt,
-        t: d.time,
-      }));
+      returnData = photoData.reduce<PhotoLineDto[]>((acc, curr) => {
+        if (!curr.isDeleted) {
+          acc.push({
+            i: curr.id,
+            u: curr.urls,
+            c: curr.createdAt,
+            t: curr.time,
+          });
+        }
+        return acc;
+      }, []);
     }
 
     return {
