@@ -1,9 +1,8 @@
-import React from 'react';
 import Lottie from 'lottie-react';
 import loadingAnimation from 'assets/lottie/loadingAnimation.json';
-import * as S from './FullScreenLoader.styled';
+import * as S from './Fallback.styled';
 
-export default function FullScreenLoader() {
+const Fallback = () => {
   return (
     <S.FullScreen>
       <Lottie
@@ -13,4 +12,6 @@ export default function FullScreenLoader() {
       />
     </S.FullScreen>
   );
-}
+};
+
+export default Fallback;

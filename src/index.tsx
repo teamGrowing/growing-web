@@ -11,12 +11,12 @@ import 'libs/dayjs';
 import 'libs/swiper';
 import { enableMocking } from 'mocks/msw';
 import MSWToolbar from 'mocks/toolbar/MSWToolbar';
+import ApiErrorBoundary from 'components/common/fallback/ApiErrorBoundary';
+import RootErrorBoundary from 'components/common/fallback/RootErrorBoundary';
+import RootSuspense from 'components/common/fallback/RootSuspense';
 import App from './App';
 import GlobalStyle from './styles/GlobalStyle';
 import myTheme from './styles/theme/DefaultTheme';
-import AsyncBoundary from './components/common/AsyncBoundary/AsyncBoundary';
-import FullScreenLoading from './components/common/FullScreenLoader/FullScreenLoader';
-import FullScreenError from './components/common/FullScreenError/FullScreenError';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -31,17 +31,13 @@ enableMocking().then(() => {
         <GlobalStyle />
         <ThemeProvider theme={myTheme}>
           {process.env.NODE_ENV === 'development' && <MSWToolbar />}
-          <AsyncBoundary
-            pendingFallback={<FullScreenLoading />}
-            rejectedFallback={({ error, resetErrorBoundary }) => (
-              <FullScreenError
-                error={error}
-                resetErrorBoundary={resetErrorBoundary}
-              />
-            )}
-          >
-            <App />
-          </AsyncBoundary>
+          <RootErrorBoundary>
+            <ApiErrorBoundary>
+              <RootSuspense>
+                <App />
+              </RootSuspense>
+            </ApiErrorBoundary>
+          </RootErrorBoundary>
         </ThemeProvider>
       </QueryClientProvider>
     </BrowserRouter>

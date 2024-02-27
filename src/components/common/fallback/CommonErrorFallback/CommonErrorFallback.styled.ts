@@ -3,18 +3,19 @@ import styled from 'styled-components';
 export const FullScreen = styled.div`
   z-index: 999;
   position: fixed;
-  width: 100vw;
-  height: 100vh;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: ${({ theme }) => theme.color.white};
-  opacity: 0.9;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  width: 100vw;
+  background: ${({ theme }) => theme.color.background};
+  opacity: 0.9;
 `;
 
 export const TextContainer = styled.section`
@@ -29,35 +30,38 @@ export const Title = styled.p`
   font-size: 20px;
   line-height: 29px;
   text-align: center;
-  background: linear-gradient(130.11deg, #7117ea 7.3%, #ea6060 100%);
+  background: ${({ theme }) => theme.color.gradient400};
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 `;
 
 export const Text = styled.p`
-  font-family: PretendardRegular;
+  font-family: PretendardBold;
   font-size: 15px;
   line-height: 18px;
   text-align: center;
-  color: ${({ theme }) => theme.color.gray900};
+  color: ${({ theme }) => theme.color.gray600};
 `;
 
 export const Button = styled.button`
   margin: 30px;
   padding: 10px;
-  background: ${({ theme }) => `${theme.color.purple400}80`};
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+
+  background: ${({ theme }) => theme.color.gradient400};
+  border: 1px solid ${({ theme }) => theme.color.gray50};
   border-radius: 10px;
-  font-family: PretendardRegular;
+
+  font-family: PretendardBold;
   font-size: 15px;
   line-height: 18px;
   text-align: center;
-  color: ${({ theme }) => theme.color.purple900};
+  color: ${({ theme }) => theme.color.white};
+
   &:hover {
-    background: ${({ theme }) => `${theme.color.purple500}80`};
+    opacity: 0.8;
   }
   &:active {
-    background: ${({ theme }) => `${theme.color.purple600}80`};
+    opacity: 0.6;
   }
 `;
