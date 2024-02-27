@@ -1,4 +1,5 @@
 import { createApiHandler } from 'mocks/createApiHandler';
+import { photoData } from './data/data';
 
 type Params = {
   coupleId: string;
@@ -12,4 +13,9 @@ export const deletePhotoHandler = createApiHandler<Params, {}, null>({
     200: null,
     400: null,
   }),
+  onSuccess: ({ photoId }) => {
+    const photo = photoData.find((p) => p.id === photoId);
+    if (!photo) return;
+    photo.isDeleted = true;
+  },
 });

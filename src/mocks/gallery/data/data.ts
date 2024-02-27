@@ -1,11 +1,19 @@
-import { PhotoDto } from 'models/gallery';
+import { PhotoCommentDto, PhotoDto } from 'models/gallery';
 import { v4 as uuidv4 } from 'uuid';
 import image1 from './album_image1.jpg';
 import image2 from './album_image2.jpg';
 import videoThumbnail from './videoThumbnail.png';
 import video from './video.mp4';
 
-export const photoData: PhotoDto[] = [
+interface PhotoDtoWithDeletedSign extends PhotoDto {
+  isDeleted: boolean;
+}
+
+interface CommentDtoWithDeletedSign extends PhotoCommentDto {
+  isDeleted: boolean;
+}
+
+export const photoData: PhotoDtoWithDeletedSign[] = [
   {
     id: uuidv4(),
     urls: image1,
@@ -13,6 +21,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -21,6 +30,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'video name',
     time: 5,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -29,6 +39,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -37,6 +48,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -45,6 +57,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -53,6 +66,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -61,6 +75,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -69,6 +84,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -77,6 +93,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -85,6 +102,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -93,6 +111,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -101,6 +120,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -109,6 +129,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -117,6 +138,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'video name',
     time: 5,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -125,6 +147,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -133,6 +156,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -141,6 +165,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -149,6 +174,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -157,6 +183,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -165,6 +192,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -173,6 +201,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -181,6 +210,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -189,6 +219,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -197,6 +228,7 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
   },
   {
     id: uuidv4(),
@@ -205,5 +237,33 @@ export const photoData: PhotoDto[] = [
     createdAt: new Date().toUTCString(),
     name: 'photo name',
     time: null,
+    isDeleted: false,
+  },
+];
+
+export const commentsData: CommentDtoWithDeletedSign[] = [
+  {
+    id: '1',
+    content: '대박',
+    createdAt: new Date().toUTCString(),
+    name: '민지',
+    isMine: false,
+    isDeleted: false,
+  },
+  {
+    id: '2',
+    content: 'ㅎㅎ',
+    createdAt: new Date().toUTCString(),
+    name: '연주',
+    isMine: true,
+    isDeleted: false,
+  },
+  {
+    id: '3',
+    content: '멋있어요 ~~ ',
+    createdAt: new Date().toUTCString(),
+    name: '민지',
+    isMine: false,
+    isDeleted: false,
   },
 ];

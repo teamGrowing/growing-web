@@ -1,5 +1,6 @@
 import { createApiHandler } from 'mocks/createApiHandler';
 import { DailyPlanDto, PatchPlanDto } from 'models/plan';
+import { plansData } from './data/plans';
 
 type Params = {
   coupleId: string;
@@ -13,8 +14,15 @@ export const patchPlanHandler = createApiHandler<
 >({
   path: '/couples/:coupleId/plans/:planId',
   method: 'patch',
-  requestHandler: () => ({
-    200: null,
-    400: null,
-  }),
+  requestHandler: () => {
+    return {
+      200: null,
+      400: null,
+    };
+  },
+  onSuccess: async ({ planId }, req) => {
+    const data = await req.json();
+    const planIdx = plansData.findIndex((p) => p.id === planId);
+    plansData[planIdx] = { ...plansData[planIdx], ...data };
+  },
 });

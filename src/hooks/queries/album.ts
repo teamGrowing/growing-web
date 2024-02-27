@@ -95,6 +95,7 @@ export function usePostPhotosMutation({
       ALBUM_API.postPhotos(coupleId, albumId, imageIds),
     onSuccess: () => {
       queryClinet.invalidateQueries(queryKeys.albumKeys.byId(albumId));
+      queryClinet.invalidateQueries(queryKeys.galleryKeys.all);
     },
     ...options,
   });
