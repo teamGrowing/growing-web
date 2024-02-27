@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import fetcher from 'apis/fetcher';
 import AUTH_API from 'apis/auth';
@@ -8,6 +8,8 @@ import store from 'stores/RootStore';
 
 function AuthRoute() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const { userStore } = store;
 
@@ -49,7 +51,7 @@ function AuthRoute() {
 
       setIsLoggedIn(true);
       await userStore.getUserData('1');
-      navigate('/', { replace: true });
+      navigate(location.pathname, { replace: true });
     }
 
     checkMockingMode();
