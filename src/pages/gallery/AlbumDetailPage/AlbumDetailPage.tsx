@@ -24,13 +24,13 @@ function AlbumDetailPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { addToast } = useToast();
-  const { aId } = useParams();
   const [selectingAvailable, setSelectingAvailable] = useState(false);
   const [onModal, setOnModal] = useState(false);
   const [onAlbumModal, setOnAlbumModal] = useState(false);
   const [onConfirmModal, setOnConfirmModal] = useState(false);
   const selectedPhotos = useRef<string[]>([]);
   const isDeleteOnlyFromAlbum = useRef<null | boolean>(null);
+  const { aId } = useParams();
 
   const coupleId = store.userStore.user?.coupleId ?? '';
   const albumId = aId ?? '';
@@ -128,7 +128,7 @@ function AlbumDetailPage() {
       <LayoutWithTopbarNavbar>
         <S.Container>
           <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
-          <FloatingButton albumId={aId} />
+          <FloatingButton />
           {onModal && (
             <Modal
               onModal={onModal}

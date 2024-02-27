@@ -17,13 +17,17 @@ import {
   usePatchUserInfoMutation,
   usePutProfilePhotoMutation,
   usePatchCoupleMutation,
-  useCreatePhotosMutation,
+  useCreatePhotoMutation,
   useGalleryList,
+  useGetUploadUrl,
+  useUploadPhotoMutation,
 } from 'hooks/queries';
+import useToast from 'hooks/common/useToast';
 import PhotoScroll from 'pages/gallery/components/PhotoScroll/PhotoScroll';
 import preventScroll from 'utils/utils';
 import defaultProfile from 'assets/image/DefaultProfile.png';
 import { MENT_MORE } from 'constants/ments';
+import { getVideoDuration } from 'utils/video';
 import DataContext from '../../gallery/context';
 import * as S from './Profile.styled';
 
@@ -90,44 +94,64 @@ function ProfilePage() {
   const { data: photos } = useGalleryList({ coupleId });
   const { mutateAsync: patchUserInfo } = usePatchUserInfoMutation({ userId });
   const { mutateAsync: patchCoupleInfo } = usePatchCoupleMutation({ coupleId });
-  const { mutateAsync: putPorfilePhoto } = usePutProfilePhotoMutation({
+  const { mutateAsync: putProfilePhoto } = usePutProfilePhotoMutation({
     userId,
   });
-  const { mutateAsync: addPhoto } = useCreatePhotosMutation({ coupleId });
+  const { mutateAsync: getUploadUrl } = useGetUploadUrl({
+    coupleId,
+  });
+  const { mutateAsync: createPhoto } = useCreatePhotoMutation({
+    coupleId,
+  });
+  const { mutateAsync: uploadFileToUrl } = useUploadPhotoMutation();
+  const { addToast } = useToast();
+
+  const uploadPhoto = async () => {
+    const { files } = profilePhoto;
+
+    if (!files) return;
+    const photoUploadPromises = [...files].map(async (file) => {
+      const {
+        data: { url, s3Path },
+      } = await getUploadUrl(file);
+
+      await uploadFileToUrl({ file, url });
+
+      let fileTime = null;
+      if (file.type.includes('video')) {
+        fileTime = await getVideoDuration(file);
+      }
+
+      const photoInfo = await createPhoto({ s3Path, time: fileTime });
+      return photoInfo.data.photoId;
+    });
+
+    await Promise.all(photoUploadPromises);
+    await putProfilePhoto(profilePhoto.id);
+  };
 
   const modifyProfile = async (data: {
     nickname: string;
     birthday: string;
     anniversary: string;
   }) => {
-    await patchUserInfo({
-      nickName: data.nickname,
-      birthDay: new Date(data.birthday),
-    });
-    await patchCoupleInfo({
-      anniversaryDay: data.anniversary,
-    });
-
-    if (!profilePhoto.isChange) {
-      setOnCompleteModal(true);
-      return;
-    }
-
-    if (profilePhoto.files) {
-      await addPhoto(profilePhoto.files, {
-        onSuccess: async (info) => {
-          const pId = (await info[0]).photoId;
-          putPorfilePhoto(pId, {
-            onSuccess: () => setOnCompleteModal(true),
-          });
-        },
+    try {
+      await patchUserInfo({
+        nickName: data.nickname,
+        birthDay: new Date(data.birthday),
       });
-      return;
-    }
+      await patchCoupleInfo({
+        anniversaryDay: data.anniversary,
+      });
 
-    putPorfilePhoto(profilePhoto.id, {
-      onSuccess: () => setOnCompleteModal(true),
-    });
+      if (profilePhoto.isChange && profilePhoto.files) {
+        await uploadPhoto();
+      }
+
+      setOnCompleteModal(true);
+    } catch (e) {
+      addToast(MENT_MORE.PROFILE_MODIFY_FAIL);
+    }
   };
 
   const upLoadFile = async () => {

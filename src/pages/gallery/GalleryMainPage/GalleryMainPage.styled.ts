@@ -4,6 +4,7 @@ import { LayoutWithNavbar } from 'components/layout/common';
 export const Container = styled(LayoutWithNavbar)`
   position: relative;
   overflow-y: scroll;
+  background: ${({ theme }) => theme.color.background};
 `;
 
 export const FixedContainer = styled.div`

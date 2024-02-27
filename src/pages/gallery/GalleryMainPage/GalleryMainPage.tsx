@@ -3,12 +3,12 @@ import { observer } from 'mobx-react';
 import { useRef } from 'react';
 import { useInfiniteGalleryList, useAlbumsList } from 'hooks/queries';
 import AlbumRowContainer from 'pages/gallery/components/AlbumRowContainer/AlbumRowContainer';
-import FloatingButton from 'pages/gallery/components/FloatingButton/FloatingButton';
 import PhotoContainer from 'pages/gallery/components/PhotoContainer/PhotoContainer';
 import GalleryTitle from 'pages/gallery/components/GalleryTitle/GalleryTitle';
 import Icon from 'components/common/Icon/Icon';
 import store from 'stores/RootStore';
 import * as S from './GalleryMainPage.styled';
+import FloatingButtonWrapper from '../components/FloatingButton/FloatingButtonWrapper';
 
 function GalleryMainPage() {
   const navigate = useNavigate();
@@ -71,7 +71,7 @@ function GalleryMainPage() {
           type="UPLOADED"
         />
       </S.FixedContainer>
-      <FloatingButton />
+      <FloatingButtonWrapper />
     </S.Container>
   );
 }

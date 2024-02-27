@@ -55,6 +55,7 @@ export function usePatchCoupleMutation({
       store.userStore.getUserData(store.userStore.user?.id!);
       queryClinet.invalidateQueries(queryKeys.albumKeys.all);
     },
+    useErrorBoundary: false,
     ...options,
   });
 }

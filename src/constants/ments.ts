@@ -46,6 +46,7 @@ export const MENT_GALLERY = Object.freeze({
   PHOTO_DELETE_FROM_ALBUM_CONFIRM: '사진이 앨범에서 제거됩니다.',
   PHOTO_DELETE_FROM_ALBUM_SUCCESS: '사진이 제거되었습니다.',
   PHOTO_UPLOAD_SUCCESS: '사진이 업로드 되었습니다.',
+  PHOTO_UPLOAD_FAIL: '사진을 업로드하는 데 실패했습니다.',
   ALBUM_PHOTO_DELETE_SUCCESS: '사진이 앨범에서 제거되었습니다.',
   ALBUM_CHOOSE_DELETE_OPTION:
     '해당 파일을 앨범에서 제거하시겠습니까, 영구 삭제하시겠습니까?',
@@ -90,5 +91,6 @@ export const MENT_MORE = Object.freeze({
   PROFILE_MODIFY_CANCEL_TITLE: '프로필 수정 취소',
   PROFILE_MODIFY_CANCEL_DESC:
     '변경하신 내용이 취소됩니다.\n정말 나가시겠습니까?',
+  PROFILE_MODIFY_FAIL: '프로필 수정에 실패했습니다.',
 });
 export default MENT_HOME;

@@ -41,6 +41,7 @@ export function usePutProfilePhotoMutation({
       queryClient.invalidateQueries([...queryKeys.userKeys.all]);
       store.userStore.getUserData(userId);
     },
+    useErrorBoundary: false,
     ...options,
   });
 }
@@ -66,6 +67,7 @@ export function usePatchUserInfoMutation({
       store.userStore.getUserData(userId);
       queryClient.invalidateQueries([...queryKeys.userKeys.all]);
     },
+    useErrorBoundary: false,
     ...options,
   });
 }

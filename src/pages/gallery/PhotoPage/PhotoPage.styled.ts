@@ -11,4 +11,6 @@ export const Cancel = styled.div`
 
 export const PaddingContainer = styled(LayoutWithNavbar)`
   overflow-y: scroll;
+
+  background: ${({ theme }) => theme.color.background};
 `;
