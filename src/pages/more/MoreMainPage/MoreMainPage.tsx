@@ -48,14 +48,14 @@ function MoreMainPage() {
               onClick={() => navigate('pet')}
             />
             <MenuBox
+              title="공지사항"
+              icon="IconInfo"
+              onClick={() => navigate('notice')}
+            />
+            <MenuBox
               title="설정"
               icon="IconSetting"
               onClick={() => navigate('setting')}
-            />
-            <MenuBox
-              title="도움말"
-              icon="IconInfo"
-              onClick={() => navigate('info')}
             />
             <MenuBox
               title="로그아웃"

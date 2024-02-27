@@ -10,7 +10,6 @@ import AlbumDetailPage from './pages/gallery/AlbumDetailPage/AlbumDetailPage';
 import NewAlbumPage from './pages/gallery/NewAlbumPage/NewAlbumPage';
 import MoreMainPage from './pages/more/MoreMainPage/MoreMainPage';
 import ProfilePage from './pages/more/ProfilePage/ProfilePage';
-import InfoPage from './pages/more/InfoPage/InfoPage';
 import SettingPage from './pages/more/SettingPage/SettingPage';
 import PhotoDetailPage from './pages/gallery/PhotoDetailPage/PhotoDetailPage';
 import PetPage from './pages/more/PetPage/PetPage';
@@ -90,9 +89,8 @@ function GrowingRoutes() {
             <Route path="/more" element={<MoreMainPage />} />
           </Route>
           <Route path="/more/profile" element={<ProfilePage />} />
-          <Route path="/more/info" element={<InfoPage />} />
-          <Route path="/more/info/notice" element={<NoticePage />} />
-          <Route path="/more/info/notice/:id" element={<NoticeDetailPage />} />
+          <Route path="/more/notice" element={<NoticePage />} />
+          <Route path="/more/notice/:id" element={<NoticeDetailPage />} />
           <Route path="/more/setting" element={<SettingPage />} />
           <Route path="/more/pet" element={<PetPage />} />
         </Route>

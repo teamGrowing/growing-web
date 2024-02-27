@@ -5,13 +5,11 @@ import { NoticeDto } from 'models/more';
 import { NOTICE_API } from 'apis/notice';
 
 export function useNoticeList() {
-  return useQuery(
-    [...queryKeys.noticeKeys.all],
-    () => NOTICE_API.getNotices(),
-    {
-      select: (data) => data.data,
-    }
-  );
+  return useQuery({
+    queryKey: [...queryKeys.noticeKeys.all],
+    queryFn: () => NOTICE_API.getNotices(),
+    select: (data) => data.data,
+  });
 }
 
 export function useNoticeDetail({

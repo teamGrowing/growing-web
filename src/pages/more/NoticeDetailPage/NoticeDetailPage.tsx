@@ -1,28 +1,30 @@
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import WhiteContainer from 'pages/more/components/WhiteContainer/WhiteContainer';
-import { useNoticeDetail } from 'hooks/queries';
-import { useNavigate, useParams } from 'react-router-dom';
-import MainBackground from 'styles/common/MainBackground';
+import { useNavigate } from 'react-router-dom';
+import NoticeContent from './components/NoticeContent';
 import * as S from './NoticeDetailPage.styled';
 
 function NoticeDetailPage() {
   const navigate = useNavigate();
-  const { id } = useParams();
-  const { data: notice } = useNoticeDetail({ noticeId: id ?? '' });
 
   return (
-    <S.Container className="page-container">
+    <S.Container>
       <TopBar
-        title={notice?.title}
+        title="공지사항"
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigate(-1)}
       />
-      <MainBackground />
-      <WhiteContainer top="89px">
-        <S.Content>{notice?.context}</S.Content>
-      </WhiteContainer>
+      <S.InnerContainer>
+        <ErrorBoundary FallbackComponent={NoticeContent.Error}>
+          <Suspense fallback={<NoticeContent.Loading />}>
+            <NoticeContent />
+          </Suspense>
+        </ErrorBoundary>
+      </S.InnerContainer>
     </S.Container>
   );
 }
+
 export default NoticeDetailPage;

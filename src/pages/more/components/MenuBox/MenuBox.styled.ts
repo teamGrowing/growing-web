@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { hoverShrinkEffect } from 'styles/common/mixin';
 
-export const Box = styled.div`
+export const Box = styled.button`
   display: flex;
   align-items: center;
   padding: 16px 20px;
@@ -9,6 +10,8 @@ export const Box = styled.div`
   background: ${({ theme }) => theme.color.white};
   border: 1px solid ${({ theme }) => theme.color.gray200};
   border-radius: 20px;
+
+  ${hoverShrinkEffect}
 `;
 
 export const ImgButton = styled.img``;
