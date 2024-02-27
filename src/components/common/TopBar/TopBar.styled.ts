@@ -1,19 +1,6 @@
 import styled, { css } from 'styled-components';
 import { TopBarMode } from './types/TopBarMode';
 
-export interface TopBarProps {
-  mode?: TopBarMode;
-  leftNode?: React.ReactNode;
-  onLeftClick?: () => void;
-  title?: string;
-  subTitle?: string;
-  rightMainNode?: React.ReactNode;
-  onRightMainClick?: () => void;
-  rightSubNode?: React.ReactNode;
-  onRightSubClick?: () => void;
-  border?: boolean;
-}
-
 export const Container = styled.header<{ mode: TopBarMode; border: boolean }>`
   z-index: 10;
   position: fixed;
@@ -83,7 +70,7 @@ export const Center = styled.div`
 export const Title = styled.div<{ mode: TopBarMode; hasSubTitle: boolean }>`
   width: 100%;
 
-  font-family: 'PretendardMedium';
+  font-family: 'PretendardBold';
   font-size: ${({ hasSubTitle }) => (hasSubTitle ? '14px' : '16px')};
   line-height: ${({ hasSubTitle }) => (hasSubTitle ? '17px' : '19px')};
   text-align: center;

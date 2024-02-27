@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { LayoutWithNavbar } from 'components/layout/common';
 
-export const Container = styled.div`
+export const Container = styled(LayoutWithNavbar)`
   position: relative;
   overflow-y: scroll;
 `;

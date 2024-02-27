@@ -1,6 +1,7 @@
+import { LayoutWithNavbar } from 'components/layout/common';
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled(LayoutWithNavbar)`
   position: relative;
   background: ${({ theme }) => theme.color.background};
 `;

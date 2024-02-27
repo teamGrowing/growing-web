@@ -21,7 +21,7 @@ function GalleryMainPage() {
 
   return (
     <S.Container
-      className="page-container with-navbar hidden-scrollbar"
+      className="hidden-scrollbar"
       onScroll={() => navigate('photo')}
     >
       <GalleryTitle

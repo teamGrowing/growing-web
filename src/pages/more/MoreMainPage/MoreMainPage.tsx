@@ -22,7 +22,7 @@ function MoreMainPage() {
   }, []);
 
   return (
-    <S.Container className="page-container with-navbar">
+    <S.Container>
       <S.IconWrapper>
         <Icon icon="IconLogo" themeColor="white" size={211} />
       </S.IconWrapper>

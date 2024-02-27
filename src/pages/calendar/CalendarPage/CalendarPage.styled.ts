@@ -1,7 +1,8 @@
+import { LayoutWithNavbar } from 'components/layout/common';
 import dayjs from 'dayjs';
 import styled from 'styled-components';
 
-export const PageContainer = styled.div`
+export const PageContainer = styled(LayoutWithNavbar)`
   overflow: scroll;
 `;
 export const TodayBtn = styled.button`

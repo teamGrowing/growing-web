@@ -22,7 +22,7 @@ function HomePage() {
   }, []);
 
   return (
-    <S.HomeContainer className="page-container with-navbar">
+    <S.HomeContainer>
       <S.Dates>
         <S.Today>
           <S.Day>{dayjs().format('DD')}</S.Day>

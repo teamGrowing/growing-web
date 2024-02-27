@@ -5,17 +5,16 @@ export const FullScreen = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
-  width: 100vw;
+  width: 100%;
+  height: 100vh;
+
   background: ${({ theme }) => theme.color.background};
-  opacity: 0.9;
 `;
 
 export const TextContainer = styled.section`

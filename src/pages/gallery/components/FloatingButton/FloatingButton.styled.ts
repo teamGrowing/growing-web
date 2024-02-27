@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const ButtonStyle = styled.div`
-  position: absolute;
-  right: 28px;
-  bottom: 15px;
+  position: fixed;
+  right: 20px;
+  bottom: calc(var(--navbar-real-height) + 10px);
   z-index: 999;
 `;
 

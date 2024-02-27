@@ -6,6 +6,7 @@ import PhotoContainer from 'pages/gallery/components/PhotoContainer/PhotoContain
 import Icon from 'components/common/Icon/Icon';
 import GalleryTitle from 'pages/gallery/components/GalleryTitle/GalleryTitle';
 import { useDeletePhotosMutation, useInfiniteGalleryList } from 'hooks/queries';
+import { LayoutWithNavbar } from 'components/layout/common';
 import store from '../../../stores/RootStore';
 import Modal from '../../../components/common/Modal/Modal';
 import useToast from '../../../hooks/common/useToast';
@@ -62,7 +63,7 @@ function PhotoPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <S.Container className="page-container with-navbar">
+      <LayoutWithNavbar>
         <GalleryTitle
           title="PHOTO"
           backBtn
@@ -105,7 +106,7 @@ function PhotoPage() {
             }}
           />
         )}
-      </S.Container>
+      </LayoutWithNavbar>
     </DataContext.Provider>
   );
 }

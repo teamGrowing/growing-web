@@ -47,7 +47,7 @@ function CalendarPage() {
   };
 
   return (
-    <S.PageContainer className="page-container with-navbar hidden-scrollbar">
+    <S.PageContainer className="hidden-scrollbar">
       <S.TodayBtn
         onClick={() => {
           setSelectedDate(dayjs());

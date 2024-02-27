@@ -3,8 +3,16 @@ import { normalize } from 'styled-normalize';
 
 const GlobalStyle = createGlobalStyle`
 :root {
+  --full-width: 780px;
+
   --navbar-height: 52px;
+  --navbar-real-height: calc(constant(safe-area-inset-bottom) + var(--navbar-height));
+  --navbar-real-height: calc(env(safe-area-inset-bottom) + var(--navbar-height));
+
   --topbar-height: 48px;
+  --topbar-real-height: calc(constant(safe-area-inset-bottom) + var(--topbar-height));
+  --topbar-real-height: calc(env(safe-area-inset-bottom) + var(--topbar-height));
+  
   --min-chat-textarea-height: calc(constant(safe-area-inset-bottom) + 24px);
   --min-chat-textarea-height: calc(env(safe-area-inset-bottom) + 24px);
 }
@@ -117,16 +125,14 @@ img {
   width: 100%;
   max-width: 780px;
   margin: 0 auto;
-  height: 100vh;
+  height: 100vh; 
 
   padding-top: calc(constant(safe-area-inset-top) + 16px); // IOS 11.0 버전
   padding-top: calc(env(safe-area-inset-top) + 16px); // IOS 11.0 이상
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
-.page-container.with-navbar {
-  height: calc(100vh - 52px);
-}
+
 .page-container.with-topbar {
   padding-top: calc(var(--topbar-height) + constant(safe-area-inset-top));
   padding-top: calc(var(--topbar-height) + env(safe-area-inset-top));

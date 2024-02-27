@@ -16,6 +16,7 @@ import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import AlbumModal from 'pages/gallery/components/AlbumModal/AlbumModal';
 import useToast from 'hooks/common/useToast';
+import { LayoutWithTopbarNavbar } from 'components/layout/common';
 import DataContext from '../context';
 import * as S from './AlbumDetailPage.styled';
 
@@ -124,77 +125,77 @@ function AlbumDetailPage() {
             : clickCheck
         }
       />
-      <S.Container className="page-container with-topbar with-navbar">
-        <S.ScrollArea className="hidden-scrollbar">
+      <LayoutWithTopbarNavbar>
+        <S.Container>
           <PhotoContainer photoObjects={photos ?? []} type="UPLOADED" />
-        </S.ScrollArea>
-        <FloatingButton albumId={aId} />
-        {onModal && (
-          <Modal
-            onModal={onModal}
-            setOnModal={setOnModal}
-            description={MENT_GALLERY.ALBUM_CHOOSE_DELETE_OPTION}
-            mainActionLabel="앨범에서 제거"
-            onMainAction={() => {
-              isDeleteOnlyFromAlbum.current = true;
-              setOnConfirmModal(true);
-            }}
-            subActionLabel="영구 삭제"
-            onSubAction={() => {
-              isDeleteOnlyFromAlbum.current = false;
-              setOnConfirmModal(true);
-            }}
-          />
-        )}
-        {onConfirmModal && (
-          <Modal
-            onModal={onConfirmModal}
-            setOnModal={setOnConfirmModal}
-            description={MENT_GALLERY.PHOTO_DELETE_CONFIRM}
-            mainActionLabel="확인"
-            onMainAction={() => {
-              if (isDeleteOnlyFromAlbum.current) {
-                deletePhotosFromAlbum();
-                return;
-              }
-              deletePhotos();
-            }}
-            subActionLabel="취소"
-            onSubAction={() => {}}
-          />
-        )}
-        {onAlbumModal && (
-          <AlbumModal
-            onModal={onAlbumModal}
-            setOnModal={setOnAlbumModal}
-            title="앨범 이름 변경"
-            mainActionLabel="확인"
-            onMainAction={(data) => {
-              modifyAlbumInfoMutate(
-                {
-                  title: data.albumTitle,
-                  subTitle: data.albumSubTitle,
-                },
-                {
-                  onSuccess: () => {
-                    addToast(MENT_GALLERY.ALBUM_MODIFY);
-                    navigate(location.pathname, {
-                      state: {
-                        ...location.state,
-                        title: data.albumTitle,
-                        subTitle: data.albumSubTitle,
-                      },
-                      replace: true,
-                    });
-                  },
+          <FloatingButton albumId={aId} />
+          {onModal && (
+            <Modal
+              onModal={onModal}
+              setOnModal={setOnModal}
+              description={MENT_GALLERY.ALBUM_CHOOSE_DELETE_OPTION}
+              mainActionLabel="앨범에서 제거"
+              onMainAction={() => {
+                isDeleteOnlyFromAlbum.current = true;
+                setOnConfirmModal(true);
+              }}
+              subActionLabel="영구 삭제"
+              onSubAction={() => {
+                isDeleteOnlyFromAlbum.current = false;
+                setOnConfirmModal(true);
+              }}
+            />
+          )}
+          {onConfirmModal && (
+            <Modal
+              onModal={onConfirmModal}
+              setOnModal={setOnConfirmModal}
+              description={MENT_GALLERY.PHOTO_DELETE_CONFIRM}
+              mainActionLabel="확인"
+              onMainAction={() => {
+                if (isDeleteOnlyFromAlbum.current) {
+                  deletePhotosFromAlbum();
+                  return;
                 }
-              );
-            }}
-            subActionLabel="취소"
-            onSubAction={() => {}}
-          />
-        )}
-      </S.Container>
+                deletePhotos();
+              }}
+              subActionLabel="취소"
+              onSubAction={() => {}}
+            />
+          )}
+          {onAlbumModal && (
+            <AlbumModal
+              onModal={onAlbumModal}
+              setOnModal={setOnAlbumModal}
+              title="앨범 이름 변경"
+              mainActionLabel="확인"
+              onMainAction={(data) => {
+                modifyAlbumInfoMutate(
+                  {
+                    title: data.albumTitle,
+                    subTitle: data.albumSubTitle,
+                  },
+                  {
+                    onSuccess: () => {
+                      addToast(MENT_GALLERY.ALBUM_MODIFY);
+                      navigate(location.pathname, {
+                        state: {
+                          ...location.state,
+                          title: data.albumTitle,
+                          subTitle: data.albumSubTitle,
+                        },
+                        replace: true,
+                      });
+                    },
+                  }
+                );
+              }}
+              subActionLabel="취소"
+              onSubAction={() => {}}
+            />
+          )}
+        </S.Container>
+      </LayoutWithTopbarNavbar>
     </DataContext.Provider>
   );
 }

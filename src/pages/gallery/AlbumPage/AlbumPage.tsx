@@ -59,7 +59,7 @@ function AlbumPage() {
 
   return (
     <DataContext.Provider value={ctxValue}>
-      <S.Container className="page-container with-navbar">
+      <S.Container>
         <GalleryTitle
           title="ALBUM"
           backBtn

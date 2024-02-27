@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: relative;
+  overflow-y: scroll;
+  padding-top: 10px;
 `;
 
 export const Option = styled.div`
@@ -18,9 +19,4 @@ export const Option = styled.div`
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-`;
-
-export const ScrollArea = styled.div`
-  overflow-y: scroll;
-  height: calc(100vh - 48px - 52px);
 `;
