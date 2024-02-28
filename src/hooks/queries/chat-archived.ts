@@ -26,7 +26,12 @@ export function useArchivedChatData({
     [...queryKeys.chatKeys.archived, ...(storeCode ?? [])],
     () => CHAT_ARCHIVED_API.getArchivedChat(`${coupleId ?? ''}`),
     {
-      select: (data) => data.data,
+      select: (data) =>
+        data.data.sort((a, b) => {
+          return (
+            new Date(b.archivedAt).getTime() - new Date(a.archivedAt).getTime()
+          );
+        }),
       ...options,
     }
   );

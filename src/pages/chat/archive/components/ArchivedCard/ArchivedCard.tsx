@@ -3,7 +3,6 @@ import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
 import Icon from 'components/common/Icon/Icon';
 import { ChattingArchivedDto } from 'models/chat';
-import ArchivedCardLines from '../ArchivedCardLines/ArchivedCardLines';
 import * as S from './ArchivedCard.styled';
 
 type ArchivedCardDto = Pick<
@@ -18,6 +17,17 @@ interface ArchivedCardProps extends ArchivedCardDto {
   setPopUpId: React.Dispatch<SetStateAction<string | null>>;
   idx: number;
 }
+
+const ArchivedCardLines = ({ n }: { n: number }) => {
+  return (
+    <S.Lines>
+      {Array.from({ length: n < 21 ? 21 : n }, () => 0).map((v, i) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <S.Line key={i} />
+      ))}
+    </S.Lines>
+  );
+};
 
 function ArchivedCard({
   onClick,
