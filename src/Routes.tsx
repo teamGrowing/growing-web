@@ -16,10 +16,10 @@ import PetPage from './pages/more/PetPage/PetPage';
 import AuthRoute from './components/layout/AuthRoute';
 import AlbumPhotoDetailPage from './pages/gallery/AlbumPhotoDetailPage/AlbumPhotoDetailPage';
 import CalendarPage from './pages/calendar/CalendarPage/CalendarPage';
-import Home from './pages/home/HomePage/HomePage';
-import PetNamingPage from './pages/home/PetNamingPage/PetNamingPage';
-import PetFeedPage from './pages/home/PetRaisingPage/PetRaisingPage';
-import PetGraduatePage from './pages/home/PetGraduatePage/PetGraduatePage';
+import Home from './pages/home/main/page';
+import PetNamingPage from './pages/home/pet-naming/page';
+import PetFeedPage from './pages/home/pet-raising/page';
+import PetGraduatePage from './pages/home/pet-graduate/page';
 import ChattingPage from './pages/chat/ChattingPage/ChattingPage';
 import LongChattingPage from './pages/chat/LongChattingPage/LongChattingPage';
 import QuestionBoxPage from './pages/chat/QuestionBoxPage/QuestionBoxPage';
@@ -52,8 +52,8 @@ function GrowingRoutes() {
             <Route path="/" element={<Home />} />
           </Route>
           <Route path="/pet/naming" element={<PetNamingPage />} />
-          <Route path="/pet/feed" element={<PetFeedPage />} />
-          <Route path="/pet/play" element={<PetFeedPage />} />
+          <Route path="/pet/raising/feed" element={<PetFeedPage />} />
+          <Route path="/pet/raising/play" element={<PetFeedPage />} />
           <Route path="/pet/graduate" element={<PetGraduatePage />} />
 
           {/* chat */}
