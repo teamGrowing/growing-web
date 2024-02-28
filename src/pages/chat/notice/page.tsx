@@ -5,7 +5,7 @@ import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import queryKeys from 'libs/react-query/queryKeys';
 import { Notice } from 'models/chat';
-import * as S from './ChatNoticePage.styled';
+import * as S from './page.styled';
 
 function ChatNoticePage() {
   const navigation = useNavigate();

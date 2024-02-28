@@ -9,7 +9,7 @@ import VideoPlayBtn from 'pages/chat/components/VideoPlayBtn/VideoPlayBtn';
 import usePhotos from 'pages/chat/hooks/usePhotos';
 import { useChatPhotoBoxData } from 'hooks/queries';
 import { MENT_CHAT } from 'constants/ments';
-import * as S from './ChatPhotoBoxPage.styled';
+import * as S from './page.styled';
 
 function ChatPhotoBoxPage() {
   const navigation = useNavigate();

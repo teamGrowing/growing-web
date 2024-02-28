@@ -13,7 +13,7 @@ import SubMenu from 'pages/chat/components/SubMenu/SubMenu';
 import ChatNotice from 'pages/chat/components/ChatNotice/ChatNotice';
 import { PLUS_MENU_HEIGHT } from 'constants/constants';
 import useScrollRestoration from 'pages/chat/hooks/useScrollRestoration';
-import * as S from './ChattingPage.styled';
+import * as S from './page.styled';
 import useChatObserver from '../hooks/useChatObserver';
 
 function ChattingPage() {

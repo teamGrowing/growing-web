@@ -10,7 +10,7 @@ import TopBar from 'components/common/TopBar/TopBar';
 import ChatVideo from 'pages/chat/components/ChatVideo/ChatVideo';
 import { useChatPhotoDetailData, useChatPhotoToGallery } from 'hooks/queries';
 import useToast from 'hooks/common/useToast';
-import * as S from './ChatPhotoDetailPage.styled';
+import * as S from './page.styled';
 
 // TODO: 넘기면 다음 채팅 사진으로
 function ChatPhotoDetailPage() {

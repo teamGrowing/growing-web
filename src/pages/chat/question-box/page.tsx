@@ -7,7 +7,7 @@ import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import QuestionCard from 'pages/chat/components/QuestionCard/QuestionCard';
 import { MENT_CHAT } from 'constants/ments';
-import * as S from './QuestionBoxPage.styled';
+import * as S from './page.styled';
 
 function QuestionBoxPage() {
   const navigation = useNavigate();

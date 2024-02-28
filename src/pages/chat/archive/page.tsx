@@ -10,7 +10,7 @@ import ArchivedCard from 'pages/chat/components/ArchivedCard/ArchivedCard';
 import useToast from 'hooks/common/useToast';
 import useDeleteArchived from 'pages/chat/hooks/useDeleteArchived';
 import { useArchivedChatData } from 'hooks/queries';
-import * as S from './ChatArchivePage.styled';
+import * as S from './page.styled.';
 
 function ChatArchivePage() {
   const navigation = useNavigate();

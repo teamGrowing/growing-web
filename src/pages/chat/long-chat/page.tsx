@@ -8,7 +8,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import queryKeys from 'libs/react-query/queryKeys';
 import useToast from 'hooks/common/useToast';
 import { MENT_CHAT } from 'constants/ments';
-import * as S from './LongChattingPage.styled';
+import * as S from './page.styled';
 
 function LongChattingPage() {
   const navigation = useNavigate();
