@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQueryClient } from '@tanstack/react-query';
-import { AxiosResponse } from 'axios';
 import store from 'stores/RootStore';
 import changeEmojiToSpan from 'utils/Text';
 import preventScroll from 'utils/utils';
@@ -11,7 +10,6 @@ import useToast from 'hooks/common/useToast';
 import { usePetNameMutation } from 'hooks/queries';
 import queryKeys from 'libs/react-query/queryKeys';
 import MENT_HOME from 'constants/ments';
-import { PetDto } from 'models/pet';
 import { PetFormValues, petSchema } from 'libs/react-hook-form';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
@@ -28,10 +26,6 @@ export default function PetNamingPage() {
   const { addToast } = useToast();
 
   const [onModal, setOnModal] = useState<boolean>(false);
-
-  const { data: pet } = queryClient.getQueryData(
-    queryKeys.petKeys.all
-  ) as AxiosResponse<PetDto>;
 
   const methods = useForm<PetFormValues>({ resolver: yupResolver(petSchema) });
 
@@ -81,7 +75,7 @@ export default function PetNamingPage() {
             )}
           />
 
-          <Pet3D url={pet.imageUrl} size={240} />
+          <Pet3D size={240} />
 
           <S.WaveWrapper>
             <S.Wave src={Waves} />

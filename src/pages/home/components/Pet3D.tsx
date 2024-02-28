@@ -1,30 +1,19 @@
 /* eslint-disable react/no-unknown-property */
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { Suspense, useRef } from 'react';
+import { observer } from 'mobx-react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import { PetModel, Loader } from './PetModel';
+import { PetModel, PetModelError, PetModelLoading } from './PetModel';
 
-const Pet3D = ({
-  url,
-  size,
-  onClick,
-}: {
-  url: string | undefined;
+interface Props {
+  url?: string;
   size?: number;
   onClick?: () => void;
-}) => {
+}
+
+const Pet3D = ({ url, size, onClick }: Props) => {
   const ref = useRef<HTMLCanvasElement | null>(null);
-  const [show, setShow] = useState<boolean>(false);
-
-  useEffect(() => {
-    setShow(true);
-    return () => {
-      setShow(false);
-    };
-  }, []);
-
-  if (!show) return null;
-  if (!url) return null;
 
   return (
     <Canvas
@@ -39,12 +28,14 @@ const Pet3D = ({
         <ambientLight />
         <pointLight position={[10, 30, 40]} dispose={null} />
         <OrbitControls />
-        <Suspense fallback={<Loader />}>
-          <PetModel url={url} />
-        </Suspense>
+        <ErrorBoundary FallbackComponent={PetModelError}>
+          <Suspense fallback={<PetModelLoading />}>
+            <PetModel url={url} />
+          </Suspense>
+        </ErrorBoundary>
       </group>
     </Canvas>
   );
 };
 
-export default Pet3D;
+export default observer(Pet3D);

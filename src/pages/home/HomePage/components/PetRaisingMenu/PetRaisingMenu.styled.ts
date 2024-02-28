@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { float } from 'styles/common/animation';
+import { hoverShrinkEffect } from 'styles/common/mixin';
 
 export const Container = styled.div`
   position: relative;
@@ -9,14 +10,13 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
 `;
 
 export const HeartButton = styled.img`
   animation: ${float} 2s ease-in-out infinite;
 `;
 
-export const PetOptions = styled.div`
+export const PetOptions = styled.ul`
   position: absolute;
   top: 70px;
 
@@ -28,12 +28,7 @@ export const PetOptions = styled.div`
   border-radius: 14px;
 `;
 
-export const Border = styled.div`
-  height: 0.5px;
-  background-color: ${({ theme }) => theme.color.gray400};
-`;
-
-export const PetItem = styled.div`
+export const PetItem = styled.li`
   height: 62px;
   cursor: pointer;
 
@@ -46,4 +41,11 @@ export const PetItem = styled.div`
   font-size: 12px;
   color: ${({ theme }) => theme.color.gray900};
   text-align: center;
+
+  ${hoverShrinkEffect}
+`;
+
+export const Border = styled.div`
+  height: 0.5px;
+  background-color: ${({ theme }) => theme.color.gray400};
 `;

@@ -36,7 +36,6 @@ export function usePetData({
     () => PET_API.getPet(coupleId, petId),
     {
       select: ({ data }) => data,
-      suspense: true,
       ...options,
     }
   );

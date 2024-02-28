@@ -43,7 +43,6 @@ export default function PetRaisingPage() {
     coupleId: userStore.user?.coupleId!,
     petId: userStore.petId!,
     options: {
-      enabled: !!userStore.petId,
       suspense: false,
     },
   });

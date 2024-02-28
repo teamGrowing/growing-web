@@ -6,7 +6,7 @@ import { ReactComponent as IconLetter } from 'assets/icons/home/IconLetter.svg';
 import { ImgHeart } from 'assets/image';
 import * as S from './PetRaisingMenu.styled';
 
-function PetRaisingMenu() {
+const PetRaisingMenu = () => {
   const navigation = useNavigate();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -20,17 +20,22 @@ function PetRaisingMenu() {
         onClick={() => setIsOpen(!isOpen)}
         style={{ cursor: 'pointer' }}
       />
+
       {isOpen && (
         <S.PetOptions>
           <S.PetItem onClick={() => navigation('/pet/feed')}>
             <IconBowl />밥 주기
           </S.PetItem>
+
           <S.Border />
+
           <S.PetItem onClick={() => navigation('/pet/play')}>
             <IconSmile />
             쓰다듬기
           </S.PetItem>
+
           <S.Border />
+
           <S.PetItem onClick={() => navigation('/chat')}>
             <IconLetter />
             사랑해
@@ -41,6 +46,6 @@ function PetRaisingMenu() {
       )}
     </S.Container>
   );
-}
+};
 
 export default PetRaisingMenu;

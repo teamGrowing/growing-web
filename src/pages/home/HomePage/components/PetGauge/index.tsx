@@ -1,26 +1,36 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import Skeleton from 'react-loading-skeleton';
 import { useQueryClient } from '@tanstack/react-query';
 import store from 'stores/RootStore';
-import { useGradutePet } from 'hooks/queries';
+import { useCoupleData, useGradutePet, usePetData } from 'hooks/queries';
 import PET_GAUGE_MAX from 'constants/constants';
-import { PetDto } from 'models/pet';
 import { ReactComponent as IconBowl } from 'assets/icons/home/IconBowl.svg';
 import { ReactComponent as IconSmile } from 'assets/icons/home/IconSmile.svg';
 import { ReactComponent as IconLetter } from 'assets/icons/home/IconLetter.svg';
 import queryKeys from 'libs/react-query/queryKeys';
 import * as S from './PetGauge.styled';
 
-type PetGaugeProps = Pick<
-  PetDto,
-  'hungryGauge' | 'attentionGauge' | 'loveGauge'
->;
-
-function PetGauge({ hungryGauge, attentionGauge, loveGauge }: PetGaugeProps) {
+const PetGauge = () => {
   const navigation = useNavigate();
   const { userStore } = store;
   const queryClient = useQueryClient();
+
+  const { data: couple } = useCoupleData({
+    coupleId: userStore.user?.coupleId || '',
+    options: {
+      enabled: !!userStore.user?.coupleId,
+    },
+  });
+
+  const { data: pet } = usePetData({
+    coupleId: couple?.coupleId || '',
+    petId: couple?.petId || '',
+    options: {
+      enabled: !!couple,
+    },
+  });
 
   const { mutateAsync: graduatePet } = useGradutePet({
     coupleId: userStore.user?.coupleId ?? '',
@@ -42,13 +52,13 @@ function PetGauge({ hungryGauge, attentionGauge, loveGauge }: PetGaugeProps) {
 
   useEffect(() => {
     if (
-      hungryGauge === PET_GAUGE_MAX &&
-      attentionGauge === PET_GAUGE_MAX &&
-      loveGauge === PET_GAUGE_MAX
+      pet?.hungryGauge === PET_GAUGE_MAX &&
+      pet?.attentionGauge === PET_GAUGE_MAX &&
+      pet?.loveGauge === PET_GAUGE_MAX
     ) {
       graduatePet({});
     }
-  }, [hungryGauge, attentionGauge, loveGauge]);
+  }, [pet?.hungryGauge, pet?.attentionGauge, pet?.loveGauge]);
 
   return (
     <S.Wrapper>
@@ -56,26 +66,30 @@ function PetGauge({ hungryGauge, attentionGauge, loveGauge }: PetGaugeProps) {
         <S.GaugeRow>
           <IconBowl />
           <S.Bar>
-            <S.ActiveBar level={getGaugeToPercent(hungryGauge)} />
+            <S.ActiveBar level={getGaugeToPercent(pet?.hungryGauge)} />
           </S.Bar>
         </S.GaugeRow>
 
         <S.GaugeRow>
           <IconSmile />
           <S.Bar>
-            <S.ActiveBar level={getGaugeToPercent(attentionGauge)} />
+            <S.ActiveBar level={getGaugeToPercent(pet?.attentionGauge)} />
           </S.Bar>
         </S.GaugeRow>
 
         <S.GaugeRow>
           <IconLetter />
           <S.Bar>
-            <S.ActiveBar level={getGaugeToPercent(loveGauge)} />
+            <S.ActiveBar level={getGaugeToPercent(pet?.loveGauge)} />
           </S.Bar>
         </S.GaugeRow>
       </S.Container>
     </S.Wrapper>
   );
-}
+};
+
+PetGauge.Loading = () => {
+  return <Skeleton width={272} height={134} borderRadius={14} />;
+};
 
 export default observer(PetGauge);

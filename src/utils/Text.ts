@@ -17,4 +17,18 @@ export const secondsToText = (second: number) => {
   return `${minutes}:${seconds}`;
 };
 
+export const chooseConjunction = (word: string) => {
+  const lastChar = word[word.length - 1];
+  const lastCharCode = lastChar.charCodeAt(0);
+
+  if (lastCharCode >= 0xac00 && lastCharCode <= 0xd7a3) {
+    const jongseongIndex = (lastCharCode - 0xac00) % 28;
+    if (jongseongIndex > 0) {
+      return '과';
+    }
+    return '와';
+  }
+  return '와';
+};
+
 export default changeEmojiToSpan;
