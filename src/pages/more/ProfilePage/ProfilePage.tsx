@@ -18,7 +18,6 @@ import {
   usePutProfilePhotoMutation,
   usePatchCoupleMutation,
   useCreatePhotoMutation,
-  useGalleryList,
   useGetUploadUrl,
   useUploadPhotoMutation,
 } from 'hooks/queries';
@@ -91,7 +90,7 @@ function ProfilePage() {
     },
   });
 
-  const { data: photos } = useGalleryList({ coupleId });
+  // const { data: photos } = useGalleryList({ coupleId });
   const { mutateAsync: patchUserInfo } = usePatchUserInfoMutation({ userId });
   const { mutateAsync: patchCoupleInfo } = usePatchCoupleMutation({ coupleId });
   const { mutateAsync: putProfilePhoto } = usePutProfilePhotoMutation({
@@ -296,7 +295,6 @@ function ProfilePage() {
         <S.Container className="page-container">
           <S.Layer />
           <PhotoScroll
-            photos={photos ?? []}
             leftLabel="취소"
             onLeftClick={() => setOnPhotoScroll(false)}
           />

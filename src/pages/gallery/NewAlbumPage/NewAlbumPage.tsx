@@ -4,10 +4,7 @@ import { observer } from 'mobx-react';
 import PhotoScroll from 'pages/gallery/components/PhotoScroll/PhotoScroll';
 import { AlbumFormValues } from 'libs/react-hook-form';
 import DataContext from '../context';
-import {
-  useInfiniteGalleryList,
-  usePostAlbumsMutation,
-} from '../../../hooks/queries';
+import { usePostAlbumsMutation } from '../../../hooks/queries';
 import store from '../../../stores/RootStore';
 import Modal from '../components/AlbumModal/AlbumModal';
 import useToast from '../../../hooks/common/useToast';
@@ -21,8 +18,6 @@ function NewAlbumPage() {
   const { addToast } = useToast();
 
   const coupleId = store.userStore.user?.coupleId ?? '';
-
-  const { data: photos } = useInfiniteGalleryList({ coupleId });
   const { mutate: postAlbumMutate } = usePostAlbumsMutation({ coupleId });
   const ctxValue = useMemo(() => {
     return {
@@ -58,7 +53,6 @@ function NewAlbumPage() {
     <DataContext.Provider value={ctxValue}>
       <S.Container className="page-container">
         <PhotoScroll
-          photos={photos?.pages.flatMap((res) => res) ?? []}
           leftLabel="취소"
           rightLabel="추가"
           onRightClick={() => {
