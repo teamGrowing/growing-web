@@ -1,24 +1,20 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import PetCard from 'pages/more/components/PetCard/PetCard';
 import PetDetailCard from 'pages/more/components/PetDetailCard/PetDetailCard';
 import MainBackground from 'styles/common/MainBackground';
-import { useGraduatedPets } from 'hooks/queries';
-import store from 'stores/RootStore';
-import { MENT_MORE } from 'constants/ments';
-import changeEmojiToSpan from 'utils/Text';
 import Portal from 'components/common/Portal';
+import { useQueryErrorResetBoundary } from '@tanstack/react-query';
+import { ErrorBoundary } from 'react-error-boundary';
 import * as S from './PetPage.styled';
+import PetCardList from './components/PetCardList';
 
-function PetPage() {
+const PetPage = () => {
   const navigate = useNavigate();
   const [detailPetId, setDetailPetId] = useState<string | null>(null);
-  const { data: graduatedPets } = useGraduatedPets({
-    coupleId: store.userStore.user?.coupleId!,
-  });
+  const { reset } = useQueryErrorResetBoundary();
 
   const clickCardHandler = (petId: string) => {
     setDetailPetId(petId);
@@ -32,26 +28,13 @@ function PetPage() {
         onLeftClick={() => navigate('/more')}
         title="동물도감"
       />
-      {graduatedPets?.length === 0 && (
-        <S.EmptyWrapper>
-          <Icon icon="IconLogo" size={60} />
-          <S.Message>
-            <S.FontSpan
-              className="text-gradient400"
-              dangerouslySetInnerHTML={changeEmojiToSpan(
-                MENT_MORE.PET_NOT_EXIST
-              )}
-            />
-          </S.Message>
-        </S.EmptyWrapper>
-      )}
-      {graduatedPets && graduatedPets?.length > 0 && (
-        <S.Wrapper className="hidden-scrollbar">
-          {graduatedPets.map((pet) => (
-            <PetCard key={pet.id} petInfo={pet} onClick={clickCardHandler} />
-          ))}
-        </S.Wrapper>
-      )}
+      <S.Wrapper>
+        <ErrorBoundary onReset={reset} FallbackComponent={PetCardList.Error}>
+          <Suspense fallback={<PetCardList.Loading />}>
+            <PetCardList clickCardHandler={clickCardHandler} />
+          </Suspense>
+        </ErrorBoundary>
+      </S.Wrapper>
       {detailPetId && (
         <Portal type="modal-root">
           <S.Layer />
@@ -63,5 +46,5 @@ function PetPage() {
       )}
     </S.Container>
   );
-}
+};
 export default observer(PetPage);
