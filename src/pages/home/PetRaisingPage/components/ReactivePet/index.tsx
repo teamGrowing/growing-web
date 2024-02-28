@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { LottieRefCurrentProps } from 'lottie-react';
 import { useNavigate } from 'react-router-dom';
@@ -20,6 +20,7 @@ import * as S from './ReactivePet.styled';
 import { PetOption } from '../../types/PetOption';
 import { ModalOption } from '../../types/ModalOption';
 import PetMainSection from '../PetMainSection';
+import Pet from '../Pet';
 
 interface Props {
   reactionType: PetOption;
@@ -91,6 +92,11 @@ const ReactivePet = ({ reactionType }: Props) => {
           MENT_HOME.PET_FEED_SUCCESS,
           MENT_HOME.PET_FEED_FAIL_TIME
         ),
+      onError: () =>
+        setModalState({
+          on: true,
+          text: MENT_HOME.PET_RAISING_FAIL,
+        }),
     },
   });
 
@@ -104,6 +110,11 @@ const ReactivePet = ({ reactionType }: Props) => {
           MENT_HOME.PET_PLAY_SUCCESS,
           MENT_HOME.PET_PLAY_FAIL
         ),
+      onError: () =>
+        setModalState({
+          on: true,
+          text: MENT_HOME.PET_RAISING_FAIL,
+        }),
     },
   });
 
@@ -127,10 +138,6 @@ const ReactivePet = ({ reactionType }: Props) => {
   }, [gauge, reactionType, feedPet, playPet]);
 
   useEffect(() => {
-    setReactionUrl(pet?.imageUrl || '');
-  }, [pet]);
-
-  useEffect(() => {
     foodLottieRef.current?.pause();
     heartsLottieRef.current?.pause();
   }, [foodLottieRef, heartsLottieRef]);
@@ -148,11 +155,9 @@ const ReactivePet = ({ reactionType }: Props) => {
           />
         )}
 
-        <S.Pet
-          url={reactionUrl ?? (pet?.imageUrl || '')}
-          size={300}
-          onClick={handlePetReaction}
-        />
+        <Suspense fallback={<Pet.Loading />}>
+          <Pet reactionUrl={reactionUrl} onPetClick={handlePetReaction} />
+        </Suspense>
       </S.PetContainer>
 
       <S.HearLottie

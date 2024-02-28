@@ -23,6 +23,9 @@ const MENT_HOME = Object.freeze({
   PET_PLAY_SUCCESS: '그로잉펫이 행복해 보여요 😍',
   PET_PLAY_FAIL: '그로잉펫이 살짝 귀찮대요 😅',
 
+  PET_RAISING_FAIL:
+    '네트워크 오류가 발생했어요. 이용에 불편을 드려서 죄송해요 😭',
+
   PET_GRADUATE:
     '아쉽게도 그로잉펫과 헤어질 시간이에요 😭\n그로잉펫이 덕분에 너~~무 행복했대요!\n\n그로잉펫이 그리울 땐 졸업앨범을 찾아주세요ㅎㅎ\n\n그럼 안녕~~👋',
   PET_GRADUATE_NEW_PET: '새로운 그로잉펫 만나러 가기 ✨',

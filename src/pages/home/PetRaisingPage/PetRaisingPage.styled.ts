@@ -1,10 +1,10 @@
 import styled from 'styled-components';
+import { LayoutWithTopbar } from 'components/layout/common';
 
-export const Container = styled.div`
+export const Container = styled(LayoutWithTopbar)`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
 
   background: ${({ theme }) => theme.color.background};
 `;

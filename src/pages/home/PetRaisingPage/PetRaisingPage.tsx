@@ -18,7 +18,7 @@ export default function PetRaisingPage() {
   }, []);
 
   return (
-    <S.Container className="page-container with-topbar">
+    <S.Container>
       <TopBar
         mode="BACKGROUND"
         leftNode={<Icon icon="IconArrowLeft" />}

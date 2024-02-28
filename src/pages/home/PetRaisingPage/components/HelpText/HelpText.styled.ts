@@ -49,7 +49,7 @@ export const Letter = styled.div`
 `;
 
 export const Wave = styled.img`
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 0;
 
