@@ -48,29 +48,6 @@ export const NoAlbumContainer = styled.div`
   }
 `;
 
-export const SlideContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-
-  width: 100%;
-  height: 176px;
-
-  padding: 18px 0px 10px 14px;
-  gap: 10px;
-  isolation: isolate;
-
-  backdrop-filter: blur(2px);
-
-  flex: none;
-  order: 1;
-  align-self: stretch;
-  flex-grow: 0;
-
-  overflow-y: hidden;
-  overflow-x: scroll;
-`;
-
 export const Line = styled.div`
   position: absolute;
   width: 100%;

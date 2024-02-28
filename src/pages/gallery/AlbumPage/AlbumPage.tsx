@@ -1,31 +1,17 @@
-import { useRef, useState, useMemo } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useRef, useState, useMemo, Suspense } from 'react';
+import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import Icon from 'components/common/Icon/Icon';
-import AlbumContainer from 'pages/gallery/components/AlbumContainer/AlbumContainer';
-import GalleryTitle from 'pages/gallery/components/GalleryTitle/GalleryTitle';
-import { useAlbumsList, useDeleteAlbumsMutation } from 'hooks/queries';
-import store from 'stores/RootStore';
-import Modal from 'components/common/Modal/Modal';
-import useToast from 'hooks/common/useToast';
-import { MENT_GALLERY } from 'constants/ments';
+import AlbumContainer from 'pages/gallery/AlbumPage/components/AlbumContainer';
+import { ErrorBoundary } from 'react-error-boundary';
 import DataContext from '../context';
 import * as S from './AlbumPage.styled';
 
 function AlbumPage() {
-  const navigate = useNavigate();
   const location = useLocation();
-  const { addToast } = useToast();
-  const [selectingAvailable, setSelectingAvailable] = useState(
+  const [selectingAvailable, setSelectingAvailable] = useState<boolean>(
     location.state?.selectingAvailable ?? false
   );
-  const [onModal, setOnModal] = useState(false);
   const selectedAlbums = useRef<string[]>([]);
-
-  const coupleId = store.userStore.user?.coupleId ?? '';
-
-  const { data: albums } = useAlbumsList({ coupleId });
-  const { mutate: deleteAlbumsMutate } = useDeleteAlbumsMutation({ coupleId });
 
   const ctxValue = useMemo(() => {
     return {
@@ -43,62 +29,23 @@ function AlbumPage() {
     };
   }, [selectingAvailable]);
 
-  const clearList = () => {
+  const clearSelectedList = () => {
     selectedAlbums.current = [];
-    setSelectingAvailable(false);
-  };
-
-  const deleteAlbums = () => {
-    deleteAlbumsMutate(selectedAlbums.current, {
-      onSuccess: () => {
-        setSelectingAvailable(false);
-        addToast(MENT_GALLERY.ALBUM_DELETE_SUCCESS);
-      },
-    });
   };
 
   return (
     <DataContext.Provider value={ctxValue}>
       <S.Container>
-        <GalleryTitle
-          title="ALBUM"
-          backBtn
-          onBackBtnClick={() => navigate('/gallery')}
-          plusBtn={!selectingAvailable}
-          onPlusBtnClick={() => navigate('/gallery/new-album')}
-          rightNode={
-            !selectingAvailable ? (
-              <Icon icon="IconCheck" />
-            ) : (
-              <S.Cancel className="text-gradient400">취소</S.Cancel>
-            )
-          }
-          onRightClick={
-            selectingAvailable ? clearList : () => setSelectingAvailable(true)
-          }
-          rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
-          onRightSubClick={() => {
-            if (selectedAlbums.current.length <= 0) {
-              addToast(MENT_GALLERY.ALBUM_DELETE_FAIL_NO_SELECTED);
-              return;
-            }
-            setOnModal(true);
-          }}
-        />
-        <S.ScrollArea className="hidden-scrollbar">
-          <AlbumContainer albums={albums ?? []} />
-        </S.ScrollArea>
-        <Modal
-          onModal={onModal}
-          setOnModal={setOnModal}
-          description={MENT_GALLERY.ALBUM_DELETE_CONFIRM}
-          mainActionLabel="확인"
-          onMainAction={deleteAlbums}
-          subActionLabel="취소"
-          onSubAction={() => {
-            setOnModal(false);
-          }}
-        />
+        <ErrorBoundary FallbackComponent={AlbumContainer.Error}>
+          <Suspense fallback={<AlbumContainer.Loading />}>
+            <AlbumContainer
+              selectingAvailable={selectingAvailable}
+              setSelectingAvailable={setSelectingAvailable}
+              selectedAlbums={selectedAlbums.current}
+              clearSelectedList={clearSelectedList}
+            />
+          </Suspense>
+        </ErrorBoundary>
       </S.Container>
     </DataContext.Provider>
   );
