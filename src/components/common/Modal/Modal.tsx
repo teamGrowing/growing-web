@@ -4,7 +4,7 @@ import * as S from './Modal.styled';
 export interface ModalProps {
   onModal: boolean;
   setOnModal: (state: boolean) => void;
-  title?: string;
+  title?: string | React.ReactNode;
   description?: string;
   mainActionLabel: string;
   subActionLabel?: string;

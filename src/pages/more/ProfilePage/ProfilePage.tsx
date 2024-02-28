@@ -29,11 +29,13 @@ import { MENT_MORE } from 'constants/ments';
 import { getVideoDuration } from 'utils/video';
 import DataContext from '../../gallery/context';
 import * as S from './Profile.styled';
+import LoadingContent from './components/LoadingContent';
 
 function ProfilePage() {
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [onCompleteModal, setOnCompleteModal] = useState(false);
   const [onCancelModal, setOnCanelModal] = useState(false);
   const [onBottomSheet, setOnButtomSheet] = useState(false);
@@ -89,8 +91,6 @@ function ProfilePage() {
       anniversary,
     },
   });
-
-  // const { data: photos } = useGalleryList({ coupleId });
   const { mutateAsync: patchUserInfo } = usePatchUserInfoMutation({ userId });
   const { mutateAsync: patchCoupleInfo } = usePatchCoupleMutation({ coupleId });
   const { mutateAsync: putProfilePhoto } = usePutProfilePhotoMutation({
@@ -135,6 +135,8 @@ function ProfilePage() {
     anniversary: string;
   }) => {
     try {
+      setIsLoading(true);
+      setOnCompleteModal(true);
       await patchUserInfo({
         nickName: data.nickname,
         birthDay: new Date(data.birthday),
@@ -146,10 +148,10 @@ function ProfilePage() {
       if (profilePhoto.isChange && profilePhoto.files) {
         await uploadPhoto();
       }
-
-      setOnCompleteModal(true);
     } catch (e) {
       addToast(MENT_MORE.PROFILE_MODIFY_FAIL);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -227,10 +229,18 @@ function ProfilePage() {
               <Modal
                 onModal={onCompleteModal}
                 setOnModal={setOnCompleteModal}
-                title={MENT_MORE.PROFILE_MODIFY_SUCCESS_TITLE}
-                description={MENT_MORE.PROFILE_MODIFY_SUCCESS_DESC}
-                mainActionLabel="확인"
-                onMainAction={() => navigate('/more')}
+                title={
+                  isLoading ? (
+                    <LoadingContent />
+                  ) : (
+                    MENT_MORE.PROFILE_MODIFY_SUCCESS_TITLE
+                  )
+                }
+                description={
+                  isLoading ? '' : MENT_MORE.PROFILE_MODIFY_SUCCESS_DESC
+                }
+                mainActionLabel={isLoading ? '' : '확인'}
+                onMainAction={isLoading ? () => {} : () => navigate('/more')}
               />
               <Modal
                 onModal={onCancelModal}
