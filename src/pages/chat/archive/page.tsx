@@ -10,7 +10,7 @@ import ArchivedCard from 'pages/chat/components/ArchivedCard/ArchivedCard';
 import useToast from 'hooks/common/useToast';
 import useDeleteArchived from 'pages/chat/hooks/useDeleteArchived';
 import { useArchivedChatData } from 'hooks/queries';
-import * as S from './page.styled.';
+import * as S from './page.styled';
 
 function ChatArchivePage() {
   const navigation = useNavigate();
@@ -45,7 +45,7 @@ function ChatArchivePage() {
   }, [isSelectMode]);
 
   return (
-    <S.PageContainer className="page-container with-topbar">
+    <S.PageContainer>
       {!isSelectMode ? (
         <TopBar
           title="대화 보관함"
@@ -64,35 +64,33 @@ function ChatArchivePage() {
         />
       )}
 
-      <S.Outer className="hidden-scrollbar">
-        <S.Cards className="hidden-scrollbar">
-          {!chats ? (
-            <S.EmptyCase className="text-gradient400">
-              <Icon icon="IconLogo" size={60} />
-              {MENT_CHAT.ARCHIVED_EMPTY}
-            </S.EmptyCase>
-          ) : (
-            chats
-              .sort((a, b) => {
-                return (
-                  new Date(b.archivedAt).getTime() -
-                  new Date(a.archivedAt).getTime()
-                );
-              })
-              .map((chat, idx) => (
-                <ArchivedCard
-                  key={chat.chattingId}
-                  onClick={() => handleClick(chat.chattingId)}
-                  isSelected={getSelected(chat.chattingId)}
-                  isPopUp={popUpId === chat.chattingId}
-                  setPopUpId={setPopUpId}
-                  idx={idx}
-                  {...chat}
-                />
-              ))
-          )}
-        </S.Cards>
-      </S.Outer>
+      <S.Cards className="hidden-scrollbar">
+        {!chats ? (
+          <S.EmptyCase className="text-gradient400">
+            <Icon icon="IconLogo" size={60} />
+            {MENT_CHAT.ARCHIVED_EMPTY}
+          </S.EmptyCase>
+        ) : (
+          chats
+            .sort((a, b) => {
+              return (
+                new Date(b.archivedAt).getTime() -
+                new Date(a.archivedAt).getTime()
+              );
+            })
+            .map((chat, idx) => (
+              <ArchivedCard
+                key={chat.chattingId}
+                onClick={() => handleClick(chat.chattingId)}
+                isSelected={getSelected(chat.chattingId)}
+                isPopUp={popUpId === chat.chattingId}
+                setPopUpId={setPopUpId}
+                idx={idx}
+                {...chat}
+              />
+            ))
+        )}
+      </S.Cards>
 
       <Modal
         onModal={onModal}

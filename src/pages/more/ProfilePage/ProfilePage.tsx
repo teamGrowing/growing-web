@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useState, useRef, useMemo, useEffect } from 'react';
+import { useState, useRef, useMemo } from 'react';
 import { observer } from 'mobx-react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import TopBar from 'components/common/TopBar/TopBar';
@@ -23,7 +23,6 @@ import {
 } from 'hooks/queries';
 import useToast from 'hooks/common/useToast';
 import PhotoScroll from 'pages/gallery/components/PhotoScroll/PhotoScroll';
-import preventScroll from 'utils/utils';
 import defaultProfile from 'assets/image/DefaultProfile.png';
 import { MENT_MORE } from 'constants/ments';
 import { getVideoDuration } from 'utils/video';
@@ -166,10 +165,6 @@ function ProfilePage() {
     });
     setOnButtomSheet(false);
   };
-
-  useEffect(() => {
-    preventScroll();
-  }, []);
 
   return (
     <DataContext.Provider value={ctxValue}>

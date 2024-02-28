@@ -1,13 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Icon from 'components/common/Icon/Icon';
 import MenuBox from 'pages/more/components/MenuBox/MenuBox';
 import Profile from 'pages/more/components/Profile/Profile';
 import SideButton from 'pages/more/components/SideButton/SideButton';
 import WhiteContainer from 'pages/more/components/WhiteContainer/WhiteContainer';
 import store from 'stores/RootStore';
-import preventScroll from 'utils/utils';
 import defaultProfile from 'assets/image/DefaultProfile.png';
 import Modal from 'components/common/Modal/Modal';
 import { MENT_LOGOUT } from 'constants/ments';
@@ -16,10 +15,6 @@ import * as S from './MoreMainPage.styled';
 function MoreMainPage() {
   const navigate = useNavigate();
   const [onModal, setOnModal] = useState(false);
-
-  useEffect(() => {
-    preventScroll();
-  }, []);
 
   return (
     <S.Container>

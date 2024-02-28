@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { observer } from 'mobx-react';
 import TopBar from 'components/common/TopBar/TopBar';
 import PhotoDetail from 'pages/gallery/components/PhotoDetail/PhotoDetail';
@@ -16,7 +16,6 @@ import { MENT_GALLERY } from 'constants/ments';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
-import preventScroll from 'utils/utils';
 import * as S from './PhotoDetailPage.styled';
 
 function PhotoDetailPage() {
@@ -50,10 +49,6 @@ function PhotoDetailPage() {
         },
       });
   };
-
-  useEffect(() => {
-    preventScroll();
-  }, []);
 
   return (
     <S.Container className="page-container with-topbar">

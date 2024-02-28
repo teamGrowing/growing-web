@@ -1,18 +1,13 @@
 import styled from 'styled-components';
+import { LayoutWithNavbar } from 'components/layout/common';
 
-export const PageContainer = styled.div`
-  background: linear-gradient(
-    130.11deg,
-    rgba(252, 227, 138, 0.2) 7.3%,
-    rgba(243, 129, 129, 0.2) 100%
-  );
-`;
+export const PageContainer = styled(LayoutWithNavbar)`
+  background: ${({ theme }) => theme.color.background};
 
-export const Outer = styled.div`
-  display: block;
+  overflow-y: hidden;
 
-  height: 100%;
-  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const Cards = styled.div`

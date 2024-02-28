@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Lottie from 'lottie-react';
 import changeEmojiToSpan from 'utils/Text';
-import preventScroll from 'utils/utils';
 import MENT_HOME from 'constants/ments';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal';
@@ -14,8 +13,6 @@ const PetGraduatePage = () => {
   const [onModal, setOnModal] = useState<boolean>(false);
 
   useEffect(() => {
-    preventScroll();
-
     setTimeout(() => {
       setOnModal(true);
     }, 6000);

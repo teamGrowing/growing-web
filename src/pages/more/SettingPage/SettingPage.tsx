@@ -1,18 +1,12 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
 import WhiteContainer from 'pages/more/components/WhiteContainer/WhiteContainer';
 import MainBackground from 'styles/common/MainBackground';
-import preventScroll from 'utils/utils';
 import * as S from './SettingPage.styled';
 
 function SettingPage() {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    preventScroll();
-  }, []);
 
   return (
     <S.Container className="page-container">

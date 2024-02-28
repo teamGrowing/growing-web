@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FormProvider, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useQueryClient } from '@tanstack/react-query';
 import store from 'stores/RootStore';
 import changeEmojiToSpan from 'utils/Text';
-import preventScroll from 'utils/utils';
 import useToast from 'hooks/common/useToast';
 import { usePetNameMutation } from 'hooks/queries';
 import queryKeys from 'libs/react-query/queryKeys';
@@ -45,10 +44,6 @@ export default function PetNamingPage() {
       },
     },
   });
-
-  useEffect(() => {
-    preventScroll();
-  }, []);
 
   return (
     <FormProvider {...methods}>

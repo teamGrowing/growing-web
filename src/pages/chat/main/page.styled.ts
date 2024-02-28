@@ -1,9 +1,9 @@
 import styled from 'styled-components';
+import { LayoutWithNavbar } from 'components/layout/common';
 
-export const ChattingPageContainer = styled.div`
+export const ChattingPageContainer = styled(LayoutWithNavbar)`
   display: flex;
   flex-direction: column;
-  height: 100%;
 
   background-color: ${({ theme }) => theme.color.gray50};
 `;
