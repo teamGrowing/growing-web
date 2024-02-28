@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
+import { FallbackProps } from 'react-error-boundary';
 import Modal from 'components/common/Modal/Modal';
+import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
 import useToast from 'hooks/common/useToast';
 import { MENT_CHAT } from 'constants/ments';
 import store from 'stores/RootStore';
@@ -29,10 +31,13 @@ const ArchivedCardList = ({
   const [popUpId, setPopUpId] = useState<string | null>(null);
 
   const { data: chats } = useArchivedChatData({
-    coupleId: userStore.user?.coupleId,
+    coupleId: userStore.user?.coupleId || '',
+    options: {
+      enabled: !!userStore.user?.coupleId,
+    },
   });
 
-  const { updateId, clearIds, getSelected, deleteArchivedChats } =
+  const { ids, updateId, clearIds, getSelected, deleteArchivedChats } =
     useDeleteArchived({
       coupleId: userStore.user?.coupleId ?? '',
     });
@@ -53,13 +58,18 @@ const ArchivedCardList = ({
   };
 
   const handleDelete = async () => {
+    if (!ids.length) {
+      setIsSelectMode(false);
+      return;
+    }
+
     try {
       await deleteArchivedChats();
+      addToast('삭제되었습니다.');
     } catch (e) {
-      //
+      addToast('삭제하는 데 실패했습니다. 이용에 불편을 드려 죄송합니다 😭');
     } finally {
       setIsSelectMode(false);
-      addToast('삭제되었습니다.');
     }
   };
 
@@ -72,7 +82,7 @@ const ArchivedCardList = ({
   return (
     <>
       <S.Cards className="hidden-scrollbar">
-        {!chats ? (
+        {!chats || !chats.length ? (
           <EmptyCard />
         ) : (
           chats.map((chat, idx) => (
@@ -99,6 +109,28 @@ const ArchivedCardList = ({
         onSubAction={() => setOnDeleteModal(false)}
       />
     </>
+  );
+};
+
+ArchivedCardList.Loading = () => {
+  return (
+    <S.LoadingContainer>
+      <S.SkeletonWrapper>
+        <S.StyledSkeleton height={316} borderRadius={10} />
+      </S.SkeletonWrapper>
+      <S.SkeletonWrapper>
+        <S.StyledSkeleton height={150} borderRadius={10} />
+      </S.SkeletonWrapper>
+    </S.LoadingContainer>
+  );
+};
+
+ArchivedCardList.Error = ({ resetErrorBoundary }: FallbackProps) => {
+  return (
+    <S.ErrorContainer>
+      <ErrorMessage>일시적인 오류로 불러오지 못했어요.</ErrorMessage>
+      <ResetButton onClick={resetErrorBoundary}>다시 불러오기</ResetButton>
+    </S.ErrorContainer>
   );
 };
 

@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { LayoutWithNavbar } from 'components/layout/common';
+import Skeleton from 'react-loading-skeleton';
 
 export const PageContainer = styled(LayoutWithNavbar)`
   background: ${({ theme }) => theme.color.background};
@@ -23,4 +24,28 @@ export const Cards = styled.div`
 
   height: 100%;
   overflow-y: scroll;
+`;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  gap: 16px;
+`;
+
+export const SkeletonWrapper = styled.div`
+  flex: 1;
+  text-align: center;
+`;
+
+export const StyledSkeleton = styled(Skeleton)`
+  max-width: 220px;
+  text-align: center;
+`;
+
+export const ErrorContainer = styled.div`
+  height: 80vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;

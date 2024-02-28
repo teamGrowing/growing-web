@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
+import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import Spacing from 'components/common/Spacing';
@@ -8,6 +10,7 @@ import * as S from './page.styled';
 
 function ChatArchivePage() {
   const navigation = useNavigate();
+  const { reset } = useQueryErrorResetBoundary();
 
   const [isSelectMode, setIsSelectMode] = useState<boolean>(false);
   const [onDeleteModal, setOnDeleteModal] = useState<boolean>(false);
@@ -30,12 +33,16 @@ function ChatArchivePage() {
 
       <Spacing height={16} />
 
-      <ArchivedCardList
-        isSelectMode={isSelectMode}
-        setIsSelectMode={setIsSelectMode}
-        onDeleteModal={onDeleteModal}
-        setOnDeleteModal={setOnDeleteModal}
-      />
+      <ErrorBoundary onReset={reset} FallbackComponent={ArchivedCardList.Error}>
+        <Suspense fallback={<ArchivedCardList.Loading />}>
+          <ArchivedCardList
+            isSelectMode={isSelectMode}
+            setIsSelectMode={setIsSelectMode}
+            onDeleteModal={onDeleteModal}
+            setOnDeleteModal={setOnDeleteModal}
+          />
+        </Suspense>
+      </ErrorBoundary>
     </S.PageContainer>
   );
 }

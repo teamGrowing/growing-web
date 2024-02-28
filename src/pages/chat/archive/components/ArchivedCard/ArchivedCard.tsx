@@ -3,6 +3,7 @@ import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
 import Icon from 'components/common/Icon/Icon';
 import { ChattingArchivedDto } from 'models/chat';
+import { chooseSubjectMarker } from 'utils/Text';
 import * as S from './ArchivedCard.styled';
 
 type ArchivedCardDto = Pick<
@@ -53,7 +54,7 @@ function ArchivedCard({
       <S.Inner isPopUp={false}>
         <ArchivedCardLines n={21} />
 
-        <p>{writerName}이가</p>
+        <p>{`${writerName}${chooseSubjectMarker(writerName)}`}</p>
         <S.StyledSpan isLong={!(idx % 2)}>{content}</S.StyledSpan>
         <p>라고 했다 🖤</p>
       </S.Inner>
@@ -80,7 +81,7 @@ function ArchivedCard({
               >
                 <ArchivedCardLines n={Math.floor(content.length / 12)} />
 
-                <p>{writerName}이가</p>
+                <p>{`${writerName}${chooseSubjectMarker(writerName)}`}</p>
                 <span>{content}</span>
                 <p>라고 했다 🖤</p>
               </S.PopUpCardInner>

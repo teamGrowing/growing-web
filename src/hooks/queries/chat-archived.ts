@@ -18,13 +18,13 @@ export function useArchivedChatData({
   storeCode,
   options,
 }: {
-  coupleId: string | null | undefined;
+  coupleId: string;
   storeCode?: QueryKey[];
   options?: UseQueryOptionsType<ChattingArchivedDto[]>;
 }) {
   return useQuery(
     [...queryKeys.chatKeys.archived, ...(storeCode ?? [])],
-    () => CHAT_ARCHIVED_API.getArchivedChat(`${coupleId ?? ''}`),
+    () => CHAT_ARCHIVED_API.getArchivedChat(coupleId),
     {
       select: (data) =>
         data.data.sort((a, b) => {
@@ -67,6 +67,7 @@ export function useArchivedChatDelete({
   return useMutation({
     mutationFn: (chattingId: string) =>
       CHAT_ARCHIVED_API.deleteArchivedChat(coupleId, chattingId),
+    useErrorBoundary: false,
     ...options,
   });
 }

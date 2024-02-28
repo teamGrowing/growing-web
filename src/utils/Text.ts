@@ -31,4 +31,15 @@ export const chooseConjunction = (word: string) => {
   return '와';
 };
 
+export const chooseSubjectMarker = (word: string) => {
+  const lastChar = word[word.length - 1];
+  const lastCharCode = lastChar.charCodeAt(0);
+
+  if (lastCharCode >= 0xac00 && lastCharCode <= 0xd7a3) {
+    const jongseongIndex = (lastCharCode - 0xac00) % 28;
+    return jongseongIndex > 0 ? '이가' : '가';
+  }
+  return '가';
+};
+
 export default changeEmojiToSpan;

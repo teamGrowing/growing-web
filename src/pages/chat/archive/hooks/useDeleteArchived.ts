@@ -41,6 +41,7 @@ export default function useDeleteArchived({ coupleId }: { coupleId: string }) {
   }
 
   return {
+    ids,
     updateId: (id: string) => updateId(id),
     clearIds,
     getSelected: (id: string) => getSelected(id),
