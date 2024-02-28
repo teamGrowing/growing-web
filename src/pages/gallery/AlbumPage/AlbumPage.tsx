@@ -34,20 +34,20 @@ function AlbumPage() {
   };
 
   return (
-    <DataContext.Provider value={ctxValue}>
-      <S.Container>
-        <ErrorBoundary FallbackComponent={AlbumContainer.Error}>
-          <Suspense fallback={<AlbumContainer.Loading />}>
+    <S.Container>
+      <ErrorBoundary FallbackComponent={AlbumContainer.Error}>
+        <Suspense fallback={<AlbumContainer.Loading />}>
+          <DataContext.Provider value={ctxValue}>
             <AlbumContainer
               selectingAvailable={selectingAvailable}
               setSelectingAvailable={setSelectingAvailable}
               selectedAlbums={selectedAlbums.current}
               clearSelectedList={clearSelectedList}
             />
-          </Suspense>
-        </ErrorBoundary>
-      </S.Container>
-    </DataContext.Provider>
+          </DataContext.Provider>
+        </Suspense>
+      </ErrorBoundary>
+    </S.Container>
   );
 }
 export default observer(AlbumPage);

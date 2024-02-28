@@ -1,3 +1,7 @@
+export const MENT_COMMON = Object.freeze({
+  RETRY: '다시 시도하기',
+});
+
 const MENT_HOME = Object.freeze({
   PET_NAMING: '그로잉 펫의\n새로운 이름을 지어주세요!',
   PET_NAMING_HELP:
@@ -57,6 +61,8 @@ export const MENT_GALLERY = Object.freeze({
   ALBUM_CREATE_SUCCESS: '앨범 생성이 완료되었습니다.',
   ALBUM_CREATE_FAIL_NO_SELECTED: '앨범을 만들기 위한 사진을 선택해주세요',
   COMMENT_DELETE_SUCCESS: '댓글이 삭제되었습니다.',
+  ALBUM_EMPTY: '앨범이 없습니다.',
+  ALBUM_LOAD_FAIL: '앨범을 불러오지 못했어요.',
 });
 
 export const MENT_CALENDAR = Object.freeze({
@@ -93,4 +99,5 @@ export const MENT_MORE = Object.freeze({
     '변경하신 내용이 취소됩니다.\n정말 나가시겠습니까?',
   PROFILE_MODIFY_FAIL: '프로필 수정에 실패했습니다.',
 });
+
 export default MENT_HOME;

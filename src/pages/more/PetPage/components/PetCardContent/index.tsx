@@ -4,6 +4,7 @@ import { useGraduatedPetDetail } from 'hooks/queries';
 import store from 'stores/RootStore';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
+import { MENT_COMMON } from 'constants/ments';
 import * as S from './PetCardContent.styled';
 
 interface Props {
@@ -131,7 +132,7 @@ PetCardContent.Error = ({ resetErrorBoundary }: FallbackProps) => {
       <S.InfoContainer>
         <S.ErrorContainer>
           <S.ErrorMessage>오류가 발생했습니다.</S.ErrorMessage>
-          <S.Button onClick={resetErrorBoundary}>다시 시도하기</S.Button>
+          <S.Button onClick={resetErrorBoundary}>{MENT_COMMON.RETRY}</S.Button>
         </S.ErrorContainer>
       </S.InfoContainer>
     </>

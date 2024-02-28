@@ -3,7 +3,7 @@ import { useAlbumsList, useDeleteAlbumsMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
 import GalleryTitle from 'pages/gallery/components/GalleryTitle/GalleryTitle';
 import { useNavigate } from 'react-router-dom';
-import { MENT_GALLERY } from 'constants/ments';
+import { MENT_COMMON, MENT_GALLERY } from 'constants/ments';
 import useToast from 'hooks/common/useToast';
 import { useState } from 'react';
 import Icon from 'components/common/Icon/Icon';
@@ -90,7 +90,7 @@ const AlbumContainer = ({
           ))}
           {albums?.length === 0 && (
             <S.MessageContainer>
-              <S.Message>앨범이 없습니다.</S.Message>
+              <S.Message>{MENT_GALLERY.ALBUM_EMPTY}</S.Message>
             </S.MessageContainer>
           )}
         </S.Container>
@@ -132,8 +132,8 @@ AlbumContainer.Error = ({ resetErrorBoundary }: FallbackProps) => {
     <>
       <GalleryTitle backBtn title="ALBUM" />
       <S.MessageContainer>
-        <S.Message>앨범을 불러오지 못했어요.</S.Message>
-        <S.Button onClick={resetErrorBoundary}>다시 시도하기</S.Button>
+        <S.Message>{MENT_GALLERY.ALBUM_LOAD_FAIL}</S.Message>
+        <S.Button onClick={resetErrorBoundary}>{MENT_COMMON.RETRY}</S.Button>
       </S.MessageContainer>
     </>
   );
