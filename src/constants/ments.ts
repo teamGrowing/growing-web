@@ -1,5 +1,6 @@
 export const MENT_COMMON = Object.freeze({
   RETRY: '다시 시도하기',
+  ERROR: '일시적인 오류로 불러오지 못했어요.',
 });
 
 const MENT_HOME = Object.freeze({
