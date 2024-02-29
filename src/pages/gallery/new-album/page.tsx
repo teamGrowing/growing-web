@@ -9,7 +9,7 @@ import store from '../../../stores/RootStore';
 import Modal from '../components/AlbumModal/AlbumModal';
 import useToast from '../../../hooks/common/useToast';
 import { MENT_GALLERY } from '../../../constants/ments';
-import * as S from './NewAlbumPage.styled';
+import * as S from './page.styled';
 
 function NewAlbumPage() {
   const navigate = useNavigate();

@@ -1,10 +1,10 @@
 import { useRef, useState, useMemo, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import AlbumContainer from 'pages/gallery/AlbumPage/components/AlbumContainer';
 import { ErrorBoundary } from 'react-error-boundary';
+import AlbumContainer from './components/AlbumContainer';
 import DataContext from '../context';
-import * as S from './AlbumPage.styled';
+import * as S from './page.styled';
 
 function AlbumPage() {
   const location = useLocation();

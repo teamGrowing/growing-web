@@ -26,7 +26,7 @@ import PhotoScroll from 'pages/gallery/components/PhotoScroll/PhotoScroll';
 import defaultProfile from 'assets/image/DefaultProfile.png';
 import { MENT_MORE } from 'constants/ments';
 import { getVideoDuration } from 'utils/video';
-import DataContext from '../../gallery/context';
+import DataContext from 'pages/gallery/context';
 import * as S from './Profile.styled';
 import LoadingContent from './components/LoadingContent';
 

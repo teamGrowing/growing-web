@@ -8,7 +8,7 @@ import Icon from 'components/common/Icon/Icon';
 import store from 'stores/RootStore';
 import { ErrorBoundary } from 'react-error-boundary';
 import AlbumSection from './components/AlbumSection';
-import * as S from './GalleryMainPage.styled';
+import * as S from './page.styled';
 import FloatingButtonWrapper from '../components/FloatingButton/FloatingButtonWrapper';
 
 const GalleryMainPage = () => {

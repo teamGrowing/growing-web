@@ -6,9 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import Icon from 'components/common/Icon/Icon';
 import { observer } from 'mobx-react';
 import { MENT_COMMON, MENT_GALLERY } from 'constants/ments';
-import Album from '../../../components/Album/Album';
+import Album from '../../components/Album/Album';
 import * as S from './AlbumSection.styled';
-import GalleryTitle from '../../../components/GalleryTitle/GalleryTitle';
+import GalleryTitle from '../../components/GalleryTitle/GalleryTitle';
 
 interface Props {
   onClick?: React.MouseEventHandler;

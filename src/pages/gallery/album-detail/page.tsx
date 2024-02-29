@@ -18,7 +18,7 @@ import AlbumModal from 'pages/gallery/components/AlbumModal/AlbumModal';
 import useToast from 'hooks/common/useToast';
 import { LayoutWithTopbarNavbar } from 'components/layout/common';
 import DataContext from '../context';
-import * as S from './AlbumDetailPage.styled';
+import * as S from './page.styled';
 
 function AlbumDetailPage() {
   const navigate = useNavigate();

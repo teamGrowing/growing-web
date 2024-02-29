@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PhotoLineDto } from 'models/gallery';
-import DataContext from '../../context';
+import DataContext from 'pages/gallery/context';
 import * as S from './Photo.styled';
 
 type PhotoProps = {

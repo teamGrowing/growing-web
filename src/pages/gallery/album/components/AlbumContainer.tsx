@@ -11,7 +11,7 @@ import Modal from 'components/common/Modal/Modal';
 import Skeleton from 'react-loading-skeleton';
 import { FallbackProps } from 'react-error-boundary';
 import * as S from './AlbumContainer.styled';
-import AlbumRowContainer from '../AlbumRowContainer';
+import AlbumRowContainer from './AlbumRowContainer';
 
 const makeChunk = (data: AlbumDto[]) => {
   const arr = [];
