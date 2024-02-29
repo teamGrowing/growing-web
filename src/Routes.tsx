@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import NoticePage from 'pages/more/notice/page';
 import NoticeDetailPage from 'pages/more/notice-detail/page';
 import PageLayout from 'components/layout/PageLayout';
-import GalleryMainPage from './pages/gallery/gallery-main/page';
+import GalleryMainPage from './pages/gallery/main/page';
 import PhotoPage from './pages/gallery/photo/page';
 import Layout from './components/layout/Layout';
 import AlbumPage from './pages/gallery/album/page';
