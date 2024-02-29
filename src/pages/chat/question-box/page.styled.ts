@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { LayoutWithNavbar } from 'components/layout/common';
 
-export const PageContainer = styled.div`
-  background-color: ${({ theme }) => theme.color.gray50};
-  padding: 0 16px;
+export const PageContainer = styled(LayoutWithNavbar)`
+  background: ${({ theme }) => theme.color.background};
+  padding: var(--navbar-real-height) 16px 16px;
 `;
 
 export const Questions = styled.div`

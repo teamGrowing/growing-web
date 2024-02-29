@@ -1,31 +1,33 @@
 /* eslint-disable @typescript-eslint/no-shadow */
 import { useState } from 'react';
+import { observer } from 'mobx-react';
 import dayjs from 'dayjs';
-import { AxiosResponse } from 'axios';
-import { useQueryClient } from '@tanstack/react-query';
-import queryKeys from 'libs/react-query/queryKeys';
 import { MENT_CHAT } from 'constants/ments';
-import { CoupleDto } from 'models/couple';
 import Icon from 'components/common/Icon/Icon';
 import { QuestionsAndAnswers } from 'models/chat-question';
-import AnswerModal from '../AnswerModal/AnswerModal';
+import { useCoupleData } from 'hooks/queries';
+import store from 'stores/RootStore';
+import AnswerModal from 'pages/chat/question-box/components/AnswerModal/AnswerModal';
 import * as S from './QuestionCard.styled';
 
 type Mode = 'NOT_ME' | 'NOT_PARTNER' | 'BOTH';
 
-export default function QuestionCard({
+const QuestionCard = ({
   question,
   myAnswer,
   partnerAnswer,
-}: QuestionsAndAnswers) {
-  const queryClient = useQueryClient();
+}: QuestionsAndAnswers) => {
+  const { userStore } = store;
 
   const [openCard, setOpenCard] = useState<boolean>(false);
   const [onModal, setOnModal] = useState<boolean>(false);
 
-  const { data: couple } = queryClient.getQueryData(
-    queryKeys.coupleKeys.all
-  ) as AxiosResponse<CoupleDto>;
+  const { data: couple } = useCoupleData({
+    coupleId: userStore.user?.coupleId || '',
+    options: {
+      enabled: !!userStore.user?.coupleId,
+    },
+  });
 
   function getMode({
     myAnswer,
@@ -39,6 +41,7 @@ export default function QuestionCard({
     }
     return 'BOTH';
   }
+
   const mode: Mode = getMode({ myAnswer, partnerAnswer });
 
   return (
@@ -83,8 +86,8 @@ export default function QuestionCard({
 
           {mode === 'BOTH' && (
             <>
-              <p>{`${couple.myName}: ${myAnswer!.content}`}</p>
-              <p>{`${couple.partnerName}: ${partnerAnswer!.content}`}</p>
+              <p>{`${couple?.myName}: ${myAnswer!.content}`}</p>
+              <p>{`${couple?.partnerName}: ${partnerAnswer!.content}`}</p>
             </>
           )}
         </S.AnswerWrapper>
@@ -97,4 +100,6 @@ export default function QuestionCard({
       />
     </S.Container>
   );
-}
+};
+
+export default observer(QuestionCard);
