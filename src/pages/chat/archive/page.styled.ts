@@ -1,11 +1,13 @@
 import styled from 'styled-components';
-import { LayoutWithNavbar } from 'components/layout/common';
+import {
+  TopbarBackgroundContainer,
+  TopbarInnerContainer,
+} from 'components/layout/PageLayout/TopbarLayout';
 
-export const PageContainer = styled(LayoutWithNavbar)`
+export const PageContainer = styled(TopbarBackgroundContainer)`
   background: ${({ theme }) => theme.color.background};
+`;
 
-  display: flex;
-  flex-direction: column;
-
-  padding: var(--navbar-real-height) 16px 0;
+export const InnerContainer = styled(TopbarInnerContainer)`
+  padding: 16px 16px 50px;
 `;

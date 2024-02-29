@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
+import { TopbarBackgroundContainer } from 'components/layout/PageLayout/TopbarLayout';
 
-export const PageContainer = styled.div`
+export const PageContainer = styled(TopbarBackgroundContainer)`
   background-color: ${({ theme }) => theme.color.gray50};
 `;
 

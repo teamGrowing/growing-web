@@ -12,20 +12,22 @@ function NoticePage() {
   const { reset } = useQueryErrorResetBoundary();
 
   return (
-    <S.Container className="hidden-scrollbar">
+    <S.Container>
       <TopBar
         title="공지사항"
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigate(-1)}
       />
 
-      <S.ListWrapper className="hidden-scrollbar">
-        <ErrorBoundary onReset={reset} FallbackComponent={NoticeList.Error}>
-          <Suspense fallback={<NoticeList.Loading />}>
-            <NoticeList />
-          </Suspense>
-        </ErrorBoundary>
-      </S.ListWrapper>
+      <S.InnerContainer>
+        <S.ListWrapper className="hidden-scrollbar">
+          <ErrorBoundary onReset={reset} FallbackComponent={NoticeList.Error}>
+            <Suspense fallback={<NoticeList.Loading />}>
+              <NoticeList />
+            </Suspense>
+          </ErrorBoundary>
+        </S.ListWrapper>
+      </S.InnerContainer>
     </S.Container>
   );
 }

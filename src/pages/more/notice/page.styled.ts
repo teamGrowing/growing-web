@@ -1,13 +1,18 @@
-import { LayoutWithTopbar } from 'components/layout/common';
+import {
+  TopbarBackgroundContainer,
+  TopbarInnerContainer,
+} from 'components/layout/PageLayout/TopbarLayout';
 import styled from 'styled-components';
 
-export const Container = styled(LayoutWithTopbar)`
+export const Container = styled(TopbarBackgroundContainer)`
   background: ${({ theme }) => theme.color.background};
 `;
 
-export const ListWrapper = styled.ul`
-  height: 100%;
+export const InnerContainer = styled(TopbarInnerContainer)`
+  padding-bottom: 50px;
+`;
 
+export const ListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;

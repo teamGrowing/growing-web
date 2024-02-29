@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import {
+  TopbarBackgroundContainer,
+  TopbarInnerContainer,
+} from 'components/layout/PageLayout/TopbarLayout';
 
-export const PageContainer = styled.div`
+export const PageContainer = styled(TopbarBackgroundContainer)`
   position: relative;
 
   display: flex;
@@ -10,6 +14,8 @@ export const PageContainer = styled.div`
 
   background-color: ${({ theme }) => theme.color.gray900};
 `;
+
+export const InnerContainer = styled(TopbarInnerContainer)``;
 
 export const StyledSwiper = styled(Swiper)`
   width: 100%;

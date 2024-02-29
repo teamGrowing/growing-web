@@ -29,11 +29,17 @@ function AnswerModal({ onModal, setOnModal, question }: ModalProps) {
     questionId: question.id,
     options: {
       onSuccess() {
-        setOnModal(false);
         addToast(MENT_CHAT.QNA_SUCCESS);
+        setMyAnswer('');
         queryClient.invalidateQueries(queryKeys.qnaKeys.all);
       },
-      // TODO: error handling
+      onError() {
+        addToast(MENT_CHAT.QNA_FAIL);
+      },
+      onSettled() {
+        setOnModal(false);
+      },
+      useErrorBoundary: false,
     },
   });
 
@@ -63,6 +69,7 @@ function AnswerModal({ onModal, setOnModal, question }: ModalProps) {
 
           <S.AnswerTextarea>
             <S.TextArea
+              className="hidden-scrollbar"
               value={myAnswer}
               onChange={(e) => setMyAnswer(e.target.value)}
             />

@@ -4,8 +4,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
-import * as S from './page.styled';
 import QuestionCardList from './components/QuestionCard/QuestionCardList';
+import * as S from './page.styled';
 
 function QuestionBoxPage() {
   const navigation = useNavigate();
@@ -19,11 +19,16 @@ function QuestionBoxPage() {
         onLeftClick={() => navigation(-1)}
       />
 
-      <ErrorBoundary onReset={reset} FallbackComponent={QuestionCardList.Error}>
-        <Suspense fallback={<QuestionCardList.Loading />}>
-          <QuestionCardList />
-        </Suspense>
-      </ErrorBoundary>
+      <S.InnerContainer>
+        <ErrorBoundary
+          onReset={reset}
+          FallbackComponent={QuestionCardList.Error}
+        >
+          <Suspense fallback={<QuestionCardList.Loading />}>
+            <QuestionCardList />
+          </Suspense>
+        </ErrorBoundary>
+      </S.InnerContainer>
     </S.PageContainer>
   );
 }

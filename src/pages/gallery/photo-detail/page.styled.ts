@@ -1,10 +1,13 @@
 import styled from 'styled-components';
+import {
+  TopbarBackgroundContainer,
+  TopbarInnerContainer,
+} from 'components/layout/PageLayout/TopbarLayout';
 
-export const Container = styled.div`
+export const Container = styled(TopbarBackgroundContainer)`
   position: relative;
 `;
-export const DetailContainer = styled.div`
-  background: ${({ theme }) => theme.color.background};
+
+export const DetailContainer = styled(TopbarInnerContainer)`
   position: relative;
-  height: calc(100% - 72px);
 `;

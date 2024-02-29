@@ -2,7 +2,7 @@ import { LayoutWithNavbar } from 'components/layout/common';
 import styled from 'styled-components';
 
 export const HomeContainer = styled(LayoutWithNavbar)`
-  padding-top: 20px;
+  padding-top: calc(var(--safe-area-top) + 20px);
 
   display: flex;
   flex-direction: column;

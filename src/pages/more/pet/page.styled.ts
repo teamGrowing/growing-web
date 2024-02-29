@@ -1,21 +1,19 @@
 import styled from 'styled-components';
+import {
+  TopbarBackgroundContainer,
+  TopbarInnerContainer,
+} from 'components/layout/PageLayout/TopbarLayout';
 
-export const Container = styled.div`
+export const Container = styled(TopbarBackgroundContainer)`
   position: relative;
+  background: ${({ theme }) => theme.color.background};
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(TopbarInnerContainer)`
   width: 100%;
-
-  overflow-y: scroll;
-
-  display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 
   gap: 30px;
-
-  padding: 41px 20px;
 `;
 
 export const Layer = styled.div`

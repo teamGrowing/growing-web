@@ -7,7 +7,6 @@ import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
 import Profile from 'pages/more/components/Profile/Profile';
 import SideButton from 'pages/more/components/SideButton/SideButton';
-import InputContainer from 'pages/more/components/InputContainer/InputContainer';
 import { ProfileFormValues, profileSchema } from 'libs/react-hook-form';
 import Modal from 'components/common/Modal/Modal';
 import ModalBottomSheet from 'components/common/ModalBottomSheet/ModalBottomSheet';
@@ -29,6 +28,7 @@ import { getVideoDuration } from 'utils/video';
 import DataContext from 'pages/gallery/context';
 import * as S from './page.styled';
 import LoadingContent from './components/LoadingContent';
+import InputContainer from './components/InputContainer/InputContainer/InputContainer';
 
 function ProfilePage() {
   const navigate = useNavigate();
@@ -187,7 +187,7 @@ function ProfilePage() {
                 />
               }
             />
-            <S.Container className="page-container with-topbar">
+            <S.Container>
               <S.ProfileContainer>
                 <Profile
                   imgUrl={profilePhoto.url ?? defaultProfile}

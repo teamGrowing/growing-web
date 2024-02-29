@@ -64,16 +64,11 @@ export const ErrorContainer = styled.div`
   align-items: center;
 `;
 
-export const Wrapper = styled.div`
-  width: 100%;
+export const ListWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 16px;
+  justify-items: center;
 
-  overflow-y: scroll;
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  gap: 30px;
-
-  padding: 41px 20px;
+  padding: 20px 20px 50px;
 `;

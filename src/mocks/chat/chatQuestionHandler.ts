@@ -15,30 +15,30 @@ let qnaData: QuestionsAndAnswers[] = [
     question: {
       id: uuidv4(),
       content: '배고픈가욤',
-      createdAt: new Date('2024.02.15'),
+      createdAt: new Date('2024-02-15'),
     },
     myAnswer: null,
     partnerAnswer: {
       id: uuidv4(),
       content: '네!',
-      createdAt: new Date('2024.02.15'),
+      createdAt: new Date('2024-02-15'),
     },
   },
   {
     question: {
       id: uuidv4(),
       content: '가장 처음 만난 날! 상대방의 첫인상은 어땠나요?',
-      createdAt: new Date('2024.02.14'),
+      createdAt: new Date('2024-02-14'),
     },
     myAnswer: {
       id: uuidv4(),
       content: '너무 멋있었어요~',
-      createdAt: new Date('2024.02.14'),
+      createdAt: new Date('2024-02-14'),
     },
     partnerAnswer: {
       id: uuidv4(),
       content: '너무 재밌었답니당',
-      createdAt: new Date('2024.02.14'),
+      createdAt: new Date('2024-02-14'),
     },
   },
 ];

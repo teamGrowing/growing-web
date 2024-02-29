@@ -20,16 +20,18 @@ function ChatNoticePage() {
   };
 
   return (
-    <S.ChatNoticePageContainer className="page-container with-topbar">
+    <S.ChatNoticePageContainer>
       <TopBar
         title="공지사항"
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={handleBack}
       />
-      <S.Profile>
-        <p className="text-gradient400">{notice.announcer}</p>
-      </S.Profile>
-      <S.ChatWrapper>{notice.content}</S.ChatWrapper>
+      <S.InnerContainer>
+        <S.Profile>
+          <p className="text-gradient400">{notice.announcer}</p>
+        </S.Profile>
+        <S.ChatWrapper>{notice.content}</S.ChatWrapper>
+      </S.InnerContainer>
     </S.ChatNoticePageContainer>
   );
 }

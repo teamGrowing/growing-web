@@ -19,7 +19,7 @@ const PetGraduatePage = () => {
   }, []);
 
   return (
-    <S.PetRenameContainer className="page-container with-topbar">
+    <S.PetRenameContainer>
       <TopBar mode="BACKGROUND" border={false} title="growing" />
 
       <Lottie

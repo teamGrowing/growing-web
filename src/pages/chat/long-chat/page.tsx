@@ -36,7 +36,7 @@ function LongChattingPage() {
   };
 
   return (
-    <S.LongChattingPageContainer className="page-container with-topbar">
+    <S.LongChattingPageContainer>
       <TopBar
         title="전체보기"
         leftNode={<Icon icon="IconArrowLeft" />}

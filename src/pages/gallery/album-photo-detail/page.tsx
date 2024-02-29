@@ -61,7 +61,7 @@ function AlbumPhotoDetailPage() {
   };
 
   return (
-    <S.Container className="page-container with-topbar">
+    <S.Container>
       <TopBar
         title={title}
         subTitle={subTitle}

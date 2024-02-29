@@ -34,21 +34,23 @@ const PetCardList = ({ clickCardHandler }: Props) => {
         </S.EmptyWrapper>
       )}
 
-      {data?.map((pet) => (
-        <PetCard key={pet.id} petInfo={pet} onClick={clickCardHandler} />
-      ))}
+      <S.ListWrapper>
+        {data?.map((pet) => (
+          <PetCard key={pet.id} petInfo={pet} onClick={clickCardHandler} />
+        ))}
+      </S.ListWrapper>
     </>
   );
 };
 
 PetCardList.Loading = () => {
   return (
-    <>
+    <S.ListWrapper>
       <Skeleton width={154} height={205} borderRadius={20} />
       <Skeleton width={154} height={205} borderRadius={20} />
       <Skeleton width={154} height={205} borderRadius={20} />
       <Skeleton width={154} height={205} borderRadius={20} />
-    </>
+    </S.ListWrapper>
   );
 };
 

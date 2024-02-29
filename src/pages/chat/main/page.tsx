@@ -13,6 +13,7 @@ import SubMenu from 'pages/chat/components/SubMenu/SubMenu';
 import ChatNotice from 'pages/chat/components/ChatNotice/ChatNotice';
 import { PLUS_MENU_HEIGHT } from 'constants/constants';
 import useScrollRestoration from 'pages/chat/hooks/useScrollRestoration';
+import { TopbarInnerContainer } from 'components/layout/PageLayout/TopbarLayout';
 import * as S from './page.styled';
 import useChatObserver from '../hooks/useChatObserver';
 
@@ -119,10 +120,7 @@ function ChattingPage() {
   });
 
   return (
-    <S.ChattingPageContainer
-      className="page-container with-topbar"
-      style={{ paddingBottom: '0' }}
-    >
+    <S.ChattingPageContainer>
       <TopBar
         title="growing"
         leftNode={<Icon icon="IconArrowLeft" />}
@@ -135,29 +133,32 @@ function ChattingPage() {
         }
         onRightMainClick={() => setOnSubMenu(!onSubMenu)}
       />
-      <ChatNotice />
 
-      <S.Chats
-        ref={chatsRef}
-        onClick={handleDefaultMode}
-        onScroll={saveScrollPosition}
-      >
+      <TopbarInnerContainer>
+        <ChatNotice />
         <SubMenu open={onSubMenu} />
-        <div ref={chatStartRef} style={{ height: '8px' }} />
 
-        {chats?.pages
-          .flatMap((x) => x)
-          .map((chat, idx) => (
-            <ChatBallon
-              key={chat.parentChatting.id}
-              isNewDay={getNewDay(idx)}
-              // TODO
-              isScrolling={false}
-              {...chat}
-            />
-          ))}
-        <div ref={chatEndRef} />
-      </S.Chats>
+        <S.Chats
+          ref={chatsRef}
+          onClick={handleDefaultMode}
+          onScroll={saveScrollPosition}
+        >
+          <div ref={chatStartRef} style={{ height: '8px' }} />
+
+          {chats?.pages
+            .flatMap((x) => x)
+            .map((chat, idx) => (
+              <ChatBallon
+                key={chat.parentChatting.id}
+                isNewDay={getNewDay(idx)}
+                // TODO
+                isScrolling={false}
+                {...chat}
+              />
+            ))}
+          <div ref={chatEndRef} />
+        </S.Chats>
+      </TopbarInnerContainer>
 
       <InputChat createChat={createChat} scrollByPlusMenu={scrollByPlusMenu} />
     </S.ChattingPageContainer>

@@ -1,11 +1,16 @@
+import { TopbarBackgroundContainer } from 'components/layout/PageLayout/TopbarLayout';
 import styled from 'styled-components';
+
+export const RootContainer = styled(TopbarBackgroundContainer)`
+  background: ${({ theme }) => theme.color.background};
+
+  padding-bottom: var(--navbar-real-height);
+`;
 
 export const Container = styled.div`
   overflow-y: scroll;
-  padding-top: 10px;
-  background: ${({ theme }) => theme.color.background};
-  height: 100vh;
-  padding-bottom: 52px;
+
+  padding: 10px 0 50px;
 `;
 
 export const Option = styled.div`

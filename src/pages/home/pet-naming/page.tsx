@@ -52,7 +52,7 @@ export default function PetNamingPage() {
           nameMyPet({ nickName: data.name })
         )}
       >
-        <S.PetRenameContainer className="page-container with-topbar">
+        <S.PetRenameContainer>
           <TopBar
             mode="PURPLE50"
             leftNode={<Icon icon="IconArrowLeft" />}

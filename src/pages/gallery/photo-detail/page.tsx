@@ -45,7 +45,7 @@ function PhotoDetailPage() {
   };
 
   return (
-    <S.Container className="page-container with-topbar">
+    <S.Container>
       <TopBar
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigate(-1)}

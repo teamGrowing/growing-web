@@ -8,7 +8,12 @@ export const Container = styled.div`
   gap: 10px;
 
   width: 100%;
-  z-index: 0;
+  max-width: 780px;
+  height: var(--topbar-real-height);
+
+  padding: 0 20px;
+  padding-top: var(--safe-area-top);
+  z-index: 10;
 `;
 
 export const Left = styled.div`

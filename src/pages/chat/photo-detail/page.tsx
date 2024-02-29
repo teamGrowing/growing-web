@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
@@ -41,7 +41,7 @@ function ChatPhotoDetailPage() {
   });
 
   return (
-    <S.PageContainer className="page-container with-topbar">
+    <S.PageContainer>
       <TopBar
         mode="DARK"
         border={false}
@@ -51,32 +51,36 @@ function ChatPhotoDetailPage() {
         onLeftClick={() => navigation(-1)}
       />
 
-      {chat?.photos && (
-        <S.StyledSwiper
-          initialSlide={location?.idx ?? 0}
-          pagination={{
-            type: 'fraction',
-          }}
-          navigation
-          modules={[Pagination, Navigation, Manipulation]}
-          className="mySwiper"
-          onSlideChange={(swiper) => setCurrentPhotoIdx(swiper.realIndex)}
-        >
-          {chat?.photos.map((photo, idx) => (
-            <S.StyledSwiperSlide key={idx}>
-              <S.Photo src={photo.url} />
-            </S.StyledSwiperSlide>
-          ))}
-        </S.StyledSwiper>
-      )}
+      <S.InnerContainer>
+        {chat?.photos && (
+          <S.StyledSwiper
+            initialSlide={location?.idx ?? 0}
+            pagination={{
+              type: 'fraction',
+            }}
+            navigation
+            modules={[Pagination, Navigation, Manipulation]}
+            className="mySwiper"
+            onSlideChange={(swiper) => setCurrentPhotoIdx(swiper.realIndex)}
+          >
+            {chat?.photos.map((photo, idx) => (
+              <S.StyledSwiperSlide key={idx}>
+                <S.Photo src={photo.url} />
+              </S.StyledSwiperSlide>
+            ))}
+          </S.StyledSwiper>
+        )}
 
-      {chat?.video && <ChatVideo {...chat.video} height="calc(100% - 80px)" />}
+        {chat?.video && (
+          <ChatVideo {...chat.video} height="calc(100% - 80px)" />
+        )}
 
-      <S.BottomBar>
-        <Icon icon="IconDownloadLocal" themeColor="gray50" />
-        <Icon icon="IconAddAlbum" themeColor="gray50" onClick={putGallery} />
-        <Icon icon="IconExport" themeColor="gray50" />
-      </S.BottomBar>
+        <S.BottomBar>
+          <Icon icon="IconDownloadLocal" themeColor="gray50" />
+          <Icon icon="IconAddAlbum" themeColor="gray50" onClick={putGallery} />
+          <Icon icon="IconExport" themeColor="gray50" />
+        </S.BottomBar>
+      </S.InnerContainer>
     </S.PageContainer>
   );
 }

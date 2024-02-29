@@ -12,7 +12,7 @@ export const FullScreen = styled.div`
   justify-content: center;
 
   width: 100%;
-  height: 100vh;
+  height: var(--full-height);
 
   background: ${({ theme }) => theme.color.background};
 `;

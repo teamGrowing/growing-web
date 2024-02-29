@@ -1,8 +1,14 @@
 import styled from 'styled-components';
+import {
+  TopbarBackgroundContainer,
+  TopbarInnerContainer,
+} from 'components/layout/PageLayout/TopbarLayout';
 
-export const ChatNoticePageContainer = styled.div`
+export const ChatNoticePageContainer = styled(TopbarBackgroundContainer)`
   background-color: ${({ theme }) => theme.color.gray50};
 `;
+
+export const InnerContainer = styled(TopbarInnerContainer)``;
 
 export const ChatWrapper = styled.div`
   padding: 16px 32px;

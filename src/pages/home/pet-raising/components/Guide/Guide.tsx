@@ -1,4 +1,3 @@
-import Waves from 'assets/image/FeedWaves.png';
 import MENT_HOME from 'constants/ments';
 import changeEmojiToSpan from 'utils/Text';
 import { PetOption } from '../../types';
@@ -29,8 +28,6 @@ const Guide = ({ reactionType }: Props) => {
           </S.Letter>
         </S.Inner>
       </S.Outer>
-
-      <S.Wave src={Waves} />
     </S.Info>
   );
 };

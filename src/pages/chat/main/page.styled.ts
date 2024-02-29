@@ -1,18 +1,17 @@
 import styled from 'styled-components';
-import { LayoutWithNavbar } from 'components/layout/common';
+import {
+  TopbarBackgroundContainer,
+  TopbarInnerContainer,
+} from 'components/layout/PageLayout/TopbarLayout';
 
-export const ChattingPageContainer = styled(LayoutWithNavbar)`
-  display: flex;
-  flex-direction: column;
-
+export const ChattingPageContainer = styled(TopbarBackgroundContainer)`
   background-color: ${({ theme }) => theme.color.gray50};
+
+  overflow: hidden;
 `;
 
-export const Chats = styled.section`
-  flex: 1;
-
-  display: flex;
-  flex-direction: column;
+export const Chats = styled(TopbarInnerContainer)`
+  position: relative;
 
   padding: 0 16px;
 

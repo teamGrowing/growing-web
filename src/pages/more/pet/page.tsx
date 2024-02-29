@@ -4,7 +4,6 @@ import { observer } from 'mobx-react';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import PetDetailCard from 'pages/more/components/PetDetailCard/PetDetailCard';
-import MainBackground from 'styles/common/MainBackground';
 import Portal from 'components/common/Portal';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
@@ -21,8 +20,7 @@ const PetPage = () => {
   };
 
   return (
-    <S.Container className="page-container with-topbar">
-      <MainBackground />
+    <S.Container>
       <TopBar
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigate('/more')}
@@ -35,6 +33,7 @@ const PetPage = () => {
           </Suspense>
         </ErrorBoundary>
       </S.Wrapper>
+
       {detailPetId && (
         <Portal type="modal-root">
           <S.Layer />

@@ -2,10 +2,6 @@ import styled from 'styled-components';
 
 export const Info = styled.section`
   position: relative;
-  margin-bottom: calc(constant(safe-area-inset-bottom) * -1);
-  margin-bottom: calc(env(safe-area-inset-bottom) * -1);
-
-  width: 100%;
 `;
 
 export const Outer = styled.div`
@@ -30,7 +26,7 @@ export const Letter = styled.div`
 
   width: 100%;
   height: 100%;
-  padding: 18px 10px 55px 10px;
+  padding: 24px 10px 80px 10px;
   border-radius: 30px 30px 0 0;
   background-image: linear-gradient(
     130.11deg,
@@ -46,13 +42,4 @@ export const Letter = styled.div`
     text-align: center;
     white-space: pre-wrap;
   }
-`;
-
-export const Wave = styled.img`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-
-  width: 100%;
-  height: 45px;
 `;

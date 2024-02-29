@@ -6,8 +6,13 @@ export const Nav = styled.nav`
   left: 50%;
   transform: translateX(-50%);
 
+  background: ${(props) => props.theme.color.white};
+  border-radius: 20px 20px 0 0;
+  border-top: 1px solid ${(props) => props.theme.color.gray100};
+
   width: 100%;
   height: var(--navbar-real-height);
+  padding-bottom: calc(var(--safe-area-bottom));
   max-width: var(--full-width);
 `;
 
@@ -16,13 +21,7 @@ export const NavItems = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  padding-top: 6px;
-  padding-bottom: constant(safe-area-inset-bottom);
-  padding-bottom: env(safe-area-inset-bottom);
-
-  background: ${(props) => props.theme.color.white};
-  border-top: 1px solid ${(props) => props.theme.color.gray100};
-  border-radius: 20px 20px 0 0;
+  padding: 6px 0;
 `;
 
 export const Label = styled.p`

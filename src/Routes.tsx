@@ -1,7 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import NoticePage from 'pages/more/notice/page';
 import NoticeDetailPage from 'pages/more/notice-detail/page';
-import PageLayout from 'components/layout/PageLayout';
 import GalleryMainPage from './pages/gallery/main/page';
 import PhotoPage from './pages/gallery/photo/page';
 import Layout from './components/layout/Layout';
@@ -16,7 +15,7 @@ import PetPage from './pages/more/pet/page';
 import AuthRoute from './components/layout/AuthRoute';
 import AlbumPhotoDetailPage from './pages/gallery/album-photo-detail/page';
 import CalendarPage from './pages/calendar/page';
-import Home from './pages/home/main/page';
+import HomePage from './pages/home/main/page';
 import PetNamingPage from './pages/home/pet-naming/page';
 import PetFeedPage from './pages/home/pet-raising/page';
 import PetGraduatePage from './pages/home/pet-graduate/page';
@@ -37,63 +36,61 @@ import LoginWaitingPage from './pages/login/LoginWaitingPage/LoginWaitingPage';
 function GrowingRoutes() {
   return (
     <Routes>
-      <Route element={<PageLayout />}>
-        <Route path="/login/kakao" element={<LoginKakaoPage />} />
+      <Route path="/login/kakao" element={<LoginKakaoPage />} />
 
-        <Route element={<AuthRoute />}>
-          {/* login */}
-          <Route path="/login/select" element={<LoginSelectPage />} />
-          <Route path="/login/invited" element={<LoginInvitedPage />} />
-          <Route path="/login/create" element={<LoginCreatePage />} />
-          <Route path="/login/waiting" element={<LoginWaitingPage />} />
-          <Route path="/login/born" element={<LoginPetBornPage />} />
-          {/* home */}
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-          </Route>
-          <Route path="/pet/naming" element={<PetNamingPage />} />
-          <Route path="/pet/raising/feed" element={<PetFeedPage />} />
-          <Route path="/pet/raising/play" element={<PetFeedPage />} />
-          <Route path="/pet/graduate" element={<PetGraduatePage />} />
-
-          {/* chat */}
-          <Route path="/chat" element={<ChattingPage />} />
-          <Route path="/chat/all" element={<LongChattingPage />} />
-          <Route path="/chat/notice" element={<ChatNoticePage />} />
-          <Route path="/chat/question-box" element={<QuestionBoxPage />} />
-          <Route path="/chat/archive" element={<ChatArchivePage />} />
-          <Route path="/chat/photo-box" element={<ChatPhotoBoxPage />} />
-          <Route path="/chat/photo-box/:id" element={<ChatPhotoDetailPage />} />
-
-          {/* gallery */}
-          <Route element={<Layout />}>
-            <Route path="/gallery" element={<GalleryMainPage />} />
-            <Route path="/gallery/photo" element={<PhotoPage />} />
-            <Route path="/gallery/album" element={<AlbumPage />} />
-            <Route path="/gallery/album/:aId" element={<AlbumDetailPage />} />
-          </Route>
-          <Route path="/gallery/photo/:pId" element={<PhotoDetailPage />} />
-          <Route
-            path="/gallery/album/:aId/photo/:pId"
-            element={<AlbumPhotoDetailPage />}
-          />
-          <Route path="/gallery/new-album" element={<NewAlbumPage />} />
-
-          {/* calendar */}
-          <Route element={<Layout />}>
-            <Route path="/calendar" element={<CalendarPage />} />
-          </Route>
-
-          {/* more */}
-          <Route element={<Layout />}>
-            <Route path="/more" element={<MoreMainPage />} />
-          </Route>
-          <Route path="/more/profile" element={<ProfilePage />} />
-          <Route path="/more/notice" element={<NoticePage />} />
-          <Route path="/more/notice/:id" element={<NoticeDetailPage />} />
-          <Route path="/more/setting" element={<SettingPage />} />
-          <Route path="/more/pet" element={<PetPage />} />
+      <Route element={<AuthRoute />}>
+        {/* login */}
+        <Route path="/login/select" element={<LoginSelectPage />} />
+        <Route path="/login/invited" element={<LoginInvitedPage />} />
+        <Route path="/login/create" element={<LoginCreatePage />} />
+        <Route path="/login/waiting" element={<LoginWaitingPage />} />
+        <Route path="/login/born" element={<LoginPetBornPage />} />
+        {/* home */}
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
         </Route>
+        <Route path="/pet/naming" element={<PetNamingPage />} />
+        <Route path="/pet/raising/feed" element={<PetFeedPage />} />
+        <Route path="/pet/raising/play" element={<PetFeedPage />} />
+        <Route path="/pet/graduate" element={<PetGraduatePage />} />
+
+        {/* chat */}
+        <Route path="/chat" element={<ChattingPage />} />
+        <Route path="/chat/all" element={<LongChattingPage />} />
+        <Route path="/chat/notice" element={<ChatNoticePage />} />
+        <Route path="/chat/question-box" element={<QuestionBoxPage />} />
+        <Route path="/chat/archive" element={<ChatArchivePage />} />
+        <Route path="/chat/photo-box" element={<ChatPhotoBoxPage />} />
+        <Route path="/chat/photo-box/:id" element={<ChatPhotoDetailPage />} />
+
+        {/* gallery */}
+        <Route element={<Layout />}>
+          <Route path="/gallery" element={<GalleryMainPage />} />
+          <Route path="/gallery/photo" element={<PhotoPage />} />
+          <Route path="/gallery/album" element={<AlbumPage />} />
+          <Route path="/gallery/album/:aId" element={<AlbumDetailPage />} />
+        </Route>
+        <Route path="/gallery/photo/:pId" element={<PhotoDetailPage />} />
+        <Route
+          path="/gallery/album/:aId/photo/:pId"
+          element={<AlbumPhotoDetailPage />}
+        />
+        <Route path="/gallery/new-album" element={<NewAlbumPage />} />
+
+        {/* calendar */}
+        <Route element={<Layout />}>
+          <Route path="/calendar" element={<CalendarPage />} />
+        </Route>
+
+        {/* more */}
+        <Route element={<Layout />}>
+          <Route path="/more" element={<MoreMainPage />} />
+        </Route>
+        <Route path="/more/profile" element={<ProfilePage />} />
+        <Route path="/more/notice" element={<NoticePage />} />
+        <Route path="/more/notice/:id" element={<NoticeDetailPage />} />
+        <Route path="/more/setting" element={<SettingPage />} />
+        <Route path="/more/pet" element={<PetPage />} />
       </Route>
     </Routes>
   );

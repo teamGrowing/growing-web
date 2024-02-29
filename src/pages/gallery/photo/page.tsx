@@ -37,7 +37,7 @@ function PhotoPage() {
   };
 
   return (
-    <S.Container>
+    <S.PageContainer>
       <ErrorBoundary FallbackComponent={PhotoSection.Error}>
         <Suspense fallback={<PhotoSection.Loading />}>
           <DataContext.Provider value={ctxValue}>
@@ -53,7 +53,7 @@ function PhotoPage() {
           </DataContext.Provider>
         </Suspense>
       </ErrorBoundary>
-    </S.Container>
+    </S.PageContainer>
   );
 }
 export default observer(PhotoPage);

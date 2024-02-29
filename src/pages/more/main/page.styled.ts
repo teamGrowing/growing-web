@@ -10,7 +10,7 @@ export const ScrollArea = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh - 52px);
+  height: calc(var(--full-height) - 52px);
   overflow-y: scroll;
 `;
 

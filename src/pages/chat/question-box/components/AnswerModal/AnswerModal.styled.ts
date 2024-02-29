@@ -86,6 +86,9 @@ export const TextArea = styled.textarea`
   width: 100%;
   height: 100%;
   background-color: transparent;
+
+  font-family: 'PretendardMedium';
+  color: ${({ theme }) => theme.color.gray600};
 `;
 
 export const StyledButton = styled.button<{ main: boolean }>`

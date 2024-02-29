@@ -1,7 +1,16 @@
 import styled from 'styled-components';
+import {
+  TopbarBackgroundContainer,
+  TopbarInnerContainer,
+} from 'components/layout/PageLayout/TopbarLayout';
 
-export const Container = styled.div`
+export const Container = styled(TopbarBackgroundContainer)`
   position: relative;
+  background: ${({ theme }) => theme.color.background};
+`;
+
+export const InnerContainer = styled(TopbarInnerContainer)`
+  padding: 20px 20px 50px;
 `;
 
 export const Box = styled.div`

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
+import { TopbarBackgroundContainer } from 'components/layout/PageLayout/TopbarLayout';
 
-export const PetRenameContainer = styled.div`
+export const PetRenameContainer = styled(TopbarBackgroundContainer)`
   position: relative;
 
   display: flex;

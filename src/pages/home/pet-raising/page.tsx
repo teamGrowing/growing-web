@@ -1,3 +1,4 @@
+import Waves from 'assets/image/FeedWaves.png';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -19,10 +20,11 @@ export default function PetRaisingPage() {
         onLeftClick={() => navigation(-1)}
         border={false}
       />
-
-      <ReactivePet reactionType={petOption} />
-
-      <Guide reactionType={petOption} />
+      <S.InnerContainer>
+        <ReactivePet reactionType={petOption} />
+        <Guide reactionType={petOption} />
+      </S.InnerContainer>
+      <S.Wave src={Waves} />
     </S.Container>
   );
 }

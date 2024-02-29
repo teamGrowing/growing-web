@@ -4,8 +4,7 @@ export const FoldenContainer = styled.div`
   z-index: 2;
 
   position: absolute;
-  top: calc(65px + constant(safe-area-inset-top));
-  top: calc(65px + env(safe-area-inset-top));
+  top: calc(var(--topbar-real-height) + 10px);
   right: 16px;
 
   display: flex;
@@ -24,14 +23,12 @@ export const Container = styled.div`
   z-index: 2;
 
   position: fixed;
-  top: calc(48px + constant(safe-area-inset-top));
-  top: calc(48px + env(safe-area-inset-top));
-  left: 50%;
-  transform: translateX(-50%);
+  top: calc(var(--topbar-real-height) - 3px);
 
   padding: 0 16px;
 
   width: 100%;
+  max-width: var(--full-width);
 
   background-color: ${({ theme }) => theme.color.white};
   border-radius: 0 0 20px 20px;

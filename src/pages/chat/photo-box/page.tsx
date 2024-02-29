@@ -9,6 +9,7 @@ import VideoPlayBtn from 'pages/chat/components/VideoPlayBtn/VideoPlayBtn';
 import usePhotos from 'pages/chat/hooks/usePhotos';
 import { useChatPhotoBoxData } from 'hooks/queries';
 import { MENT_CHAT } from 'constants/ments';
+import { TopbarInnerContainer } from 'components/layout/PageLayout/TopbarLayout';
 import * as S from './page.styled';
 
 function ChatPhotoBoxPage() {
@@ -39,7 +40,7 @@ function ChatPhotoBoxPage() {
   }, [isSelectMode]);
 
   return (
-    <S.PageContainer className="page-container with-topbar">
+    <S.PageContainer>
       {!isSelectMode ? (
         <TopBar
           title="사진 모아보기"
@@ -64,7 +65,7 @@ function ChatPhotoBoxPage() {
         />
       )}
 
-      <S.ScrollView className="hidden-scrollbar">
+      <TopbarInnerContainer className="hidden-scrollbar">
         <S.ViewAllPhotos>
           {!photos ? (
             <S.EmptyCase className="text-gradient400">
@@ -106,7 +107,7 @@ function ChatPhotoBoxPage() {
             ))
           )}
         </S.ViewAllPhotos>
-      </S.ScrollView>
+      </TopbarInnerContainer>
 
       <Modal
         onModal={onModal}

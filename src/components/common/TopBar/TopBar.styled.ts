@@ -3,10 +3,8 @@ import { TopBarMode } from './types/TopBarMode';
 
 export const Container = styled.header<{ mode: TopBarMode; border: boolean }>`
   z-index: 10;
-  position: fixed;
+  position: sticky;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
 
   display: flex;
   justify-content: space-between;
@@ -14,11 +12,10 @@ export const Container = styled.header<{ mode: TopBarMode; border: boolean }>`
 
   width: 100%;
   max-width: 780px;
-  height: calc(constant(safe-area-inset-top) + var(--topbar-height));
-  height: calc(env(safe-area-inset-top) + var(--topbar-height));
+  height: var(--topbar-real-height);
+
   padding: 0 4px;
-  padding-top: calc(constant(safe-area-inset-top));
-  padding-top: calc(env(safe-area-inset-top));
+  padding-top: var(--safe-area-top);
 
   border-bottom: ${(props) =>
     props.border ? `1px solid ${props.theme.color.gray200}` : 'none'};
