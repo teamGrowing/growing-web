@@ -5,7 +5,7 @@ import Skeleton from 'react-loading-skeleton';
 import Icon from 'components/common/Icon/Icon';
 import { ErrorMessage } from 'components/common/fallback/Common';
 import { FallbackProps } from 'react-error-boundary';
-import Comment from './Comment/Comment';
+import Comment from '../Comment/Comment';
 import * as S from './CommentList.styled';
 
 const CommentList = () => {

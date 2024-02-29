@@ -15,7 +15,7 @@ import PhotoDetailPage from './pages/gallery/photo-detail/page';
 import PetPage from './pages/more/pet/page';
 import AuthRoute from './components/layout/AuthRoute';
 import AlbumPhotoDetailPage from './pages/gallery/album-photo-detail/page';
-import CalendarPage from './pages/calendar/CalendarPage/CalendarPage';
+import CalendarPage from './pages/calendar/page';
 import Home from './pages/home/main/page';
 import PetNamingPage from './pages/home/pet-naming/page';
 import PetFeedPage from './pages/home/pet-raising/page';

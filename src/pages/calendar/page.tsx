@@ -11,7 +11,7 @@ import userStore from 'stores/UserStore';
 import TodoArea from 'pages/calendar/components/TodoArea/TodoArea';
 import useToast from 'hooks/common/useToast';
 import { MENT_CALENDAR } from 'constants/ments';
-import * as S from './CalendarPage.styled';
+import * as S from './page.styled';
 
 function CalendarPage() {
   const calenderRef = useRef<FullCalendar | null>(null);

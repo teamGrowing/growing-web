@@ -2,7 +2,7 @@ import { Suspense, useRef } from 'react';
 import Icon from 'components/common/Icon/Icon';
 import { ErrorBoundary } from 'react-error-boundary';
 import * as S from './CommentMenu.styled';
-import CommentList from '../CommentList';
+import CommentList from '../CommentList/CommentList';
 
 type CommentMenuProps = {
   onComment: (data: string) => void;
