@@ -1,5 +1,5 @@
 import Icon from 'components/common/Icon/Icon';
-import PetCardContent from 'pages/more/PetPage/components/PetCardContent';
+import PetCardContent from 'pages/more/pet/components/PetCardContent';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';

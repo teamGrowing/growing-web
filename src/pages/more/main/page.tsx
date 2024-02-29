@@ -10,7 +10,7 @@ import store from 'stores/RootStore';
 import defaultProfile from 'assets/image/DefaultProfile.png';
 import Modal from 'components/common/Modal/Modal';
 import { MENT_LOGOUT } from 'constants/ments';
-import * as S from './MoreMainPage.styled';
+import * as S from './page.styled';
 
 function MoreMainPage() {
   const navigate = useNavigate();

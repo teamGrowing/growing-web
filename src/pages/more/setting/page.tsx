@@ -3,7 +3,7 @@ import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
 import WhiteContainer from 'pages/more/components/WhiteContainer/WhiteContainer';
 import MainBackground from 'styles/common/MainBackground';
-import * as S from './SettingPage.styled';
+import * as S from './page.styled';
 
 function SettingPage() {
   const navigate = useNavigate();

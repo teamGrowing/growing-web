@@ -4,7 +4,7 @@ import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import { useNavigate } from 'react-router-dom';
 import NoticeContent from './components/NoticeContent';
-import * as S from './NoticeDetailPage.styled';
+import * as S from './page.styled';
 
 function NoticeDetailPage() {
   const navigate = useNavigate();

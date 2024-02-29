@@ -8,7 +8,7 @@ import MainBackground from 'styles/common/MainBackground';
 import Portal from 'components/common/Portal';
 import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { ErrorBoundary } from 'react-error-boundary';
-import * as S from './PetPage.styled';
+import * as S from './page.styled';
 import PetCardList from './components/PetCardList';
 
 const PetPage = () => {

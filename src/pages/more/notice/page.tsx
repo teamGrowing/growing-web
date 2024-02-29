@@ -4,7 +4,7 @@ import TopBar from 'components/common/TopBar/TopBar';
 import { useNavigate } from 'react-router-dom';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import * as S from './NoticePage.styled';
+import * as S from './page.styled';
 import NoticeList from './components/NoticeList';
 
 function NoticePage() {
