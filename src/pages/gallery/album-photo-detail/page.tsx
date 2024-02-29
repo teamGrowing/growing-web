@@ -1,20 +1,19 @@
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { observer } from 'mobx-react';
 import TopBar from 'components/common/TopBar/TopBar';
-import PhotoDetail from 'pages/gallery/components/PhotoDetail/PhotoDetail';
 import BottomMenu from 'pages/gallery/components/BottomMenu/BottomMenu';
 import CommentMenu from 'pages/gallery/components/CommentMenu/CommentMenu';
 import Icon from 'components/common/Icon/Icon';
 import {
-  useCommentList,
-  useGalleryDetail,
   usePostCommentMutation,
   useDeletePhotosFromAlbumMutation,
 } from 'hooks/queries';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
+import { ErrorBoundary } from 'react-error-boundary';
+import PhotoDetail from '../components/PhotoDetail/PhotoDetail';
 import { MENT_GALLERY } from '../../../constants/ments';
 import * as S from './page.styled';
 
@@ -32,8 +31,6 @@ function AlbumPhotoDetailPage() {
   const title = location.state.title ? location.state.title : '';
   const subTitle = location.state.subTitle ? location.state.subTitle : '';
 
-  const { data: photo } = useGalleryDetail({ coupleId, photoId });
-  const { data: comments } = useCommentList({ coupleId, photoId });
   const { mutate: deletePhotoMutate } = useDeletePhotosFromAlbumMutation({
     coupleId,
     albumId,
@@ -48,8 +45,8 @@ function AlbumPhotoDetailPage() {
   };
 
   const deletePhotos = () => {
-    if (photo?.id) {
-      deletePhotoMutate([photo?.id], {
+    if (pId) {
+      deletePhotoMutate([pId], {
         onSuccess: () => {
           addToast(MENT_GALLERY.PHOTO_DELETE_FROM_ALBUM_SUCCESS);
           navigate(`/gallery/album/${albumId}`, {
@@ -72,11 +69,13 @@ function AlbumPhotoDetailPage() {
         onLeftClick={() => navigate(-1)}
       />
       <S.DetailContainer>
-        {photo && <PhotoDetail photoInfo={photo} />}
+        <ErrorBoundary FallbackComponent={PhotoDetail.Error}>
+          <Suspense fallback={<PhotoDetail.Loading />}>
+            <PhotoDetail />
+          </Suspense>
+        </ErrorBoundary>
       </S.DetailContainer>
-      {commentIsVisible && (
-        <CommentMenu comments={comments ?? []} onComment={makeComment} />
-      )}
+      {commentIsVisible && <CommentMenu onComment={makeComment} />}
       <BottomMenu
         border={!commentIsVisible}
         onComment={() => setCommentIsvisible((prevState) => !prevState)}

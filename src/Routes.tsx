@@ -11,7 +11,7 @@ import NewAlbumPage from './pages/gallery/new-album/page';
 import MoreMainPage from './pages/more/main/page';
 import ProfilePage from './pages/more/profile/page';
 import SettingPage from './pages/more/setting/page';
-import PhotoDetailPage from './pages/gallery/photo-detail/PhotoDetailPage';
+import PhotoDetailPage from './pages/gallery/photo-detail/page';
 import PetPage from './pages/more/pet/page';
 import AuthRoute from './components/layout/AuthRoute';
 import AlbumPhotoDetailPage from './pages/gallery/album-photo-detail/page';

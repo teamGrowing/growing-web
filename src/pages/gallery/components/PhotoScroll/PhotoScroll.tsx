@@ -1,6 +1,6 @@
-import PhotoContainer from 'pages/gallery/components/PhotoContainer/PhotoContainer';
-import { useInfiniteGalleryList } from 'hooks/queries';
-import store from 'stores/RootStore';
+import PhotoList from 'pages/gallery/new-album/components/PhotoList';
+import { ErrorBoundary } from 'react-error-boundary';
+import { Suspense } from 'react';
 import * as S from './PhotoScroll.styled';
 
 type PhotoScrollProps = {
@@ -16,10 +16,6 @@ function PhotoScroll({
   rightLabel,
   onRightClick,
 }: PhotoScrollProps) {
-  const { data: photos, fetchNextPage } = useInfiniteGalleryList({
-    coupleId: store.userStore.user?.coupleId ?? '',
-  });
-
   return (
     <S.Scroll>
       <S.Options>
@@ -27,11 +23,11 @@ function PhotoScroll({
         <S.Option onClick={onRightClick}>{rightLabel}</S.Option>
       </S.Options>
       <S.ScrollArea className="hidden-scrollbar">
-        <PhotoContainer
-          photoObjects={photos?.pages.flatMap((res) => res) ?? []}
-          type="UPLOADED"
-          fetchNextPage={fetchNextPage}
-        />
+        <ErrorBoundary FallbackComponent={PhotoList.Error}>
+          <Suspense fallback={<PhotoList.Loading />}>
+            <PhotoList />
+          </Suspense>
+        </ErrorBoundary>
       </S.ScrollArea>
     </S.Scroll>
   );

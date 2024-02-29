@@ -61,7 +61,7 @@ PetCardContent.Loading = () => {
           height={80}
           circle
           baseColor="#fce38a33"
-          highlightColor="f3818133"
+          highlightColor="#f3818133"
         />
       </S.Image>
       <S.InfoContainer>
@@ -69,7 +69,7 @@ PetCardContent.Loading = () => {
           <Skeleton
             width={100}
             baseColor="#fce38a33"
-            highlightColor="f3818133"
+            highlightColor="#f3818133"
             borderRadius={10}
           />
         </S.Name>
@@ -78,14 +78,14 @@ PetCardContent.Loading = () => {
             <Skeleton
               width={50}
               baseColor="#fce38a33"
-              highlightColor="f3818133"
+              highlightColor="#f3818133"
               borderRadius={10}
             />
             <S.Content width="69px">
               <Skeleton
                 width={70}
                 baseColor="#fce38a33"
-                highlightColor="f3818133"
+                highlightColor="#f3818133"
                 borderRadius={10}
               />
             </S.Content>
@@ -94,14 +94,14 @@ PetCardContent.Loading = () => {
             <Skeleton
               width={50}
               baseColor="#fce38a33"
-              highlightColor="f3818133"
+              highlightColor="#f3818133"
               borderRadius={10}
             />
             <S.Content width="69px">
               <Skeleton
                 width={70}
                 baseColor="#fce38a33"
-                highlightColor="f3818133"
+                highlightColor="#f3818133"
                 borderRadius={10}
               />
             </S.Content>
@@ -110,13 +110,13 @@ PetCardContent.Loading = () => {
             <Skeleton
               width={100}
               baseColor="#fce38a33"
-              highlightColor="f3818133"
+              highlightColor="#f3818133"
               borderRadius={10}
             />
             <Skeleton
               width={180}
               baseColor="#fce38a33"
-              highlightColor="f3818133"
+              highlightColor="#f3818133"
               borderRadius={10}
             />
           </S.Info>

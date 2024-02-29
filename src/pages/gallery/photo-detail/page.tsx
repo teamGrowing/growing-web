@@ -1,22 +1,18 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { observer } from 'mobx-react';
 import TopBar from 'components/common/TopBar/TopBar';
-import PhotoDetail from 'pages/gallery/components/PhotoDetail/PhotoDetail';
 import BottomMenu from 'pages/gallery/components/BottomMenu/BottomMenu';
 import CommentMenu from 'pages/gallery/components/CommentMenu/CommentMenu';
 import Icon from 'components/common/Icon/Icon';
-import {
-  useCommentList,
-  useDeletePhotosMutation,
-  useGalleryDetail,
-  usePostCommentMutation,
-} from 'hooks/queries';
+import { useDeletePhotosMutation, usePostCommentMutation } from 'hooks/queries';
 import { MENT_GALLERY } from 'constants/ments';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
-import * as S from './PhotoDetailPage.styled';
+import { ErrorBoundary } from 'react-error-boundary';
+import PhotoDetail from '../components/PhotoDetail/PhotoDetail';
+import * as S from './page.styled';
 
 function PhotoDetailPage() {
   const navigate = useNavigate();
@@ -28,8 +24,6 @@ function PhotoDetailPage() {
   const coupleId = store.userStore.user?.coupleId ?? '';
   const photoId = pId ?? '';
 
-  const { data: photo } = useGalleryDetail({ coupleId, photoId });
-  const { data: comments } = useCommentList({ coupleId, photoId });
   const { mutate: deletePhotoMutate } = useDeletePhotosMutation({ coupleId });
   const { mutate: postCommentMutate } = usePostCommentMutation({
     coupleId,
@@ -41,8 +35,8 @@ function PhotoDetailPage() {
   };
 
   const deletePhoto = () => {
-    if (photo?.id)
-      deletePhotoMutate([photo?.id], {
+    if (pId)
+      deletePhotoMutate([pId], {
         onSuccess: () => {
           addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS);
           navigate(`/gallery/photo`);
@@ -54,16 +48,16 @@ function PhotoDetailPage() {
     <S.Container className="page-container with-topbar">
       <TopBar
         leftNode={<Icon icon="IconArrowLeft" />}
-        onLeftClick={() => {
-          navigate(-1);
-        }}
+        onLeftClick={() => navigate(-1)}
       />
       <S.DetailContainer>
-        {photo && <PhotoDetail photoInfo={photo} />}
+        <ErrorBoundary FallbackComponent={PhotoDetail.Error}>
+          <Suspense fallback={<PhotoDetail.Loading />}>
+            <PhotoDetail />
+          </Suspense>
+        </ErrorBoundary>
       </S.DetailContainer>
-      {commentIsVisible && (
-        <CommentMenu comments={comments ?? []} onComment={makeComment} />
-      )}
+      {commentIsVisible && <CommentMenu onComment={makeComment} />}
       <BottomMenu
         border={!commentIsVisible}
         onComment={() => setCommentIsvisible((prevState) => !prevState)}

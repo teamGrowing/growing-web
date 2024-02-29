@@ -3,6 +3,9 @@ import styled from 'styled-components';
 export const Container = styled.div`
   overflow-y: scroll;
   padding-top: 10px;
+  background: ${({ theme }) => theme.color.background};
+  height: 100vh;
+  padding-bottom: 52px;
 `;
 
 export const Option = styled.div`

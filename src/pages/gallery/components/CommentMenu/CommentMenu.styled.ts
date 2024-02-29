@@ -12,7 +12,7 @@ export const Box = styled.div`
   height: 321px;
 
   left: 0px;
-  bottom: 81px;
+  bottom: 72px;
 
   background: ${({ theme }) => theme.color.white};
   border-radius: 30px 30px 0px 0px;

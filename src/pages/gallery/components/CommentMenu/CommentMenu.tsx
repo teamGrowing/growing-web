@@ -1,16 +1,16 @@
-import { useRef } from 'react';
-import { PhotoCommentDto } from 'models/gallery';
+import { Suspense, useRef } from 'react';
 import Icon from 'components/common/Icon/Icon';
-import Comment from '../Comment/Comment';
+import { ErrorBoundary } from 'react-error-boundary';
 import * as S from './CommentMenu.styled';
+import CommentList from '../CommentList';
 
 type CommentMenuProps = {
-  comments: PhotoCommentDto[];
   onComment: (data: string) => void;
 };
 
-function CommentMenu({ comments, onComment }: CommentMenuProps) {
+function CommentMenu({ onComment }: CommentMenuProps) {
   const inputRef = useRef<HTMLInputElement>(null);
+
   const onClickSendBtnHandler = () => {
     if (!inputRef.current?.value) return;
 
@@ -22,9 +22,11 @@ function CommentMenu({ comments, onComment }: CommentMenuProps) {
     <S.Box>
       <S.Title>댓글 남기기</S.Title>
       <S.CommentsContainer>
-        {comments.map((c) => (
-          <Comment commentInfo={c} key={c.id} />
-        ))}
+        <ErrorBoundary FallbackComponent={CommentList.Error}>
+          <Suspense fallback={<CommentList.Loading />}>
+            <CommentList />
+          </Suspense>
+        </ErrorBoundary>
       </S.CommentsContainer>
       <S.CommentInput>
         <S.Input ref={inputRef} />
