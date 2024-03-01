@@ -63,6 +63,7 @@ export function useFoldNoticeMutate({
 > {
   return useMutation({
     mutationFn: () => CHAT_NOTICE_API.postNoticeFold(coupleId, noticeId),
+    useErrorBoundary: false,
     ...options,
   });
 }
@@ -78,6 +79,7 @@ export function useInvisibleNoticeMutate({
 }): UseMutationResult<AxiosResponse, AxiosError, unknown, unknown> {
   return useMutation({
     mutationFn: () => CHAT_NOTICE_API.postNoticeInvisible(coupleId, noticeId),
+    useErrorBoundary: false,
     ...options,
   });
 }

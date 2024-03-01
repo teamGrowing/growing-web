@@ -1,23 +1,22 @@
-import { observer } from 'mobx-react';
+import { Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
-import store from 'stores/RootStore';
-import { useHasQuestionData } from 'hooks/queries';
 import Icon from 'components/common/Icon/Icon';
 import * as S from './SubMenu.styled';
+import QuestionAlarm from './QuestionAlarm';
 
 function SubMenu({ open }: { open: boolean }) {
   const navigation = useNavigate();
-
-  const { userStore } = store;
-  const { data: isTodo } = useHasQuestionData({
-    coupleId: userStore.user?.coupleId ?? '',
-  });
 
   return (
     <S.SubMenuContainer openEnvelope={open}>
       <S.Item onClick={() => navigation('/chat/question-box')}>
         <Icon icon="IconEnvelope" size={28} />
-        {isTodo?.result && <S.Alarm />}
+        <ErrorBoundary fallback={null}>
+          <Suspense>
+            <QuestionAlarm />
+          </Suspense>
+        </ErrorBoundary>
         질문 우편함
       </S.Item>
       <S.Item onClick={() => navigation('/chat/archive')}>
@@ -37,4 +36,4 @@ function SubMenu({ open }: { open: boolean }) {
   );
 }
 
-export default observer(SubMenu);
+export default SubMenu;

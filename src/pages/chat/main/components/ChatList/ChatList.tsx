@@ -1,6 +1,6 @@
-import { useRef } from 'react';
+import { Suspense, useRef } from 'react';
 import { observer } from 'mobx-react';
-import { FallbackProps } from 'react-error-boundary';
+import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
 import { MENT_COMMON } from 'constants/ments';
 import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
 import store from 'stores/RootStore';
@@ -124,8 +124,15 @@ const ChatList = ({ onSubMenu }: Props) => {
 
   return (
     <TopbarInnerContainer className="hidden-scrollbar">
-      <ChatNotice />
-      <SubMenu open={onSubMenu} />
+      <ErrorBoundary fallback={null}>
+        <Suspense>
+          <ChatNotice />
+        </Suspense>
+      </ErrorBoundary>
+
+      <Suspense>
+        <SubMenu open={onSubMenu} />
+      </Suspense>
 
       <S.Chats
         ref={chatsRef}

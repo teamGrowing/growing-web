@@ -4,8 +4,8 @@ export const FoldenContainer = styled.div`
   z-index: 2;
 
   position: absolute;
-  top: calc(var(--topbar-real-height) + 30px);
-  right: 16px;
+  top: calc(var(--topbar-real-height) + 14px);
+  right: 20px;
 
   display: flex;
   justify-content: center;
@@ -79,8 +79,10 @@ export const Buttons = styled.div`
 `;
 
 export const StyledButton = styled.button`
-  color: ${({ theme }) => theme.color.gray900};
+  color: ${({ theme }) => theme.color.gray700};
   flex: 1;
+
+  font-size: 13px;
 `;
 
 export const StyledButtonBorder = styled(StyledButton)`
