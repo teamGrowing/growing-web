@@ -6,7 +6,7 @@ import {
   useOurChatDelete,
 } from '../../../hooks/queries';
 
-type Idtype = {
+export type Idtype = {
   id: string;
   isPhoto: boolean; // true: 사진, false: 비디오
 };
