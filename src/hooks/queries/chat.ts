@@ -23,8 +23,17 @@ import {
 import { throttle } from 'lodash';
 
 const throttledGetChats = throttle(
-  (coupleId, { base, limit, offset }, onSuccess) => {
-    CHAT_API.getChats(coupleId, { base, limit, offset }).then(onSuccess);
+  async (coupleId, { base, limit, offset }, onSuccess, onError) => {
+    try {
+      const response = await CHAT_API.getChats(coupleId, {
+        base,
+        limit,
+        offset,
+      });
+      onSuccess(response);
+    } catch (error) {
+      onError(error);
+    }
   },
   1000
 );
@@ -44,7 +53,7 @@ export const useChatData = ({
   useInfiniteQuery(
     [...queryKeys.chatKeys.all, ...(storeCode ?? [])],
     ({ pageParam = 0 }) =>
-      new Promise((resolve) => {
+      new Promise((resolve, reject) => {
         throttledGetChats(
           coupleId,
           {
@@ -52,7 +61,8 @@ export const useChatData = ({
             limit: CHAT_LIMIT,
             offset: 0,
           },
-          resolve
+          resolve,
+          reject
         );
       }),
     {

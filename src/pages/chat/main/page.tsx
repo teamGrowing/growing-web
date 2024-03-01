@@ -1,123 +1,21 @@
-import { useRef, useState } from 'react';
+import { useState, Suspense } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
+import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import store from 'stores/RootStore';
-import { plusMenuProps } from 'stores/ChatStore';
-import { useChatData } from 'hooks/queries';
-import useReactQuerySubscription from 'pages/chat/hooks/useReactQuerySubscription';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
-import ChatBallon from 'pages/chat/components/ChatBallon/ChatBallon';
-import InputChat from 'pages/chat/components/InputChat/InputChat';
-import SubMenu from 'pages/chat/components/SubMenu/SubMenu';
-import ChatNotice from 'pages/chat/components/ChatNotice/ChatNotice';
-import { PLUS_MENU_HEIGHT } from 'constants/constants';
-import useScrollRestoration from 'pages/chat/hooks/useScrollRestoration';
-import { TopbarInnerContainer } from 'components/layout/PageLayout/TopbarLayout';
+import { ChatListLoading } from './components/ChatListSkeleton/ChatListSkeleton';
+import ChatList from './components/ChatList/ChatList';
 import * as S from './page.styled';
-import useChatObserver from '../hooks/useChatObserver';
 
 function ChattingPage() {
+  const { chatStore } = store;
   const navigation = useNavigate();
-  const { userStore, chatStore } = store;
-
-  const chatStartRef = useRef<HTMLDivElement | null>(null);
-  const chatsRef = useRef<HTMLDivElement | null>(null);
-  const chatEndRef = useRef<HTMLDivElement | null>(null);
+  const { reset } = useQueryErrorResetBoundary();
 
   const [onSubMenu, setOnSubMenu] = useState<boolean>(false);
-
-  const {
-    data: chats,
-    fetchNextPage,
-    isFetchingNextPage,
-  } = useChatData({
-    coupleId: userStore.user?.coupleId ?? '',
-  });
-
-  function scrollToBottom() {
-    // chatEndRef.current?.scrollIntoView();
-    return Promise.resolve(1);
-  }
-
-  const { createChat } = useReactQuerySubscription({
-    coupleId: userStore.user?.coupleId ?? '',
-    userId: userStore.user?.id ?? '',
-    scrollToBottom,
-  });
-
-  const scrollByPlusMenu = (isOpen: boolean) => {
-    if (!chatsRef.current) return;
-
-    if (
-      !plusMenuProps.includes(chatStore.chatMode.mode) &&
-      chatStore.chatMode.mode !== 'Chatting'
-    ) {
-      return;
-    }
-
-    const SCROLL_PADDING = 5;
-    const num = isOpen ? PLUS_MENU_HEIGHT : -PLUS_MENU_HEIGHT;
-
-    const maxScrollTop =
-      chatsRef.current.scrollHeight - chatsRef.current.clientHeight;
-
-    const isAtBottom =
-      chatsRef.current.scrollTop + SCROLL_PADDING >= maxScrollTop;
-
-    const updateScrollPosition = () => {
-      if (!chatsRef.current) return;
-
-      if (isOpen || !isAtBottom) {
-        chatsRef.current.scrollTop += num;
-      } else {
-        chatsRef.current.scrollTop = maxScrollTop;
-      }
-    };
-
-    if (isAtBottom) {
-      const timer = setTimeout(() => {
-        scrollToBottom().then(() => {
-          clearTimeout(timer);
-        });
-      }, 100);
-    } else {
-      updateScrollPosition();
-    }
-  };
-
-  const handleDefaultMode = () => {
-    scrollByPlusMenu(false);
-    chatStore.clear();
-  };
-
-  function getNewDay(idx: number) {
-    if (idx === 0) {
-      return true;
-    }
-    if (!chats) {
-      return false;
-    }
-    return (
-      new Date(
-        chats?.pages.flatMap((x) => x)[idx].parentChatting.createdAt
-      ).getDay() !==
-      new Date(
-        chats?.pages.flatMap((x) => x)[
-          idx - 1 > 0 ? idx - 1 : 0
-        ].parentChatting.createdAt
-      ).getDay()
-    );
-  }
-
-  const { saveScrollPosition } = useScrollRestoration(chatsRef, chatEndRef);
-
-  useChatObserver({
-    chatStartRef,
-    chatsRef,
-    isFetchingNextPage,
-    fetchNextPage,
-  });
 
   return (
     <S.ChattingPageContainer>
@@ -134,36 +32,11 @@ function ChattingPage() {
         onRightMainClick={() => setOnSubMenu(!onSubMenu)}
       />
 
-      <TopbarInnerContainer className="hidden-scrollbar">
-        <ChatNotice />
-        <SubMenu open={onSubMenu} />
-
-        <S.Chats
-          ref={chatsRef}
-          onClick={handleDefaultMode}
-          onScroll={saveScrollPosition}
-        >
-          <div ref={chatStartRef} style={{ height: '8px' }} />
-
-          {chats?.pages
-            .flatMap((x) => x)
-            .map((chat, idx) => (
-              <ChatBallon
-                key={chat.parentChatting.id}
-                isNewDay={getNewDay(idx)}
-                // TODO
-                isScrolling={false}
-                {...chat}
-              />
-            ))}
-          <div ref={chatEndRef} />
-        </S.Chats>
-
-        <InputChat
-          createChat={createChat}
-          scrollByPlusMenu={scrollByPlusMenu}
-        />
-      </TopbarInnerContainer>
+      <ErrorBoundary onReset={reset} FallbackComponent={ChatList.Error}>
+        <Suspense fallback={<ChatListLoading />}>
+          <ChatList onSubMenu={onSubMenu} />
+        </Suspense>
+      </ErrorBoundary>
     </S.ChattingPageContainer>
   );
 }
