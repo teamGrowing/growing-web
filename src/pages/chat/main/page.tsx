@@ -36,7 +36,7 @@ function ChattingPage() {
   });
 
   function scrollToBottom() {
-    chatEndRef.current?.scrollIntoView();
+    // chatEndRef.current?.scrollIntoView();
     return Promise.resolve(1);
   }
 
@@ -134,7 +134,7 @@ function ChattingPage() {
         onRightMainClick={() => setOnSubMenu(!onSubMenu)}
       />
 
-      <TopbarInnerContainer>
+      <TopbarInnerContainer className="hidden-scrollbar">
         <ChatNotice />
         <SubMenu open={onSubMenu} />
 
@@ -158,9 +158,12 @@ function ChattingPage() {
             ))}
           <div ref={chatEndRef} />
         </S.Chats>
-      </TopbarInnerContainer>
 
-      <InputChat createChat={createChat} scrollByPlusMenu={scrollByPlusMenu} />
+        <InputChat
+          createChat={createChat}
+          scrollByPlusMenu={scrollByPlusMenu}
+        />
+      </TopbarInnerContainer>
     </S.ChattingPageContainer>
   );
 }

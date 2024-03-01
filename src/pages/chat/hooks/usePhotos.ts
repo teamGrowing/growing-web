@@ -1,6 +1,4 @@
-import { useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import queryKeys from 'libs/react-query/queryKeys';
 import useToast from '../../../hooks/common/useToast';
 import {
   useChatPhotoCreateMutate,
@@ -14,7 +12,6 @@ type Idtype = {
 };
 
 export default function usePhotos({ coupleId }: { coupleId: string }) {
-  const queryClient = useQueryClient();
   const { addToast } = useToast();
 
   const [ids, setIds] = useState<Array<Idtype>>([]);
@@ -30,9 +27,7 @@ export default function usePhotos({ coupleId }: { coupleId: string }) {
   const { mutateAsync: deleteOurChat } = useOurChatDelete({
     coupleId,
     options: {
-      onSuccess: () => {
-        addToast('삭제되었습니다');
-      },
+      useErrorBoundary: false,
     },
   });
 
@@ -110,9 +105,7 @@ export default function usePhotos({ coupleId }: { coupleId: string }) {
       ids.map(async (id) => {
         await deleteOurChat(id.id);
       })
-    ).finally(() => {
-      queryClient.invalidateQueries(queryKeys.chatKeys.all);
-    });
+    );
   }
 
   return {

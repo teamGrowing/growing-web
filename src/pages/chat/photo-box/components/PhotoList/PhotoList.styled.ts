@@ -1,14 +1,5 @@
 import styled, { css } from 'styled-components';
-import { TopbarBackgroundContainer } from 'components/layout/PageLayout/TopbarLayout';
-
-export const PageContainer = styled(TopbarBackgroundContainer)`
-  background: ${({ theme }) => theme.color.background};
-`;
-
-export const ScrollView = styled.div`
-  height: 100%;
-  overflow-y: scroll;
-`;
+import { clickPulse } from 'styles/common/animation';
 
 export const ViewAllPhotos = styled.div`
   display: grid;
@@ -61,6 +52,11 @@ export const GridPhoto = styled.div<{ url: string; isSelected: boolean }>`
     css`
       border: 2px solid ${({ theme }) => theme.color.purple600};
     `};
+
+  :active {
+    animation: ${clickPulse} 0.3s ease-in-out;
+    border: 2px solid ${({ theme }) => theme.color.purple600};
+  }
 `;
 
 export const PhotoSelect = styled.div<{ isSelected: boolean }>`
@@ -94,4 +90,37 @@ export const PhotoLengthLabel = styled.div`
   gap: 2px;
 
   font-size: 12px;
+`;
+
+export const SkeletonWrapper = styled.div`
+  position: relative;
+  width: 100%;
+
+  ::after {
+    display: block;
+    content: '';
+    padding-bottom: 100%; // 1:1 비율 유지
+  }
+`;
+
+export const SkeletonInnerWrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  * {
+    display: block;
+    height: 100%;
+  }
+`;
+
+export const ErrorContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 80vh;
 `;

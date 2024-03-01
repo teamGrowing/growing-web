@@ -4,7 +4,7 @@ export const FoldenContainer = styled.div`
   z-index: 2;
 
   position: absolute;
-  top: calc(var(--topbar-real-height) + 10px);
+  top: calc(var(--topbar-real-height) + 30px);
   right: 16px;
 
   display: flex;

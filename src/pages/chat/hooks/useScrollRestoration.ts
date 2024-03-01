@@ -32,9 +32,9 @@ const useScrollRestoration = (
       }, 10);
     } else if (chatEndRef?.current) {
       // 페이지에 처음 접근했을 때
-      setTimeout(() => {
-        chatEndRef.current?.scrollIntoView();
-      }, 100);
+      // setTimeout(() => {
+      //   chatEndRef.current?.scrollIntoView();
+      // }, 100);
     }
   };
 

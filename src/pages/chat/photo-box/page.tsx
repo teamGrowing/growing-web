@@ -1,42 +1,86 @@
-import React, { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
+import { ErrorBoundary } from 'react-error-boundary';
+import {
+  useQueryClient,
+  useQueryErrorResetBoundary,
+} from '@tanstack/react-query';
 import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal';
-import VideoPlayBtn from 'pages/chat/components/VideoPlayBtn/VideoPlayBtn';
+import queryKeys from 'libs/react-query/queryKeys';
 import usePhotos from 'pages/chat/hooks/usePhotos';
-import { useChatPhotoBoxData } from 'hooks/queries';
 import { MENT_CHAT } from 'constants/ments';
 import { TopbarInnerContainer } from 'components/layout/PageLayout/TopbarLayout';
+import { ChatPhotoLineDto } from 'models/chat';
+import useToast from 'hooks/common/useToast';
 import * as S from './page.styled';
+import PhotoList from './components/PhotoList/PhotoList';
 
 function ChatPhotoBoxPage() {
-  const navigation = useNavigate();
   const { userStore } = store;
+  const { addToast } = useToast();
+  const navigation = useNavigate();
+  const queryClient = useQueryClient();
+  const { reset } = useQueryErrorResetBoundary();
 
   const [isSelectMode, setIsSelectMode] = useState<boolean>(false);
   const [onModal, setOnModal] = useState<boolean>(false);
-
-  const { data: photos } = useChatPhotoBoxData({
-    coupleId: userStore.user?.coupleId ?? '',
-  });
 
   const { updateId, getSelected, clearIds, getIndex, getLength, deleteChats } =
     usePhotos({
       coupleId: userStore.user?.coupleId ?? '',
     });
 
-  const handleDelete = () => {
-    deleteChats().finally(() => {
+  const handleDelete = async () => {
+    try {
+      await deleteChats();
+      addToast('삭제되었습니다');
+    } catch (e) {
+      //
+    } finally {
       setIsSelectMode(false);
+      queryClient.invalidateQueries(queryKeys.chatKeys.all);
       clearIds();
-    });
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    clearIds();
+    setIsSelectMode(false);
+  };
+
+  const handleOnDeleteModal = () => {
+    if (getLength() === 0) {
+      return;
+    }
+    setOnModal(true);
+  };
+
+  const handlePhotoClick = async (photo: ChatPhotoLineDto) => {
+    if (isSelectMode) {
+      try {
+        const value = updateId({
+          id: photo.i,
+          isPhoto: photo.t === null,
+        });
+        if (!value) {
+          setIsSelectMode(false);
+        }
+      } catch (e) {
+        //
+      }
+      return;
+    }
+    navigation(`${photo.i}`);
   };
 
   useEffect(() => {
-    if (!isSelectMode) clearIds();
+    if (!isSelectMode) {
+      clearIds();
+    }
   }, [isSelectMode]);
 
   return (
@@ -54,59 +98,22 @@ function ChatPhotoBoxPage() {
           title="사진 모아보기"
           rightMainNode={<div>취소</div>}
           rightSubNode={<Icon icon="IconTrash" />}
-          onRightMainClick={() => {
-            clearIds();
-            setIsSelectMode(false);
-          }}
-          onRightSubClick={() => {
-            if (getLength() === 0) return;
-            setOnModal(true);
-          }}
+          onRightMainClick={handleDeleteCancel}
+          onRightSubClick={handleOnDeleteModal}
         />
       )}
 
       <TopbarInnerContainer className="hidden-scrollbar">
-        <S.ViewAllPhotos>
-          {!photos ? (
-            <S.EmptyCase className="text-gradient400">
-              <Icon icon="IconLogo" size={60} />
-              {MENT_CHAT.ARCHIVED_EMPTY}
-            </S.EmptyCase>
-          ) : (
-            photos?.map((photo) => (
-              <S.PhotoContainer key={photo.i}>
-                <S.GridPhoto
-                  url={photo.u[0]}
-                  onClick={() => {
-                    if (isSelectMode) {
-                      return updateId({
-                        id: photo.i,
-                        isPhoto: photo.t === null,
-                      }).then((value) => {
-                        if (!value) setIsSelectMode(false);
-                      });
-                    }
-                    return navigation(`${photo.i}`);
-                  }}
-                  isSelected={getSelected(photo.i)}
-                >
-                  {isSelectMode && (
-                    <S.PhotoSelect isSelected={getSelected(photo.i)}>
-                      {getIndex(photo.i) === 0 ? '' : getIndex(photo.i)}
-                    </S.PhotoSelect>
-                  )}
-                  {photo.u.length > 1 && (
-                    <S.PhotoLengthLabel className="text-gradient400">
-                      <Icon icon="IconGallery" size={13} />
-                      {photo.u.length}
-                    </S.PhotoLengthLabel>
-                  )}
-                  {photo.t && <VideoPlayBtn />}
-                </S.GridPhoto>
-              </S.PhotoContainer>
-            ))
-          )}
-        </S.ViewAllPhotos>
+        <ErrorBoundary onReset={reset} FallbackComponent={PhotoList.Error}>
+          <Suspense fallback={<PhotoList.Loading />}>
+            <PhotoList
+              onPhotoClick={handlePhotoClick}
+              getSelected={getSelected}
+              isSelectMode={isSelectMode}
+              getIndex={getIndex}
+            />
+          </Suspense>
+        </ErrorBoundary>
       </TopbarInnerContainer>
 
       <Modal

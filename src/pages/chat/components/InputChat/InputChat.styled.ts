@@ -10,9 +10,9 @@ export const Container = styled.div`
   right: 0;
   bottom: 0;
 
+  max-width: var(--full-width);
+  min-height: calc(${MIN_TEXTAREA_HEIGHT} + var(--safe-area-bottom));
   padding-bottom: var(--safe-area-bottom);
-
-  max-width: 780px;
 
   background-color: ${({ theme }) => theme.color.white};
 `;
@@ -64,8 +64,7 @@ export const TextareaWrapper = styled.div`
 
 export const StyledTextarea = styled.textarea`
   width: 100%;
-  min-height: calc(${MIN_TEXTAREA_HEIGHT} + constant(env-safe-inset-bottom));
-  min-height: calc(${MIN_TEXTAREA_HEIGHT} + env(env-safe-inset-bottom));
+  min-height: calc(${MIN_TEXTAREA_HEIGHT} + var(--safe-area-bottom));
   resize: none;
 
   background-color: transparent;
