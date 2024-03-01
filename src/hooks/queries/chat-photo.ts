@@ -109,6 +109,7 @@ export function useChatPhotoToGallery({
 }): UseMutationResult<AxiosResponse, AxiosError, unknown, unknown> {
   return useMutation({
     mutationFn: () => CHAT_PHOTO_API.postPutGallery(coupleId, photoId),
+    useErrorBoundary: false,
     ...options,
   });
 }

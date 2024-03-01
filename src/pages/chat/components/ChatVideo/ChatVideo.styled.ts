@@ -1,15 +1,27 @@
 import Icon from 'components/common/Icon/Icon';
 import styled from 'styled-components';
 
-export const Container = styled.div<{ height: string }>`
+export const Container = styled.div<{ height?: string }>`
   position: relative;
   width: 100%;
-  height: ${(props) => props.height};
+  ${({ height }) => {
+    return { height: height || '100%' };
+  }}
+  flex: 1;
+
+  display: flex;
+
+  padding-top: 56.25%;
+  overflow: hidden;
 `;
 
 export const StyledVideo = styled.video`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  object-fit: contain;
 `;
 
 export const VideoController = styled.div`
