@@ -4,7 +4,6 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(3, minmax(191px, 1fr));
   margin: 1px 14px;
-  padding-top: 20px;
   padding-bottom: calc(var(--navbar-real-height) + 50px);
   grid-gap: 6px;
   justify-items: center;

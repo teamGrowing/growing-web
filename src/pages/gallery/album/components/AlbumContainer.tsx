@@ -34,26 +34,34 @@ const AlbumContainer = ({
   selectedAlbums,
   clearSelectedList,
 }: Props) => {
+  const { addToast } = useToast();
+  const navigate = useNavigate();
+  const [onModal, setOnModal] = useState(false);
   const coupleId = store.userStore.user?.coupleId ?? '';
   const { data: albums } = useAlbumsList({ coupleId });
-  const { mutate: deleteAlbumsMutate } = useDeleteAlbumsMutation({ coupleId });
-  const [onModal, setOnModal] = useState(false);
+  const { mutate: deleteAlbumsMutate } = useDeleteAlbumsMutation({
+    coupleId,
+    options: {
+      onSuccess: () => {
+        setSelectingAvailable(false);
+        addToast(MENT_GALLERY.ALBUM_DELETE_SUCCESS);
+        clearSelectedList();
+      },
+      onError: () => {
+        addToast(MENT_GALLERY.ALBUM_DELETE_FAIL);
+      },
+      useErrorBoundary: false,
+    },
+  });
 
-  const navigate = useNavigate();
-  const { addToast } = useToast();
-
-  const clearList = () => {
+  const clickCancel = () => {
     clearSelectedList();
     setSelectingAvailable(false);
   };
 
   const deleteAlbums = () => {
-    deleteAlbumsMutate(selectedAlbums, {
-      onSuccess: () => {
-        setSelectingAvailable(false);
-        addToast(MENT_GALLERY.ALBUM_DELETE_SUCCESS);
-      },
-    });
+    deleteAlbumsMutate(selectedAlbums);
+    clearSelectedList();
   };
 
   return (
@@ -72,7 +80,7 @@ const AlbumContainer = ({
           )
         }
         onRightClick={
-          selectingAvailable ? clearList : () => setSelectingAvailable(true)
+          selectingAvailable ? clickCancel : () => setSelectingAvailable(true)
         }
         rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
         onRightSubClick={() => {
@@ -102,9 +110,7 @@ const AlbumContainer = ({
         mainActionLabel="확인"
         onMainAction={deleteAlbums}
         subActionLabel="취소"
-        onSubAction={() => {
-          setOnModal(false);
-        }}
+        onSubAction={() => setOnModal(false)}
       />
     </>
   );

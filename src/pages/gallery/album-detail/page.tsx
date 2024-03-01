@@ -39,14 +39,29 @@ function AlbumDetailPage() {
     useDeletePhotosFromAlbumMutation({
       coupleId,
       albumId,
+      options: {
+        onSuccess: () => addToast(MENT_GALLERY.ALBUM_PHOTO_DELETE_SUCCESS),
+        onError: () => addToast(MENT_GALLERY.PHOTO_DELETE_FAIL),
+        useErrorBoundary: false,
+      },
     });
+
   const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
     coupleId,
+    options: {
+      onSuccess: () => addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS),
+      onError: () => addToast(MENT_GALLERY.PHOTO_DELETE_FAIL),
+      useErrorBoundary: false,
+    },
   });
 
   const { mutate: modifyAlbumInfoMutate } = usePatchAlbumMutation({
     coupleId,
     albumId,
+    options: {
+      onError: () => addToast(MENT_GALLERY.ALBUM_MODIFY_FAIL),
+      useErrorBoundary: false,
+    },
   });
 
   const ctxValue = useMemo(() => {
@@ -73,17 +88,13 @@ function AlbumDetailPage() {
   };
 
   const deletePhotosFromAlbum = () => {
-    deletePhotosFromAlbumMutate(selectedPhotos.current, {
-      onSuccess: () => addToast(MENT_GALLERY.ALBUM_PHOTO_DELETE_SUCCESS),
-    });
+    deletePhotosFromAlbumMutate(selectedPhotos.current);
     clearList();
     isDeleteOnlyFromAlbum.current = null;
   };
 
   const deletePhotos = () => {
-    deletePhotosMutate(selectedPhotos.current, {
-      onSuccess: () => addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS),
-    });
+    deletePhotosMutate(selectedPhotos.current);
     clearList();
     isDeleteOnlyFromAlbum.current = null;
   };
@@ -133,7 +144,6 @@ function AlbumDetailPage() {
               </Suspense>
             </ErrorBoundary>
           </S.Container>
-
           <FloatingButton />
           {onConfirmModal && (
             <Modal
@@ -149,7 +159,6 @@ function AlbumDetailPage() {
                 deletePhotos();
               }}
               subActionLabel="취소"
-              onSubAction={() => {}}
             />
           )}
           {onModal && (

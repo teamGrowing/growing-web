@@ -11,6 +11,7 @@ import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
 import useToast from 'hooks/common/useToast';
 import Modal from 'components/common/Modal/Modal';
 import { useState } from 'react';
+import { observer } from 'mobx-react';
 import * as S from './PhotoSection.styled';
 
 interface Props {
@@ -34,9 +35,19 @@ const PhotoSection = ({
   });
   const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
     coupleId: store.userStore.user?.coupleId ?? '',
+    options: {
+      onError: () => {
+        addToast(MENT_GALLERY.PHOTO_DELETE_FAIL);
+      },
+      onSuccess: () => {
+        setSelectingAvailable(false);
+        addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS);
+      },
+      useErrorBoundary: false,
+    },
   });
 
-  const clearSelectedPhotos = () => {
+  const clickCancel = () => {
     clearList();
     setSelectingAvailable(false);
   };
@@ -46,12 +57,8 @@ const PhotoSection = ({
   };
 
   const deletePhotos = () => {
-    deletePhotosMutate(selectedPhotos, {
-      onSuccess: () => {
-        setSelectingAvailable(false);
-        addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS);
-      },
-    });
+    deletePhotosMutate(selectedPhotos);
+    clearList();
   };
 
   return (
@@ -67,7 +74,7 @@ const PhotoSection = ({
             <S.Cancel className="text-gradient400">취소</S.Cancel>
           )
         }
-        onRightClick={selectingAvailable ? clearSelectedPhotos : clickCheck}
+        onRightClick={selectingAvailable ? clickCancel : clickCheck}
         rightSubNode={selectingAvailable && <Icon icon="IconTrash" />}
         onRightSubClick={() => {
           if (selectedPhotos.length <= 0) {
@@ -140,4 +147,4 @@ PhotoSection.Error = ({ resetErrorBoundary }: FallbackProps) => {
   );
 };
 
-export default PhotoSection;
+export default observer(PhotoSection);
