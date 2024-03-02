@@ -4,6 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 import { useNoticeDetail } from 'hooks/queries';
 import { FallbackProps } from 'react-error-boundary';
 import Spacing from 'components/common/Spacing';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import * as S from './NoticeContent.styled';
 
 const NoticeContent = () => {
@@ -16,9 +17,7 @@ const NoticeContent = () => {
         <S.Title>{notice?.title}</S.Title>
         <S.Date>{dayjs(notice?.updatedAt).format('YYYY.MM.DD')}</S.Date>
       </S.Head>
-
       <S.Border />
-
       <S.Content>{notice?.context}</S.Content>
     </>
   );
@@ -43,12 +42,13 @@ NoticeContent.Loading = () => {
   );
 };
 
-NoticeContent.Error = ({ resetErrorBoundary }: FallbackProps) => {
+NoticeContent.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
-    <S.ErrorContainer>
-      <S.ErrorMessage>일시적인 오류로 불러오지 못했어요.</S.ErrorMessage>
-      <S.Button onClick={resetErrorBoundary}>다시 불러오기</S.Button>
-    </S.ErrorContainer>
+    <BlockErrorFallback.Common
+      error={error}
+      resetErrorBoundary={resetErrorBoundary}
+      containerStyle={{ height: '100%' }}
+    />
   );
 };
 

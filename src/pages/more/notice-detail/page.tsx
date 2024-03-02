@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import { useNavigate } from 'react-router-dom';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import NoticeContent from './components/NoticeContent';
 import * as S from './page.styled';
 
-function NoticeDetailPage() {
+const NoticeDetailPage = () => {
   const navigate = useNavigate();
 
   return (
@@ -17,14 +17,14 @@ function NoticeDetailPage() {
         onLeftClick={() => navigate(-1)}
       />
       <S.InnerContainer>
-        <ErrorBoundary FallbackComponent={NoticeContent.Error}>
+        <BlockErrorBoundary fallbackComponent={NoticeContent.Error}>
           <Suspense fallback={<NoticeContent.Loading />}>
             <NoticeContent />
           </Suspense>
-        </ErrorBoundary>
+        </BlockErrorBoundary>
       </S.InnerContainer>
     </S.Container>
   );
-}
+};
 
 export default NoticeDetailPage;

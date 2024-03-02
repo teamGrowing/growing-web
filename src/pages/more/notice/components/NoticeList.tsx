@@ -1,8 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { FallbackProps } from 'react-error-boundary';
 import { useNoticeList } from 'hooks/queries';
 import Skeleton from 'react-loading-skeleton';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
+import { FallbackProps } from 'react-error-boundary';
 import * as S from './NoticeList.styled';
 
 const NoticeList = () => {
@@ -23,19 +24,21 @@ const NoticeList = () => {
 
 NoticeList.Loading = () => {
   return (
-    <>
-      <Skeleton height={62} borderRadius={10} />
-      <Skeleton height={62} borderRadius={10} />
-    </>
+    <S.LoadingContainer>
+      {new Array(20).fill(0).map((_, i) => (
+        <Skeleton height={62} borderRadius={10} key={i} />
+      ))}
+    </S.LoadingContainer>
   );
 };
 
-NoticeList.Error = ({ resetErrorBoundary }: FallbackProps) => {
+NoticeList.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
-    <S.ErrorContainer>
-      <S.ErrorMessage>일시적인 오류로 불러오지 못했어요.</S.ErrorMessage>
-      <S.Button onClick={resetErrorBoundary}>다시 불러오기</S.Button>
-    </S.ErrorContainer>
+    <BlockErrorFallback.Common
+      error={error}
+      resetErrorBoundary={resetErrorBoundary}
+      containerStyle={{ height: '100%' }}
+    />
   );
 };
 

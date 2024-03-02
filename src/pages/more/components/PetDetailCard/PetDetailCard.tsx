@@ -1,18 +1,15 @@
 import Icon from 'components/common/Icon/Icon';
 import PetCardContent from 'pages/more/pet/components/PetCardContent';
-import { ErrorBoundary } from 'react-error-boundary';
-import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { Suspense } from 'react';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import * as S from './PetDetailCard.styled';
 
-type PetDetailCardProps = {
+type Props = {
   petId: string;
   onExit: React.MouseEventHandler;
 };
 
-function PetDetailCard({ petId, onExit }: PetDetailCardProps) {
-  const { reset } = useQueryErrorResetBoundary();
-
+const PetDetailCard = ({ petId, onExit }: Props) => {
   return (
     <S.Background>
       <Icon
@@ -26,13 +23,13 @@ function PetDetailCard({ petId, onExit }: PetDetailCardProps) {
         }}
         onClick={onExit}
       />
-      <ErrorBoundary onReset={reset} FallbackComponent={PetCardContent.Error}>
+      <BlockErrorBoundary fallbackComponent={PetCardContent.Error}>
         <Suspense fallback={<PetCardContent.Loading />}>
           <PetCardContent petId={petId} />
         </Suspense>
-      </ErrorBoundary>
+      </BlockErrorBoundary>
     </S.Background>
   );
-}
+};
 
 export default PetDetailCard;

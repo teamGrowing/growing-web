@@ -4,7 +4,7 @@ import { useGraduatedPetDetail } from 'hooks/queries';
 import store from 'stores/RootStore';
 import dayjs from 'dayjs';
 import { observer } from 'mobx-react';
-import { MENT_COMMON } from 'constants/ments';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import * as S from './PetCardContent.styled';
 
 interface Props {
@@ -126,14 +126,20 @@ PetCardContent.Loading = () => {
   );
 };
 
-PetCardContent.Error = ({ resetErrorBoundary }: FallbackProps) => {
+PetCardContent.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
     <>
       <S.InfoContainer>
-        <S.ErrorContainer>
-          <S.ErrorMessage>오류가 발생했습니다.</S.ErrorMessage>
-          <S.Button onClick={resetErrorBoundary}>{MENT_COMMON.RETRY}</S.Button>
-        </S.ErrorContainer>
+        <BlockErrorFallback.Icon
+          error={error}
+          resetErrorBoundary={resetErrorBoundary}
+          containerStyle={{
+            height: '100%',
+            display: 'flex',
+            alignItems: 'center',
+          }}
+          errorMessage="펫 정보를 불러오지 못했어요."
+        />
       </S.InfoContainer>
     </>
   );

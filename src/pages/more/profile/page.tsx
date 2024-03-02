@@ -30,7 +30,7 @@ import * as S from './page.styled';
 import LoadingContent from './components/LoadingContent';
 import InputContainer from './components/InputContainer/InputContainer/InputContainer';
 
-function ProfilePage() {
+const ProfilePage = () => {
   const navigate = useNavigate();
   const formRef = useRef<HTMLFormElement>(null);
   const inputFileRef = useRef<HTMLInputElement>(null);
@@ -307,5 +307,5 @@ function ProfilePage() {
       )}
     </DataContext.Provider>
   );
-}
+};
 export default observer(ProfilePage);

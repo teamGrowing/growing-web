@@ -7,6 +7,7 @@ import changeEmojiToSpan from 'utils/Text';
 import { MENT_MORE } from 'constants/ments';
 import Icon from 'components/common/Icon/Icon';
 import { FallbackProps } from 'react-error-boundary';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import * as S from './PetCardList.styled';
 
 interface Props {
@@ -45,21 +46,21 @@ const PetCardList = ({ clickCardHandler }: Props) => {
 
 PetCardList.Loading = () => {
   return (
-    <S.ListWrapper>
-      <Skeleton width={154} height={205} borderRadius={20} />
-      <Skeleton width={154} height={205} borderRadius={20} />
-      <Skeleton width={154} height={205} borderRadius={20} />
-      <Skeleton width={154} height={205} borderRadius={20} />
+    <S.ListWrapper noScroll>
+      {new Array(20).fill(0).map((_, i) => (
+        <Skeleton width={154} height={205} borderRadius={20} key={i} />
+      ))}
     </S.ListWrapper>
   );
 };
 
-PetCardList.Error = ({ resetErrorBoundary }: FallbackProps) => {
+PetCardList.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
-    <S.ErrorContainer>
-      <S.ErrorMessage>일시적인 오류로 불러오지 못했어요.</S.ErrorMessage>
-      <S.Button onClick={resetErrorBoundary}>다시 불러오기</S.Button>
-    </S.ErrorContainer>
+    <BlockErrorFallback.Common
+      error={error}
+      resetErrorBoundary={resetErrorBoundary}
+      containerStyle={{ height: '100%' }}
+    />
   );
 };
 

@@ -4,7 +4,7 @@ import { FieldError } from 'react-hook-form';
 import Icon from 'components/common/Icon/Icon';
 import * as S from './InputContainer.styled';
 
-type InputContainerProps = {
+type Props = {
   title: string;
   type: 'date' | 'text';
   value: string;
@@ -14,7 +14,7 @@ type InputContainerProps = {
   error: FieldError | undefined;
 };
 
-const InputContainer = React.forwardRef<HTMLInputElement, InputContainerProps>(
+const InputContainer = React.forwardRef<HTMLInputElement, Props>(
   (
     { title, type, value, name, onChange, onBlur, error },
     ref: React.Ref<HTMLInputElement>

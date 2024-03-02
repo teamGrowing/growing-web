@@ -3,7 +3,7 @@ import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
 import * as S from './page.styled';
 
-function SettingPage() {
+const SettingPage = () => {
   const navigate = useNavigate();
 
   return (
@@ -31,5 +31,5 @@ function SettingPage() {
       </S.InnerContainer>
     </S.Container>
   );
-}
+};
 export default SettingPage;

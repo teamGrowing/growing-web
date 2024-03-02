@@ -1,22 +1,5 @@
 import styled from 'styled-components';
-import { clickPulse } from 'styles/common/animation';
-import backgroundImg from 'assets/image/DetailCardBackground.png';
 import infoBackgroundImg from 'assets/image/DetailInfoBackground.png';
-
-export const Background = styled.div`
-  position: fixed;
-  margin: 0 auto;
-  left: 0;
-  right: 0;
-  top: 175px;
-  width: 308px;
-  height: 460px;
-  background-image: url(${backgroundImg});
-  background-size: contain;
-  border-radius: 20px 20px 0px 0px;
-
-  animation: 0.5s ${clickPulse};
-`;
 
 export const Image = styled.div<{ petImg?: string }>`
   position: absolute;
@@ -106,46 +89,5 @@ export const Content = styled.div<{ width: string }>`
   line-height: 14px;
   text-align: center;
   word-wrap: break-word;
-  color: ${({ theme }) => theme.color.gray600};
-`;
-
-export const Button = styled.button`
-  margin: 30px;
-  padding: 10px;
-
-  background: ${({ theme }) => theme.color.gradient400};
-  border: 1px solid ${({ theme }) => theme.color.gray50};
-  border-radius: 30px;
-
-  font-family: PretendardBold;
-  font-size: 15px;
-  line-height: 18px;
-  text-align: center;
-  color: ${({ theme }) => theme.color.white};
-
-  &:hover {
-    opacity: 0.8;
-  }
-  &:active {
-    opacity: 0.6;
-  }
-`;
-
-export const ErrorContainer = styled.div`
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-
-  padding-top: 80px;
-  justify-content: top;
-  align-items: center;
-`;
-
-export const ErrorMessage = styled.div`
-  font-family: PretendardBold;
-  font-size: 15px;
-  line-height: 18px;
-  text-align: center;
   color: ${({ theme }) => theme.color.gray600};
 `;

@@ -64,11 +64,11 @@ export const ErrorContainer = styled.div`
   align-items: center;
 `;
 
-export const ListWrapper = styled.div`
+export const ListWrapper = styled.div<{ noScroll?: boolean }>`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 16px;
   justify-items: center;
-
+  overflow: ${(props) => props.noScroll && 'hidden'};
   padding: 20px 20px 50px;
 `;

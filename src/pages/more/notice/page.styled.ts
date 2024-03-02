@@ -16,6 +16,7 @@ export const ListWrapper = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: 100%;
 
   padding: 10px 20px;
 `;

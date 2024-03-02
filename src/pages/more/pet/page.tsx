@@ -5,19 +5,13 @@ import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import PetDetailCard from 'pages/more/components/PetDetailCard/PetDetailCard';
 import Portal from 'components/common/Portal';
-import { useQueryErrorResetBoundary } from '@tanstack/react-query';
-import { ErrorBoundary } from 'react-error-boundary';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import * as S from './page.styled';
 import PetCardList from './components/PetCardList';
 
 const PetPage = () => {
   const navigate = useNavigate();
   const [detailPetId, setDetailPetId] = useState<string | null>(null);
-  const { reset } = useQueryErrorResetBoundary();
-
-  const clickCardHandler = (petId: string) => {
-    setDetailPetId(petId);
-  };
 
   return (
     <S.Container>
@@ -27,11 +21,13 @@ const PetPage = () => {
         title="동물도감"
       />
       <S.Wrapper>
-        <ErrorBoundary onReset={reset} FallbackComponent={PetCardList.Error}>
+        <BlockErrorBoundary fallbackComponent={PetCardList.Error}>
           <Suspense fallback={<PetCardList.Loading />}>
-            <PetCardList clickCardHandler={clickCardHandler} />
+            <PetCardList
+              clickCardHandler={(petId: string) => setDetailPetId(petId)}
+            />
           </Suspense>
-        </ErrorBoundary>
+        </BlockErrorBoundary>
       </S.Wrapper>
 
       {detailPetId && (

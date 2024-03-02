@@ -12,7 +12,7 @@ import Modal from 'components/common/Modal/Modal';
 import { MENT_LOGOUT } from 'constants/ments';
 import * as S from './page.styled';
 
-function MoreMainPage() {
+const MoreMainPage = () => {
   const navigate = useNavigate();
   const [onModal, setOnModal] = useState(false);
 
@@ -74,5 +74,5 @@ function MoreMainPage() {
       />
     </S.Container>
   );
-}
+};
 export default observer(MoreMainPage);

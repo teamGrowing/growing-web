@@ -10,6 +10,6 @@ export const Container = styled(TopbarBackgroundContainer)`
 
 export const InnerContainer = styled(TopbarInnerContainer)`
   padding: 20px;
-
+  height: 100%;
   gap: 10px;
 `;
