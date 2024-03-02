@@ -8,16 +8,16 @@ import store from 'stores/RootStore';
 import { DailyPlanDto } from 'models/plan';
 import Icon from 'components/common/Icon/Icon';
 import Skeleton from 'react-loading-skeleton';
-import { ErrorMessage } from 'components/common/fallback/Common';
 import { FallbackProps } from 'react-error-boundary';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import CalendarBottomSheet from '../CalendarBottomSheet/CalendarBottomSheet';
 import * as S from './TodoArea.styled';
 
-type TodoProps = {
+type Props = {
   date: Dayjs;
 };
 
-const TodoArea = ({ date }: TodoProps) => {
+const TodoArea = ({ date }: Props) => {
   const [onBottomSheet, setOnBottomSheet] = useState<boolean>(false);
   const [selectedTodoData, setSelectedTodoData] = useState<DailyPlanDto | null>(
     null
@@ -33,8 +33,6 @@ const TodoArea = ({ date }: TodoProps) => {
   const { mutate: deletePlan } = useDeletePlanMutation({
     coupleId: store.userStore.user?.coupleId!,
     options: {
-      onSuccess: () => addToast(MENT_CALENDAR.PLAN_DELETE_SUCCESS),
-      onError: () => addToast(MENT_CALENDAR.PLAN_DELETE_FAIL),
       useErrorBoundary: false,
     },
   });
@@ -60,7 +58,10 @@ const TodoArea = ({ date }: TodoProps) => {
               width={15}
               height={15}
               onClick={(e) => {
-                deletePlan(plan.id);
+                deletePlan(plan.id, {
+                  onSuccess: () => addToast(MENT_CALENDAR.PLAN_DELETE_SUCCESS),
+                  onError: () => addToast(MENT_CALENDAR.PLAN_DELETE_FAIL),
+                });
                 e.stopPropagation();
               }}
             />
@@ -92,20 +93,20 @@ TodoArea.Loading = () => {
   );
 };
 
-TodoArea.Error = ({ resetErrorBoundary }: FallbackProps) => {
+TodoArea.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
     <S.Container>
       <S.TodoTitle>
         <div className="text-gradient400">Todo</div>
       </S.TodoTitle>
       <S.Todos className="hidden-scrollbar">
-        <Icon
-          icon="IconRefresh"
-          width={40}
-          height={40}
-          onClick={resetErrorBoundary}
+        <BlockErrorFallback.Icon
+          error={error}
+          resetErrorBoundary={resetErrorBoundary}
+          errorMessage={MENT_CALENDAR.PLAN_LOAD_FAIL}
+          containerStyle={{ gap: '10px' }}
+          size={40}
         />
-        <ErrorMessage>{MENT_CALENDAR.PLAN_LOAD_FAIL}</ErrorMessage>
       </S.Todos>
     </S.Container>
   );

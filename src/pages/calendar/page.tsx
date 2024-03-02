@@ -11,7 +11,7 @@ import userStore from 'stores/UserStore';
 import TodoArea from 'pages/calendar/components/TodoArea/TodoArea';
 import useToast from 'hooks/common/useToast';
 import { MENT_CALENDAR } from 'constants/ments';
-import { ErrorBoundary } from 'react-error-boundary';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import * as S from './page.styled';
 
 const CalendarPage = () => {
@@ -33,7 +33,6 @@ const CalendarPage = () => {
     coupleId: userStore.user?.coupleId!,
     year: calInfo.format('YYYY'),
     month: calInfo.format('MM'),
-    options: { suspense: false },
   });
 
   const modifyPlan = (info: EventDropArg) => {
@@ -92,11 +91,11 @@ const CalendarPage = () => {
           contentHeight="auto"
         />
       </S.CalenderStyleWrapper>
-      <ErrorBoundary FallbackComponent={TodoArea.Error}>
+      <BlockErrorBoundary fallbackComponent={TodoArea.Error}>
         <Suspense fallback={<TodoArea.Loading />}>
           <TodoArea date={selectedDate} />
         </Suspense>
-      </ErrorBoundary>
+      </BlockErrorBoundary>
     </S.PageContainer>
   );
 };

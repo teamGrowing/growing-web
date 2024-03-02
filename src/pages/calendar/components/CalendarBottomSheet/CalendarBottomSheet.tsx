@@ -40,26 +40,12 @@ const CalendarBottomSheet = ({
   const { mutate: addPlan } = useAddPlanMutation({
     coupleId: store.userStore.user?.coupleId!,
     options: {
-      onSuccess: () => {
-        resetForm();
-        addToast(MENT_CALENDAR.PLAN_ADD_SUCCESS);
-      },
-      onError: () => {
-        addToast(MENT_CALENDAR.PLAN_ADD_FAIL);
-      },
       useErrorBoundary: false,
     },
   });
   const { mutate: modifyPlan } = useModifyPlanMutation({
     coupleId: store.userStore.user?.coupleId!,
     options: {
-      onSuccess: () => {
-        resetForm();
-        addToast(MENT_CALENDAR.PLAN_MODIFY_SUCCESS);
-      },
-      onError: () => {
-        addToast(MENT_CALENDAR.PLAN_MODIFY_FAIL);
-      },
       useErrorBoundary: false,
     },
   });
@@ -87,13 +73,32 @@ const CalendarBottomSheet = ({
     };
 
     if (defaultData) {
-      modifyPlan({
-        id: defaultData?.id ?? '',
-        info: data,
-      });
+      modifyPlan(
+        {
+          id: defaultData?.id ?? '',
+          info: data,
+        },
+        {
+          onSuccess: () => {
+            resetForm();
+            addToast(MENT_CALENDAR.PLAN_MODIFY_SUCCESS);
+          },
+          onError: () => {
+            addToast(MENT_CALENDAR.PLAN_MODIFY_FAIL);
+          },
+        }
+      );
       return;
     }
-    addPlan(data);
+    addPlan(data, {
+      onSuccess: () => {
+        resetForm();
+        addToast(MENT_CALENDAR.PLAN_ADD_SUCCESS);
+      },
+      onError: () => {
+        addToast(MENT_CALENDAR.PLAN_ADD_FAIL);
+      },
+    });
   };
 
   return (
