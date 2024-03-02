@@ -23,8 +23,6 @@ const CalendarPage = () => {
   const { mutate: modifyPlanMutate } = useModifyPlanMutation({
     coupleId: userStore.user?.coupleId!,
     options: {
-      onSuccess: () => addToast(MENT_CALENDAR.PLAN_MODIFY_SUCCESS),
-      onError: () => addToast(MENT_CALENDAR.PLAN_MODIFY_FAIL),
       useErrorBoundary: false,
     },
   });
@@ -36,14 +34,20 @@ const CalendarPage = () => {
   });
 
   const modifyPlan = (info: EventDropArg) => {
-    modifyPlanMutate({
-      // eslint-disable-next-line no-underscore-dangle
-      id: info.event._def.publicId,
-      info: {
-        startAt: info.event.start?.toISOString(),
-        endAt: info.event.end?.toISOString(),
+    modifyPlanMutate(
+      {
+        // eslint-disable-next-line no-underscore-dangle
+        id: info.event._def.publicId,
+        info: {
+          startAt: info.event.start?.toISOString(),
+          endAt: info.event.end?.toISOString(),
+        },
       },
-    });
+      {
+        onSuccess: () => addToast(MENT_CALENDAR.PLAN_MODIFY_SUCCESS),
+        onError: () => addToast(MENT_CALENDAR.PLAN_MODIFY_FAIL),
+      }
+    );
   };
 
   return (

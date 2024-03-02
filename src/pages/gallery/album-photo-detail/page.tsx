@@ -35,18 +35,6 @@ const AlbumPhotoDetailPage = () => {
     coupleId,
     albumId,
     options: {
-      onSuccess: () => {
-        addToast(MENT_GALLERY.PHOTO_DELETE_FROM_ALBUM_SUCCESS);
-        navigate(`/gallery/album/${albumId}`, {
-          state: {
-            title,
-            subTitle,
-          },
-        });
-      },
-      onError: () => {
-        addToast(MENT_GALLERY.PHOTO_DELETE_FAIL);
-      },
       useErrorBoundary: false,
     },
   });
@@ -67,7 +55,20 @@ const AlbumPhotoDetailPage = () => {
 
   const deletePhotos = () => {
     if (!pId) return;
-    deletePhotoMutate([pId]);
+    deletePhotoMutate([pId], {
+      onSuccess: () => {
+        addToast(MENT_GALLERY.PHOTO_DELETE_FROM_ALBUM_SUCCESS);
+        navigate(`/gallery/album/${albumId}`, {
+          state: {
+            title,
+            subTitle,
+          },
+        });
+      },
+      onError: () => {
+        addToast(MENT_GALLERY.PHOTO_DELETE_FAIL);
+      },
+    });
   };
 
   return (

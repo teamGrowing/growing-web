@@ -40,8 +40,6 @@ const AlbumDetailPage = () => {
       coupleId,
       albumId,
       options: {
-        onSuccess: () => addToast(MENT_GALLERY.ALBUM_PHOTO_DELETE_SUCCESS),
-        onError: () => addToast(MENT_GALLERY.PHOTO_DELETE_FAIL),
         useErrorBoundary: false,
       },
     });
@@ -49,8 +47,6 @@ const AlbumDetailPage = () => {
   const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
     coupleId,
     options: {
-      onSuccess: () => addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS),
-      onError: () => addToast(MENT_GALLERY.PHOTO_DELETE_FAIL),
       useErrorBoundary: false,
     },
   });
@@ -59,7 +55,6 @@ const AlbumDetailPage = () => {
     coupleId,
     albumId,
     options: {
-      onError: () => addToast(MENT_GALLERY.ALBUM_MODIFY_FAIL),
       useErrorBoundary: false,
     },
   });
@@ -88,13 +83,19 @@ const AlbumDetailPage = () => {
   };
 
   const deletePhotosFromAlbum = () => {
-    deletePhotosFromAlbumMutate(selectedPhotos.current);
+    deletePhotosFromAlbumMutate(selectedPhotos.current, {
+      onSuccess: () => addToast(MENT_GALLERY.ALBUM_PHOTO_DELETE_SUCCESS),
+      onError: () => addToast(MENT_GALLERY.PHOTO_DELETE_FAIL),
+    });
     clearList();
     isDeleteOnlyFromAlbum.current = null;
   };
 
   const deletePhotos = () => {
-    deletePhotosMutate(selectedPhotos.current);
+    deletePhotosMutate(selectedPhotos.current, {
+      onSuccess: () => addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS),
+      onError: () => addToast(MENT_GALLERY.PHOTO_DELETE_FAIL),
+    });
     clearList();
     isDeleteOnlyFromAlbum.current = null;
   };
@@ -202,6 +203,7 @@ const AlbumDetailPage = () => {
                         replace: true,
                       });
                     },
+                    onError: () => addToast(MENT_GALLERY.ALBUM_MODIFY_FAIL),
                   }
                 );
               }}

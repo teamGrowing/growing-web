@@ -36,13 +36,6 @@ const PhotoSection = ({
   const { mutate: deletePhotosMutate } = useDeletePhotosMutation({
     coupleId: store.userStore.user?.coupleId ?? '',
     options: {
-      onError: () => {
-        addToast(MENT_GALLERY.PHOTO_DELETE_FAIL);
-      },
-      onSuccess: () => {
-        setSelectingAvailable(false);
-        addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS);
-      },
       useErrorBoundary: false,
     },
   });
@@ -57,7 +50,15 @@ const PhotoSection = ({
   };
 
   const deletePhotos = () => {
-    deletePhotosMutate(selectedPhotos);
+    deletePhotosMutate(selectedPhotos, {
+      onError: () => {
+        addToast(MENT_GALLERY.PHOTO_DELETE_FAIL);
+      },
+      onSuccess: () => {
+        setSelectingAvailable(false);
+        addToast(MENT_GALLERY.PHOTO_DELETE_SUCCESS);
+      },
+    });
     clearList();
   };
 
