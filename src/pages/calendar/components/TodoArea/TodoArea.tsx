@@ -7,6 +7,9 @@ import { useCalendarDailyPlans, useDeletePlanMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
 import { DailyPlanDto } from 'models/plan';
 import Icon from 'components/common/Icon/Icon';
+import Skeleton from 'react-loading-skeleton';
+import { ErrorMessage } from 'components/common/fallback/Common';
+import { FallbackProps } from 'react-error-boundary';
 import CalendarBottomSheet from '../CalendarBottomSheet/CalendarBottomSheet';
 import * as S from './TodoArea.styled';
 
@@ -14,7 +17,7 @@ type TodoProps = {
   date: Dayjs;
 };
 
-function TodoArea({ date }: TodoProps) {
+const TodoArea = ({ date }: TodoProps) => {
   const [onBottomSheet, setOnBottomSheet] = useState<boolean>(false);
   const [selectedTodoData, setSelectedTodoData] = useState<DailyPlanDto | null>(
     null
@@ -29,6 +32,11 @@ function TodoArea({ date }: TodoProps) {
 
   const { mutate: deletePlan } = useDeletePlanMutation({
     coupleId: store.userStore.user?.coupleId!,
+    options: {
+      onSuccess: () => addToast(MENT_CALENDAR.PLAN_DELETE_SUCCESS),
+      onError: () => addToast(MENT_CALENDAR.PLAN_DELETE_FAIL),
+      useErrorBoundary: false,
+    },
   });
 
   return (
@@ -52,9 +60,7 @@ function TodoArea({ date }: TodoProps) {
               width={15}
               height={15}
               onClick={(e) => {
-                deletePlan(plan.id, {
-                  onSuccess: () => addToast(MENT_CALENDAR.PLAN_DELETE_SUCCESS),
-                });
+                deletePlan(plan.id);
                 e.stopPropagation();
               }}
             />
@@ -70,5 +76,39 @@ function TodoArea({ date }: TodoProps) {
       />
     </S.Container>
   );
-}
+};
+
+TodoArea.Loading = () => {
+  return (
+    <S.Container>
+      <S.TodoTitle>
+        <div className="text-gradient400">Todo</div>
+      </S.TodoTitle>
+      <S.Todos className="hidden-scrollbar">
+        <Skeleton width={250} height={25} borderRadius={30} />
+        <Skeleton width={250} height={25} borderRadius={30} />
+      </S.Todos>
+    </S.Container>
+  );
+};
+
+TodoArea.Error = ({ resetErrorBoundary }: FallbackProps) => {
+  return (
+    <S.Container>
+      <S.TodoTitle>
+        <div className="text-gradient400">Todo</div>
+      </S.TodoTitle>
+      <S.Todos className="hidden-scrollbar">
+        <Icon
+          icon="IconRefresh"
+          width={40}
+          height={40}
+          onClick={resetErrorBoundary}
+        />
+        <ErrorMessage>{MENT_CALENDAR.PLAN_LOAD_FAIL}</ErrorMessage>
+      </S.Todos>
+    </S.Container>
+  );
+};
+
 export default observer(TodoArea);

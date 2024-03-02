@@ -77,8 +77,12 @@ export const MENT_GALLERY = Object.freeze({
 
 export const MENT_CALENDAR = Object.freeze({
   PLAN_ADD_SUCCESS: '일정이 추가되었습니다.',
+  PLAN_ADD_FAIL: '일청 추가에 실패했어요.',
   PLAN_MODIFY_SUCCESS: '일정이 수정되었습니다.',
+  PLAN_MODIFY_FAIL: '일정 수정에 실패했어요.',
   PLAN_DELETE_SUCCESS: '일정이 삭제되었습니다.',
+  PLAN_DELETE_FAIL: '일정 삭제에 실패했어요.',
+  PLAN_LOAD_FAIL: '일정을 불러오지 못했어요.',
 });
 
 export const MENT_LOGIN = Object.freeze({

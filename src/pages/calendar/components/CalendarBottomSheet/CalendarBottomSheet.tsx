@@ -18,24 +18,50 @@ type CalendarBottomSheetProps = {
   defaultData?: DailyPlanDto;
 };
 
-function CalendarBottomSheet({
+const CalendarBottomSheet = ({
   onClose,
   selectedDate,
   open,
   setOpen,
   defaultData,
-}: CalendarBottomSheetProps) {
+}: CalendarBottomSheetProps) => {
   const titleInputRef = useRef<HTMLInputElement | null>(null);
   const descriptionInputRef = useRef<HTMLInputElement | null>(null);
   const startInputRef = useRef<HTMLInputElement | null>(null);
   const endInputRef = useRef<HTMLInputElement | null>(null);
   const [toggleState, setToggleState] = useState(true);
   const { addToast } = useToast();
+  const resetForm = () => {
+    if (!titleInputRef.current || !descriptionInputRef.current) return;
+    titleInputRef.current.value = '';
+    descriptionInputRef.current.value = '';
+    setOpen(false);
+  };
   const { mutate: addPlan } = useAddPlanMutation({
     coupleId: store.userStore.user?.coupleId!,
+    options: {
+      onSuccess: () => {
+        resetForm();
+        addToast(MENT_CALENDAR.PLAN_ADD_SUCCESS);
+      },
+      onError: () => {
+        addToast(MENT_CALENDAR.PLAN_ADD_FAIL);
+      },
+      useErrorBoundary: false,
+    },
   });
   const { mutate: modifyPlan } = useModifyPlanMutation({
     coupleId: store.userStore.user?.coupleId!,
+    options: {
+      onSuccess: () => {
+        resetForm();
+        addToast(MENT_CALENDAR.PLAN_MODIFY_SUCCESS);
+      },
+      onError: () => {
+        addToast(MENT_CALENDAR.PLAN_MODIFY_FAIL);
+      },
+      useErrorBoundary: false,
+    },
   });
 
   const clickCompleteBtnHandler = () => {
@@ -61,32 +87,13 @@ function CalendarBottomSheet({
     };
 
     if (defaultData) {
-      modifyPlan(
-        {
-          id: defaultData?.id ?? '',
-          info: data,
-        },
-        {
-          onSuccess: () => {
-            if (!titleInputRef.current || !descriptionInputRef.current) return;
-            titleInputRef.current.value = '';
-            descriptionInputRef.current.value = '';
-            setOpen(false);
-            addToast(MENT_CALENDAR.PLAN_MODIFY_SUCCESS);
-          },
-        }
-      );
+      modifyPlan({
+        id: defaultData?.id ?? '',
+        info: data,
+      });
       return;
     }
-    addPlan(data, {
-      onSuccess: () => {
-        if (!titleInputRef.current || !descriptionInputRef.current) return;
-        titleInputRef.current.value = '';
-        descriptionInputRef.current.value = '';
-        setOpen(false);
-        addToast(MENT_CALENDAR.PLAN_ADD_SUCCESS);
-      },
-    });
+    addPlan(data);
   };
 
   return (
@@ -161,5 +168,5 @@ function CalendarBottomSheet({
       </BottomSheetMenu>
     </ModalBottomSheet>
   );
-}
+};
 export default observer(CalendarBottomSheet);

@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useRef, useState } from 'react';
+import { Suspense, useRef, useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import daygrid from '@fullcalendar/daygrid';
 import timegrid from '@fullcalendar/timegrid';
@@ -11,9 +11,10 @@ import userStore from 'stores/UserStore';
 import TodoArea from 'pages/calendar/components/TodoArea/TodoArea';
 import useToast from 'hooks/common/useToast';
 import { MENT_CALENDAR } from 'constants/ments';
+import { ErrorBoundary } from 'react-error-boundary';
 import * as S from './page.styled';
 
-function CalendarPage() {
+const CalendarPage = () => {
   const calenderRef = useRef<FullCalendar | null>(null);
   const [calInfo, setCalInfo] = useState(dayjs());
   const [selectedDate, setSelectedDate] = useState(dayjs());
@@ -21,6 +22,11 @@ function CalendarPage() {
 
   const { mutate: modifyPlanMutate } = useModifyPlanMutation({
     coupleId: userStore.user?.coupleId!,
+    options: {
+      onSuccess: () => addToast(MENT_CALENDAR.PLAN_MODIFY_SUCCESS),
+      onError: () => addToast(MENT_CALENDAR.PLAN_MODIFY_FAIL),
+      useErrorBoundary: false,
+    },
   });
 
   const { data: monthlyPlans } = useCalendarMonthlyPlans({
@@ -31,19 +37,14 @@ function CalendarPage() {
   });
 
   const modifyPlan = (info: EventDropArg) => {
-    modifyPlanMutate(
-      {
-        // eslint-disable-next-line no-underscore-dangle
-        id: info.event._def.publicId,
-        info: {
-          startAt: info.event.start?.toISOString(),
-          endAt: info.event.end?.toISOString(),
-        },
+    modifyPlanMutate({
+      // eslint-disable-next-line no-underscore-dangle
+      id: info.event._def.publicId,
+      info: {
+        startAt: info.event.start?.toISOString(),
+        endAt: info.event.end?.toISOString(),
       },
-      {
-        onSuccess: () => addToast(MENT_CALENDAR.PLAN_MODIFY_SUCCESS),
-      }
-    );
+    });
   };
 
   return (
@@ -91,8 +92,12 @@ function CalendarPage() {
           contentHeight="auto"
         />
       </S.CalenderStyleWrapper>
-      <TodoArea date={selectedDate} />
+      <ErrorBoundary FallbackComponent={TodoArea.Error}>
+        <Suspense fallback={<TodoArea.Loading />}>
+          <TodoArea date={selectedDate} />
+        </Suspense>
+      </ErrorBoundary>
     </S.PageContainer>
   );
-}
+};
 export default CalendarPage;

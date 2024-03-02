@@ -29,7 +29,7 @@ export const TodoTitle = styled.div`
 export const Todos = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   padding: 30px 20px;
   gap: 10px;
 

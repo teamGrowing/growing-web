@@ -22,6 +22,7 @@ export const MessageBox = styled.div`
   border-radius: 10px;
 
   animation: ${fadeInOut} 2s;
+  z-index: 999;
 `;
 
 export const Text = styled.div`

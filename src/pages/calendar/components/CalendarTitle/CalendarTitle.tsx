@@ -10,12 +10,12 @@ type CalendarTitleProps = {
 
 const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-function CalendarTitle({
+const CalendarTitle = ({
   year,
   month,
   onLeftArrowClick,
   onRightArrowClick,
-}: CalendarTitleProps) {
+}: CalendarTitleProps) => {
   return (
     <S.Container>
       <Icon icon="IconArrowLeft" onClick={onLeftArrowClick} />
@@ -26,6 +26,6 @@ function CalendarTitle({
       <Icon icon="IconArrowRight" onClick={onRightArrowClick} />
     </S.Container>
   );
-}
+};
 
 export default CalendarTitle;
