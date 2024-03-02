@@ -3,12 +3,11 @@ import { useGalleryDetail } from 'hooks/queries';
 import { useParams } from 'react-router-dom';
 import store from 'stores/RootStore';
 import Skeleton from 'react-loading-skeleton';
-import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
 import { FallbackProps } from 'react-error-boundary';
-import { MENT_COMMON } from 'constants/ments';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import * as S from './PhotoDetail.styled';
 
-function PhotoDetail() {
+const PhotoDetail = () => {
   const { pId } = useParams();
   const coupleId = store.userStore.user?.coupleId ?? '';
   const photoId = pId ?? '';
@@ -37,7 +36,7 @@ function PhotoDetail() {
       </S.Info>
     </S.Scrolls>
   );
-}
+};
 
 PhotoDetail.Loading = () => {
   return (
@@ -53,13 +52,13 @@ PhotoDetail.Loading = () => {
   );
 };
 
-PhotoDetail.Error = ({ resetErrorBoundary }: FallbackProps) => {
+PhotoDetail.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
     <S.Scrolls>
-      <ErrorMessage>예기치 못한 오류가 발생했습니다.</ErrorMessage>
-      <ResetButton onClick={resetErrorBoundary}>
-        {MENT_COMMON.RETRY}
-      </ResetButton>
+      <BlockErrorFallback.Common
+        error={error}
+        resetErrorBoundary={resetErrorBoundary}
+      />
     </S.Scrolls>
   );
 };

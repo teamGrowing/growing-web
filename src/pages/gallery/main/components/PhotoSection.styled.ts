@@ -6,16 +6,6 @@ export const FixedContainer = styled.div`
   height: calc(100vh - 43px - 176px - 81px);
 `;
 
-export const ErrorContainer = styled.div`
-  padding: 18px 18px 10px;
-  width: 100%;
-  margin-top: 100px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const SkeletonContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);

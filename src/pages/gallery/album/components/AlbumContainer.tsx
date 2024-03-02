@@ -3,13 +3,14 @@ import { useAlbumsList, useDeleteAlbumsMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
 import GalleryTitle from 'pages/gallery/components/GalleryTitle/GalleryTitle';
 import { useNavigate } from 'react-router-dom';
-import { MENT_COMMON, MENT_GALLERY } from 'constants/ments';
+import { MENT_GALLERY } from 'constants/ments';
 import useToast from 'hooks/common/useToast';
 import { useState } from 'react';
 import Icon from 'components/common/Icon/Icon';
 import Modal from 'components/common/Modal/Modal';
 import Skeleton from 'react-loading-skeleton';
 import { FallbackProps } from 'react-error-boundary';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import * as S from './AlbumContainer.styled';
 import AlbumRowContainer from './AlbumRowContainer';
 
@@ -121,10 +122,10 @@ AlbumContainer.Loading = () => {
     <>
       <GalleryTitle backBtn title="ALBUM" />
       <S.Container>
-        {makeChunk(Array(18).fill(0)).map((group) => (
+        {makeChunk(Array(18).fill(null)).map((group) => (
           <S.FixedContainer>
-            {group.map(() => (
-              <Skeleton width={104} height={148} />
+            {group.map((_, i) => (
+              <Skeleton width={104} height={148} key={i} />
             ))}
           </S.FixedContainer>
         ))}
@@ -133,14 +134,16 @@ AlbumContainer.Loading = () => {
   );
 };
 
-AlbumContainer.Error = ({ resetErrorBoundary }: FallbackProps) => {
+AlbumContainer.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
     <>
       <GalleryTitle backBtn title="ALBUM" />
-      <S.MessageContainer>
-        <S.Message>{MENT_GALLERY.ALBUM_LOAD_FAIL}</S.Message>
-        <S.Button onClick={resetErrorBoundary}>{MENT_COMMON.RETRY}</S.Button>
-      </S.MessageContainer>
+      <BlockErrorFallback.Common
+        error={error}
+        resetErrorBoundary={resetErrorBoundary}
+        errorMessage={MENT_GALLERY.ALBUM_LOAD_FAIL}
+        containerStyle={{ height: '100%' }}
+      />
     </>
   );
 };

@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import FloatingButton from 'pages/gallery/components/FloatingButton/FloatingButton';
 import { LayoutWithNavbar } from 'components/layout/common';
-import { ErrorBoundary } from 'react-error-boundary';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import DataContext from '../context';
 import PhotoSection from './components/PhotoSection';
 import * as S from './page.styled';
@@ -38,7 +38,7 @@ const PhotoPage = () => {
 
   return (
     <S.PageContainer>
-      <ErrorBoundary FallbackComponent={PhotoSection.Error}>
+      <BlockErrorBoundary fallbackComponent={PhotoSection.Error}>
         <Suspense fallback={<PhotoSection.Loading />}>
           <DataContext.Provider value={ctxValue}>
             <LayoutWithNavbar>
@@ -52,7 +52,7 @@ const PhotoPage = () => {
             </LayoutWithNavbar>
           </DataContext.Provider>
         </Suspense>
-      </ErrorBoundary>
+      </BlockErrorBoundary>
     </S.PageContainer>
   );
 };

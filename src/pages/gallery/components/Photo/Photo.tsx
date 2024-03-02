@@ -4,11 +4,11 @@ import { PhotoLineDto } from 'models/gallery';
 import DataContext from 'pages/gallery/context';
 import * as S from './Photo.styled';
 
-type PhotoProps = {
+type Props = {
   photoInfo: PhotoLineDto;
 };
 
-function Photo({ photoInfo }: PhotoProps) {
+const Photo = ({ photoInfo }: Props) => {
   const navigate = useNavigate();
   const ctx = useContext(DataContext);
   const [isSelected, setIsSelected] = useState(false);
@@ -50,6 +50,6 @@ function Photo({ photoInfo }: PhotoProps) {
       {isSelected && <S.CheckIcon icon="IconCheck" themeColor="gray50" />}
     </S.PhotoBox>
   );
-}
+};
 
 export default Photo;

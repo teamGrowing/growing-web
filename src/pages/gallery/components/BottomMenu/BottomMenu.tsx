@@ -1,19 +1,14 @@
 import Icon from 'components/common/Icon/Icon';
 import * as S from './BottomMenu.styled';
 
-type BottomMenuProps = {
+type Props = {
   border: boolean;
   onComment: () => void;
   onMessage: () => void;
   onTrash: () => void;
 };
 
-function BottomMenu({
-  border,
-  onComment,
-  onMessage,
-  onTrash,
-}: BottomMenuProps) {
+const BottomMenu = ({ border, onComment, onMessage, onTrash }: Props) => {
   return (
     <S.Container border={border}>
       <Icon icon="IconComment" onClick={onComment} />
@@ -21,6 +16,6 @@ function BottomMenu({
       <Icon icon="IconTrash" onClick={onTrash} />
     </S.Container>
   );
-}
+};
 
 export default BottomMenu;

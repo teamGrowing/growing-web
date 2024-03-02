@@ -1,7 +1,7 @@
 import { useRef, useState, useMemo, Suspense } from 'react';
 import { useLocation } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { ErrorBoundary } from 'react-error-boundary';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import AlbumContainer from './components/AlbumContainer';
 import DataContext from '../context';
 import * as S from './page.styled';
@@ -35,7 +35,7 @@ const AlbumPage = () => {
 
   return (
     <S.Container>
-      <ErrorBoundary FallbackComponent={AlbumContainer.Error}>
+      <BlockErrorBoundary fallbackComponent={AlbumContainer.Error}>
         <Suspense fallback={<AlbumContainer.Loading />}>
           <DataContext.Provider value={ctxValue}>
             <AlbumContainer
@@ -46,7 +46,7 @@ const AlbumPage = () => {
             />
           </DataContext.Provider>
         </Suspense>
-      </ErrorBoundary>
+      </BlockErrorBoundary>
     </S.Container>
   );
 };

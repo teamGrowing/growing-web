@@ -5,9 +5,8 @@ import store from 'stores/RootStore';
 import { useInfiniteGalleryList } from 'hooks/queries';
 import { useNavigate } from 'react-router-dom';
 import { FallbackProps } from 'react-error-boundary';
-import { MENT_COMMON } from 'constants/ments';
 import Skeleton from 'react-loading-skeleton';
-import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import * as S from './PhotoSection.styled';
 
 const PhotoSection = () => {
@@ -41,8 +40,8 @@ PhotoSection.Loading = () => {
     <>
       <GalleryTitle title="PHOTO" />
       <S.SkeletonContainer>
-        {new Array(50).fill(0).map(() => (
-          <S.SkeletonWrapper>
+        {new Array(50).fill(null).map((_, i) => (
+          <S.SkeletonWrapper key={i}>
             <Skeleton containerClassName="react-loading-wrapper" />
           </S.SkeletonWrapper>
         ))}
@@ -51,16 +50,17 @@ PhotoSection.Loading = () => {
   );
 };
 
-PhotoSection.Error = ({ resetErrorBoundary }: FallbackProps) => {
+PhotoSection.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
     <>
       <GalleryTitle title="PHOTO" />
-      <S.ErrorContainer>
-        <ErrorMessage>오류가 발생했습니다.</ErrorMessage>
-        <ResetButton onClick={resetErrorBoundary}>
-          {MENT_COMMON.RETRY}
-        </ResetButton>
-      </S.ErrorContainer>
+      <S.FixedContainer>
+        <BlockErrorFallback.Common
+          error={error}
+          resetErrorBoundary={resetErrorBoundary}
+          containerStyle={{ height: '100%' }}
+        />
+      </S.FixedContainer>
     </>
   );
 };

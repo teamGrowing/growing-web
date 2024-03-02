@@ -14,7 +14,7 @@ import { getVideoDuration } from 'utils/video';
 import Skeleton from 'react-loading-skeleton';
 import * as S from './FloatingButton.styled';
 
-function FloatingButton() {
+const FloatingButton = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [, setUploadingCount] = useState(0);
 
@@ -110,6 +110,6 @@ function FloatingButton() {
       )}
     </>
   );
-}
+};
 
 export default FloatingButton;

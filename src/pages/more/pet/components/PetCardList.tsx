@@ -47,7 +47,7 @@ const PetCardList = ({ clickCardHandler }: Props) => {
 PetCardList.Loading = () => {
   return (
     <S.ListWrapper noScroll>
-      {new Array(20).fill(0).map((_, i) => (
+      {new Array(20).fill(null).map((_, i) => (
         <Skeleton width={154} height={205} borderRadius={20} key={i} />
       ))}
     </S.ListWrapper>

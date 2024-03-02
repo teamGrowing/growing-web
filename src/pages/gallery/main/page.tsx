@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { Suspense, useRef } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import PhotoSection from './components/PhotoSection';
 import AlbumSection from './components/AlbumSection';
 import * as S from './page.styled';
@@ -26,7 +26,7 @@ const GalleryMainPage = () => {
           navigate('photo');
       }}
     >
-      <ErrorBoundary FallbackComponent={AlbumSection.Error}>
+      <BlockErrorBoundary fallbackComponent={AlbumSection.Error}>
         <Suspense fallback={<AlbumSection.Loading />}>
           <AlbumSection
             onTouchStart={(e) => {
@@ -40,12 +40,12 @@ const GalleryMainPage = () => {
             }}
           />
         </Suspense>
-      </ErrorBoundary>
-      <ErrorBoundary FallbackComponent={PhotoSection.Error}>
+      </BlockErrorBoundary>
+      <BlockErrorBoundary fallbackComponent={PhotoSection.Error}>
         <Suspense fallback={<PhotoSection.Loading />}>
           <PhotoSection />
         </Suspense>
-      </ErrorBoundary>
+      </BlockErrorBoundary>
       <FloatingButtonWrapper />
     </S.Container>
   );

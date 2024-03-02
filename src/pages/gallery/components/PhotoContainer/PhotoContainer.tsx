@@ -8,7 +8,7 @@ import Photo from 'pages/gallery/components/Photo/Photo';
 import Icon from 'components/common/Icon/Icon';
 import * as S from './PhotoContainer.styled';
 
-type PhotoContainerProps = {
+type Props = {
   photoObjects: PhotoLineDto[];
   // for infinite scroll
   fetchNextPage?: (
@@ -16,7 +16,7 @@ type PhotoContainerProps = {
   ) => Promise<UseInfiniteQueryResult>;
 };
 
-function PhotoContainer({ photoObjects, fetchNextPage }: PhotoContainerProps) {
+const PhotoContainer = ({ photoObjects, fetchNextPage }: Props) => {
   const lastPhotoRow = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
@@ -53,6 +53,6 @@ function PhotoContainer({ photoObjects, fetchNextPage }: PhotoContainerProps) {
       )}
     </>
   );
-}
+};
 
 export default PhotoContainer;

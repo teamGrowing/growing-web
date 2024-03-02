@@ -2,9 +2,9 @@ import { useCommentList } from 'hooks/queries';
 import { useParams } from 'react-router-dom';
 import store from 'stores/RootStore';
 import Skeleton from 'react-loading-skeleton';
-import Icon from 'components/common/Icon/Icon';
-import { ErrorMessage } from 'components/common/fallback/Common';
 import { FallbackProps } from 'react-error-boundary';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
+import { MENT_GALLERY } from 'constants/ments';
 import Comment from '../Comment/Comment';
 import * as S from './CommentList.styled';
 
@@ -55,15 +55,18 @@ CommentList.Loading = () => {
   );
 };
 
-CommentList.Error = ({ resetErrorBoundary }: FallbackProps) => {
+CommentList.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
     <>
-      <Icon
-        icon="IconRefresh"
-        themeColor="gray700"
-        onClick={resetErrorBoundary}
+      <BlockErrorFallback.Icon
+        error={error}
+        resetErrorBoundary={resetErrorBoundary}
+        errorMessage={MENT_GALLERY.COMMENT_LOAD_FAIL}
+        size={40}
+        containerStyle={{
+          gap: '10px',
+        }}
       />
-      <ErrorMessage>오류가 발생했습니다.</ErrorMessage>
     </>
   );
 };

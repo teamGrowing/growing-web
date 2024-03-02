@@ -68,6 +68,7 @@ export const MENT_GALLERY = Object.freeze({
   ALBUM_DELETE_FAIL_NO_SELECTED: '삭제할 앨범을 선택해주세요',
   ALBUM_CREATE_SUCCESS: '앨범 생성이 완료되었습니다.',
   ALBUM_CREATE_FAIL_NO_SELECTED: '앨범을 만들기 위한 사진을 선택해주세요',
+  COMMENT_LOAD_FAIL: '댓글을 불러오지 못했어요',
   COMMENT_DELETE_SUCCESS: '댓글이 삭제되었습니다.',
   COMMENT_DELETE_FAIL: '댓글 삭제에 실패했어요.',
   COMMENT_POST_FAIL: '댓글 생성에 실패했어요.',

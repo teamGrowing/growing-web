@@ -1,7 +1,6 @@
 import { useState, useMemo, useRef, Suspense } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { ErrorBoundary } from 'react-error-boundary';
 import Modal from 'components/common/Modal/Modal';
 import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
@@ -14,11 +13,12 @@ import { MENT_GALLERY } from 'constants/ments';
 import store from 'stores/RootStore';
 import useToast from 'hooks/common/useToast';
 import { TopbarInnerContainer } from 'components/layout/PageLayout/TopbarLayout';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import DataContext from '../context';
 import * as S from './page.styled';
 import AlbumModal from '../components/AlbumModal/AlbumModal';
 import FloatingButton from '../components/FloatingButton/FloatingButton';
-import PhotoSection from './components/PhotoSection';
+import PhotoList from './components/PhotoList';
 
 const AlbumDetailPage = () => {
   const navigate = useNavigate();
@@ -139,11 +139,11 @@ const AlbumDetailPage = () => {
             }
           />
           <S.Container className="hidden-scrollbar">
-            <ErrorBoundary FallbackComponent={PhotoSection.Error}>
-              <Suspense fallback={<PhotoSection.Loading />}>
-                <PhotoSection />
+            <BlockErrorBoundary fallbackComponent={PhotoList.Error}>
+              <Suspense fallback={<PhotoList.Loading />}>
+                <PhotoList />
               </Suspense>
-            </ErrorBoundary>
+            </BlockErrorBoundary>
           </S.Container>
           <FloatingButton />
           {onConfirmModal && (

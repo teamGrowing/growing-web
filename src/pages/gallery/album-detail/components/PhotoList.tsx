@@ -2,13 +2,12 @@ import PhotoContainer from 'pages/gallery/components/PhotoContainer/PhotoContain
 import store from 'stores/RootStore';
 import { useParams } from 'react-router-dom';
 import { useAlbumPhotosList } from 'hooks/queries';
-import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
-import { MENT_COMMON } from 'constants/ments';
 import { FallbackProps } from 'react-error-boundary';
 import Skeleton from 'react-loading-skeleton';
-import * as S from './PhotoSection.styled';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
+import * as S from './PhotoList.styled';
 
-const PhotoSection = () => {
+const PhotoList = () => {
   const { aId } = useParams();
   const { data: photos } = useAlbumPhotosList({
     coupleId: store.userStore.user?.coupleId ?? '',
@@ -18,13 +17,12 @@ const PhotoSection = () => {
   return <PhotoContainer photoObjects={photos ?? []} />;
 };
 
-PhotoSection.Loading = () => {
+PhotoList.Loading = () => {
   return (
     <>
       <S.SkeletonContainer>
-        {new Array(50).fill(0).map(() => (
-          // TODO key를 어떻게 줄 것인가
-          <S.SkeletonWrapper>
+        {new Array(50).fill(null).map((_, i) => (
+          <S.SkeletonWrapper key={i}>
             <Skeleton containerClassName="react-loading-wrapper" />
           </S.SkeletonWrapper>
         ))}
@@ -33,15 +31,14 @@ PhotoSection.Loading = () => {
   );
 };
 
-PhotoSection.Error = ({ resetErrorBoundary }: FallbackProps) => {
+PhotoList.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
-    <S.ErrorWrapper>
-      <ErrorMessage>예상치 못한 오류가 발생했습니다.</ErrorMessage>
-      <ResetButton onClick={resetErrorBoundary}>
-        {MENT_COMMON.RETRY}
-      </ResetButton>
-    </S.ErrorWrapper>
+    <BlockErrorFallback.Common
+      error={error}
+      resetErrorBoundary={resetErrorBoundary}
+      containerStyle={{ height: '100%' }}
+    />
   );
 };
 
-export default PhotoSection;
+export default PhotoList;

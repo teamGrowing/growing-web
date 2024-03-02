@@ -10,7 +10,7 @@ import { MENT_GALLERY } from 'constants/ments';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
-import { ErrorBoundary } from 'react-error-boundary';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import PhotoDetail from '../components/PhotoDetail/PhotoDetail';
 import * as S from './page.styled';
 
@@ -51,11 +51,11 @@ const PhotoDetailPage = () => {
         onLeftClick={() => navigate(-1)}
       />
       <S.DetailContainer className="hidden-scrollbar">
-        <ErrorBoundary FallbackComponent={PhotoDetail.Error}>
+        <BlockErrorBoundary fallbackComponent={PhotoDetail.Error}>
           <Suspense fallback={<PhotoDetail.Loading />}>
             <PhotoDetail />
           </Suspense>
-        </ErrorBoundary>
+        </BlockErrorBoundary>
       </S.DetailContainer>
       {commentIsVisible && <CommentMenu onComment={makeComment} />}
       <BottomMenu

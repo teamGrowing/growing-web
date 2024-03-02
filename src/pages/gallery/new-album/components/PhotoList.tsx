@@ -2,9 +2,8 @@ import { useInfiniteGalleryList } from 'hooks/queries';
 import PhotoContainer from 'pages/gallery/components/PhotoContainer/PhotoContainer';
 import store from 'stores/RootStore';
 import Skeleton from 'react-loading-skeleton';
-import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
-import { MENT_COMMON } from 'constants/ments';
 import { FallbackProps } from 'react-error-boundary';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import * as S from './PhotoList.styled';
 
 const PhotoList = () => {
@@ -22,9 +21,8 @@ const PhotoList = () => {
 PhotoList.Loading = () => {
   return (
     <S.SkeletonContainer>
-      {new Array(50).fill(0).map(() => (
-        // TODO key를 어떻게 줄 것인가
-        <S.SkeletonWrapper>
+      {new Array(50).fill(null).map((_, i) => (
+        <S.SkeletonWrapper key={i}>
           <Skeleton containerClassName="react-loading-wrapper" />
         </S.SkeletonWrapper>
       ))}
@@ -32,13 +30,13 @@ PhotoList.Loading = () => {
   );
 };
 
-PhotoList.Error = ({ resetErrorBoundary }: FallbackProps) => {
+PhotoList.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
     <S.ErrorWrapper>
-      <ErrorMessage>예상치 못한 오류가 발생했습니다.</ErrorMessage>
-      <ResetButton onClick={resetErrorBoundary}>
-        {MENT_COMMON.RETRY}
-      </ResetButton>
+      <BlockErrorFallback.Common
+        error={error}
+        resetErrorBoundary={resetErrorBoundary}
+      />
     </S.ErrorWrapper>
   );
 };

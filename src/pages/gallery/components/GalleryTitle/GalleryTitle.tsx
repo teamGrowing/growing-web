@@ -2,7 +2,7 @@ import React from 'react';
 import Icon from 'components/common/Icon/Icon';
 import * as S from './GalleryTitle.styled';
 
-type GalleryTitleProps = {
+type Props = {
   title: string;
   backBtn?: boolean;
   onBackBtnClick?: React.MouseEventHandler<SVGSVGElement>;
@@ -14,7 +14,7 @@ type GalleryTitleProps = {
   onRightSubClick?: React.MouseEventHandler<HTMLElement>;
 };
 
-function GalleryTitle({
+const GalleryTitle = ({
   title,
   backBtn,
   onBackBtnClick,
@@ -24,7 +24,7 @@ function GalleryTitle({
   onRightClick,
   rightSubNode,
   onRightSubClick,
-}: GalleryTitleProps) {
+}: Props) => {
   return (
     <S.Container>
       <S.Left>
@@ -40,5 +40,5 @@ function GalleryTitle({
       </S.Right>
     </S.Container>
   );
-}
+};
 export default GalleryTitle;

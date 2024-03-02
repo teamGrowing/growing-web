@@ -9,6 +9,7 @@ export const RootContainer = styled(TopbarBackgroundContainer)`
 
 export const Container = styled.div`
   overflow-y: scroll;
+  height: 100%;
 
   padding: 10px 0 50px;
 `;

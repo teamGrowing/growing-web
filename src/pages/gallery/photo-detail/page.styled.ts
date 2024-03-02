@@ -6,6 +6,7 @@ import {
 
 export const Container = styled(TopbarBackgroundContainer)`
   position: relative;
+  background: ${({ theme }) => theme.color.background};
 `;
 
 export const DetailContainer = styled(TopbarInnerContainer)`

@@ -5,13 +5,13 @@ import store from 'stores/RootStore';
 import { useDeletePhotosMutation, useInfiniteGalleryList } from 'hooks/queries';
 import { useNavigate } from 'react-router-dom';
 import { FallbackProps } from 'react-error-boundary';
-import { MENT_COMMON, MENT_GALLERY } from 'constants/ments';
+import { MENT_GALLERY } from 'constants/ments';
 import Skeleton from 'react-loading-skeleton';
-import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
 import useToast from 'hooks/common/useToast';
 import Modal from 'components/common/Modal/Modal';
 import { useState } from 'react';
 import { observer } from 'mobx-react';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import * as S from './PhotoSection.styled';
 
 interface Props {
@@ -116,9 +116,8 @@ PhotoSection.Loading = () => {
         onBackBtnClick={() => navigate('/gallery')}
       />
       <S.SkeletonContainer>
-        {new Array(50).fill(0).map(() => (
-          // TODO key를 어떻게 줄 것인가
-          <S.SkeletonWrapper>
+        {new Array(50).fill(null).map((_, i) => (
+          <S.SkeletonWrapper key={i}>
             <Skeleton containerClassName="react-loading-wrapper" />
           </S.SkeletonWrapper>
         ))}
@@ -127,7 +126,7 @@ PhotoSection.Loading = () => {
   );
 };
 
-PhotoSection.Error = ({ resetErrorBoundary }: FallbackProps) => {
+PhotoSection.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const navigate = useNavigate();
 
@@ -139,10 +138,10 @@ PhotoSection.Error = ({ resetErrorBoundary }: FallbackProps) => {
         onBackBtnClick={() => navigate('/gallery')}
       />
       <S.ErrorContainer>
-        <ErrorMessage>오류가 발생했습니다.</ErrorMessage>
-        <ResetButton onClick={resetErrorBoundary}>
-          {MENT_COMMON.RETRY}
-        </ResetButton>
+        <BlockErrorFallback.Common
+          error={error}
+          resetErrorBoundary={resetErrorBoundary}
+        />
       </S.ErrorContainer>
     </>
   );

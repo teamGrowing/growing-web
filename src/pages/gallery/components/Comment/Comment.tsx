@@ -9,11 +9,11 @@ import { MENT_GALLERY } from 'constants/ments';
 import { observer } from 'mobx-react';
 import * as S from './Comment.styled';
 
-type CommentProps = {
+type Props = {
   commentInfo: PhotoCommentDto;
 };
 
-const Comment = ({ commentInfo }: CommentProps) => {
+const Comment = ({ commentInfo }: Props) => {
   const { pId } = useParams();
   const { addToast } = useToast();
   const [onModal, setOnModal] = useState(false);
@@ -21,12 +21,6 @@ const Comment = ({ commentInfo }: CommentProps) => {
     coupleId: store.userStore.user?.coupleId!,
     photoId: pId!,
     options: {
-      onError: () => {
-        addToast(MENT_GALLERY.COMMENT_DELETE_FAIL);
-      },
-      onSuccess: () => {
-        addToast(MENT_GALLERY.COMMENT_DELETE_SUCCESS);
-      },
       useErrorBoundary: false,
     },
   });
@@ -44,7 +38,16 @@ const Comment = ({ commentInfo }: CommentProps) => {
           setOnModal={setOnModal}
           description="댓글을 삭제하시겠습니까?"
           mainActionLabel="확인"
-          onMainAction={() => deleteComment(commentInfo.id)}
+          onMainAction={() =>
+            deleteComment(commentInfo.id, {
+              onError: () => {
+                addToast(MENT_GALLERY.COMMENT_DELETE_FAIL);
+              },
+              onSuccess: () => {
+                addToast(MENT_GALLERY.COMMENT_DELETE_SUCCESS);
+              },
+            })
+          }
           subActionLabel="취소"
         />
       )}

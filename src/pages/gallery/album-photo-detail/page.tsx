@@ -12,7 +12,7 @@ import {
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
 import useToast from 'hooks/common/useToast';
-import { ErrorBoundary } from 'react-error-boundary';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import PhotoDetail from '../components/PhotoDetail/PhotoDetail';
 import { MENT_GALLERY } from '../../../constants/ments';
 import * as S from './page.styled';
@@ -42,15 +42,16 @@ const AlbumPhotoDetailPage = () => {
     coupleId,
     photoId,
     options: {
-      onError: () => {
-        addToast(MENT_GALLERY.COMMENT_POST_FAIL);
-      },
       useErrorBoundary: false,
     },
   });
 
   const makeComment = (content: string) => {
-    postCommentMutate(content);
+    postCommentMutate(content, {
+      onError: () => {
+        addToast(MENT_GALLERY.COMMENT_POST_FAIL);
+      },
+    });
   };
 
   const deletePhotos = () => {
@@ -80,11 +81,11 @@ const AlbumPhotoDetailPage = () => {
         onLeftClick={() => navigate(-1)}
       />
       <S.DetailContainer>
-        <ErrorBoundary FallbackComponent={PhotoDetail.Error}>
+        <BlockErrorBoundary fallbackComponent={PhotoDetail.Error}>
           <Suspense fallback={<PhotoDetail.Loading />}>
             <PhotoDetail />
           </Suspense>
-        </ErrorBoundary>
+        </BlockErrorBoundary>
       </S.DetailContainer>
       {commentIsVisible && <CommentMenu onComment={makeComment} />}
       <BottomMenu

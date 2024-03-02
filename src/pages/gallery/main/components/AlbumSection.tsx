@@ -5,7 +5,8 @@ import Skeleton from 'react-loading-skeleton';
 import { useNavigate } from 'react-router-dom';
 import Icon from 'components/common/Icon/Icon';
 import { observer } from 'mobx-react';
-import { MENT_COMMON, MENT_GALLERY } from 'constants/ments';
+import { MENT_GALLERY } from 'constants/ments';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import Album from '../../components/Album/Album';
 import * as S from './AlbumSection.styled';
 import GalleryTitle from '../../components/GalleryTitle/GalleryTitle';
@@ -76,14 +77,22 @@ AlbumSection.Loading = () => {
   );
 };
 
-AlbumSection.Error = ({ resetErrorBoundary }: FallbackProps) => {
+AlbumSection.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
   return (
     <>
       <GalleryTitle title="ALBUM" />
-      <S.ErrorContainer>
-        <S.ErrorMessage>{MENT_GALLERY.ALBUM_LOAD_FAIL}</S.ErrorMessage>
-        <S.Button onClick={resetErrorBoundary}>{MENT_COMMON.RETRY}</S.Button>
-      </S.ErrorContainer>
+      <S.Container className="hidden-scrollbar">
+        <BlockErrorFallback.Common
+          error={error}
+          resetErrorBoundary={resetErrorBoundary}
+          errorMessage={MENT_GALLERY.ALBUM_LOAD_FAIL}
+          containerStyle={{
+            paddingTop: '10px',
+            width: '100%',
+            justifyContent: 'center',
+          }}
+        />
+      </S.Container>
     </>
   );
 };

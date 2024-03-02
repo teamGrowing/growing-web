@@ -25,7 +25,7 @@ const NoticeList = () => {
 NoticeList.Loading = () => {
   return (
     <S.LoadingContainer>
-      {new Array(20).fill(0).map((_, i) => (
+      {new Array(20).fill(null).map((_, i) => (
         <Skeleton height={62} borderRadius={10} key={i} />
       ))}
     </S.LoadingContainer>
