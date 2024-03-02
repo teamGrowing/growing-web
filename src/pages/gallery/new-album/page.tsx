@@ -11,7 +11,7 @@ import useToast from '../../../hooks/common/useToast';
 import { MENT_GALLERY } from '../../../constants/ments';
 import * as S from './page.styled';
 
-function NewAlbumPage() {
+const NewAlbumPage = () => {
   const navigate = useNavigate();
   const [onModal, setOnModal] = useState(false);
   const selectedPhotos = useRef<string[]>([]);
@@ -76,6 +76,6 @@ function NewAlbumPage() {
       </S.Container>
     </DataContext.Provider>
   );
-}
+};
 
 export default observer(NewAlbumPage);

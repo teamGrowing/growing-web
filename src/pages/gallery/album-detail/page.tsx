@@ -20,7 +20,7 @@ import AlbumModal from '../components/AlbumModal/AlbumModal';
 import FloatingButton from '../components/FloatingButton/FloatingButton';
 import PhotoSection from './components/PhotoSection';
 
-function AlbumDetailPage() {
+const AlbumDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { addToast } = useToast();
@@ -213,5 +213,5 @@ function AlbumDetailPage() {
       </TopbarInnerContainer>
     </DataContext.Provider>
   );
-}
+};
 export default observer(AlbumDetailPage);

@@ -14,7 +14,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import PhotoDetail from '../components/PhotoDetail/PhotoDetail';
 import * as S from './page.styled';
 
-function PhotoDetailPage() {
+const PhotoDetailPage = () => {
   const navigate = useNavigate();
   const { addToast } = useToast();
   const { pId } = useParams();
@@ -50,7 +50,7 @@ function PhotoDetailPage() {
         leftNode={<Icon icon="IconArrowLeft" />}
         onLeftClick={() => navigate(-1)}
       />
-      <S.DetailContainer>
+      <S.DetailContainer className="hidden-scrollbar">
         <ErrorBoundary FallbackComponent={PhotoDetail.Error}>
           <Suspense fallback={<PhotoDetail.Loading />}>
             <PhotoDetail />
@@ -77,6 +77,6 @@ function PhotoDetailPage() {
       )}
     </S.Container>
   );
-}
+};
 
 export default observer(PhotoDetailPage);

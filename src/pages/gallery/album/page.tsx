@@ -6,7 +6,7 @@ import AlbumContainer from './components/AlbumContainer';
 import DataContext from '../context';
 import * as S from './page.styled';
 
-function AlbumPage() {
+const AlbumPage = () => {
   const location = useLocation();
   const [selectingAvailable, setSelectingAvailable] = useState<boolean>(
     location.state?.selectingAvailable ?? false
@@ -49,5 +49,5 @@ function AlbumPage() {
       </ErrorBoundary>
     </S.Container>
   );
-}
+};
 export default observer(AlbumPage);

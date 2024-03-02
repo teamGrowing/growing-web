@@ -17,7 +17,7 @@ import PhotoDetail from '../components/PhotoDetail/PhotoDetail';
 import { MENT_GALLERY } from '../../../constants/ments';
 import * as S from './page.styled';
 
-function AlbumPhotoDetailPage() {
+const AlbumPhotoDetailPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { addToast } = useToast();
@@ -105,6 +105,6 @@ function AlbumPhotoDetailPage() {
       )}
     </S.Container>
   );
-}
+};
 
 export default observer(AlbumPhotoDetailPage);

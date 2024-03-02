@@ -8,7 +8,7 @@ import DataContext from '../context';
 import PhotoSection from './components/PhotoSection';
 import * as S from './page.styled';
 
-function PhotoPage() {
+const PhotoPage = () => {
   const location = useLocation();
 
   const selectedPhotos = useRef<string[]>([]);
@@ -55,5 +55,5 @@ function PhotoPage() {
       </ErrorBoundary>
     </S.PageContainer>
   );
-}
+};
 export default observer(PhotoPage);
