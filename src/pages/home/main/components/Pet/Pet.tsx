@@ -1,5 +1,7 @@
 import { Suspense } from 'react';
-import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
+import { FallbackProps } from 'react-error-boundary';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import Ballon from '../Ballon/Ballon';
 import PetGauge from '../PetGauge/PetGauge';
 import RaisingPet from '../RaisingPet/RaisingPet';
@@ -9,7 +11,7 @@ import * as S from './Pet.styled';
 const Pet = () => {
   return (
     <S.Container>
-      <ErrorBoundary FallbackComponent={Pet.Error}>
+      <BlockErrorBoundary fallbackComponent={Pet.Error}>
         <Suspense fallback={<Ballon.Loading />}>
           <Ballon />
         </Suspense>
@@ -23,17 +25,14 @@ const Pet = () => {
         <Suspense fallback={<PetGauge.Loading />}>
           <PetGauge />
         </Suspense>
-      </ErrorBoundary>
+      </BlockErrorBoundary>
     </S.Container>
   );
 };
 
-Pet.Error = ({ resetErrorBoundary }: FallbackProps) => {
+Pet.Error = (props: FallbackProps) => {
   return (
-    <S.ErrorContainer>
-      <S.ErrorMessage>일시적인 오류로 불러오지 못했어요.</S.ErrorMessage>
-      <S.ResetButton onClick={resetErrorBoundary}>다시 불러오기</S.ResetButton>
-    </S.ErrorContainer>
+    <BlockErrorFallback.Common containerStyle={{ height: '90%' }} {...props} />
   );
 };
 

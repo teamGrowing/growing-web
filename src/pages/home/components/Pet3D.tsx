@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unknown-property */
 import { Suspense, useRef } from 'react';
 import { observer } from 'mobx-react';
-import { ErrorBoundary } from 'react-error-boundary';
 import { OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import { PetModel, PetModelError, PetModelLoading } from './PetModel';
 
 interface Props {
@@ -28,11 +28,11 @@ const Pet3D = ({ url, size, onClick }: Props) => {
         <ambientLight />
         <pointLight position={[10, 30, 40]} dispose={null} />
         <OrbitControls />
-        <ErrorBoundary FallbackComponent={PetModelError}>
+        <BlockErrorBoundary fallbackComponent={PetModelError}>
           <Suspense fallback={<PetModelLoading />}>
             <PetModel url={url} />
           </Suspense>
-        </ErrorBoundary>
+        </BlockErrorBoundary>
       </group>
     </Canvas>
   );

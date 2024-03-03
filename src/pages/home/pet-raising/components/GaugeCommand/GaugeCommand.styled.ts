@@ -6,6 +6,7 @@ export const Main = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  text-align: center;
 `;
 
 export const Title = styled.div`
@@ -17,7 +18,7 @@ export const Title = styled.div`
   text-align: center;
 `;
 
-export const SubTitle = styled.p`
+export const SubTitle = styled.div`
   padding: 10px 0;
 
   font-family: 'PretendardMedium';

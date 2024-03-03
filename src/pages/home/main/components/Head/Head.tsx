@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import * as S from './Head.styled';
 import CoupleInfo from '../CoupleInfo/CoupleInfo';
 import Today from '../Today/Today';
@@ -9,11 +9,11 @@ const Head = () => {
     <S.Container>
       <Today />
 
-      <ErrorBoundary FallbackComponent={CoupleInfo.Error}>
+      <BlockErrorBoundary fallbackComponent={CoupleInfo.Error}>
         <Suspense fallback={<CoupleInfo.Loading />}>
           <CoupleInfo />
         </Suspense>
-      </ErrorBoundary>
+      </BlockErrorBoundary>
     </S.Container>
   );
 };

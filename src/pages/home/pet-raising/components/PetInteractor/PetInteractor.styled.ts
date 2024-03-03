@@ -31,3 +31,19 @@ export const HearLottie = styled(Lottie)`
 
   width: 80px;
 `;
+
+export const LoadingContainer = styled.section`
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 10px 30px 20px;
+`;
+
+export const LoadingPetContainer = styled.div`
+  width: 200px;
+  height: 200px;
+`;

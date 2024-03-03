@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import PET_BASE_SIZE from '../../../constants';
+import { PET_BASE_SIZE } from '../../../constants';
 
 export const Container = styled.div`
   position: relative;

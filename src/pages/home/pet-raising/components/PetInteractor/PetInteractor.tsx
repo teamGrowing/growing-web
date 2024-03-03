@@ -2,6 +2,7 @@ import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { LottieRefCurrentProps } from 'lottie-react';
 import { useNavigate } from 'react-router-dom';
+import { FallbackProps } from 'react-error-boundary';
 import {
   usePetData,
   usePetFeedMutation,
@@ -9,6 +10,7 @@ import {
 } from 'hooks/queries';
 import store from 'stores/RootStore';
 import Modal from 'components/common/Modal/Modal';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import MENT_HOME from 'constants/ments';
 import queryKeys from 'libs/react-query/queryKeys';
 import foodAnimation from 'assets/lottie/foodAnimation.json';
@@ -44,7 +46,7 @@ const PetInteractor = ({ reactionType }: Props) => {
     coupleId: userStore.user?.coupleId!,
     petId: userStore.petId!,
     options: {
-      suspense: false,
+      enabled: !!userStore.user?.coupleId && !!userStore.petId,
     },
   });
 
@@ -174,6 +176,22 @@ const PetInteractor = ({ reactionType }: Props) => {
       />
     </>
   );
+};
+
+PetInteractor.Loading = () => {
+  return (
+    <S.LoadingContainer>
+      <GaugeCommand.Loading />
+
+      <S.PetContainer>
+        <Pet.Loading />
+      </S.PetContainer>
+    </S.LoadingContainer>
+  );
+};
+
+PetInteractor.Error = (props: FallbackProps) => {
+  return <BlockErrorFallback.Icon containerStyle={{ flex: 1 }} {...props} />;
 };
 
 export default PetInteractor;

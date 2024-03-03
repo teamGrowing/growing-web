@@ -1,7 +1,7 @@
 import PetRaisingMenu from '../PetRaisingMenu/PetRaisingMenu';
 import Pet3DImg from '../../../components/Pet3D';
 import * as S from './RasingPet.styled';
-import PET_BASE_SIZE from '../../../constants';
+import { PET_BASE_SIZE } from '../../../constants';
 
 const RasingPet = () => {
   return (
