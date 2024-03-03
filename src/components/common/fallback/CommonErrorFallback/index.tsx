@@ -1,10 +1,10 @@
 import { FallbackProps } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
-import Lottie from 'lottie-react';
 import errorAnimation from 'assets/lottie/errorAnimation.json';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import * as S from './CommonErrorFallback.styled';
+import { ErrorMessage, ResetButton } from '../Common';
 
 interface Props extends Pick<FallbackProps, 'resetErrorBoundary'> {
   content: string;
@@ -27,18 +27,16 @@ const CommonErrorFallback = ({ content, resetErrorBoundary }: Props) => {
         border={false}
       />
 
-      <Lottie
-        animationData={errorAnimation}
-        style={{ width: '200px', marginTop: '-90px' }}
-        loop={false}
-      />
+      <S.InnerContainer className="hidden-scrollbar">
+        <S.StyledLottie animationData={errorAnimation} loop={false} />
 
-      <S.TextContainer>
-        <S.Title>{content}</S.Title>
-        <S.Text>서비스 이용에 불편을 드려 죄송합니다.</S.Text>
-      </S.TextContainer>
+        <S.TextContainer>
+          <S.Title>{content}</S.Title>
+          <ErrorMessage>서비스 이용에 불편을 드려 죄송합니다.</ErrorMessage>
+        </S.TextContainer>
 
-      <S.Button onClick={handleGoToHome}>홈으로 이동</S.Button>
+        <ResetButton onClick={handleGoToHome}>홈으로 이동</ResetButton>
+      </S.InnerContainer>
     </S.FullScreen>
   );
 };
