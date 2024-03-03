@@ -25,6 +25,9 @@ function LongChattingPage() {
         queryClient.invalidateQueries(queryKeys.chatKeys.archived);
         addToast(MENT_CHAT.ARCHIVED_SUCCESS);
       },
+      onError: () => {
+        addToast(MENT_CHAT.ARCHIVED_FAIL);
+      },
     },
   });
 

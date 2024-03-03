@@ -47,13 +47,3 @@ export const PhotoSelect = styled.div<{ isSelected: boolean }>`
   color: ${({ theme }) => theme.color.white};
   text-align: center;
 `;
-
-export const ErrorContainer = styled.div`
-  width: 100%;
-  height: 212px;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;

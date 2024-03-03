@@ -3,8 +3,7 @@ import Skeleton from 'react-loading-skeleton';
 import { FallbackProps } from 'react-error-boundary';
 import store from 'stores/RootStore';
 import { useQuestionBoxData } from 'hooks/queries';
-import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
-import { MENT_COMMON } from 'constants/ments';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import * as S from './QuestionCardList.styled';
 import QuestionCard from './QuestionCard';
 import EmptyCard from './EmptyCard';
@@ -37,14 +36,9 @@ QuestionCardList.Loading = () => {
   );
 };
 
-QuestionCardList.Error = ({ resetErrorBoundary }: FallbackProps) => {
+QuestionCardList.Error = (props: FallbackProps) => {
   return (
-    <S.ErrorContainer>
-      <ErrorMessage>{MENT_COMMON.ERROR}</ErrorMessage>
-      <ResetButton onClick={resetErrorBoundary}>
-        {MENT_COMMON.RETRY}
-      </ResetButton>
-    </S.ErrorContainer>
+    <BlockErrorFallback.Common containerStyle={{ height: '100%' }} {...props} />
   );
 };
 

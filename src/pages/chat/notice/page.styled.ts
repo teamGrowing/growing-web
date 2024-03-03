@@ -5,7 +5,7 @@ import {
 } from 'components/layout/PageLayout/TopbarLayout';
 
 export const ChatNoticePageContainer = styled(TopbarBackgroundContainer)`
-  background-color: ${({ theme }) => theme.color.gray50};
+  background: ${({ theme }) => theme.color.background};
 `;
 
 export const InnerContainer = styled(TopbarInnerContainer)``;

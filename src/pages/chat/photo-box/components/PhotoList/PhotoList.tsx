@@ -2,9 +2,9 @@ import { observer } from 'mobx-react';
 import Skeleton from 'react-loading-skeleton';
 import { FallbackProps } from 'react-error-boundary';
 import store from 'stores/RootStore';
-import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import { useChatPhotoBoxData } from 'hooks/queries';
-import { MENT_CHAT, MENT_COMMON } from 'constants/ments';
+import { MENT_CHAT } from 'constants/ments';
 import Icon from 'components/common/Icon/Icon';
 import VideoPlayBtn from 'pages/chat/components/VideoPlayBtn/VideoPlayBtn';
 import { ChatPhotoLineDto } from 'models/chat';
@@ -80,14 +80,9 @@ PhotoList.Loading = () => {
   );
 };
 
-PhotoList.Error = ({ resetErrorBoundary }: FallbackProps) => {
+PhotoList.Error = (props: FallbackProps) => {
   return (
-    <S.ErrorContainer>
-      <ErrorMessage>{MENT_COMMON.ERROR}</ErrorMessage>
-      <ResetButton onClick={resetErrorBoundary}>
-        {MENT_COMMON.RETRY}
-      </ResetButton>
-    </S.ErrorContainer>
+    <BlockErrorFallback.Common containerStyle={{ height: '80vh' }} {...props} />
   );
 };
 

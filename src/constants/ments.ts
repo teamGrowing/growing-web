@@ -39,6 +39,7 @@ export const MENT_CHAT = Object.freeze({
   QNA_SUCCESS: '답변이 등록되었어요!',
   QNA_FAIL: '답변 등록에 실패했어요. 이용에 불편을 드려 죄송해요 😭',
   ARCHIVED_SUCCESS: '채팅이 보관되었어요!',
+  ARCHIVED_FAIL: '채팅 보관에 실패했어요. 이용에 불편을 드려 죄송해요 😭',
   ARCHIVED_DELELE:
     '보관된 대화를 삭제하시겠습니까?\n\n대화 보관함에서만 삭제되며,\n채팅방에는 그대로 존재합니다.',
   ARCHIVED_EMPTY: '아직 보관된 대화가 없어요.',

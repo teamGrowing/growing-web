@@ -1,8 +1,7 @@
 import Skeleton from 'react-loading-skeleton';
 import { observer } from 'mobx-react';
 import { FallbackProps } from 'react-error-boundary';
-import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
-import { MENT_COMMON } from 'constants/ments';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import { useGalleryList } from 'hooks/queries';
 import { Idtype } from 'pages/chat/hooks/usePhotos';
 import store from 'stores/RootStore';
@@ -62,14 +61,9 @@ PlusMenuPhotoList.Loading = () => {
   );
 };
 
-PlusMenuPhotoList.Error = ({ resetErrorBoundary }: FallbackProps) => {
+PlusMenuPhotoList.Error = (props: FallbackProps) => {
   return (
-    <S.ErrorContainer>
-      <ErrorMessage>{MENT_COMMON.ERROR}</ErrorMessage>
-      <ResetButton onClick={resetErrorBoundary}>
-        {MENT_COMMON.RETRY}
-      </ResetButton>
-    </S.ErrorContainer>
+    <BlockErrorFallback.Common containerStyle={{ height: '100%' }} {...props} />
   );
 };
 

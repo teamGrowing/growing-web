@@ -5,8 +5,7 @@ import store from 'stores/RootStore';
 import { EmojiPackageLineDto } from 'models/user';
 import { CreateChattingDto } from 'models/chat';
 import { useEmojiDetailData } from 'hooks/queries';
-import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
-import { MENT_COMMON } from 'constants/ments';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import * as S from './Emojis.styled';
 
 interface InputChatProps extends Pick<EmojiPackageLineDto, 'id'> {
@@ -65,14 +64,9 @@ Emojis.Loading = () => {
   );
 };
 
-Emojis.Error = ({ resetErrorBoundary }: FallbackProps) => {
+Emojis.Error = (props: FallbackProps) => {
   return (
-    <S.ErrorContainer>
-      <ErrorMessage>{MENT_COMMON.ERROR}</ErrorMessage>
-      <ResetButton onClick={resetErrorBoundary}>
-        {MENT_COMMON.RETRY}
-      </ResetButton>
-    </S.ErrorContainer>
+    <BlockErrorFallback.Common containerStyle={{ height: '80%' }} {...props} />
   );
 };
 

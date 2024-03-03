@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { FallbackProps } from 'react-error-boundary';
 import Modal from 'components/common/Modal/Modal';
-import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
 import useToast from 'hooks/common/useToast';
 import { MENT_CHAT } from 'constants/ments';
 import store from 'stores/RootStore';
 import { useArchivedChatData } from 'hooks/queries';
 import useDeleteArchived from 'pages/chat/archive/hooks/useDeleteArchived';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import ArchivedCard from './ArchivedCard';
 import * as S from './ArchivedCardList.styled';
 import EmptyCard from './EmptyCard';
@@ -125,12 +125,9 @@ ArchivedCardList.Loading = () => {
   );
 };
 
-ArchivedCardList.Error = ({ resetErrorBoundary }: FallbackProps) => {
+ArchivedCardList.Error = (props: FallbackProps) => {
   return (
-    <S.ErrorContainer>
-      <ErrorMessage>일시적인 오류로 불러오지 못했어요.</ErrorMessage>
-      <ResetButton onClick={resetErrorBoundary}>다시 불러오기</ResetButton>
-    </S.ErrorContainer>
+    <BlockErrorFallback.Common containerStyle={{ height: '100%' }} {...props} />
   );
 };
 

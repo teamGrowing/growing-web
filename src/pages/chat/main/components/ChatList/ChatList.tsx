@@ -1,8 +1,7 @@
 import { Suspense, useRef } from 'react';
 import { observer } from 'mobx-react';
 import { FallbackProps } from 'react-error-boundary';
-import { MENT_COMMON } from 'constants/ments';
-import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import store from 'stores/RootStore';
 import ChatBallon from 'pages/chat/components/ChatBallon/ChatBallon';
@@ -162,14 +161,9 @@ const ChatList = ({ onSubMenu }: Props) => {
   );
 };
 
-ChatList.Error = ({ resetErrorBoundary }: FallbackProps) => {
+ChatList.Error = (props: FallbackProps) => {
   return (
-    <S.ErrorContainer className="hidden-scrollbar">
-      <ErrorMessage>{MENT_COMMON.ERROR}</ErrorMessage>
-      <ResetButton onClick={resetErrorBoundary}>
-        {MENT_COMMON.RETRY}
-      </ResetButton>
-    </S.ErrorContainer>
+    <BlockErrorFallback.Common containerStyle={{ height: '100%' }} {...props} />
   );
 };
 

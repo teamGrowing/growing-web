@@ -53,6 +53,7 @@ export function useArchivedChatMutate({
 > {
   return useMutation({
     mutationFn: () => CHAT_ARCHIVED_API.postArchivedChat(coupleId, chattingId),
+    useErrorBoundary: false,
     ...options,
   });
 }

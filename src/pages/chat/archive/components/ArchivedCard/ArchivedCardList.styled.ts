@@ -40,12 +40,3 @@ export const StyledSkeleton = styled(Skeleton)`
   max-width: 220px;
   text-align: center;
 `;
-
-export const ErrorContainer = styled.div`
-  height: 80vh;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
