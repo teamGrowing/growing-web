@@ -76,6 +76,10 @@ const FloatingButton = () => {
     } catch (e) {
       addToast(MENT_GALLERY.PHOTO_UPLOAD_FAIL);
     } finally {
+      if (inputFileRef.current) {
+        inputFileRef.current.value = '';
+      }
+
       setUploadingCount((count) => {
         const newCount = count - 1;
         if (newCount === 0) {

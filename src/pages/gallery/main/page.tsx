@@ -5,7 +5,7 @@ import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/Bl
 import PhotoSection from './components/PhotoSection';
 import AlbumSection from './components/AlbumSection';
 import * as S from './page.styled';
-import FloatingButtonWrapper from '../components/FloatingButton/FloatingButtonWrapper';
+import FloatingButton from '../components/FloatingButton/FloatingButton';
 
 const GalleryMainPage = () => {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const GalleryMainPage = () => {
           <PhotoSection />
         </Suspense>
       </BlockErrorBoundary>
-      <FloatingButtonWrapper />
+      <FloatingButton />
     </S.Container>
   );
 };
