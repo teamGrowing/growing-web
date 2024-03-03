@@ -1,40 +1,39 @@
+/* eslint-disable react/no-unstable-nested-components */
 import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import PhotoSwiper from './components/PhotoSwiper/PhotoSwiper';
 import PhotoInfo from './components/PhotoInfo/PhotoInfo';
 import * as S from './page.styled';
 
 // TODO: 넘기면 다음 채팅 사진으로
 function ChatPhotoDetailPage() {
-  const { reset } = useQueryErrorResetBoundary();
   const navigation = useNavigate();
+
+  const ErrorTopbar = () => (
+    <TopBar
+      mode="DARK"
+      border={false}
+      leftNode={<Icon icon="IconArrowLeft" themeColor="gray50" />}
+      onLeftClick={() => navigation(-1)}
+    />
+  );
 
   return (
     <S.PageContainer>
-      <ErrorBoundary
-        fallback={
-          <TopBar
-            mode="DARK"
-            border={false}
-            leftNode={<Icon icon="IconArrowLeft" themeColor="gray50" />}
-            onLeftClick={() => navigation(-1)}
-          />
-        }
-      >
+      <BlockErrorBoundary fallbackComponent={ErrorTopbar}>
         <Suspense fallback={<PhotoInfo.Loading />}>
           <PhotoInfo />
         </Suspense>
-      </ErrorBoundary>
+      </BlockErrorBoundary>
 
-      <ErrorBoundary onReset={reset} FallbackComponent={PhotoSwiper.Error}>
+      <BlockErrorBoundary fallbackComponent={PhotoSwiper.Error}>
         <Suspense fallback={<PhotoSwiper.Loading />}>
           <PhotoSwiper />
         </Suspense>
-      </ErrorBoundary>
+      </BlockErrorBoundary>
     </S.PageContainer>
   );
 }

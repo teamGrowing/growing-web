@@ -1,15 +1,13 @@
 import { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ErrorBoundary } from 'react-error-boundary';
-import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import TopBar from 'components/common/TopBar/TopBar';
 import Icon from 'components/common/Icon/Icon';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import QuestionCardList from './components/QuestionCard/QuestionCardList';
 import * as S from './page.styled';
 
 function QuestionBoxPage() {
   const navigation = useNavigate();
-  const { reset } = useQueryErrorResetBoundary();
 
   return (
     <S.PageContainer>
@@ -20,14 +18,11 @@ function QuestionBoxPage() {
       />
 
       <S.InnerContainer>
-        <ErrorBoundary
-          onReset={reset}
-          FallbackComponent={QuestionCardList.Error}
-        >
+        <BlockErrorBoundary fallbackComponent={QuestionCardList.Error}>
           <Suspense fallback={<QuestionCardList.Loading />}>
             <QuestionCardList />
           </Suspense>
-        </ErrorBoundary>
+        </BlockErrorBoundary>
       </S.InnerContainer>
     </S.PageContainer>
   );

@@ -1,9 +1,8 @@
 import { Suspense } from 'react';
 import { observer } from 'mobx-react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { useQueryErrorResetBoundary } from '@tanstack/react-query';
 import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import usePhotos from 'pages/chat/hooks/usePhotos';
 import { CreateChattingDto } from 'models/chat';
 import TopBar from 'components/common/TopBar/TopBar';
@@ -17,7 +16,6 @@ type InputChatProps = {
 
 function PlusMenuGallery({ createChat }: InputChatProps) {
   const { userStore, chatStore } = store;
-  const { reset } = useQueryErrorResetBoundary();
 
   const {
     updateId,
@@ -76,10 +74,7 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
         </S.StyledTopbar>
 
         <S.ScrollView className="hidden-scrollbar">
-          <ErrorBoundary
-            onReset={reset}
-            FallbackComponent={PlusMenuPhotoList.Error}
-          >
+          <BlockErrorBoundary fallbackComponent={PlusMenuPhotoList.Error}>
             <Suspense fallback={<PlusMenuPhotoList.Loading />}>
               <PlusMenuPhotoList
                 updateId={updateId}
@@ -87,7 +82,7 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
                 getIndex={getIndex}
               />
             </Suspense>
-          </ErrorBoundary>
+          </BlockErrorBoundary>
         </S.ScrollView>
       </S.ViewAllContainer>
     );
@@ -110,10 +105,7 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
       </S.SendSection>
 
       <S.PhotoSection className="hidden-scrollbar">
-        <ErrorBoundary
-          onReset={reset}
-          FallbackComponent={PlusMenuBottomPhotoList.Error}
-        >
+        <BlockErrorBoundary fallbackComponent={PlusMenuBottomPhotoList.Error}>
           <Suspense fallback={<PlusMenuBottomPhotoList.Loading />}>
             <PlusMenuBottomPhotoList
               updateId={updateId}
@@ -121,7 +113,7 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
               getIndex={getIndex}
             />
           </Suspense>
-        </ErrorBoundary>
+        </BlockErrorBoundary>
       </S.PhotoSection>
 
       <S.FooterSection>

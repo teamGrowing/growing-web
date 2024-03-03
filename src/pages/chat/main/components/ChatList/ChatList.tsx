@@ -1,8 +1,9 @@
 import { Suspense, useRef } from 'react';
 import { observer } from 'mobx-react';
-import { ErrorBoundary, FallbackProps } from 'react-error-boundary';
+import { FallbackProps } from 'react-error-boundary';
 import { MENT_COMMON } from 'constants/ments';
 import { ErrorMessage, ResetButton } from 'components/common/fallback/Common';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import store from 'stores/RootStore';
 import ChatBallon from 'pages/chat/components/ChatBallon/ChatBallon';
 import useChatObserver from 'pages/chat/hooks/useChatObserver';
@@ -124,11 +125,11 @@ const ChatList = ({ onSubMenu }: Props) => {
 
   return (
     <TopbarInnerContainer className="hidden-scrollbar">
-      <ErrorBoundary fallback={null}>
+      <BlockErrorBoundary fallbackComponent={() => null}>
         <Suspense>
           <ChatNotice />
         </Suspense>
-      </ErrorBoundary>
+      </BlockErrorBoundary>
 
       <Suspense>
         <SubMenu open={onSubMenu} />

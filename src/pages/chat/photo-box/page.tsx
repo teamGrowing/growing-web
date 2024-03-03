@@ -1,15 +1,12 @@
 import { Suspense, useEffect, useState } from 'react';
 import { observer } from 'mobx-react';
 import { useNavigate } from 'react-router-dom';
-import { ErrorBoundary } from 'react-error-boundary';
-import {
-  useQueryClient,
-  useQueryErrorResetBoundary,
-} from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
 import TopBar from 'components/common/TopBar/TopBar';
 import Modal from 'components/common/Modal/Modal';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import queryKeys from 'libs/react-query/queryKeys';
 import usePhotos from 'pages/chat/hooks/usePhotos';
 import { MENT_CHAT } from 'constants/ments';
@@ -24,7 +21,6 @@ function ChatPhotoBoxPage() {
   const { addToast } = useToast();
   const navigation = useNavigate();
   const queryClient = useQueryClient();
-  const { reset } = useQueryErrorResetBoundary();
 
   const [isSelectMode, setIsSelectMode] = useState<boolean>(false);
   const [onModal, setOnModal] = useState<boolean>(false);
@@ -104,7 +100,7 @@ function ChatPhotoBoxPage() {
       )}
 
       <TopbarInnerContainer className="hidden-scrollbar">
-        <ErrorBoundary onReset={reset} FallbackComponent={PhotoList.Error}>
+        <BlockErrorBoundary fallbackComponent={PhotoList.Error}>
           <Suspense fallback={<PhotoList.Loading />}>
             <PhotoList
               onPhotoClick={handlePhotoClick}
@@ -113,7 +109,7 @@ function ChatPhotoBoxPage() {
               getIndex={getIndex}
             />
           </Suspense>
-        </ErrorBoundary>
+        </BlockErrorBoundary>
       </TopbarInnerContainer>
 
       <Modal

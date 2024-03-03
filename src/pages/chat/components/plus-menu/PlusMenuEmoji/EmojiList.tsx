@@ -1,8 +1,6 @@
 import { Suspense, useRef, useState } from 'react';
 import { SwiperRef } from 'swiper/react';
-import { ErrorBoundary } from 'react-error-boundary';
-import { useQueryErrorResetBoundary } from '@tanstack/react-query';
-
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import { CreateChattingDto } from 'models/chat';
 import * as S from './EmojiList.styled';
 import EmojiControlBar from './EmojiControlBar';
@@ -14,8 +12,6 @@ interface Props {
 }
 
 const EmojiList = ({ createChat }: Props) => {
-  const { reset } = useQueryErrorResetBoundary();
-
   const swiperElRef = useRef<SwiperRef | null>(null);
   const [isSelected, setIsSelected] = useState<number>(0);
 
@@ -26,14 +22,14 @@ const EmojiList = ({ createChat }: Props) => {
   return (
     <>
       <S.SwiperControlbar>
-        <ErrorBoundary fallback={<EmojiControlBar.Error />}>
+        <BlockErrorBoundary fallbackComponent={EmojiControlBar.Error}>
           <Suspense fallback={<EmojiControlBar.Loading />}>
             <EmojiControlBar selectedIdx={isSelected} onClick={handleClick} />
           </Suspense>
-        </ErrorBoundary>
+        </BlockErrorBoundary>
       </S.SwiperControlbar>
 
-      <ErrorBoundary onReset={reset} FallbackComponent={Emojis.Error}>
+      <BlockErrorBoundary fallbackComponent={Emojis.Error}>
         <Suspense fallback={<Emojis.Loading />}>
           <EmojiSlide
             swiperElRef={swiperElRef}
@@ -41,7 +37,7 @@ const EmojiList = ({ createChat }: Props) => {
             createChat={createChat}
           />
         </Suspense>
-      </ErrorBoundary>
+      </BlockErrorBoundary>
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
 import { useNavigate } from 'react-router-dom';
 import Icon from 'components/common/Icon/Icon';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import * as S from './SubMenu.styled';
 import QuestionAlarm from './QuestionAlarm';
 
@@ -12,11 +12,11 @@ function SubMenu({ open }: { open: boolean }) {
     <S.SubMenuContainer openEnvelope={open}>
       <S.Item onClick={() => navigation('/chat/question-box')}>
         <Icon icon="IconEnvelope" size={28} />
-        <ErrorBoundary fallback={null}>
+        <BlockErrorBoundary fallbackComponent={() => null}>
           <Suspense>
             <QuestionAlarm />
           </Suspense>
-        </ErrorBoundary>
+        </BlockErrorBoundary>
         질문 우편함
       </S.Item>
       <S.Item onClick={() => navigation('/chat/archive')}>
