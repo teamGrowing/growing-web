@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { hiddenScrollbar } from 'styles/common/mixin';
 
 export const TopbarBackgroundContainer = styled.div`
   position: relative;
@@ -21,4 +22,6 @@ export const TopbarInnerContainer = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  ${hiddenScrollbar}
 `;
