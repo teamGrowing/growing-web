@@ -43,14 +43,6 @@ const AlbumContainer = ({
   const { mutate: deleteAlbumsMutate } = useDeleteAlbumsMutation({
     coupleId,
     options: {
-      onSuccess: () => {
-        setSelectingAvailable(false);
-        addToast(MENT_GALLERY.ALBUM_DELETE_SUCCESS);
-        clearSelectedList();
-      },
-      onError: () => {
-        addToast(MENT_GALLERY.ALBUM_DELETE_FAIL);
-      },
       useErrorBoundary: false,
     },
   });
@@ -61,7 +53,16 @@ const AlbumContainer = ({
   };
 
   const deleteAlbums = () => {
-    deleteAlbumsMutate(selectedAlbums);
+    deleteAlbumsMutate(selectedAlbums, {
+      onSuccess: () => {
+        setSelectingAvailable(false);
+        addToast(MENT_GALLERY.ALBUM_DELETE_SUCCESS);
+        clearSelectedList();
+      },
+      onError: () => {
+        addToast(MENT_GALLERY.ALBUM_DELETE_FAIL);
+      },
+    });
     clearSelectedList();
   };
 

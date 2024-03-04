@@ -23,7 +23,9 @@ const CommonErrorFallback = ({ content, resetErrorBoundary }: Props) => {
       <TopBar
         mode="BACKGROUND"
         leftNode={<Icon icon="IconArrowLeft" />}
-        onLeftClick={resetErrorBoundary}
+        onLeftClick={() => {
+          resetErrorBoundary();
+        }}
         border={false}
       />
 
