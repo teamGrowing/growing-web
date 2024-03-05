@@ -17,13 +17,8 @@ import {
 import { PHOTO_LIMIT } from 'constants/constants';
 import queryKeys from 'libs/react-query/queryKeys';
 import { GALLERY_API, GALLERY_COMMENT_API } from 'apis/gallery';
-import {
-  CreatePhotoResponseDto,
-  PhotoDto,
-  PhotoCommentDto,
-  PhotoLineDto,
-} from 'models/gallery';
-import { delayForVideoThumbnail, getVideoDuration } from 'utils/video';
+import { PhotoDto, PhotoCommentDto, PhotoLineDto } from 'models/gallery';
+import { CreatePhotoRequestDto, GetUploadUrlResponseDto } from 'models/chat';
 
 export function useGalleryList({
   coupleId,
@@ -118,62 +113,66 @@ export function useCommentList({
   );
 }
 
-export function useCreatePhotosMutation({
-  coupleId,
-  options,
-}: {
+interface GetUploadUrlProps {
   coupleId: string;
   options?: UseMutationOptions<
-    Promise<CreatePhotoResponseDto>[],
+    AxiosResponse<GetUploadUrlResponseDto>,
     AxiosError,
-    FileList,
+    File,
     unknown
   >;
-}): UseMutationResult<
-  Promise<CreatePhotoResponseDto>[],
+}
+
+export function useGetUploadUrl({ coupleId, options }: GetUploadUrlProps) {
+  return useMutation({
+    mutationFn: (file: File) =>
+      GALLERY_API.getUploadUrl(coupleId, {
+        name: `${uuidv4()}.${file.name.split('.').pop()}`,
+      }),
+    useErrorBoundary: false,
+    ...options,
+  });
+}
+
+export function useUploadPhotoMutation(): UseMutationResult<
+  AxiosResponse,
   AxiosError,
-  FileList,
+  { url: string; file: File },
   unknown
 > {
+  return useMutation({
+    mutationFn: ({ url, file }) => GALLERY_API.upLoadPhoto(url, file),
+    onSuccess: () => {},
+    useErrorBoundary: false,
+  });
+}
+
+interface CreatePhotoMutationProps {
+  coupleId: string;
+  options?: UseMutationOptions<
+    AxiosResponse,
+    AxiosError,
+    CreatePhotoRequestDto,
+    unknown
+  >;
+}
+
+export function useCreatePhotoMutation({
+  coupleId,
+  options,
+}: CreatePhotoMutationProps) {
   const queryClient = useQueryClient();
 
-  const makePhoto = async (file: File) => {
-    const res = await GALLERY_API.getUploadUrl(coupleId, {
-      name: `${uuidv4()}.${file.name.split('.').pop()}`,
-    });
-
-    await GALLERY_API.upLoadPhoto(res.data.url, file);
-
-    let fileTime: number | null = null;
-    if (file.type.includes('video')) {
-      const promise = await getVideoDuration(file);
-      fileTime = promise;
-    }
-
-    const axiosRes = await GALLERY_API.createPhoto(coupleId, {
-      s3Path: res.data.s3Path,
-      time: fileTime,
-    });
-
-    return axiosRes.data;
-  };
-
-  const makePhotos = async (files: FileList) => {
-    const promises: Promise<CreatePhotoResponseDto>[] = [];
-    for (let i = 0; i < files.length; i += 1) {
-      promises.push(makePhoto(files[i]));
-    }
-    await Promise.all(promises);
-
-    await delayForVideoThumbnail();
-
-    return promises;
-  };
-
   return useMutation({
-    mutationFn: (data: FileList) => makePhotos(data),
-    onSuccess: () =>
-      queryClient.invalidateQueries(queryKeys.galleryKeys.all, {}),
+    mutationFn: ({ s3Path, time }: CreatePhotoRequestDto) =>
+      GALLERY_API.createPhoto(coupleId, {
+        s3Path,
+        time,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries(queryKeys.galleryKeys.all, {});
+    },
+    useErrorBoundary: false,
     ...options,
   });
 }
@@ -227,6 +226,7 @@ export function usePostCommentMutation({
     onSuccess: () => {
       queryClient.invalidateQueries(queryKeys.galleryKeys.commentById(photoId));
     },
+    useErrorBoundary: false,
     ...options,
   });
 }

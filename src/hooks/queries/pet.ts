@@ -36,7 +36,6 @@ export function usePetData({
     () => PET_API.getPet(coupleId, petId),
     {
       select: ({ data }) => data,
-      suspense: true,
       ...options,
     }
   );
@@ -78,6 +77,7 @@ export function usePetFeedMutation({
 > {
   return useMutation({
     mutationFn: () => PET_API.postFeedPet(coupleId, petId),
+    useErrorBoundary: false,
     ...options,
   });
 }
@@ -103,6 +103,7 @@ export function usePetPlayMutation({
 > {
   return useMutation({
     mutationFn: () => PET_API.postTouchPet(coupleId, petId),
+    useErrorBoundary: false,
     ...options,
   });
 }

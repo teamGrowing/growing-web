@@ -1,12 +1,14 @@
+import { Suspense } from 'react';
 import { observer } from 'mobx-react';
 import store from 'stores/RootStore';
 import Icon from 'components/common/Icon/Icon';
-import TopBar from 'components/common/TopBar/TopBar';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import usePhotos from 'pages/chat/hooks/usePhotos';
-import { useGalleryList } from 'hooks/queries';
 import { CreateChattingDto } from 'models/chat';
-import VideoPlayBtn from '../../VideoPlayBtn/VideoPlayBtn';
+import TopBar from 'components/common/TopBar/TopBar';
 import * as S from './PlusMenuGallery.styled';
+import PlusMenuPhotoList from '../PlusMenuPhotoList/PlusMenuPhotoList';
+import PlusMenuBottomPhotoList from '../PlusMenuBottomPhotoList/PlusMenuBottomPhotoList';
 
 type InputChatProps = {
   createChat: (dto: CreateChattingDto) => void;
@@ -14,13 +16,6 @@ type InputChatProps = {
 
 function PlusMenuGallery({ createChat }: InputChatProps) {
   const { userStore, chatStore } = store;
-
-  const { data: photos } = useGalleryList({
-    coupleId: userStore.user?.coupleId ?? '',
-    options: {
-      suspense: false,
-    },
-  });
 
   const {
     updateId,
@@ -68,34 +63,26 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
   if (chatStore.chatMode.mode === 'GalleryAll') {
     return (
       <S.ViewAllContainer onClick={(e) => e.stopPropagation()}>
-        <TopBar
-          title={`${getLength()}개가 선택되었습니다.`}
-          leftNode={<Icon icon="IconExit" />}
-          onLeftClick={() => chatStore.setChatMode({ mode: 'Default' })}
-          rightMainNode={<div>전송</div>}
-          onRightMainClick={handleSend}
-        />
+        <S.StyledTopbar>
+          <TopBar
+            title={`${getLength()}개가 선택되었습니다.`}
+            leftNode={<Icon icon="IconExit" />}
+            onLeftClick={() => chatStore.setChatMode({ mode: 'Default' })}
+            rightMainNode={<div>전송</div>}
+            onRightMainClick={handleSend}
+          />
+        </S.StyledTopbar>
 
         <S.ScrollView className="hidden-scrollbar">
-          <S.ViewAllPhotos>
-            {photos?.map((photo) => (
-              <S.PhotoContainer>
-                <S.GridPhoto
-                  key={photo.i}
-                  url={photo.u}
-                  onClick={() =>
-                    updateId({ id: photo.i, isPhoto: photo.t === null })
-                  }
-                  isSelected={getSelected(photo.i)}
-                >
-                  <S.PhotoSelect isSelected={getSelected(photo.i)}>
-                    {getIndex(photo.i) === 0 ? '' : getIndex(photo.i)}
-                  </S.PhotoSelect>
-                  {photo.t && <VideoPlayBtn />}
-                </S.GridPhoto>
-              </S.PhotoContainer>
-            ))}
-          </S.ViewAllPhotos>
+          <BlockErrorBoundary fallbackComponent={PlusMenuPhotoList.Error}>
+            <Suspense fallback={<PlusMenuPhotoList.Loading />}>
+              <PlusMenuPhotoList
+                updateId={updateId}
+                getSelected={getSelected}
+                getIndex={getIndex}
+              />
+            </Suspense>
+          </BlockErrorBoundary>
         </S.ScrollView>
       </S.ViewAllContainer>
     );
@@ -118,32 +105,24 @@ function PlusMenuGallery({ createChat }: InputChatProps) {
       </S.SendSection>
 
       <S.PhotoSection className="hidden-scrollbar">
-        <S.Photos>
-          {photos?.map((photo) => (
-            <S.Photo
-              key={photo.i}
-              url={photo.u}
-              onClick={() =>
-                updateId({ id: photo.i, isPhoto: photo.t === null })
-              }
-              isSelected={getSelected(photo.i)}
-            >
-              <S.PhotoSelect isSelected={getSelected(photo.i)}>
-                {getIndex(photo.i) === 0 ? '' : getIndex(photo.i)}
-              </S.PhotoSelect>
-              {photo.t && <VideoPlayBtn />}
-            </S.Photo>
-          ))}
-        </S.Photos>
+        <BlockErrorBoundary fallbackComponent={PlusMenuBottomPhotoList.Error}>
+          <Suspense fallback={<PlusMenuBottomPhotoList.Loading />}>
+            <PlusMenuBottomPhotoList
+              updateId={updateId}
+              getSelected={getSelected}
+              getIndex={getIndex}
+            />
+          </Suspense>
+        </BlockErrorBoundary>
       </S.PhotoSection>
 
       <S.FooterSection>
-        <Icon
-          icon="IconGrid"
-          size={20}
+        <S.AllViewButton
           onClick={() => chatStore.setChatMode({ mode: 'GalleryAll' })}
-        />
-        <p className="text-gradient400">전체보기</p>
+        >
+          <Icon icon="IconGrid" size={18} />
+          <p className="text-gradient400">전체보기</p>
+        </S.AllViewButton>
       </S.FooterSection>
     </S.PlusMenuGalleryContainer>
   );

@@ -1,19 +1,19 @@
 import Icon from 'components/common/Icon/Icon';
 import { useRef, useState } from 'react';
-import { SetHandlerParams, handlerInfoManager } from 'mocks/HandlerInfoManager';
-import { useQueryClient } from '@tanstack/react-query';
+import { HandlerInfo, handlerInfoManager } from 'mocks/HandlerInfoManager';
 import ToolbarItem from './components/ToolbarItem';
 import * as S from './MSWToolbar.styled';
 import ToolbarBottomSheet from './components/ToolbarBottomSheet';
 
 function MSWToolbar() {
-  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const [items, setItems] = useState(
     Object.entries(handlerInfoManager.getHandlerInfos())
   );
   const stagedValue = useRef<{
-    [key: string]: SetHandlerParams;
+    [path: string]: {
+      [method: string]: HandlerInfo;
+    };
   }>({});
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,10 +27,16 @@ function MSWToolbar() {
 
   const clickApplyBtnHandler = () => {
     Object.keys(stagedValue.current).forEach((path) => {
-      const { method, code, time } = stagedValue.current[path];
-      handlerInfoManager.setHandlerInfo({ path, method, code, time });
+      Object.keys(stagedValue.current[path]).forEach((method) => {
+        const { status, delayTime } = stagedValue.current[path][method];
+        handlerInfoManager.setHandlerInfo({
+          path,
+          method,
+          code: status,
+          time: delayTime,
+        });
+      });
     });
-    queryClient.invalidateQueries();
     stagedValue.current = {};
     setOpen(false);
   };
@@ -61,11 +67,11 @@ function MSWToolbar() {
                       delayTime={delayTime}
                       status={status}
                       onChange={(time, code) => {
-                        stagedValue.current[path] = {
-                          path,
-                          method,
-                          code,
-                          time,
+                        stagedValue.current[path] =
+                          stagedValue.current[path] ?? {};
+                        stagedValue.current[path][method] = {
+                          status: code,
+                          delayTime: time,
                         };
                       }}
                     />

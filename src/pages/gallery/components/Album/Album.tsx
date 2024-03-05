@@ -2,14 +2,14 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AlbumDto } from 'models/gallery';
 import Icon from 'components/common/Icon/Icon';
-import DataContext from '../../context';
+import DataContext from 'pages/gallery/context';
 import * as S from './Album.styled';
 
-interface AlbumProps {
+interface Props {
   albumInfo: AlbumDto;
 }
 
-function Album({ albumInfo }: AlbumProps) {
+const Album = ({ albumInfo }: Props) => {
   const ctx = useContext(DataContext);
   const navigate = useNavigate();
   const [isSelected, setIsSelected] = useState(false);
@@ -53,6 +53,6 @@ function Album({ albumInfo }: AlbumProps) {
       )}
     </S.AlbumBox>
   );
-}
+};
 
 export default Album;

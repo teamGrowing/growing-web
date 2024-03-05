@@ -5,7 +5,7 @@ export type StatusType = 200 | 400;
 const DEFAULT_STATUS: StatusType = 200;
 const DEFAULT_DELAY = 500;
 
-interface HandlerInfo {
+export interface HandlerInfo {
   status: StatusType;
   delayTime: number | 'infinite' | 'real';
 }

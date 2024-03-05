@@ -7,14 +7,17 @@ import { useCalendarDailyPlans, useDeletePlanMutation } from 'hooks/queries';
 import store from 'stores/RootStore';
 import { DailyPlanDto } from 'models/plan';
 import Icon from 'components/common/Icon/Icon';
+import Skeleton from 'react-loading-skeleton';
+import { FallbackProps } from 'react-error-boundary';
+import { BlockErrorFallback } from 'components/common/fallback/BlockErrorBoundary/BlockErrorFallback';
 import CalendarBottomSheet from '../CalendarBottomSheet/CalendarBottomSheet';
 import * as S from './TodoArea.styled';
 
-type TodoProps = {
+type Props = {
   date: Dayjs;
 };
 
-function TodoArea({ date }: TodoProps) {
+const TodoArea = ({ date }: Props) => {
   const [onBottomSheet, setOnBottomSheet] = useState<boolean>(false);
   const [selectedTodoData, setSelectedTodoData] = useState<DailyPlanDto | null>(
     null
@@ -29,6 +32,9 @@ function TodoArea({ date }: TodoProps) {
 
   const { mutate: deletePlan } = useDeletePlanMutation({
     coupleId: store.userStore.user?.coupleId!,
+    options: {
+      useErrorBoundary: false,
+    },
   });
 
   return (
@@ -54,6 +60,7 @@ function TodoArea({ date }: TodoProps) {
               onClick={(e) => {
                 deletePlan(plan.id, {
                   onSuccess: () => addToast(MENT_CALENDAR.PLAN_DELETE_SUCCESS),
+                  onError: () => addToast(MENT_CALENDAR.PLAN_DELETE_FAIL),
                 });
                 e.stopPropagation();
               }}
@@ -70,5 +77,39 @@ function TodoArea({ date }: TodoProps) {
       />
     </S.Container>
   );
-}
+};
+
+TodoArea.Loading = () => {
+  return (
+    <S.Container>
+      <S.TodoTitle>
+        <div className="text-gradient400">Todo</div>
+      </S.TodoTitle>
+      <S.Todos className="hidden-scrollbar">
+        <Skeleton width={250} height={25} borderRadius={30} />
+        <Skeleton width={250} height={25} borderRadius={30} />
+      </S.Todos>
+    </S.Container>
+  );
+};
+
+TodoArea.Error = ({ error, resetErrorBoundary }: FallbackProps) => {
+  return (
+    <S.Container>
+      <S.TodoTitle>
+        <div className="text-gradient400">Todo</div>
+      </S.TodoTitle>
+      <S.Todos className="hidden-scrollbar">
+        <BlockErrorFallback.Icon
+          error={error}
+          resetErrorBoundary={resetErrorBoundary}
+          errorMessage={MENT_CALENDAR.PLAN_LOAD_FAIL}
+          containerStyle={{ gap: '10px' }}
+          size={40}
+        />
+      </S.Todos>
+    </S.Container>
+  );
+};
+
 export default observer(TodoArea);

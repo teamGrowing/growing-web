@@ -38,7 +38,7 @@ const useChatObserver = ({
         }
       },
       {
-        threshold: 0.1,
+        threshold: 0.2,
       }
     );
     // 채팅창 상단으로 이동시, 추가적인 데이터 요청

@@ -4,13 +4,12 @@ export const Scrolls = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 
   position: absolute;
   width: 100%;
   height: 100%;
   left: 0px;
-
-  background: ${({ theme }) => theme.color.white};
 `;
 
 export const Photo = styled.div<{ backgroundUrl: string }>`
@@ -79,4 +78,22 @@ export const CreatedAt = styled.div`
   flex: none;
   order: 1;
   flex-grow: 0;
+`;
+
+export const SkeletonWrapper = styled.div`
+  width: 100%;
+  height: 60%;
+  aspect-ratio: 1 / 1;
+
+  .react-loading-wrapper {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .react-loading-skeleton {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+  }
 `;

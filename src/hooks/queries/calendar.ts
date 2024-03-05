@@ -92,12 +92,13 @@ export function useAddPlanMutation({
   coupleId: string | null;
   options?: UseMutationOptionsType<CreatePlanDto>;
 }): UseMutationResult<AxiosResponse, AxiosError, CreatePlanDto, unknown> {
-  const queryClinet = useQueryClient();
+  const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (planInfo) => PLAN_API.postPlan(coupleId ?? '', planInfo),
     onSuccess: () => {
-      queryClinet.invalidateQueries(queryKeys.calendarKeys.plan); // TODO key 좀더 효율적이게 바꾸기
+      console.log('add!!!');
+      queryClient.invalidateQueries(queryKeys.calendarKeys.plan); // TODO key 좀더 효율적이게 바꾸기
     },
     ...options,
   });

@@ -1,23 +1,15 @@
-import dayjs from 'dayjs';
 import Icon from 'components/common/Icon/Icon';
-import store from 'stores/RootStore';
-import { useGraduatedPetDetail } from 'hooks/queries';
+import PetCardContent from 'pages/more/pet/components/PetCardContent';
+import { Suspense } from 'react';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import * as S from './PetDetailCard.styled';
 
-type PetDetailCardProps = {
+type Props = {
   petId: string;
   onExit: React.MouseEventHandler;
 };
 
-function PetDetailCard({ petId, onExit }: PetDetailCardProps) {
-  const { data } = useGraduatedPetDetail({
-    coupleId: store.userStore.user?.coupleId!,
-    petId,
-    options: {
-      suspense: false,
-    },
-  });
-
+const PetDetailCard = ({ petId, onExit }: Props) => {
   return (
     <S.Background>
       <Icon
@@ -31,36 +23,13 @@ function PetDetailCard({ petId, onExit }: PetDetailCardProps) {
         }}
         onClick={onExit}
       />
-      <S.Image petImg={data?.imageUrl ?? ''} />
-      <S.InfoContainer>
-        <S.Name className="text-gradient400">
-          {data?.name.length ? data.name : '그로잉펫'}
-        </S.Name>
-        <S.InfoBox>
-          <S.Info width="77px">
-            <S.Title className="text-gradient400">태어난 날</S.Title>
-            <S.Line width="69px" />
-            <S.Content width="69px">
-              {dayjs(new Date(data?.createdAt ?? '')).format('YYYY/MM/DD')}
-            </S.Content>
-          </S.Info>
-          <S.Info width="77px">
-            <S.Title className="text-gradient400">독립한 날</S.Title>
-            <S.Line width="69px" />
-            <S.Content width="69px">
-              {dayjs(new Date(data?.endedAt ?? '')).format('YYYY/MM/DD')}
-            </S.Content>
-          </S.Info>
-          <S.Info width="188px">
-            <S.Title className="text-gradient400">
-              {store.userStore.user?.nickName!}에게 남긴말
-            </S.Title>
-            <S.Line width="180px" />
-            <S.Content width="180px">{data?.description}</S.Content>
-          </S.Info>
-        </S.InfoBox>
-      </S.InfoContainer>
+      <BlockErrorBoundary fallbackComponent={PetCardContent.Error}>
+        <Suspense fallback={<PetCardContent.Loading />}>
+          <PetCardContent petId={petId} />
+        </Suspense>
+      </BlockErrorBoundary>
     </S.Background>
   );
-}
+};
+
 export default PetDetailCard;

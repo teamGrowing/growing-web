@@ -4,7 +4,7 @@ export const Container = styled.div<{ top: string }>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 60px 40px;
+  padding: 60px 30px;
   gap: 7px;
 
   position: absolute;

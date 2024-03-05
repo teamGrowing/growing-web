@@ -1,32 +1,31 @@
 import { Routes, Route } from 'react-router-dom';
-import NoticePage from 'pages/more/NoticePage/NoticePage';
-import NoticeDetailPage from 'pages/more/NoticeDetailPage/NoticeDetailPage';
-import GalleryMainPage from './pages/gallery/GalleryMainPage/GalleryMainPage';
-import PhotoPage from './pages/gallery/PhotoPage/PhotoPage';
+import NoticePage from 'pages/more/notice/page';
+import NoticeDetailPage from 'pages/more/notice-detail/page';
+import GalleryMainPage from './pages/gallery/main/page';
+import PhotoPage from './pages/gallery/photo/page';
 import Layout from './components/layout/Layout';
-import AlbumPage from './pages/gallery/AlbumPage/AlbumPage';
-import AlbumDetailPage from './pages/gallery/AlbumDetailPage/AlbumDetailPage';
-import NewAlbumPage from './pages/gallery/NewAlbumPage/NewAlbumPage';
-import MoreMainPage from './pages/more/MoreMainPage/MoreMainPage';
-import ProfilePage from './pages/more/ProfilePage/ProfilePage';
-import InfoPage from './pages/more/InfoPage/InfoPage';
-import SettingPage from './pages/more/SettingPage/SettingPage';
-import PhotoDetailPage from './pages/gallery/PhotoDetailPage/PhotoDetailPage';
-import PetPage from './pages/more/PetPage/PetPage';
+import AlbumPage from './pages/gallery/album/page';
+import AlbumDetailPage from './pages/gallery/album-detail/page';
+import NewAlbumPage from './pages/gallery/new-album/page';
+import MoreMainPage from './pages/more/main/page';
+import ProfilePage from './pages/more/profile/page';
+import SettingPage from './pages/more/setting/page';
+import PhotoDetailPage from './pages/gallery/photo-detail/page';
+import PetPage from './pages/more/pet/page';
 import AuthRoute from './components/layout/AuthRoute';
-import AlbumPhotoDetailPage from './pages/gallery/AlbumPhotoDetailPage/AlbumPhotoDetailPage';
-import CalendarPage from './pages/calendar/CalendarPage/CalendarPage';
-import Home from './pages/home/HomePage/HomePage';
-import PetNamingPage from './pages/home/PetNamingPage/PetNamingPage';
-import PetFeedPage from './pages/home/PetRaisingPage/PetRaisingPage';
-import PetGraduatePage from './pages/home/PetGraduatePage/PetGraduatePage';
-import ChattingPage from './pages/chat/ChattingPage/ChattingPage';
-import LongChattingPage from './pages/chat/LongChattingPage/LongChattingPage';
-import QuestionBoxPage from './pages/chat/QuestionBoxPage/QuestionBoxPage';
-import ChatNoticePage from './pages/chat/ChatNoticePage/ChatNoticePage';
-import ChatArchivePage from './pages/chat/ChatArchivePage/ChatArchivePage';
-import ChatPhotoBoxPage from './pages/chat/ChatPhotoBoxPage/ChatPhotoBoxPage';
-import ChatPhotoDetailPage from './pages/chat/ChatPhotoDetailPage/ChatPhotoDetailPage';
+import AlbumPhotoDetailPage from './pages/gallery/album-photo-detail/page';
+import CalendarPage from './pages/calendar/page';
+import HomePage from './pages/home/main/page';
+import PetNamingPage from './pages/home/pet-naming/page';
+import PetFeedPage from './pages/home/pet-raising/page';
+import PetGraduatePage from './pages/home/pet-graduate/page';
+import ChattingPage from './pages/chat/main/page';
+import LongChattingPage from './pages/chat/long-chat/page';
+import QuestionBoxPage from './pages/chat/question-box/page';
+import ChatNoticePage from './pages/chat/notice/page';
+import ChatArchivePage from './pages/chat/archive/page';
+import ChatPhotoBoxPage from './pages/chat/photo-box/page';
+import ChatPhotoDetailPage from './pages/chat/photo-detail/page';
 import LoginKakaoPage from './pages/login/LoginKakaoPage/LoginKakaoPage';
 import LoginSelectPage from './pages/login/LoginSelectPage/LoginSelectPage';
 import LoginInvitedPage from './pages/login/LoginInvitedPage/LoginInvitedPage';
@@ -48,11 +47,11 @@ function GrowingRoutes() {
         <Route path="/login/born" element={<LoginPetBornPage />} />
         {/* home */}
         <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomePage />} />
         </Route>
         <Route path="/pet/naming" element={<PetNamingPage />} />
-        <Route path="/pet/feed" element={<PetFeedPage />} />
-        <Route path="/pet/play" element={<PetFeedPage />} />
+        <Route path="/pet/raising/feed" element={<PetFeedPage />} />
+        <Route path="/pet/raising/play" element={<PetFeedPage />} />
         <Route path="/pet/graduate" element={<PetGraduatePage />} />
 
         {/* chat */}
@@ -88,9 +87,8 @@ function GrowingRoutes() {
           <Route path="/more" element={<MoreMainPage />} />
         </Route>
         <Route path="/more/profile" element={<ProfilePage />} />
-        <Route path="/more/info" element={<InfoPage />} />
-        <Route path="/more/info/notice" element={<NoticePage />} />
-        <Route path="/more/info/notice/:id" element={<NoticeDetailPage />} />
+        <Route path="/more/notice" element={<NoticePage />} />
+        <Route path="/more/notice/:id" element={<NoticeDetailPage />} />
         <Route path="/more/setting" element={<SettingPage />} />
         <Route path="/more/pet" element={<PetPage />} />
       </Route>

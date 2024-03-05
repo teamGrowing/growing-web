@@ -1,18 +1,16 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  position: relative;
-  text-align: center;
-`;
-
-export const Photos = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(191px, 1fr));
   margin: 1px 14px;
-  gap: 1px 0;
-  flex-wrap: wrap;
+  padding-bottom: calc(var(--navbar-real-height) + 50px);
+  grid-gap: 6px;
+  justify-items: center;
+  align-items: center;
 
-  & > div {
-    width: 32%;
+  @media (min-width: 360px) {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 `;
 
@@ -43,4 +41,8 @@ export const Message = styled.div`
   text-shadow: 0px 0px 8px rgba(151, 71, 255, 0.2);
 
   z-index: 0;
+`;
+
+export const EmptyContainer = styled.div`
+  text-align: center;
 `;

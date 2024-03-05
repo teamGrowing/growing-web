@@ -3,7 +3,6 @@ import Icon from 'components/common/Icon/Icon';
 
 export const PhotoBox = styled.div<{ isSelected: boolean; imgUrl: string }>`
   position: relative;
-  margin: 3px;
 
   background: ${({ isSelected, imgUrl }) =>
     isSelected
@@ -14,8 +13,8 @@ export const PhotoBox = styled.div<{ isSelected: boolean; imgUrl: string }>`
   filter: drop-shadow(0px 0px 4px rgba(151, 71, 255, 0.2));
   border-radius: 6px;
 
-  aspect-ratio: 1/1;
-  flex: 0 0 calc((100% / 3) - 6px);
+  width: 100%;
+  aspect-ratio: 1 / 1;
 `;
 
 export const CheckIcon = styled(Icon)`

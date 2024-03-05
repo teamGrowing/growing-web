@@ -36,6 +36,7 @@ export { ReactComponent as IconPet } from './IconPet.svg';
 export { ReactComponent as IconPhotoHeart } from './IconPhotoHeart.svg';
 export { ReactComponent as IconPlay } from './IconPlay.svg';
 export { ReactComponent as IconPlus } from './IconPlus.svg';
+export { ReactComponent as IconRefresh } from './IconRefresh.svg';
 export { ReactComponent as IconReply } from './IconReply.svg';
 export { ReactComponent as IconSetting } from './IconSetting.svg';
 export { ReactComponent as IconShare } from './IconShare.svg';

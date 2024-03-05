@@ -4,7 +4,7 @@ import { albumSchema, AlbumFormValues } from 'libs/react-hook-form';
 import * as S from './AlbumModal.styled';
 import Portal from '../../../../components/common/Portal';
 
-export interface AlbumModalProps {
+export interface Props {
   onModal: boolean;
   setOnModal: (state: boolean) => void;
   title?: string;
@@ -14,7 +14,7 @@ export interface AlbumModalProps {
   onSubAction?: () => void;
 }
 
-export default function Modal({
+const Modal = ({
   onModal,
   setOnModal,
   title,
@@ -22,7 +22,7 @@ export default function Modal({
   subActionLabel,
   onMainAction,
   onSubAction,
-}: AlbumModalProps) {
+}: Props) => {
   const {
     register,
     handleSubmit,
@@ -89,4 +89,6 @@ export default function Modal({
       </form>
     </Portal>
   );
-}
+};
+
+export default Modal;

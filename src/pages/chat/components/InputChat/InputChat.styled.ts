@@ -2,12 +2,17 @@ import styled from 'styled-components';
 import MIN_TEXTAREA_HEIGHT from './inputChatConstants';
 
 export const Container = styled.div`
+  position: relative;
   z-index: 2;
 
-  padding-bottom: constant(safe-area-inset-bottom);
-  padding-bottom: env(safe-area-inset-bottom);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
-  max-width: 780px;
+  max-width: var(--full-width);
+  min-height: calc(${MIN_TEXTAREA_HEIGHT} + var(--safe-area-bottom));
+  padding-bottom: var(--safe-area-bottom);
 
   background-color: ${({ theme }) => theme.color.white};
 `;
@@ -59,8 +64,7 @@ export const TextareaWrapper = styled.div`
 
 export const StyledTextarea = styled.textarea`
   width: 100%;
-  min-height: calc(${MIN_TEXTAREA_HEIGHT} + constant(env-safe-inset-bottom));
-  min-height: calc(${MIN_TEXTAREA_HEIGHT} + env(env-safe-inset-bottom));
+  min-height: calc(${MIN_TEXTAREA_HEIGHT} + var(--safe-area-bottom));
   resize: none;
 
   background-color: transparent;

@@ -9,12 +9,14 @@ import {
   useFoldNoticeMutate,
   useInvisibleNoticeMutate,
 } from 'hooks/queries';
+import useToast from 'hooks/common/useToast';
 import queryKeys from 'libs/react-query/queryKeys';
 import * as S from './ChatNotice.styled';
 
 function ChatNotice() {
   const queryClient = useQueryClient();
   const navigation = useNavigate();
+  const { addToast } = useToast();
   const { userStore } = store;
 
   const [isToggle, setIsToggle] = useState<boolean>(false);
@@ -28,6 +30,7 @@ function ChatNotice() {
     noticeId: notice?.id ?? '',
     options: {
       onSuccess: () => queryClient.invalidateQueries(queryKeys.chatKeys.notice),
+      onError: () => addToast('일시적인 오류가 발생했어요.'),
     },
   });
 
@@ -36,6 +39,7 @@ function ChatNotice() {
     noticeId: notice?.id ?? '',
     options: {
       onSuccess: () => queryClient.invalidateQueries(queryKeys.chatKeys.notice),
+      onError: () => addToast('일시적인 오류가 발생했어요.'),
     },
   });
 

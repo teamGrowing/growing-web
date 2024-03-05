@@ -4,9 +4,8 @@ export const FoldenContainer = styled.div`
   z-index: 2;
 
   position: absolute;
-  top: calc(65px + constant(safe-area-inset-top));
-  top: calc(65px + env(safe-area-inset-top));
-  right: 16px;
+  top: calc(var(--topbar-real-height) + 14px);
+  right: 20px;
 
   display: flex;
   justify-content: center;
@@ -24,14 +23,12 @@ export const Container = styled.div`
   z-index: 2;
 
   position: fixed;
-  top: calc(48px + constant(safe-area-inset-top));
-  top: calc(48px + env(safe-area-inset-top));
-  left: 50%;
-  transform: translateX(-50%);
+  top: calc(var(--topbar-real-height) - 3px);
 
   padding: 0 16px;
 
   width: 100%;
+  max-width: var(--full-width);
 
   background-color: ${({ theme }) => theme.color.white};
   border-radius: 0 0 20px 20px;
@@ -82,8 +79,10 @@ export const Buttons = styled.div`
 `;
 
 export const StyledButton = styled.button`
-  color: ${({ theme }) => theme.color.gray900};
+  color: ${({ theme }) => theme.color.gray700};
   flex: 1;
+
+  font-size: 13px;
 `;
 
 export const StyledButtonBorder = styled(StyledButton)`

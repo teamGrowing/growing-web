@@ -1,22 +1,23 @@
 /* eslint-disable no-prototype-builtins */
 import './styles/font.css';
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 import { BrowserRouter } from 'react-router-dom';
+import { SkeletonTheme } from 'react-loading-skeleton';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import queryClient from 'libs/react-query/react-query';
 import 'libs/dayjs';
 import 'libs/swiper';
+import 'libs/react-loading-skeleton';
 import { enableMocking } from 'mocks/msw';
 import MSWToolbar from 'mocks/toolbar/MSWToolbar';
+import ApiErrorBoundary from 'components/common/fallback/ApiErrorBoundary';
+import RootErrorBoundary from 'components/common/fallback/RootErrorBoundary';
+import RootSuspense from 'components/common/fallback/RootSuspense';
 import App from './App';
 import GlobalStyle from './styles/GlobalStyle';
 import myTheme from './styles/theme/DefaultTheme';
-import AsyncBoundary from './components/common/AsyncBoundary/AsyncBoundary';
-import FullScreenLoading from './components/common/FullScreenLoader/FullScreenLoader';
-import FullScreenError from './components/common/FullScreenError/FullScreenError';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -30,18 +31,19 @@ enableMocking().then(() => {
         <ReactQueryDevtools initialIsOpen={false} />
         <GlobalStyle />
         <ThemeProvider theme={myTheme}>
-          {process.env.NODE_ENV === 'development' && <MSWToolbar />}
-          <AsyncBoundary
-            pendingFallback={<FullScreenLoading />}
-            rejectedFallback={({ error, resetErrorBoundary }) => (
-              <FullScreenError
-                error={error}
-                resetErrorBoundary={resetErrorBoundary}
-              />
-            )}
+          <SkeletonTheme
+            baseColor="rgb(255, 255, 255,0.6)"
+            highlightColor="rgb(255, 250, 250,0.8)"
           >
-            <App />
-          </AsyncBoundary>
+            {process.env.NODE_ENV === 'development' && <MSWToolbar />}
+            <RootErrorBoundary>
+              <ApiErrorBoundary>
+                <RootSuspense>
+                  <App />
+                </RootSuspense>
+              </ApiErrorBoundary>
+            </RootErrorBoundary>
+          </SkeletonTheme>
         </ThemeProvider>
       </QueryClientProvider>
     </BrowserRouter>

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useRef, useState } from 'react';
 import Icon from 'components/common/Icon/Icon';
 import { VideoDto } from 'models/chat';
@@ -7,11 +6,10 @@ import useVideo from 'hooks/common/useVideo';
 import * as S from './ChatVideo.styled';
 
 interface VideoProps extends VideoDto {
-  height: string;
+  height?: string;
 }
 
 export default function ChatVideo({
-  id,
   thumbnailUrl,
   time,
   videoUrl,

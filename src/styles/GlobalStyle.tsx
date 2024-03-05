@@ -3,9 +3,23 @@ import { normalize } from 'styled-normalize';
 
 const GlobalStyle = createGlobalStyle`
 :root {
-  --navbar-height: 52px;
+  --full-width: 780px;
+  --vh: 1vh;
+  --full-height: calc(var(--vh, 1vh) * 100);
+
+  --safe-area-top: constant(safe-area-inset-top);
+  --safe-area-top: env(safe-area-inset-top);
+
+  --safe-area-bottom: constant(safe-area-inset-bottom);
+  --safe-area-bottom: env(safe-area-inset-bottom);
+
+  --navbar-height: 58px;
+  --navbar-real-height: calc(var(--safe-area-bottom) + var(--navbar-height));
+
   --topbar-height: 48px;
-  --min-chat-textarea-height: calc(constant(safe-area-inset-bottom) + 24px);
+  --topbar-real-height: calc(var(--safe-area-top) + var(--topbar-height));
+  
+  --min-chat-textarea-height: calc(var(--safe-area-bottom) + 24px);
   --min-chat-textarea-height: calc(env(safe-area-inset-bottom) + 24px);
 }
 
@@ -18,8 +32,22 @@ body {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  height: 100vh;
+  height: var(--full-height);
+  
+  overflow: hidden;
+  position: fixed;
+
+  width: 100vw;
+  max-width: var(--full-width);
+  left: 50%;
+  transform: translateX(-50%);
 }
+
+html.is-safari,
+html.is-safari body {
+ height: calc(var(--vh, 1vh) * 100);
+}
+
 *,
 *::before,
 *::after {
@@ -117,21 +145,13 @@ img {
   width: 100%;
   max-width: 780px;
   margin: 0 auto;
-  height: 100vh;
+  height: var(--full-height); 
 
   padding-top: calc(constant(safe-area-inset-top) + 16px); // IOS 11.0 버전
   padding-top: calc(env(safe-area-inset-top) + 16px); // IOS 11.0 이상
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
-.page-container.with-navbar {
-  height: calc(100vh - 52px);
-}
-.page-container.with-topbar {
-  padding-top: calc(var(--topbar-height) + constant(safe-area-inset-top));
-  padding-top: calc(var(--topbar-height) + env(safe-area-inset-top));
-}
-
 
 /* 웹에서 스크롤바 숨기기 */
 .hidden-scrollbar {

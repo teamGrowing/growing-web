@@ -1,12 +1,12 @@
 import { PetLineDto } from 'models/more';
 import * as S from './PetCard.styled';
 
-type PetCardProps = {
+type Props = {
   petInfo: PetLineDto;
   onClick: (petId: string) => void;
 };
 
-function PetCard({ petInfo, onClick }: PetCardProps) {
+const PetCard = ({ petInfo, onClick }: Props) => {
   const clickHandler = () => {
     onClick(petInfo.id);
   };
@@ -18,5 +18,5 @@ function PetCard({ petInfo, onClick }: PetCardProps) {
       <S.Image petImg={petInfo.imageUrl} />
     </S.Card>
   );
-}
+};
 export default PetCard;

@@ -1,22 +1,21 @@
-import { PhotoLineDto } from 'models/gallery';
-import PhotoContainer from 'pages/gallery/components/PhotoContainer/PhotoContainer';
+import PhotoList from 'pages/gallery/new-album/components/PhotoList';
+import { Suspense } from 'react';
+import BlockErrorBoundary from 'components/common/fallback/BlockErrorBoundary/BlockErrorBoundary';
 import * as S from './PhotoScroll.styled';
 
-type PhotoScrollProps = {
-  photos: PhotoLineDto[];
+type Props = {
   leftLabel: string;
   onLeftClick: () => void;
   rightLabel?: string;
   onRightClick?: () => void;
 };
 
-function PhotoScroll({
-  photos,
+const PhotoScroll = ({
   leftLabel,
   onLeftClick,
   rightLabel,
   onRightClick,
-}: PhotoScrollProps) {
+}: Props) => {
   return (
     <S.Scroll>
       <S.Options>
@@ -24,9 +23,13 @@ function PhotoScroll({
         <S.Option onClick={onRightClick}>{rightLabel}</S.Option>
       </S.Options>
       <S.ScrollArea className="hidden-scrollbar">
-        <PhotoContainer photoObjects={photos} type="UPLOADED" />
+        <BlockErrorBoundary fallbackComponent={PhotoList.Error}>
+          <Suspense fallback={<PhotoList.Loading />}>
+            <PhotoList />
+          </Suspense>
+        </BlockErrorBoundary>
       </S.ScrollArea>
     </S.Scroll>
   );
-}
+};
 export default PhotoScroll;
