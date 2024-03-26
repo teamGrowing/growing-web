@@ -1,33 +1,77 @@
-<img src='https://growing-pets.s3.ap-northeast-2.amazonaws.com/info/info.png' />
+# 커플 통합 앱 서비스 '그로잉'
+
+> 2022.11 ~ 2023.04, 2024.02 ~ (리팩토링 진행 중)
+
+<br />
+<div align="center">
+    <a href="https://teamgrowing.github.io/team-blog/" target="_blank"><img src="https://img.shields.io/badge/팀_블로그_바로가기-e56969?style=flat-square&logo=bluesky&logoColor=FFFFFF"/></a>
+    <a href="https://github.com/teamGrowing/growing-web/wiki" target="_blank"><img src="https://img.shields.io/badge/팀_Wiki_바로가기-414141?style=flat-square&logo=bluesky&logoColor=FFFFFF"/></a>
+    </div>
+</div>
+<br />
+<img src='https://github.com/teamGrowing/growing-web/assets/97719273/47e45147-41eb-41ed-8fdd-ed7b3f621eb5' />
 <br>
 <br>
 
-# 커플 통합 앱 서비스 "그로잉"
+## 🌼 서비스를 소개할게요.
 
-“커플들이 함께 추억을 만들고 저장하며 공유할 수 있는 통합 서비스가 없을까?”
+“커플들이 함께 추억을 만들고 저장하며 공유할 수 있는 통합 서비스가 없을까?” 라는 생각에서 출발한 그로잉은 **커플 통합 앱 서비스**입니다.
 
-이 생각에서 출발한 그로잉은, 커플 통합 앱 서비스입니다. 어플 내에서 그로잉펫을 함께 키우며 서로의 관계를 성장시키는 것을 목표로 하고 있습니다.
+소중한 순간을 기록하고, 서로의 생각과 의견을 나누고, 그로잉 펫을 키우며 더욱 가까워질 수 있도록 모든 순간을 그로잉이 함께할게요 🍀
 
-그로잉은 다양한 기능들로 구성되어 있습니다. 커플들이 함께한 소중한 순간을 간직하고 공유할 수 있는 <span style="color:#F38181">갤러리 기능</span>, 두 사람이 함께할 때 필요한 계획을 쉽게 조율할 수 있는 <span style="color:#F38181">캘린더 기능</span>, 서로의 생각과 의견을 공유하고 서로에게 질문하고 답변할 수 있는 <span style="color:#F38181">Q&A 기능</span>, 그리고 두 사람이 쉽게 소통할 수 있는 <span style="color:#F38181">채팅 기능</span> 등이 제공됩니다.
-
-그로잉을 통해 커플들은 서로의 관계를 더욱 특별하고 의미있게 만들어 나갈 수 있습니다. 소중한 순간을 기록하고 공유하며, 서로의 생각과 의견을 나누며, 함께 그로잉펫을 키우며 더욱 가까워질 수 있는 그로잉에서 함께해보세요.
-
-<br>
 <br />
 
----
+> gif 가 로딩되는 데 조금 시간이 걸릴 수 있어요 🥲
 
-## 🪴 Authors
+#### _🎟️ '펫 키우기'_
+
+<p align="center">
+    <img src="https://github.com/teamGrowing/growing-web/assets/97719273/516c991b-e18e-4bc3-b012-f19bfbd11117" width="30%" align="center">
+</p>
+
+<br />
+
+#### _🎟️ 두 사람이 쉽게 소통할 수 있는 '채팅 & 질문 우편함'_
+
+<p align="center">
+    <img src="https://github.com/teamGrowing/growing-web/assets/97719273/3e10e0c9-1d07-4ef4-9603-85eabaddeb0f" width="30%" align="center">
+    <img src="https://github.com/teamGrowing/growing-web/assets/97719273/ddcf587a-a6f7-4678-90dc-9fa9c8597d9c" width="30%" align="center">
+    <img src="https://github.com/teamGrowing/growing-web/assets/97719273/1084d7b5-5b21-46fe-bb5d-7467dd0d46dd" width="30%" align="center">
+</p>
+
+<br />
+
+#### _🎟️ 소중한 순간을 간직하고 공유할 수 있는 '갤러리'_
+
+<p align="center">
+    <img src="https://github.com/teamGrowing/growing-web/assets/73338341/88c62ea0-9a91-41b4-8729-de68d7efb18e" width="30%" align="center">
+    <img src="https://github.com/teamGrowing/growing-web/assets/73338341/c8df9faa-038e-4ca2-a10d-7b3248036f71" width="30%" align="center">
+</p>
+
+<br />
+
+#### _🎟️ 두 사람이 함께할 때 필요한 계획을 쉽게 조율할 수 있는 '캘린더'_
+
+<p align="center">
+    <img src="https://github.com/teamGrowing/growing-web/assets/73338341/c6240154-f1f2-46d6-b690-9072412679ac" width="32%" align="center">
+</p>
+
+<br />
+
+#### _🎟️ 기타_
+
+<p align="center">
+    <img src="https://github.com/teamGrowing/growing-web/assets/73338341/810ddf1c-476d-4288-96e9-f0a8fa6b64ae" width="32%" align="center">
+    <img src="https://github.com/teamGrowing/growing-web/assets/73338341/3e240f12-2120-4d6b-8320-3df753cc3f54" width="32%" align="center">
+</p>
+
+<br />
+<br />
+
+## 🌼 그로잉 팀을 소개할게요.
 
 <table class="tg">
 <tbody>
-    <tr>
-        <td>조연주</td>
-        <td>김민지</td>
-        <td>김동욱</td>
-        <td>박혜빈</td>
-        <td>김가영</td>
-    </tr>
     <tr>
         <td>FE Developer</td>
         <td>FE Developer</td>
@@ -35,67 +79,65 @@
         <td>기획자</td>
         <td>캐릭터 디자이너</td>
     </tr>
-      <tr>
-        <td>홈, 채팅, 로그인 기능 구현</td>
-        <td>갤러리, 캘린더 기능 구현</td>
-        <td>백엔드 설계</td>
-        <td>기획 및 마케팅</td>
-        <td>3D Modeling</td>
-    </tr>
      <tr>
-        <td>기획 및 디자인</td>
-        <td></td>
-        <td>기획 및 운영</td>
-        <td></td>
-        <td></td>
+        <td>
+            <a href="https://github.com/yeonju0110">
+                <img src="https://github.com/teamGrowing/growing-web/assets/97719273/a20605ee-8d80-4b95-9e1f-63ee59ec999f" width='300px' />
+            </a>
+        </td>
+        <td>
+            <a href="https://github.com/metamoong">
+                <img src="https://github.com/teamGrowing/growing-web/assets/97719273/2d68fb9c-b96c-4f8d-94eb-1fb61bf345a4" width='300px' />
+            </a>
+        </td>
+        <td>
+            <a href="https://github.com/DONGUKwillsucceed">
+                <img src="https://github.com/teamGrowing/growing-web/assets/97719273/b068d8ac-c07b-4ecd-9484-b8fe1429372b" width='300px' />
+            </a>
+        </td>
+        <td>
+            <a href="">
+                <img src="https://github.com/teamGrowing/growing-web/assets/97719273/5ff43f92-cbf1-4a6c-b50d-982050c12f55" width='300px' />
+            </a>
+        </td>
+        <td>
+            <a href="">
+                <img src="https://github.com/teamGrowing/growing-web/assets/97719273/90205562-d213-4e86-b2da-adc1738d708f" width='300px' />
+            </a>
+        </td>
     </tr>
-        <tr>
-        <td><a href="https://github.com/yeonju0110">@yeonju0110</a></td>
-        <td><a href="https://github.com/metamoong">@metamoong</a></td>
-        <td><a href="https://github.com/DONGUKwillsucceed">@DONGUKwillsucceed</a></td>
-        <td></td>
-        <td></td>
+    <tr>
+        <td>🐱 연주</td>
+        <td>🐰 민지</td>
+        <td>🐶 동욱</td>
+        <td>🧸 혜빈</td>
+        <td>🐹 가영</td>
     </tr>
+    <tr>
+        <td>홈, 채팅, 로그인 페이지, 기획, UI/UX</td>
+        <td>갤러리, 캘린더 페이지</td>
+        <td>백엔드 설계, 기획, 운영</td>
+        <td>기획, 마케팅</td>
+        <td>이모티콘 제작, 3D Modeling</td>
+    </tr>
+   
 </tbody>
 </table>
 
 <br />
 <br />
 
-## 🪴 Getting Started
+## 🌼 사용한 기술은 다음과 같아요.
 
-```bash
-# 로컬 환경에 다운받기
-git clone https://github.com/teamGrowing/growing-web.git
-
-# 패키지 설치
-yarn
-
-# 실행하기
-yarn start
-
-# 스토리북 실행하기
-yarn storybook
-```
-
-- 개발 서버: http://localhost:3000
-- 스토리북 서버: http://localhost:6006
-
-<br>
-<br>
-
-## 🪴 사용 기술
-
-### 📑 Front-end
+### 💚 Front-end
 
 - React, Typescript, Styled-component
-- react-query, mobX
-- react-hook-form & yup
-- storybook
-- swiper, react-full-callendar
+- React-query, MobX
+- React-hook-form & Yup
+- Storybook, MSW
 - AWS S3, Cloud Front
 
-### 📑 Back-end
+### 💚 Back-end
 
 - Nest.Js, TypeScript
 - MySQL (RDS), Prisma
@@ -104,66 +146,31 @@ yarn storybook
 <br />
 <br />
 
-## 🪴 서비스 구조
+## 🌼 Getting Started
 
-<div align='center'><img src='https://growing-pets.s3.ap-northeast-2.amazonaws.com/info/architecture.png' width='600px' /></div>
+```bash
+# 로컬 환경에 다운받기
+git clone https://github.com/teamGrowing/growing-web.git
 
-<br />
-<br />
+# 패키지 설치
+yarn
 
-## 🪴 요구사항 명세서 제작
+# 실행하기 - mock mode로 실행 (http://localhost:3000)
+yarn start
 
-<div align='center'><img src='https://growing-pets.s3.ap-northeast-2.amazonaws.com/info/specification.png' width='600px' /></div>
-
-<br />
-<br />
-
-## 🪴 Design
-
-- figma를 활용하여 디자인 시스템 및 앱 전체 디자인 제작
-<div align='center'><img src='https://growing-pets.s3.ap-northeast-2.amazonaws.com/info/design.png' width='600px' /></div>
+# 스토리북 실행하기 (http://localhost:6000)
+yarn storybook
+```
 
 <br />
 <br />
 
-## 🪴 DTO 정의
+## 🌼 제작 과정을 소개할게요.
 
-- 요구사항 명세서와 노션을 활용하여 DTO 정의
-<div align='center'><img src='https://growing-pets.s3.ap-northeast-2.amazonaws.com/info/dto.png' width='600px' /></div>
-
-<br />
-<br />
-
-## 🪴 API 명세서
-
-- [swagger 문서 이용](http://43.200.173.179:3000/api-docs)
+- [로딩에 실패했습니다. 어떻게 처리하실건가요?](https://teamgrowing.github.io/team-blog/asynchronous-processing/)
+- [API 요청 시뮬레이션을 간편하게: 그로잉 팀의 MSW Toolbar 제작기](https://teamgrowing.github.io/team-blog/msw-toolbar/)
+- [MSW로 mocking을 해보자](https://teamgrowing.github.io/team-blog/msw/)
+- [행복한 개발을 위한 폴더 구조는?](https://teamgrowing.github.io/team-blog/folder-structure/)
 
 <br />
 <br />
-
-## 🪴 FE Team Convention
-
-### 🌱 Branch Name
-
-- `master` : 제품으로 출시될 수 있는 브랜치
-- `feat` : 기능을 개발하는 브랜치
-- `release` : 이번 출시 버전을 준비하는 브랜치
-- `hotfix` : 출시 버전에서 발생한 버그를 수정 하는 브랜치
-
-### 🌱 PR
-
-- feat/이슈내용
-- fix/이슈내용
-- 리뷰어 꼭 설정하기
-- 본인 PR은 본인이 merge 하기
-
-<br>
-
-### 🌱 Branch 생성 전략
-
-1. release branch를 최신 상태로 갱신
-   - git fetch upstream release-1.0.0
-2. release branch를 로컬에 merge
-   - git merge upstream/release-1.0.0
-3. 본인이 개발할 브랜치 생성 후, 개발 진행
-   - git checkout -b feat/기능명
